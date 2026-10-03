@@ -1,0 +1,16 @@
+<div class="notification-list">
+
+  @for (notification of notifications; track notification.id) {
+
+    <app-notification-item
+      [notification]="notification"
+      (read)="select($event)">
+    </app-notification-item>
+
+  } @empty {
+
+    <p>No hay notificaciones.</p>
+
+  }
+
+</div>
