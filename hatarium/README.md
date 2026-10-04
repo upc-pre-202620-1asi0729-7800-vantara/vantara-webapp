@@ -4,13 +4,20 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ## Development server
 
-To start a local development server, run:
+Start the fake API and Angular app in separate terminals from the project folder:
 
 ```bash
-ng serve
+npm run start:api
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+```bash
+npm start
+```
+
+The profile reads user `usr-002` from `http://localhost:3000/users/usr-002`.
+The Angular app is available at `http://localhost:4200/`.
+
+The Angular app automatically reloads whenever you modify source files.
 
 ## Code scaffolding
 

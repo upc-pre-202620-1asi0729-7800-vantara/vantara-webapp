@@ -1,0 +1,73 @@
+<div class="card">
+
+  <div class="card-header">
+
+    <div>
+      <h3>Preferencias</h3>
+      <p>Personaliza la experiencia de Hatarium.</p>
+    </div>
+
+  </div>
+
+
+  <div class="form-group">
+
+    <label>Tema</label>
+
+    <select [(ngModel)]="theme">
+      <option value="light">Claro</option>
+      <option value="dark">Oscuro</option>
+    </select>
+
+  </div>
+
+
+  <div class="form-group">
+
+    <label>Idioma</label>
+
+    <select [(ngModel)]="locale">
+      <option value="es">Español</option>
+      <option value="en">English</option>
+    </select>
+
+  </div>
+
+
+  <div class="preferences-info">
+
+    <div class="info-item">
+      <span class="icon">◐</span>
+
+      <div>
+        <strong>Tema actual</strong>
+        <p>{{ theme === 'light' ? 'Claro' : 'Oscuro' }}</p>
+      </div>
+    </div>
+
+
+    <div class="info-item">
+      <span class="icon">文</span>
+
+      <div>
+        <strong>Idioma</strong>
+        <p>{{ locale === 'es' ? 'Español' : 'English' }}</p>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="actions">
+
+    <button
+      class="primary-button"
+      (click)="apply()">
+
+      Aplicar preferencias
+
+    </button>
+
+  </div>
+
+</div>
