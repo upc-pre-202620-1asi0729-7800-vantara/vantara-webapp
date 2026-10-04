@@ -11,7 +11,7 @@ import { WeaningEventForm } from './views/event-forms/weaning-event-form/weaning
  */
 export const reproductiveRoutes: Routes = [
   { path: '', component: ReproductionDashboard },
-  { path: 'new-event', component: EventSelector },
+  { path: 'new-event-reproductive', component: EventSelector },
   { path: 'events/pregnancy', component: PregnancyEventForm },
   { path: 'events/calving', component: CalvingEventForm },
   { path: 'events/dry-off', component: DryOffEventForm },
