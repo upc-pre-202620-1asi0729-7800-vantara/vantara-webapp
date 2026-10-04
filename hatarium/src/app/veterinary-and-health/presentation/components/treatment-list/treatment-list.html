@@ -1,0 +1,80 @@
+<div class="treatment-page">
+  <a routerLink="/veterinary/history" class="back-link">&larr; Volver a diagnóstico</a>
+
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Prescribir tratamiento médico</h1>
+      <p class="page-subtitle">Prescripción e indicaciones de recuperación (US029).</p>
+    </div>
+  </div>
+
+  <div class="layout-grid">
+    <div class="form-column">
+      <div class="card-box">
+        <h3 class="section-title"><mat-icon>medication</mat-icon> Prescripción médica</h3>
+
+        <div class="form-row">
+          <div class="field-group">
+            <label>Medicamento *</label>
+            <select [(ngModel)]="selectedMedicationId" class="custom-input">
+              @for (med of medicationsList(); track med.id) {
+                <option [value]="med.id">{{ med.name }} ({{ med.activeIngredient }})</option>
+              }
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Tipo de tratamiento *</label>
+            <select [(ngModel)]="treatmentType" class="custom-input">
+              <option value="Preventivo">Preventivo</option>
+              <option value="Curativo">Curativo</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row three-col">
+          <div class="field-group">
+            <label>Dosis *</label>
+            <input type="text" [(ngModel)]="dose" class="custom-input" />
+          </div>
+          <div class="field-group">
+            <label>Vía de administración *</label>
+            <select [(ngModel)]="routeAdmin" class="custom-input">
+              <option value="Intramuscular">Intramuscular</option>
+              <option value="Intramamaria">Intramamaria</option>
+              <option value="Oral">Oral</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Frecuencia (Horas) *</label>
+            <input type="text" [(ngModel)]="frequencyHours" class="custom-input" />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Instrucciones de administración *</label>
+          <textarea rows="3" [(ngModel)]="instructions" class="custom-input"></textarea>
+        </div>
+
+        <div class="btn-actions">
+          <button mat-stroked-button routerLink="/veterinary/appointments">Cancelar</button>
+          <button mat-flat-button class="btn-green" (click)="saveTreatment()">✓ Prescribir tratamiento</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de tratamientos en db.json --><div class="sidebar-column">
+    <div class="card-box">
+      <h4><mat-icon>vaccines</mat-icon> Tratamientos del Animal</h4>
+      @for (trt of animalTreatments(); track trt.id) {
+        <div class="history-item">
+          <strong>{{ trt.treatmentType }} - {{ trt.dose }}</strong>
+          <p>Vía: {{ trt.route }} (Cada {{ trt.frequencyHours }}h)</p>
+          <span class="pill-badge green">{{ trt.status }}</span>
+        </div>
+      } @empty {
+        <p style="color: #64748b; font-size: 0.85rem;">No hay tratamientos registrados para este animal.</p>
+      }
+    </div>
+  </div>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+.form-page-container {
+  background-color: #f3f6f3;
+  padding: 2rem;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.back-link { color: #0d5c3a; font-weight: 600; text-decoration: none; cursor: pointer; display: inline-block; margin-bottom: 1rem; }
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.cita-badge {
+  background: white;
+  border: 1px solid #e5e7eb;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.two-col-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+}
+
+.card-box {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.animal-summary {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.animal-avatar-lg { font-size: 2.5rem; }
+
+.pills-row { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+.pill { background: #f1f5f9; color: #475569; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600; }
+
+.form-group { margin-bottom: 1.25rem; }
+.form-group label { display: block; font-weight: 600; font-size: 0.85rem; color: #374151; margin-bottom: 0.4rem; }
+.form-input { width: 100%; padding: 0.6rem; border: 1px solid #d1d5db; border-radius: 8px; box-sizing: border-box; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+.radio-group { display: flex; gap: 1.5rem; font-weight: 500; }
+
+.form-actions { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem; }
+
+.info-list { list-style: none; padding: 0; margin: 0; }
+.info-list li { display: flex; justify-content: space-between; padding: 0.4rem 0; border-bottom: 1px solid #f3f4f6; font-size: 0.85rem; }
+
+.stepper-mini .step { padding: 0.5rem; font-size: 0.85rem; border-left: 3px solid #e5e7eb; margin-bottom: 0.5rem; }
+.stepper-mini .step.active { border-left-color: #0d5c3a; font-weight: 700; color: #0d5c3a; }

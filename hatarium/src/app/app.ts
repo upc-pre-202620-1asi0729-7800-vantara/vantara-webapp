@@ -1,8 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import {
+  ClinicalHistoryComponent
+} from './veterinary-and-health/presentation/components/clinical-history/clinical-history';
 
 @Component({
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, ClinicalHistoryComponent],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',

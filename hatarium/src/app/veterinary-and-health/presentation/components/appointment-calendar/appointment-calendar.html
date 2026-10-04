@@ -1,0 +1,98 @@
+<div class="citas-container">
+  <div class="top-header">
+    <div>
+      <h1 class="page-title">Citas veterinarias</h1>
+      <p class="page-subtitle">Gestiona las citas programadas con el equipo veterinario.</p>
+    </div>
+    <div class="header-actions">
+      <button mat-flat-button class="btn-green" (click)="toggleNewAppointmentModal()">
+        <mat-icon>add</mat-icon> Nueva cita
+      </button>
+    </div>
+  </div>
+
+  @if (showNewAppointmentForm()) {
+    <div class="card-box modal-form">
+      <h3><mat-icon>event</mat-icon> Registrar Nueva Cita Técnica</h3>
+      <div class="form-row">
+        <div class="field-group">
+          <label>Motivo de la cita *</label>
+          <input type="text" [(ngModel)]="newReason" placeholder="Ej. Control de peso, Vacunación" class="custom-input" />
+        </div>
+        <div class="field-group">
+          <label>Fecha y Hora *</label>
+          <input type="datetime-local" [(ngModel)]="newScheduledAt" class="custom-input" />
+        </div>
+        <div class="field-group">
+          <label>Animal *</label>
+          <select [(ngModel)]="newAnimalId" class="custom-input">
+            @for (animal of availableAnimals(); track animal.id) {
+              <option [value]="animal.id">
+                #{{ animal.earTag }} · {{ animal.name }} ({{ animal.breed }})
+              </option>
+            }
+          </select>
+        </div>
+      </div>
+      <div class="btn-actions">
+        <button mat-stroked-button (click)="toggleNewAppointmentModal()">Cancelar</button>
+        <button mat-flat-button class="btn-green" (click)="saveNewAppointment()">Guardar cita</button>
+      </div>
+    </div>
+  }
+
+  <!-- KPIs -->
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-icon-wrapper green-bg"><mat-icon>event</mat-icon></div>
+      <div>
+        <span class="kpi-label">CITAS PROGRAMADAS</span>
+        <div class="kpi-val">{{ store.appointments().length }}</div>
+        <span class="kpi-sub">Total en sistema</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Próximas Citas -->
+  <div class="section-block">
+    <h3 class="section-title">Próximas citas</h3>
+
+    <div class="upcoming-list">
+      @for (apt of filteredAppointments(); track apt.id) {
+        @let currentAnimalId = appointmentAnimalMap()[apt.id] || 'anm-047';
+        @let animal = animalMap()[currentAnimalId];
+
+        <div class="upcoming-card">
+          <div class="date-badge">
+            <span class="day">{{ apt.scheduledAt | date:'dd' }}</span>
+            <span class="month-year">{{ apt.scheduledAt | date:'MMM' }}</span>
+          </div>
+
+          <div class="animal-avatar">🐮</div>
+
+          <div class="info-block">
+            <div class="animal-name">
+              #{{ animal?.earTag || '047' }} · {{ animal?.name || 'María' }}
+              <span class="badge-blue">{{ apt.reason }}</span>
+            </div>
+            <span class="subtext">Raza: {{ animal?.breed || 'Holstein mestiza' }} - Lote: {{ animal?.lotName || 'Lote A' }}</span>
+          </div>
+
+          <div class="vet-info">
+            <mat-icon>person_outline</mat-icon>
+            <div>
+              <strong>Dr. García López</strong>
+              <small>{{ apt.veterinarianId }}</small>
+            </div>
+          </div>
+
+          <span class="status-pill" [ngClass]="apt.status">{{ apt.status }}</span>
+
+          <button mat-button class="action-link" (click)="goToDiagnosis(apt.id)">
+            Atender / Ver cita &rarr;
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</div>
