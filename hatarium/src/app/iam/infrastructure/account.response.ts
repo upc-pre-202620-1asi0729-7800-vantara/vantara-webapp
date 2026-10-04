@@ -8,6 +8,7 @@ export interface AccountResource extends BaseResource {
   email: string;
   status: AccountStatus;
   createdAt: string;
+  emailVerified: boolean;
 }
 
 /** Optional envelope supported in addition to the JSON Server array response. */

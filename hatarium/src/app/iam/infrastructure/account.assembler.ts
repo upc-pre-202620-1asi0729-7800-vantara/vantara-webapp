@@ -16,7 +16,8 @@ export class AccountAssembler implements BaseAssembler<Account, AccountResource,
       roleId: entity.roleId,
       email: entity.email,
       status: entity.status,
-      createdAt: entity.createdAt
+      createdAt: entity.createdAt,
+      emailVerified: entity.emailVerified
     };
   }
 

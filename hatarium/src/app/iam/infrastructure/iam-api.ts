@@ -2,15 +2,16 @@ import {inject, Service} from '@angular/core';
 import {Observable} from 'rxjs';
 import {BaseApi} from '../../shared/infrastructure/base-api';
 import {Account} from '../domain/model/account.entity';
-import {User} from '../domain/model/user.entity';
 import {AccountsApiEndpoint} from './accounts-api-endpoint';
-import {UsersApiEndpoint} from './users-api-endpoint';
+import {RegisterAccountCommand} from '../domain/model/register-account.command';
+import {VerifyEmailCommand} from '../domain/model/verify-email.command';
+import {IamApiEndpoint} from './iam-api-endpoint';
 
 /** Infrastructure facade for the resources owned by the IAM context. */
 @Service()
 export class IamApi extends BaseApi {
   private readonly accountsEndpoint = inject(AccountsApiEndpoint);
-  private readonly usersEndpoint = inject(UsersApiEndpoint);
+  private readonly authenticationEndpoint = inject(IamApiEndpoint);
 
   getAccounts(): Observable<Account[]> {
     return this.accountsEndpoint.getAll();
@@ -20,11 +21,12 @@ export class IamApi extends BaseApi {
     return this.accountsEndpoint.getById(accountId);
   }
 
-  getUsers(): Observable<User[]> {
-    return this.usersEndpoint.getAll();
+  registerAccount(command: RegisterAccountCommand): Observable<Account> {
+    return this.authenticationEndpoint.registerAccount(command);
   }
 
-  getUserById(userId: string): Observable<User> {
-    return this.usersEndpoint.getById(userId);
+  verifyEmail(command: VerifyEmailCommand): Observable<Account> {
+    return this.authenticationEndpoint.verifyEmail(command);
   }
+
 }
