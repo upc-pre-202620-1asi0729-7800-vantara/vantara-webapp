@@ -22,6 +22,7 @@
       "roleId": "role-001",
       "email": "juan.quispe@hatarium.com",
       "status": "active",
+      "emailVerified": true,
       "createdAt": "2026-01-10"
     },
     {
@@ -29,6 +30,7 @@
       "roleId": "role-002",
       "email": "carlos.mendoza@hatarium.com",
       "status": "active",
+      "emailVerified": true,
       "createdAt": "2026-01-12"
     },
     {
@@ -36,9 +38,12 @@
       "roleId": "role-003",
       "email": "garcia.lopez@hatarium.com",
       "status": "active",
+      "emailVerified": true,
       "createdAt": "2026-01-15"
     }
   ],
+  "accountCredentials": [],
+  "emailVerifications": [],
   "users": [
     {
       "id": "usr-001",
