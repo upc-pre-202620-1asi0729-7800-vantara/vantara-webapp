@@ -1,0 +1,55 @@
+{
+  "sidebar": {
+    "home": "Inicio",
+    "livestock": "Ganado",
+    "health": "Salud",
+    "reproductive": "Reproducción",
+    "feeding": "Alimentación",
+    "lots": "Lotes",
+    "reports": "Reportes",
+    "appointments": "Citas",
+    "alerts": "Alertas"
+  },
+  "dashboard": {
+    "title": "Reproducción",
+    "subtitle": "Controla el ciclo reproductivo de tu ganado y registra los eventos reproductivos.",
+    "registerEvent": "Registrar evento",
+    "placeholder": "Vista general de eventos reproductivos (pendiente de datos en una próxima iteración)."
+  },
+  "eventSelector": {
+    "title": "Registrar evento reproductivo",
+    "subtitle": "Selecciona el tipo de evento que deseas registrar.",
+    "pregnancy": "Preñez",
+    "pregnancyDesc": "Registra la confirmación de preñez de un animal y la fecha estimada de parto.",
+    "calving": "Parto",
+    "calvingDesc": "Registra el nacimiento de la cría y los detalles del parto.",
+    "dryOff": "Secado",
+    "dryOffDesc": "Registra el inicio del periodo seco del animal.",
+    "weaning": "Destete",
+    "weaningDesc": "Registra el destete de la cría y sus datos.",
+    "whatIsEvent": "¿Qué es un evento reproductivo?",
+    "whatIsEventDesc": "Los eventos reproductivos permiten llevar un control completo del ciclo reproductivo de tus animales, incluyendo preñez, parto, secado y destete."
+  },
+  "forms": {
+    "pregnancyTitle": "Registrar preñez",
+    "calvingTitle": "Registrar parto",
+    "dryOffTitle": "Registrar secado",
+    "weaningTitle": "Registrar destete",
+    "animalId": "ID del animal",
+    "calfId": "ID de la cría (opcional)",
+    "confirmedOn": "Fecha de confirmación",
+    "expectedCalvingOn": "Parto esperado",
+    "pregnancyId": "ID de la preñez",
+    "calvingOn": "Fecha del parto",
+    "outcome": "Resultado",
+    "outcomePlaceholder": "Ej: health",
+    "dryOffOn": "Fecha de secado",
+    "weanedOn": "Fecha de destete",
+    "weaningWeightKg": "Peso al destete (kg)",
+    "cancel": "Cancelar",
+    "submitPregnancy": "Registrar preñez",
+    "submitCalving": "Registrar parto",
+    "submitDryOff": "Registrar secado",
+    "submitWeaning": "Registrar destete"
+  }
+}

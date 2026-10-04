@@ -652,6 +652,21 @@
       "status": "confirmed",
       "notes": null,
       "id": "aRrxMG9eErs"
+    },
+    {
+      "animalId": "animal4",
+      "calfId": "2",
+      "confirmedOn": "2025-02-15",
+      "expectedCalvingOn": "2026-06-16",
+      "endedOn": null,
+      "outcome": null,
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "confirmed",
+      "notes": null,
+      "id": "ZC-g3wyu8-I"
     }
   ],
   "payments": [

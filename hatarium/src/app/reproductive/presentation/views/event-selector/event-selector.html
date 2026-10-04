@@ -1,0 +1,21 @@
+<div class="selector-header">
+  <h1>{{ 'eventSelector.title' | translate }}</h1>
+  <p>{{ 'eventSelector.subtitle' | translate }}</p>
+</div>
+<div class="events-grid">
+  @for (event of events; track event.key) {
+    <a class="event-card" [routerLink]="event.link">
+      <mat-icon class="event-icon event-{{ event.key }}">{{ event.icon }}</mat-icon>
+      <h3>{{ 'eventSelector.' + event.key | translate }}</h3>
+      <p>{{ 'eventSelector.' + event.key + 'Desc' | translate }}</p>
+      <mat-icon class="arrow">chevron_right</mat-icon>
+    </a>
+  }
+</div>
+<div class="info-box">
+  <mat-icon>info</mat-icon>
+  <div>
+    <strong>{{ 'eventSelector.whatIsEvent' | translate }}</strong>
+    <p>{{ 'eventSelector.whatIsEventDesc' | translate }}</p>
+  </div>
+</div>
