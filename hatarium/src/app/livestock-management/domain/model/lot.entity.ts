@@ -1,9 +1,15 @@
 ﻿export class Lot {
-  constructor(
-    public id: string,
-    public rancherId: string,
-    public name: string,
-    public purpose: string | null
-  ) {}
-}
+  id: string;
+  rancherId: string;
+  name: string;
+  purpose: string;
+  status: string;
 
+  constructor() {
+    this.id = '';
+    this.rancherId = '';
+    this.name = '';
+    this.purpose = '';
+    this.status = '';
+  }
+}
