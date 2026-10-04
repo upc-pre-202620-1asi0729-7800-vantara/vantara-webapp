@@ -3,8 +3,25 @@
     <mat-card-header><mat-card-title>{{ 'forms.dryOffTitle' | translate }}</mat-card-title></mat-card-header>
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="submit()">
-        <mat-form-field appearance="outline"><mat-label>{{ 'forms.pregnancyId' | translate }}</mat-label><input matInput formControlName="pregnancyId" required></mat-form-field>
-        <mat-form-field appearance="outline"><mat-label>{{ 'forms.dryOffOn' | translate }}</mat-label><input matInput type="date" formControlName="dryOffOn" required></mat-form-field>
+        <section class="form-section">
+          <h3>Información del animal</h3>
+          <mat-form-field appearance="outline">
+            <mat-label>Animal</mat-label>
+            <mat-select disabled><mat-option value="">Selecciona un animal…</mat-option></mat-select>
+          </mat-form-field>
+        </section>
+        <section class="form-section">
+          <h3>Detalles del secado</h3>
+          <mat-form-field appearance="outline"><mat-label>{{ 'forms.pregnancyId' | translate }}</mat-label><input matInput formControlName="pregnancyId" required></mat-form-field>
+          <mat-form-field appearance="outline"><mat-label>{{ 'forms.dryOffOn' | translate }}</mat-label><input matInput type="date" formControlName="dryOffOn" required></mat-form-field>
+        </section>
+        <section class="form-section">
+          <h3>Información adicional</h3>
+          <mat-form-field appearance="outline">
+            <mat-label>Observaciones</mat-label>
+            <textarea matInput rows="3" disabled></textarea>
+          </mat-form-field>
+        </section>
         <div class="actions">
           <a mat-button routerLink="/reproductive">{{ 'forms.cancel' | translate }}</a>
           <button mat-raised-button color="primary" type="submit">{{ 'forms.submitDryOff' | translate }}</button>

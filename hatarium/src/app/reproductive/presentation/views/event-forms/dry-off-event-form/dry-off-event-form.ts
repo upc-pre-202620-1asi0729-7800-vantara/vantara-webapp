@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ReproductiveStore } from '../../../../application/reproductive.store';
 
@@ -13,7 +14,7 @@ import { ReproductiveStore } from '../../../../application/reproductive.store';
  */
 @Component({
   selector: 'app-dry-off-event-form',
-  imports: [ReactiveFormsModule, RouterLink, TranslatePipe, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+  imports: [ReactiveFormsModule, RouterLink, TranslatePipe, MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule],
   templateUrl: './dry-off-event-form.html',
   styleUrl: './dry-off-event-form.css',
   changeDetection: ChangeDetectionStrategy.Eager
