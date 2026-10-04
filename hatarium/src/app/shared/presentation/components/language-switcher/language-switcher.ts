@@ -1,52 +1,39 @@
-import {Component, inject} from '@angular/core';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
 
-/**
- * Switches the active locale used by the translation service.
- */
 @Component({
   selector: 'app-language-switcher',
   imports: [
-    MatButtonToggleModule
+    MatButtonToggleGroup,
+    MatButtonToggle
   ],
   templateUrl: './language-switcher.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './language-switcher.css'
 })
+/**
+ * Presentation component that switches the active UI language.
+ */
 export class LanguageSwitcher {
-  /**
-   * The currently selected language code.
-   */
-  protected currentLang: string = 'en';
+  /** Currently selected language code in the toggle group. */
+  currentLang = 'en';
+  /** Supported language codes available to users. */
+  languages = ['en', 'es'];
 
   /**
-   * List of available language codes.
+   * @param translate - Translation service managing runtime locale state.
    */
-  protected languages: string[] ;
-
-  /**
-   * Translation service instance.
-   */
-  private translate: TranslateService;
-
-  /**
-   * Creates an instance of LanguageSwitcherComponent.
-   * Initializes the current language from the translation service.
-   */
-  constructor() {
-    this.translate = inject(TranslateService);
-    this.currentLang = this.translate.getCurrentLang();
-    this.languages = [...this.translate.getLangs()];
+  constructor(private translate: TranslateService) {
+    this.currentLang = translate.currentLang() || 'en';
   }
 
   /**
-   * Changes the application's current language.
-   * Updates both the translation service and the component's local state.
+   * Changes the active application language.
    *
-   * @param language - The language code to switch to (e.g., 'en', 'es')
+   * @param language - Locale code to activate.
    */
   useLanguage(language: string) {
     this.translate.use(language);
-    this.currentLang = language;
   }
 }

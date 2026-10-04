@@ -1,0 +1,6 @@
+@if (store.isAuthenticated()) {
+  <span class="user-name">{{ store.currentAccount()?.email }}</span>
+  <button mat-button type="button" (click)="signOut()">Cerrar sesión</button>
+} @else {
+  <a mat-button routerLink="/iam/sign-in">Iniciar sesión</a>
+}

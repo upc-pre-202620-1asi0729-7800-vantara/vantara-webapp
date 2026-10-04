@@ -1,0 +1,48 @@
+<app-authentication-layout heroImage="assets/auth/sign-up-reference.png">
+  <section class="verification-card">
+    <div class="mail-icon" aria-hidden="true">✉</div>
+    <header>
+      <h1>Verifica tu correo</h1>
+      <p>Ingresamos un código de seis dígitos para confirmar que esta dirección te pertenece.</p>
+    </header>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="field">
+        <label for="verification-email">Correo electrónico</label>
+        <input id="verification-email" type="email" formControlName="email" autocomplete="email">
+        @if (form.controls.email.touched && form.controls.email.invalid) {
+          <small>Ingresa un correo electrónico válido.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="verification-code">Código de verificación</label>
+        <input
+          id="verification-code"
+          class="code-input"
+          type="text"
+          inputmode="numeric"
+          maxlength="6"
+          formControlName="code"
+          placeholder="000000"
+          autocomplete="one-time-code"
+        >
+        @if (form.controls.code.touched && form.controls.code.invalid) {
+          <small>El código debe contener exactamente seis números.</small>
+        }
+      </div>
+
+      <p class="mock-note">En la Fake API, el código generado se almacena temporalmente en <code>emailVerifications</code>.</p>
+
+      @if (store.error()) {
+        <p class="feedback" role="alert">{{ store.error() }}</p>
+      }
+
+      <button class="primary-button" type="submit" [disabled]="store.loading()">
+        {{ store.loading() ? 'Verificando…' : 'Verificar correo' }}
+      </button>
+    </form>
+
+    <a class="back-link" routerLink="/iam/sign-in">Volver a iniciar sesión</a>
+  </section>
+</app-authentication-layout>

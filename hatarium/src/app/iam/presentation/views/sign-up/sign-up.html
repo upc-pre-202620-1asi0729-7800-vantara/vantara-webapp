@@ -1,0 +1,94 @@
+<app-authentication-layout heroImage="assets/auth/sign-up-reference.png">
+  <section class="auth-card">
+    <header class="title-block">
+      <h1>Crea tu cuenta</h1>
+      <p>Comienza a gestionar tu hato con tecnología de precisión.</p>
+    </header>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="field">
+        <label for="full-name">Nombre y apellidos</label>
+        <input id="full-name" type="text" formControlName="fullName" placeholder="Carlos Mendoza" autocomplete="name">
+        @if (form.controls.fullName.touched && form.controls.fullName.invalid) {
+          <small>Ingresa tu nombre completo.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="organization-name">Nombre de la ganadería o veterinaria</label>
+        <input id="organization-name" type="text" formControlName="organizationName" placeholder="Hacienda San Rafael" autocomplete="organization">
+        @if (form.controls.organizationName.touched && form.controls.organizationName.invalid) {
+          <small>Ingresa el nombre de tu organización.</small>
+        }
+      </div>
+
+      <fieldset class="role-selector">
+        <legend>Tipo de cuenta</legend>
+        <label>
+          <input type="radio" formControlName="role" [value]="roles.Rancher">
+          <span>Ganadero</span>
+        </label>
+        <label>
+          <input type="radio" formControlName="role" [value]="roles.Veterinarian">
+          <span>Veterinario</span>
+        </label>
+      </fieldset>
+
+      <div class="field">
+        <label for="sign-up-email">Correo electrónico</label>
+        <input id="sign-up-email" type="email" formControlName="email" placeholder="contacto@haciendasanrafael.com" autocomplete="email">
+        @if (form.controls.email.touched && form.controls.email.invalid) {
+          <small>Ingresa un correo electrónico válido.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="sign-up-password">Contraseña</label>
+        <div class="password-field">
+          <input
+            id="sign-up-password"
+            [type]="passwordVisible() ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="Mínimo 8 caracteres"
+            autocomplete="new-password"
+          >
+          <button
+            class="visibility-button"
+            type="button"
+            (click)="togglePasswordVisibility()"
+            [attr.aria-label]="passwordVisible() ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+          >{{ passwordVisible() ? 'Ocultar' : 'Ver' }}</button>
+        </div>
+        <span class="password-help">Mínimo 8 caracteres, incluye números y símbolos</span>
+        @if (form.controls.password.touched && form.controls.password.invalid) {
+          <small>Usa al menos 8 caracteres, una letra, un número y un símbolo.</small>
+        }
+      </div>
+
+      <label class="terms-option">
+        <input type="checkbox" formControlName="acceptsTerms">
+        <span>Acepto los Términos de Servicio y la Política de Privacidad de Hatarium.</span>
+      </label>
+      @if (form.controls.acceptsTerms.touched && form.controls.acceptsTerms.invalid) {
+        <small>Debes aceptar los términos para continuar.</small>
+      }
+
+      @if (store.error()) {
+        <p class="feedback" role="alert">{{ store.error() }}</p>
+      }
+
+      <button class="primary-button" type="submit" [disabled]="store.loading()">
+        {{ store.loading() ? 'Creando cuenta…' : 'Crear Cuenta Gratuita' }}
+      </button>
+    </form>
+
+    <div class="separator"><span>O regístrate con</span></div>
+
+    <div class="social-actions" aria-label="Opciones de registro social pendientes">
+      <button type="button"><strong class="google">G</strong> Google</button>
+      <button type="button"><strong class="apple">●</strong> Apple</button>
+    </div>
+
+    <p class="switch-flow">¿Ya tienes una cuenta? <a routerLink="/iam/sign-in">Iniciar Sesión</a></p>
+  </section>
+</app-authentication-layout>
