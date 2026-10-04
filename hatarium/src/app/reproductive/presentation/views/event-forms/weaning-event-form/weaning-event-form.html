@@ -1,0 +1,14 @@
+<mat-card>
+  <mat-card-header><mat-card-title>Registrar destete</mat-card-title></mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <mat-form-field appearance="outline"><mat-label>ID de la preñez</mat-label><input matInput formControlName="pregnancyId" required></mat-form-field>
+      <mat-form-field appearance="outline"><mat-label>Fecha de destete</mat-label><input matInput type="date" formControlName="weanedOn" required></mat-form-field>
+      <mat-form-field appearance="outline"><mat-label>Peso al destete (kg)</mat-label><input matInput formControlName="weaningWeightKg"></mat-form-field>
+      <div class="actions">
+        <a mat-button routerLink="/reproductive">Cancelar</a>
+        <button mat-raised-button color="primary" type="submit">Registrar destete</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
