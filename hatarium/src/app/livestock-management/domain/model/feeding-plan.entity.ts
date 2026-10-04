@@ -1,24 +1,33 @@
 export class FeedingPlan {
-  constructor(
-    public id: string,
-    public lotId: string,
-    public name: string,
-    public startedAt: string,
-    public endedAt: string,
-    public objective: string | null,
-    public status: string,
-    public currentWeight: number | null,
-    public objectiveWeight: number | null,
-    public dayFrequency: string,
-    public weeklyFrequency: string[],
-    public schedules: string[]
-  ) {
-  }
+  id: string;
+  lotId: string;
+  animalId: string | null;
+  name: string;
+  startsOn: string;
+  endsOn: string;
+  objective: string;
+  currentAverageWeight: number;
+  targetWeight: number;
+  frequency: string;
+  daysOfWeek: string[];
+  schedules: string[];
+  instructions: string;
+  status: string;
 
-  public isCurrent(on: string): boolean {
-    return (
-      this.startedAt <= on &&
-      (this.endedAt === null || on <= this.endedAt)
-    );
+  constructor() {
+    this.id = '';
+    this.lotId = '';
+    this.animalId = null;
+    this.name = '';
+    this.startsOn = '';
+    this.endsOn = '';
+    this.objective = '';
+    this.currentAverageWeight = 0;
+    this.targetWeight = 0;
+    this.frequency = '';
+    this.daysOfWeek = [];
+    this.schedules = [];
+    this.instructions = '';
+    this.status = '';
   }
 }
