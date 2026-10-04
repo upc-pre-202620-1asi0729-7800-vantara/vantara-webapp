@@ -4,9 +4,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
+import { LanguageSwitcher } from '../language-switcher/language-switcher';
 
 interface NavOption {
-  label: string;
+  labelKey: string;
   icon: string;
   link?: string;
 }
@@ -16,7 +18,7 @@ interface NavOption {
  */
 @Component({
   selector: 'app-layout',
-  imports: [MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, RouterOutlet, RouterLink, RouterLinkActive, TranslatePipe, LanguageSwitcher],
   templateUrl: './layout.html',
   styleUrl: './layout.css',
   changeDetection: ChangeDetectionStrategy.Eager
@@ -24,14 +26,14 @@ interface NavOption {
 export class Layout {
   /** Navigation options shown in the sidenav. Only Reproducción is routed for now. */
   readonly options: NavOption[] = [
-    { label: 'Inicio', icon: 'home' },
-    { label: 'Ganado', icon: 'pets' },
-    { label: 'Salud', icon: 'health_and_safety' },
-    { label: 'Reproducción', icon: 'favorite', link: '/reproductive' },
-    { label: 'Alimentación', icon: 'restaurant' },
-    { label: 'Lotes', icon: 'warehouse' },
-    { label: 'Reportes', icon: 'bar_chart' },
-    { label: 'Citas', icon: 'event' },
-    { label: 'Alertas', icon: 'notifications' }
+    { labelKey: 'sidebar.home', icon: 'home' },
+    { labelKey: 'sidebar.livestock', icon: 'pets' },
+    { labelKey: 'sidebar.health', icon: 'health_and_safety' },
+    { labelKey: 'sidebar.reproductive', icon: 'favorite', link: '/reproductive' },
+    { labelKey: 'sidebar.feeding', icon: 'restaurant' },
+    { labelKey: 'sidebar.lots', icon: 'warehouse' },
+    { labelKey: 'sidebar.reports', icon: 'bar_chart' },
+    { labelKey: 'sidebar.appointments', icon: 'event' },
+    { labelKey: 'sidebar.alerts', icon: 'notifications' }
   ];
 }

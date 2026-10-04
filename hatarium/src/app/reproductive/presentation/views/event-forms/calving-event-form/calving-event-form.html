@@ -1,14 +1,16 @@
-<mat-card>
-  <mat-card-header><mat-card-title>Registrar parto</mat-card-title></mat-card-header>
-  <mat-card-content>
-    <form [formGroup]="form" (ngSubmit)="submit()">
-      <mat-form-field appearance="outline"><mat-label>ID de la preñez</mat-label><input matInput formControlName="pregnancyId" required></mat-form-field>
-      <mat-form-field appearance="outline"><mat-label>Fecha del parto</mat-label><input matInput type="date" formControlName="calvingOn" required></mat-form-field>
-      <mat-form-field appearance="outline"><mat-label>Resultado</mat-label><input matInput formControlName="outcome" placeholder="Ej: health" required></mat-form-field>
-      <div class="actions">
-        <a mat-button routerLink="/reproductive">Cancelar</a>
-        <button mat-raised-button color="primary" type="submit">Registrar parto</button>
-      </div>
-    </form>
-  </mat-card-content>
-</mat-card>
+<div class="form-overlay">
+  <mat-card>
+    <mat-card-header><mat-card-title>{{ 'forms.calvingTitle' | translate }}</mat-card-title></mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <mat-form-field appearance="outline"><mat-label>{{ 'forms.pregnancyId' | translate }}</mat-label><input matInput formControlName="pregnancyId" required></mat-form-field>
+        <mat-form-field appearance="outline"><mat-label>{{ 'forms.calvingOn' | translate }}</mat-label><input matInput type="date" formControlName="calvingOn" required></mat-form-field>
+        <mat-form-field appearance="outline"><mat-label>{{ 'forms.outcome' | translate }}</mat-label><input matInput formControlName="outcome" [placeholder]="'forms.outcomePlaceholder' | translate" required></mat-form-field>
+        <div class="actions">
+          <a mat-button routerLink="/reproductive">{{ 'forms.cancel' | translate }}</a>
+          <button mat-raised-button color="primary" type="submit">{{ 'forms.submitCalving' | translate }}</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

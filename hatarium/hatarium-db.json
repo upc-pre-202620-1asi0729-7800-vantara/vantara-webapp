@@ -639,6 +639,21 @@
       "notes": "Gestación confirmada en control reproductivo."
     },
     {
+      "id": "preg-002",
+      "animalId": "anm-018",
+      "calfId": "anm-062",
+      "confirmedOn": "2025-11-03",
+      "expectedCalvingOn": "2026-08-10",
+      "endedOn": "2026-08-09",
+      "outcome": "healthy",
+      "birthWeightKg": "35",
+      "dryOffOn": "2026-06-10",
+      "weanedOn": "2026-09-09",
+      "weaningWeightKg": "85",
+      "status": "weaned",
+      "notes": "Parto sin complicaciones. Cría en buen estado."
+    },
+    {
       "animalId": "013",
       "calfId": "ternero002",
       "confirmedOn": "2003-01-15",
