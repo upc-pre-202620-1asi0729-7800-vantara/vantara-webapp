@@ -637,6 +637,21 @@
       "weaningWeightKg": null,
       "status": "confirmed",
       "notes": "Gestación confirmada en control reproductivo."
+    },
+    {
+      "animalId": "013",
+      "calfId": "ternero002",
+      "confirmedOn": "2003-01-15",
+      "expectedCalvingOn": "2004-02-15",
+      "endedOn": null,
+      "outcome": null,
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "confirmed",
+      "notes": null,
+      "id": "aRrxMG9eErs"
     }
   ],
   "payments": [
@@ -784,5 +799,6 @@
       "relatedEntityId": "vac-001",
       "createdAt": "2026-09-07"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

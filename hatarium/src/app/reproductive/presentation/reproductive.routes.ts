@@ -1,9 +1,17 @@
 import { Routes } from '@angular/router';
-import { ReproductiveHistoryView } from './views/reproductive-history-view/reproductive-history-view';
+import { ReproductionDashboard } from './views/reproduction-dashboard/reproduction-dashboard';
+import { PregnancyEventForm } from './views/event-forms/pregnancy-event-form/pregnancy-event-form';
+import { CalvingEventForm } from './views/event-forms/calving-event-form/calving-event-form';
+import { DryOffEventForm } from './views/event-forms/dry-off-event-form/dry-off-event-form';
+import { WeaningEventForm } from './views/event-forms/weaning-event-form/weaning-event-form';
 
 /**
  * Routes for the reproductive bounded context.
  */
 export const reproductiveRoutes: Routes = [
-  { path: '', component: ReproductiveHistoryView }
+  { path: '', component: ReproductionDashboard },
+  { path: 'events/pregnancy', component: PregnancyEventForm },
+  { path: 'events/calving', component: CalvingEventForm },
+  { path: 'events/dry-off', component: DryOffEventForm },
+  { path: 'events/weaning', component: WeaningEventForm }
 ];
