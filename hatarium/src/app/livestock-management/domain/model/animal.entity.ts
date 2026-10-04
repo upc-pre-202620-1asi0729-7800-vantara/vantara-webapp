@@ -17,3 +17,4 @@ export class Animal {
     public photoUrl: string
   ) {}
 }
+
