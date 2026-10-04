@@ -1,23 +1,52 @@
 import {computed, inject, Service, signal} from '@angular/core';
-import {forkJoin} from 'rxjs';
 import {Account, AccountStatus} from '../domain/model/account.entity';
-import {User} from '../domain/model/user.entity';
 import {IamApi} from '../infrastructure/iam-api';
+import {RegisterAccountCommand} from '../domain/model/register-account.command';
+import {VerifyEmailCommand} from '../domain/model/verify-email.command';
 
 /** Holds the minimal IAM session state used by the mock API. */
 @Service()
 export class IamStore {
   private readonly iamApi = inject(IamApi);
   private readonly currentAccountSignal = signal<Account | null>(null);
-  private readonly currentUserSignal = signal<User | null>(null);
+  private readonly pendingAccountSignal = signal<Account | null>(null);
   private readonly loadingSignal = signal(false);
   private readonly errorSignal = signal<string | null>(null);
 
   readonly currentAccount = this.currentAccountSignal.asReadonly();
-  readonly currentUser = this.currentUserSignal.asReadonly();
+  readonly pendingAccount = this.pendingAccountSignal.asReadonly();
   readonly loading = this.loadingSignal.asReadonly();
   readonly error = this.errorSignal.asReadonly();
   readonly isAuthenticated = computed(() => this.currentAccountSignal() !== null);
+
+  registerAccount(command: RegisterAccountCommand): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+
+    this.iamApi.registerAccount(command).subscribe({
+      next: account => {
+        this.pendingAccountSignal.set(account);
+        this.loadingSignal.set(false);
+      },
+      error: () => {
+        this.pendingAccountSignal.set(null);
+        this.handleAuthenticationError('No se pudo registrar la cuenta.');
+      }
+    });
+  }
+
+  verifyEmail(command: VerifyEmailCommand): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+
+    this.iamApi.verifyEmail(command).subscribe({
+      next: account => {
+        this.pendingAccountSignal.set(account);
+        this.loadingSignal.set(false);
+      },
+      error: () => this.handleAuthenticationError('No se pudo verificar el correo.')
+    });
+  }
 
   /**
    * Starts a mock session by joining the account and profile collections.
@@ -27,11 +56,8 @@ export class IamStore {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
 
-    forkJoin({
-      accounts: this.iamApi.getAccounts(),
-      users: this.iamApi.getUsers()
-    }).subscribe({
-      next: ({accounts, users}) => {
+    this.iamApi.getAccounts().subscribe({
+      next: accounts => {
         const normalizedEmail = email.trim().toLowerCase();
         const account = accounts.find(item => item.email.toLowerCase() === normalizedEmail);
 
@@ -40,14 +66,12 @@ export class IamStore {
           return;
         }
 
-        const user = users.find(item => item.accountId === account.id) ?? null;
-        if (!user) {
-          this.handleAuthenticationError('La cuenta no tiene un perfil de usuario asociado.');
+        if (!account.emailVerified) {
+          this.handleAuthenticationError('Debes verificar tu correo antes de iniciar sesión.');
           return;
         }
 
         this.currentAccountSignal.set(account);
-        this.currentUserSignal.set(user);
         this.loadingSignal.set(false);
       },
       error: () => this.handleAuthenticationError('No se pudo consultar el servicio IAM.')
@@ -56,13 +80,11 @@ export class IamStore {
 
   signOut(): void {
     this.currentAccountSignal.set(null);
-    this.currentUserSignal.set(null);
     this.errorSignal.set(null);
   }
 
   private handleAuthenticationError(message: string): void {
     this.currentAccountSignal.set(null);
-    this.currentUserSignal.set(null);
     this.errorSignal.set(message);
     this.loadingSignal.set(false);
   }
