@@ -4,8 +4,7 @@ import {catchError, forkJoin, from, map, Observable, switchMap, throwError} from
 import {environment} from '../../../environments/environment';
 import {ErrorHandlingEnabledBaseType} from '../../shared/infrastructure/error-handling-enabled-base-type';
 import {Account, AccountStatus} from '../domain/model/account.entity';
-import {RegisterAccountCommand} from '../domain/model/register-account.command';
-import {VerifyEmailCommand} from '../domain/model/verify-email.command';
+import {RegistrationRole} from '../domain/model/registration-role';
 import {EmailVerificationAssembler} from './email-verification.assembler';
 import {EmailVerificationResponse} from './email-verification.response';
 import {RegistrationAssembler} from './registration.assembler';
@@ -22,8 +21,8 @@ export class IamApiEndpoint extends ErrorHandlingEnabledBaseType {
   private readonly registrationAssembler = inject(RegistrationAssembler);
   private readonly emailVerificationAssembler = inject(EmailVerificationAssembler);
 
-  registerAccount(command: RegisterAccountCommand): Observable<Account> {
-    const request = this.registrationAssembler.toRequestFromCommand(command);
+  registerAccount(email: string, password: string, role: RegistrationRole): Observable<Account> {
+    const request = this.registrationAssembler.toRequest(email, password, role);
     const accountsUrl = `${environment.serverBasePath}${environment.accountsEndpointPath}`;
     const rolesUrl = `${environment.serverBasePath}${environment.rolesEndpointPath}`;
     const credentialsUrl = `${environment.serverBasePath}${environment.accountCredentialsEndpointPath}`;
@@ -66,8 +65,8 @@ export class IamApiEndpoint extends ErrorHandlingEnabledBaseType {
     );
   }
 
-  verifyEmail(command: VerifyEmailCommand): Observable<Account> {
-    const request = this.emailVerificationAssembler.toRequestFromCommand(command);
+  verifyEmail(email: string, code: string): Observable<Account> {
+    const request = this.emailVerificationAssembler.toRequest(email, code);
     const accountsUrl = `${environment.serverBasePath}${environment.accountsEndpointPath}`;
     const verificationsUrl = `${environment.serverBasePath}${environment.emailVerificationsEndpointPath}`;
 

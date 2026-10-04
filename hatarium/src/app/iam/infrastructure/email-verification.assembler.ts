@@ -1,19 +1,18 @@
 import {inject, Service} from '@angular/core';
 import {Account} from '../domain/model/account.entity';
-import {VerifyEmailCommand} from '../domain/model/verify-email.command';
 import {AccountAssembler} from './account.assembler';
 import {VerifyEmailRequest} from './verify-email.request';
 import {EmailVerificationResponse} from './email-verification.response';
 
-/** Maps the email-verification command and its transport representations. */
+/** Maps email-verification form values and transport representations. */
 @Service()
 export class EmailVerificationAssembler {
   private readonly accountAssembler = inject(AccountAssembler);
 
-  toRequestFromCommand(command: VerifyEmailCommand): VerifyEmailRequest {
+  toRequest(email: string, code: string): VerifyEmailRequest {
     return {
-      email: command.email,
-      code: command.code
+      email: email.trim().toLowerCase(),
+      code: code.trim()
     };
   }
 

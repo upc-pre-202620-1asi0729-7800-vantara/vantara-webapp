@@ -1,8 +1,7 @@
 import {computed, inject, Service, signal} from '@angular/core';
 import {Account, AccountStatus} from '../domain/model/account.entity';
 import {IamApi} from '../infrastructure/iam-api';
-import {RegisterAccountCommand} from '../domain/model/register-account.command';
-import {VerifyEmailCommand} from '../domain/model/verify-email.command';
+import {RegistrationRole} from '../domain/model/registration-role';
 
 /** Holds the minimal IAM session state used by the mock API. */
 @Service()
@@ -19,11 +18,11 @@ export class IamStore {
   readonly error = this.errorSignal.asReadonly();
   readonly isAuthenticated = computed(() => this.currentAccountSignal() !== null);
 
-  registerAccount(command: RegisterAccountCommand): void {
+  registerAccount(email: string, password: string, role: RegistrationRole): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
 
-    this.iamApi.registerAccount(command).subscribe({
+    this.iamApi.registerAccount(email, password, role).subscribe({
       next: account => {
         this.pendingAccountSignal.set(account);
         this.loadingSignal.set(false);
@@ -35,11 +34,11 @@ export class IamStore {
     });
   }
 
-  verifyEmail(command: VerifyEmailCommand): void {
+  verifyEmail(email: string, code: string): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
 
-    this.iamApi.verifyEmail(command).subscribe({
+    this.iamApi.verifyEmail(email, code).subscribe({
       next: account => {
         this.pendingAccountSignal.set(account);
         this.loadingSignal.set(false);

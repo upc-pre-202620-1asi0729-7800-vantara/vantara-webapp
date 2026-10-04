@@ -1,6 +1,6 @@
 import {inject, Service} from '@angular/core';
 import {Account} from '../domain/model/account.entity';
-import {RegisterAccountCommand} from '../domain/model/register-account.command';
+import {RegistrationRole} from '../domain/model/registration-role';
 import {AccountAssembler} from './account.assembler';
 import {RegisterAccountRequest} from './register-account.request';
 import {RegistrationResponse} from './registration.response';
@@ -9,16 +9,16 @@ import {AccountResource} from './account.response';
 import {AccountCredentialResource} from './account-credential.response';
 import {EmailVerificationResource} from './email-verification.response';
 
-/** Maps the registration command and its transport representations. */
+/** Maps registration form values and transport representations. */
 @Service()
 export class RegistrationAssembler {
   private readonly accountAssembler = inject(AccountAssembler);
 
-  toRequestFromCommand(command: RegisterAccountCommand): RegisterAccountRequest {
+  toRequest(email: string, password: string, role: RegistrationRole): RegisterAccountRequest {
     return {
-      email: command.email,
-      password: command.password,
-      role: command.role
+      email: email.trim().toLowerCase(),
+      password,
+      role
     };
   }
 

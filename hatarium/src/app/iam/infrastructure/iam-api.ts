@@ -3,8 +3,7 @@ import {Observable} from 'rxjs';
 import {BaseApi} from '../../shared/infrastructure/base-api';
 import {Account} from '../domain/model/account.entity';
 import {AccountsApiEndpoint} from './accounts-api-endpoint';
-import {RegisterAccountCommand} from '../domain/model/register-account.command';
-import {VerifyEmailCommand} from '../domain/model/verify-email.command';
+import {RegistrationRole} from '../domain/model/registration-role';
 import {IamApiEndpoint} from './iam-api-endpoint';
 
 /** Infrastructure facade for the resources owned by the IAM context. */
@@ -21,12 +20,12 @@ export class IamApi extends BaseApi {
     return this.accountsEndpoint.getById(accountId);
   }
 
-  registerAccount(command: RegisterAccountCommand): Observable<Account> {
-    return this.authenticationEndpoint.registerAccount(command);
+  registerAccount(email: string, password: string, role: RegistrationRole): Observable<Account> {
+    return this.authenticationEndpoint.registerAccount(email, password, role);
   }
 
-  verifyEmail(command: VerifyEmailCommand): Observable<Account> {
-    return this.authenticationEndpoint.verifyEmail(command);
+  verifyEmail(email: string, code: string): Observable<Account> {
+    return this.authenticationEndpoint.verifyEmail(email, code);
   }
 
 }
