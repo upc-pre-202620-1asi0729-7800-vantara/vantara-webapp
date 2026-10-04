@@ -4,11 +4,11 @@
 export interface BaseResponse {}
 
 /**
- * Base contract for API resources that expose a numeric identifier.
+ * Base contract for API resources that expose a string identifier.
  */
 export interface BaseResource {
   /**
    * The unique identifier for the resource.
    */
-  id: number;
+  id: string;
 }

@@ -32,7 +32,6 @@ export abstract class BaseApiEndpoint<
   getAll(): Observable<TEntity[]> {
     return this.http.get<TResponse | TResource[]>(this.endpointUrl).pipe(
       map(response => {
-        console.log(response);
         if (Array.isArray(response)) {
           return response.map(resource => this.assembler.toEntityFromResource(resource));
         }
@@ -47,7 +46,7 @@ export abstract class BaseApiEndpoint<
    * @param id - Entity identifier.
    * @returns Stream with the mapped entity.
    */
-  getById(id: number): Observable<TEntity> {
+  getById(id: string): Observable<TEntity> {
     return this.http.get<TResource>(`${this.endpointUrl}/${id}`).pipe(
       map(resource => this.assembler.toEntityFromResource(resource)),
       catchError(this.handleError('Failed to fetch entity'))
@@ -73,7 +72,7 @@ export abstract class BaseApiEndpoint<
    * @param id - Identifier of the target entity.
    * @returns Stream with the updated entity returned by the API.
    */
-  update(entity: TEntity, id: number): Observable<TEntity> {
+  update(entity: TEntity, id: string): Observable<TEntity> {
     const resource = this.assembler.toResourceFromEntity(entity);
     return this.http.put<TResource>(`${this.endpointUrl}/${id}`, resource).pipe(
       map(updated => this.assembler.toEntityFromResource(updated)),
@@ -86,7 +85,7 @@ export abstract class BaseApiEndpoint<
    * @param id - Identifier of the entity to remove.
    * @returns Completion stream for the delete operation.
    */
-  delete(id: number): Observable<void> {
+  delete(id: string): Observable<void> {
     return this.http.delete<void>(`${this.endpointUrl}/${id}`).pipe(
       catchError(this.handleError('Failed to delete entity'))
     );
