@@ -1,0 +1,29 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav mode="side" opened class="sidenav">
+    <div class="brand">
+      <mat-icon>agriculture</mat-icon>
+      <div>
+        <strong>Hatarium</strong>
+        <small>Gestión Ganadera</small>
+      </div>
+    </div>
+    <mat-nav-list>
+      @for (option of options; track option.label) {
+        @if (option.link) {
+          <a mat-list-item [routerLink]="option.link" routerLinkActive="active">
+            <mat-icon matListItemIcon>{{ option.icon }}</mat-icon>
+            <span matListItemTitle>{{ option.label }}</span>
+          </a>
+        } @else {
+          <span mat-list-item class="disabled">
+            <mat-icon matListItemIcon>{{ option.icon }}</mat-icon>
+            <span matListItemTitle>{{ option.label }}</span>
+          </span>
+        }
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet/>
+  </mat-sidenav-content>
+</mat-sidenav-container>
