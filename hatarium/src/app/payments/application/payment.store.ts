@@ -18,6 +18,15 @@ export class PaymentStore {
   private paymentsApi = inject(PaymentsApi);
 
   readonly payments = computed(() => this.paymentsSignal());
+  readonly lastPaidPayment = computed(() =>
+    this.paymentsSignal().filter(p => p.status === 'paid').at(-1) ?? null
+  );
+  readonly currentPlanName = computed(() => {
+    const last = this.lastPaidPayment();
+    return last ? last.concept.replace('Suscripción ', '') : null;
+  });
+  readonly currentPlanAmount = computed(() => this.lastPaidPayment()?.formattedAmount() ?? null);
+  readonly currentPlanSince = computed(() => this.lastPaidPayment()?.createdAt ?? null);
   readonly selectedPayment = computed(() => this.selectedPaymentSignal());
   readonly transactions = computed(() => this.transactionsSignal());
   readonly receipt = computed(() => this.receiptSignal());
