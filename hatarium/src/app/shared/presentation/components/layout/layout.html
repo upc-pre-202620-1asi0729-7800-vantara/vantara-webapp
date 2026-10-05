@@ -15,10 +15,10 @@
             <span matListItemTitle>{{ option.labelKey | translate }}</span>
           </a>
         } @else {
-          <span mat-list-item class="disabled">
+          <mat-list-item class="disabled" aria-disabled="true">
             <mat-icon matListItemIcon>{{ option.icon }}</mat-icon>
             <span matListItemTitle>{{ option.labelKey | translate }}</span>
-          </span>
+          </mat-list-item>
         }
       }
     </mat-nav-list>
