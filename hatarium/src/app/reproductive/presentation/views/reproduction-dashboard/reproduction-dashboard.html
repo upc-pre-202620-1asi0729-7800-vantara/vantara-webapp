@@ -7,6 +7,225 @@
     <mat-icon>add</mat-icon> {{ 'dashboard.registerEvent' | translate }}
   </a>
 </header>
-<section class="dashboard-body">
-  <p>{{ 'dashboard.placeholder' | translate }}</p>
+
+<section
+  class="summary-grid"
+  [attr.aria-label]="'dashboard.summary.ariaLabel' | translate"
+  [attr.aria-busy]="store.summaryLoading()"
+>
+  <article class="summary-card summary-card--females">
+    <div class="summary-card__icon" aria-hidden="true">
+      <mat-icon>female</mat-icon>
+    </div>
+    <h2>{{ 'dashboard.summary.reproductiveFemales' | translate }}</h2>
+    <strong>{{ store.summary().reproductiveFemales }}</strong>
+    <p>
+      {{ store.summary().reproductiveFemalePercentage }}%
+      {{ 'dashboard.summary.ofTotal' | translate }}
+    </p>
+  </article>
+
+  <article class="summary-card summary-card--pregnant">
+    <div class="summary-card__icon" aria-hidden="true">
+      <mat-icon>favorite</mat-icon>
+    </div>
+    <h2>{{ 'dashboard.summary.pregnant' | translate }}</h2>
+    <strong>{{ store.summary().pregnantFemales }}</strong>
+    <p>
+      {{ store.summary().pregnantPercentage }}%
+      {{ 'dashboard.summary.ofFemales' | translate }}
+    </p>
+    <div class="summary-progress" aria-hidden="true">
+      <span [style.width.%]="store.summary().pregnantPercentage"></span>
+    </div>
+  </article>
+
+  <article class="summary-card summary-card--calvings">
+    <div class="summary-card__icon" aria-hidden="true">
+      <mat-icon>calendar_month</mat-icon>
+    </div>
+    <h2>{{ 'dashboard.summary.upcomingCalvings' | translate }}</h2>
+    <strong>{{ store.summary().upcomingCalvings }}</strong>
+    <p>{{ 'dashboard.summary.nextTwoMonths' | translate }}</p>
+  </article>
+
+  <article class="summary-card summary-card--follow-up">
+    <div class="summary-card__icon" aria-hidden="true">
+      <mat-icon>warning_amber</mat-icon>
+    </div>
+    <h2>{{ 'dashboard.summary.followUpRequired' | translate }}</h2>
+    <strong>{{ store.summary().followUpRequired }}</strong>
+    <p>{{ 'dashboard.summary.veterinaryReview' | translate }}</p>
+  </article>
+</section>
+
+@if (store.summaryError()) {
+  <p class="summary-error" role="alert">{{ 'dashboard.summary.loadError' | translate }}</p>
+}
+
+<section class="dashboard-insights">
+  <article class="insight-card insight-card--status">
+    <header class="insight-card__header">
+      <div>
+        <h2>{{ 'dashboard.reproductiveStatus.title' | translate }}</h2>
+        <p>
+          {{ 'dashboard.reproductiveStatus.subtitle' | translate }}
+          ({{ store.summary().reproductiveFemales }})
+        </p>
+      </div>
+    </header>
+
+    <div class="status-content">
+      <div class="donut-chart" [style.background]="reproductiveChartBackground()">
+        <div class="donut-chart__center">
+          <strong>{{ store.summary().reproductiveFemales }}</strong>
+          <span>{{ 'dashboard.reproductiveStatus.females' | translate }}</span>
+        </div>
+      </div>
+
+      <div class="status-legend">
+        <div class="status-legend__row">
+          <span class="status-legend__label">
+            <i class="status-dot status-dot--pregnant"></i>
+            {{ 'dashboard.reproductiveStatus.pregnant' | translate }}
+          </span>
+          <strong>{{ store.summary().statusDistribution.pregnant }}</strong>
+          <span>{{ statusPercentage(store.summary().statusDistribution.pregnant) }}%</span>
+        </div>
+        <div class="status-legend__row">
+          <span class="status-legend__label">
+            <i class="status-dot status-dot--vacant"></i>
+            {{ 'dashboard.reproductiveStatus.vacant' | translate }}
+          </span>
+          <strong>{{ store.summary().statusDistribution.vacant }}</strong>
+          <span>{{ statusPercentage(store.summary().statusDistribution.vacant) }}%</span>
+        </div>
+        <div class="status-legend__row">
+          <span class="status-legend__label">
+            <i class="status-dot status-dot--heat"></i>
+            {{ 'dashboard.reproductiveStatus.inHeat' | translate }}
+          </span>
+          <strong>{{ store.summary().statusDistribution.inHeat }}</strong>
+          <span>{{ statusPercentage(store.summary().statusDistribution.inHeat) }}%</span>
+        </div>
+        <div class="status-legend__row">
+          <span class="status-legend__label">
+            <i class="status-dot status-dot--issues"></i>
+            {{ 'dashboard.reproductiveStatus.issues' | translate }}
+          </span>
+          <strong>{{ store.summary().statusDistribution.issues }}</strong>
+          <span>{{ statusPercentage(store.summary().statusDistribution.issues) }}%</span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="insight-card insight-card--events">
+    <header class="insight-card__header">
+      <div>
+        <h2>{{ 'dashboard.upcomingEvents.title' | translate }}</h2>
+        <p>{{ 'dashboard.upcomingEvents.subtitle' | translate }}</p>
+      </div>
+    </header>
+
+    <div class="events-preview">
+      @for (event of store.summary().upcomingEvents.slice(0, 3); track event.id) {
+        <div class="event-row">
+          <div class="event-row__icon" aria-hidden="true">
+            <mat-icon>pets</mat-icon>
+          </div>
+          <div class="event-row__description">
+            <strong>{{ 'dashboard.upcomingEvents.estimatedCalving' | translate }}</strong>
+            <span>{{ event.animalLabel }} · {{ event.animalBreed }}</span>
+          </div>
+          <time [attr.datetime]="event.scheduledOn">
+            {{ formatEventDate(event.scheduledOn) }}
+          </time>
+          <span class="event-row__status">
+            {{ 'dashboard.upcomingEvents.upcoming' | translate }}
+          </span>
+        </div>
+      } @empty {
+        <div class="events-empty">
+          <mat-icon aria-hidden="true">event_available</mat-icon>
+          <p>{{ 'dashboard.upcomingEvents.empty' | translate }}</p>
+        </div>
+      }
+    </div>
+
+    <button mat-button type="button" class="events-view-all">
+      {{ 'dashboard.upcomingEvents.viewAll' | translate }}
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+  </article>
+</section>
+
+<section class="recent-events-card">
+  <header class="recent-events-card__header">
+    <div>
+      <h2>{{ 'dashboard.recentEvents.title' | translate }}</h2>
+      <p>{{ 'dashboard.recentEvents.subtitle' | translate }}</p>
+    </div>
+  </header>
+
+  <div class="recent-events-table-wrap">
+    <table class="recent-events-table">
+      <thead>
+        <tr>
+          <th>{{ 'dashboard.recentEvents.date' | translate }}</th>
+          <th>{{ 'dashboard.recentEvents.animal' | translate }}</th>
+          <th>{{ 'dashboard.recentEvents.eventType' | translate }}</th>
+          <th>{{ 'dashboard.recentEvents.detail' | translate }}</th>
+          <th>{{ 'dashboard.recentEvents.status' | translate }}</th>
+          <th>{{ 'dashboard.recentEvents.action' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (event of store.summary().recentEvents.slice(0, 5); track event.id) {
+          <tr>
+            <td>
+              <time [attr.datetime]="event.occurredOn">
+                {{ formatEventDate(event.occurredOn) }}
+              </time>
+            </td>
+            <td>
+              <div class="animal-cell">
+                <mat-icon aria-hidden="true">pets</mat-icon>
+                <span>
+                  <strong>{{ event.animalLabel }}</strong>
+                  <small>{{ event.animalBreed }}</small>
+                </span>
+              </div>
+            </td>
+            <td>{{ 'dashboard.recentEvents.types.' + event.type | translate }}</td>
+            <td>{{ 'dashboard.recentEvents.details.' + event.type | translate }}</td>
+            <td>
+              <span class="event-status">
+                {{ 'dashboard.recentEvents.statuses.' + event.status | translate }}
+              </span>
+            </td>
+            <td>
+              <button type="button" class="history-action">
+                {{ 'dashboard.recentEvents.view' | translate }}
+                <mat-icon aria-hidden="true">arrow_forward</mat-icon>
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="6" class="recent-events-empty">
+              {{ 'dashboard.recentEvents.empty' | translate }}
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <footer class="recent-events-card__footer">
+    {{ 'dashboard.recentEvents.showing' | translate }}
+    {{ store.summary().recentEvents.length > 5 ? 5 : store.summary().recentEvents.length }}
+    {{ 'dashboard.recentEvents.of' | translate }}
+    {{ store.summary().recentEvents.length }}
+  </footer>
 </section>
