@@ -6,6 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { CdkTrapFocus } from '@angular/cdk/a11y';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ReproductiveStore } from '../../../../application/reproductive.store';
 
@@ -14,10 +16,21 @@ import { ReproductiveStore } from '../../../../application/reproductive.store';
  */
 @Component({
   selector: 'app-pregnancy-event-form',
-  imports: [ReactiveFormsModule, RouterLink, TranslatePipe, MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule],
+  imports: [
+    ReactiveFormsModule,
+    RouterLink,
+    TranslatePipe,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatIconModule,
+    CdkTrapFocus,
+  ],
   templateUrl: './pregnancy-event-form.html',
   styleUrl: './pregnancy-event-form.css',
-  changeDetection: ChangeDetectionStrategy.Eager
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class PregnancyEventForm {
   private fb = inject(FormBuilder);
@@ -28,7 +41,7 @@ export class PregnancyEventForm {
     animalId: ['', Validators.required],
     calfId: [''],
     confirmedOn: ['', Validators.required],
-    expectedCalvingOn: ['']
+    expectedCalvingOn: [''],
   });
 
   /** Submits the event and returns to the dashboard. */
@@ -42,7 +55,7 @@ export class PregnancyEventForm {
       animalId: value.animalId!,
       calfId: value.calfId || null,
       confirmedOn: value.confirmedOn!,
-      expectedCalvingOn: value.expectedCalvingOn || null
+      expectedCalvingOn: value.expectedCalvingOn || null,
     });
     this.router.navigateByUrl('/reproductive');
   }

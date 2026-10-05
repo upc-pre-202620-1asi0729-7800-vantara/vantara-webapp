@@ -6,6 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { CdkTrapFocus } from '@angular/cdk/a11y';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ReproductiveStore } from '../../../../application/reproductive.store';
 
@@ -14,10 +16,21 @@ import { ReproductiveStore } from '../../../../application/reproductive.store';
  */
 @Component({
   selector: 'app-weaning-event-form',
-  imports: [ReactiveFormsModule, RouterLink, TranslatePipe, MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule],
+  imports: [
+    ReactiveFormsModule,
+    RouterLink,
+    TranslatePipe,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatIconModule,
+    CdkTrapFocus,
+  ],
   templateUrl: './weaning-event-form.html',
   styleUrl: './weaning-event-form.css',
-  changeDetection: ChangeDetectionStrategy.Eager
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class WeaningEventForm {
   private fb = inject(FormBuilder);
@@ -27,7 +40,7 @@ export class WeaningEventForm {
   form = this.fb.group({
     pregnancyId: ['', Validators.required],
     weanedOn: ['', Validators.required],
-    weaningWeightKg: ['']
+    weaningWeightKg: [''],
   });
 
   /** Submits the event and returns to the dashboard. */
