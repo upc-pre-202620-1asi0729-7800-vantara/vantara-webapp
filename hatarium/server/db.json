@@ -1,4 +1,4 @@
-﻿{
+{
   "roles": [
     {
       "id": "role-001",
@@ -693,6 +693,21 @@
       "weaningWeightKg": null,
       "status": "confirmed",
       "notes": "Gestación confirmada en control reproductivo."
+    },
+    {
+      "animalId": "1",
+      "calfId": "2112",
+      "confirmedOn": "2022-12-12",
+      "expectedCalvingOn": null,
+      "endedOn": null,
+      "outcome": null,
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "confirmed",
+      "notes": null,
+      "id": "87N7yY2"
     }
   ],
   "payments": [
