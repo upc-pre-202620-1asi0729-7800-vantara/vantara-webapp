@@ -44,7 +44,10 @@ export interface FeedingPlanResource {
   daysOfWeek: string[];
 
   /** Scheduled feeding times. */
-  schedules: string[];
+  schedules: {
+    time: string;
+    quantityPerAnimal: number;
+  }[];
 
   /** Instructions for the feeding plan. */
   instructions: string;

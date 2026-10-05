@@ -1,7 +1,7 @@
 export class FeedingLog {
   id: string;
   planItemId: string;
-  animalId: string;
+  animalId: string | null;
   lotId: string;
   feedName: string;
   feedAt: string;
@@ -13,7 +13,7 @@ export class FeedingLog {
   constructor() {
     this.id = '';
     this.planItemId = '';
-    this.animalId = '';
+    this.animalId = null;
     this.lotId = '';
     this.feedName = '';
     this.feedAt = '';

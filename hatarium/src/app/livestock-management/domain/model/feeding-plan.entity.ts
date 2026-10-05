@@ -10,7 +10,10 @@ export class FeedingPlan {
   targetWeight: number;
   frequency: string;
   daysOfWeek: string[];
-  schedules: string[];
+  schedules: {
+    time: string;
+    quantityPerAnimal: number;
+  }[];
   instructions: string;
   status: string;
 

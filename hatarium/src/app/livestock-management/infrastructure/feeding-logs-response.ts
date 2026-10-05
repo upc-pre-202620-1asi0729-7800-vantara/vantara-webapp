@@ -17,7 +17,7 @@ export interface FeedingLogResource {
   planItemId: string;
 
   /** Individual animal that received the feed. */
-  animalId: string;
+  animalId: string | null;
 
   /** Lot that received the feed. */
   lotId: string;

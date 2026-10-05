@@ -376,8 +376,14 @@
         "Domingo"
       ],
       "schedules": [
-        "08:00",
-        "17:00"
+        {
+          "time": "07:00",
+          "quantityPerAnimal": 6
+        },
+        {
+          "time": "17:00",
+          "quantityPerAnimal": 6.5
+        }
       ],
       "instructions": "Forraje verde, heno y suplemento energético.",
       "status": "active"
@@ -403,8 +409,14 @@
         "Domingo"
       ],
       "schedules": [
-        "08:00",
-        "17:00"
+        {
+          "time": "08:00",
+          "quantityPerAnimal": 5
+        },
+        {
+          "time": "17:00",
+          "quantityPerAnimal": 4.5
+        }
       ],
       "instructions": "Heno, pastoreo controlado y suplemento proteico.",
       "status": "active"
@@ -430,8 +442,14 @@
         "Domingo"
       ],
       "schedules": [
-        "07:30",
-        "17:30"
+        {
+          "time": "07:30",
+          "quantityPerAnimal": 4
+        },
+        {
+          "time": "17:30",
+          "quantityPerAnimal": 4
+        }
       ],
       "instructions": "Ración individual según peso y etapa productiva.",
       "status": "active"
@@ -441,40 +459,47 @@
     {
       "id": "fpi-001",
       "feedingPlanId": "fp-001",
-      "feedName": "Forraje verde",
-      "dailyQuantity": "18",
+      "feedName": "Pasto elefante",
+      "dailyQuantity": "7",
       "unit": "kg"
     },
     {
       "id": "fpi-002",
       "feedingPlanId": "fp-001",
-      "feedName": "Heno",
-      "dailyQuantity": "5",
+      "feedName": "Concentrado proteico",
+      "dailyQuantity": "3",
       "unit": "kg"
     },
     {
       "id": "fpi-003",
       "feedingPlanId": "fp-001",
-      "feedName": "Suplemento energético",
-      "dailyQuantity": "2",
+      "feedName": "Sales minerales",
+      "dailyQuantity": "0.5",
       "unit": "kg"
     },
     {
       "id": "fpi-004",
+      "feedingPlanId": "fp-001",
+      "feedName": "Ensilaje de maíz",
+      "dailyQuantity": "2",
+      "unit": "kg"
+    },
+    {
+      "id": "fpi-005",
       "feedingPlanId": "fp-002",
       "feedName": "Heno",
       "dailyQuantity": "6",
       "unit": "kg"
     },
     {
-      "id": "fpi-005",
+      "id": "fpi-006",
       "feedingPlanId": "fp-002",
       "feedName": "Suplemento proteico",
       "dailyQuantity": "1.5",
       "unit": "kg"
     },
     {
-      "id": "fpi-006",
+      "id": "fpi-007",
       "feedingPlanId": "fp-003",
       "feedName": "Ración balanceada",
       "dailyQuantity": "8",
@@ -485,38 +510,38 @@
     {
       "id": "fl-001",
       "planItemId": "fpi-001",
-      "animalId": "anm-047",
+      "animalId": null,
       "lotId": "lot-001",
-      "feedName": "Forraje verde",
-      "feedAt": "2026-09-08",
-      "quantity": "18",
+      "feedName": "Pasto elefante",
+      "feedAt": "2026-10-04T07:00:00",
+      "quantity": "196",
       "unit": "kg",
       "recordedBy": "usr-002",
-      "notes": "Consumo normal."
+      "notes": "Entrega correspondiente a la ración de la mañana."
     },
     {
       "id": "fl-002",
       "planItemId": "fpi-002",
-      "animalId": "anm-047",
+      "animalId": null,
       "lotId": "lot-001",
-      "feedName": "Heno",
-      "feedAt": "2026-09-08",
-      "quantity": "5",
+      "feedName": "Concentrado proteico",
+      "feedAt": "2026-10-04T07:00:00",
+      "quantity": "84",
       "unit": "kg",
       "recordedBy": "usr-002",
-      "notes": "Consumo completo."
+      "notes": "Distribución completada para el lote."
     },
     {
       "id": "fl-003",
-      "planItemId": "fpi-004",
-      "animalId": "anm-062",
-      "lotId": "lot-002",
-      "feedName": "Heno",
-      "feedAt": "2026-09-08",
-      "quantity": "6",
+      "planItemId": "fpi-007",
+      "animalId": null,
+      "lotId": "lot-003",
+      "feedName": "Ración balanceada",
+      "feedAt": "2026-10-03T17:30:00",
+      "quantity": "272",
       "unit": "kg",
       "recordedBy": "usr-002",
-      "notes": "Sin incidencias."
+      "notes": "Ración completada."
     }
   ],
   "appointments": [
