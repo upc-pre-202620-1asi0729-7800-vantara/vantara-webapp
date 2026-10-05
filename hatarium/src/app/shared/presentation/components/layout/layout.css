@@ -1,0 +1,31 @@
+.sidenav-container {
+  height: 100vh;
+}
+.sidenav {
+  width: 240px;
+  padding: 16px 8px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px 16px;
+}
+.active {
+  background: #e8f5e9;
+  border-radius: 8px;
+  color: #1b5e20;
+}
+.sidenav {
+  background: #f1f8e9;
+}
+body {
+  background-color: #f4faf4;
+}
+.switcher {
+  margin-top: 24px;
+  padding: 0 8px;
+}
+.disabled {
+  opacity: 0.5;
+}

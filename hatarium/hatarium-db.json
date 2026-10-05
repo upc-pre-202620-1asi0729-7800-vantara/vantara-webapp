@@ -1,4 +1,4 @@
-﻿{
+{
   "roles": [
     {
       "id": "role-001",
@@ -668,6 +668,42 @@
       "createdAt": "2026-09-01",
       "confirmedAt": "2026-09-01",
       "cancelledAt": null
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción mensual",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "5nfvVr8FkS4"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción mensual",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "7Zf_SryOPVk"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción mensual",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "o7Q4q09WW6s"
     }
   ],
   "transactions": [
@@ -789,5 +825,6 @@
       "relatedEntityId": "vac-001",
       "createdAt": "2026-09-07"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
