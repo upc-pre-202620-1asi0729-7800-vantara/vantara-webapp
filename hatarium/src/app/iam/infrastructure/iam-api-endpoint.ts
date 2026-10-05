@@ -18,15 +18,20 @@ import {EmailVerificationResource} from './email-verification.response';
 @Service()
 export class IamApiEndpoint extends ErrorHandlingEnabledBaseType {
   private readonly http = inject(HttpClient);
+  private readonly baseUrl = environment.hatariumApiBaseUrl;
+  private readonly accountsEndpoint = environment.hatariumAccountsEndpointPath;
+  private readonly rolesEndpoint = environment.hatariumRolesEndpointPath;
+  private readonly accountCredentialsEndpoint = environment.hatariumAccountCredentialsEndpointPath;
+  private readonly emailVerificationsEndpoint = environment.hatariumEmailVerificationsEndpointPath;
   private readonly registrationAssembler = inject(RegistrationAssembler);
   private readonly emailVerificationAssembler = inject(EmailVerificationAssembler);
 
   registerAccount(email: string, password: string, role: RegistrationRole): Observable<Account> {
     const request = this.registrationAssembler.toRequest(email, password, role);
-    const accountsUrl = `${environment.serverBasePath}${environment.accountsEndpointPath}`;
-    const rolesUrl = `${environment.serverBasePath}${environment.rolesEndpointPath}`;
-    const credentialsUrl = `${environment.serverBasePath}${environment.accountCredentialsEndpointPath}`;
-    const verificationsUrl = `${environment.serverBasePath}${environment.emailVerificationsEndpointPath}`;
+    const accountsUrl = `${this.baseUrl}${this.accountsEndpoint}`;
+    const rolesUrl = `${this.baseUrl}${this.rolesEndpoint}`;
+    const credentialsUrl = `${this.baseUrl}${this.accountCredentialsEndpoint}`;
+    const verificationsUrl = `${this.baseUrl}${this.emailVerificationsEndpoint}`;
 
     return forkJoin({
       accounts: this.http.get<AccountResource[]>(accountsUrl, {params: {email: request.email}}),
@@ -67,8 +72,8 @@ export class IamApiEndpoint extends ErrorHandlingEnabledBaseType {
 
   verifyEmail(email: string, code: string): Observable<Account> {
     const request = this.emailVerificationAssembler.toRequest(email, code);
-    const accountsUrl = `${environment.serverBasePath}${environment.accountsEndpointPath}`;
-    const verificationsUrl = `${environment.serverBasePath}${environment.emailVerificationsEndpointPath}`;
+    const accountsUrl = `${this.baseUrl}${this.accountsEndpoint}`;
+    const verificationsUrl = `${this.baseUrl}${this.emailVerificationsEndpoint}`;
 
     return this.http.get<AccountResource[]>(accountsUrl, {params: {email: request.email}}).pipe(
       switchMap(accounts => {

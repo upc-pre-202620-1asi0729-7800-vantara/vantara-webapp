@@ -12,7 +12,7 @@ export class AccountsApiEndpoint extends BaseApiEndpoint<Account, AccountResourc
   constructor() {
     super(
       inject(HttpClient),
-      `${environment.serverBasePath}${environment.accountsEndpointPath}`,
+      `${environment.hatariumApiBaseUrl}${environment.hatariumAccountsEndpointPath}`,
       inject(AccountAssembler)
     );
   }
