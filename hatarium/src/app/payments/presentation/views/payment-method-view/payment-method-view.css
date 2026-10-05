@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  padding: 24px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 420px;
+  margin-top: 16px;
+}
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}

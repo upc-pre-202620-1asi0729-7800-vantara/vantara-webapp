@@ -1,0 +1,13 @@
+:host {
+  display: block;
+  padding: 24px;
+}
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.price {
+  font-size: 1.5rem;
+  font-weight: 700;
+}

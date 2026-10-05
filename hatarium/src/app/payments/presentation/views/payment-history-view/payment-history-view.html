@@ -1,0 +1,15 @@
+<h1>Historial de pagos</h1>
+<mat-card>
+  <mat-card-content>
+    <mat-list>
+      @for (payment of store.payments(); track payment.id) {
+        <mat-list-item>
+          <div matListItemTitle>{{ payment.createdAt }} — {{ payment.concept }}</div>
+          <div matListItemLine>{{ payment.formattedAmount() }} · {{ payment.status }}</div>
+        </mat-list-item>
+      } @empty {
+        <p>No hay pagos registrados.</p>
+      }
+    </mat-list>
+  </mat-card-content>
+</mat-card>
