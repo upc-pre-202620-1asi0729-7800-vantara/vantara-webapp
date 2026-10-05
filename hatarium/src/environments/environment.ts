@@ -3,6 +3,8 @@ export const environment = {
   hatariumApiBaseUrl: 'http://localhost:3000',
   hatariumRolesEndpointPath: '/roles',
   hatariumAccountsEndpointPath: '/accounts',
+  hatariumAccountCredentialsEndpointPath: '/accountCredentials',
+  hatariumEmailVerificationsEndpointPath: '/emailVerifications',
   hatariumUsersEndpointPath: '/users',
   hatariumAnimalsEndpointPath: '/animals',
   hatariumLotsEndpointPath: '/lots',
