@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
 import { PaymentStore } from '../../../application/payment.store';
@@ -9,7 +8,7 @@ import { PaymentStore } from '../../../application/payment.store';
  */
 @Component({
   selector: 'app-payment-history-view',
-  imports: [RouterLink, MatCardModule, MatListModule],
+  imports: [MatCardModule, MatListModule],
   templateUrl: './payment-history-view.html',
   styleUrl: './payment-history-view.css',
   changeDetection: ChangeDetectionStrategy.Eager
