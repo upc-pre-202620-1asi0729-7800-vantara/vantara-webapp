@@ -1,13 +1,15 @@
 export class FeedingPlanItem {
-  constructor(
-    public id: string,
-    public feedingPlanId: string,
-    public feedName: string,
-    public dailyQuantity: number,
-    public unit: string
-  ) {}
+  id: string;
+  feedingPlanId: string;
+  feedName: string;
+  dailyQuantity: number;
+  unit: string;
 
-  public formattedQuantity(): string {
-    return `${this.dailyQuantity} ${this.unit}`;
+  constructor() {
+    this.id = '';
+    this.feedingPlanId = '';
+    this.feedName = '';
+    this.dailyQuantity = 0;
+    this.unit = '';
   }
 }
