@@ -1,24 +1,32 @@
 <div class="pay-page">
-  <h1>Paga una suscripción</h1>
-  <p>Elige un plan y completa los datos de tu tarjeta.</p>
+  <h1>Elige tu suscripción</h1>
+  <p class="subtitle">Selecciona un plan, completa los datos de pago y activa tu cuenta.</p>
 
-  <h2>Planes</h2>
+  <h2>Selecciona tu plan</h2>
   <div class="plans-grid">
     @for (plan of plans; track plan.id) {
       <mat-card
         [class.selected]="selectedPlan.id === plan.id"
         (click)="selectPlan(plan)"
       >
-        <mat-card-header><mat-card-title>{{ plan.name }}</mat-card-title></mat-card-header>
+        <mat-card-header>
+          <mat-card-title>{{ plan.name }}</mat-card-title>
+        </mat-card-header>
         <mat-card-content>
           <p class="price">S/ {{ plan.price }} / mes</p>
-          <p>{{ plan.desc }}</p>
+          <p class="desc">{{ plan.desc }}</p>
+          <ul class="features">
+            @for (f of plan.features; track f) {
+              <li>{{ f }}</li>
+            }
+          </ul>
         </mat-card-content>
       </mat-card>
     }
   </div>
 
-  <p class="total">Total: S/ {{ selectedPlan.price }} / mes</p>
+  <h2>Realiza tu pago</h2>
+  <p class="total">Plan {{ selectedPlan.name }}: S/ {{ selectedPlan.price }} / mes</p>
 
   <mat-card class="form-card">
     <mat-card-header><mat-card-title>Datos de la tarjeta</mat-card-title></mat-card-header>

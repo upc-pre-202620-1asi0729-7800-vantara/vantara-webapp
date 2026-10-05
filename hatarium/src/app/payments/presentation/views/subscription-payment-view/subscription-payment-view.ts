@@ -23,9 +23,9 @@ export class SubscriptionPaymentView {
   private router = inject(Router);
 
   readonly plans = [
-    { id: 'basico', name: 'Básico', price: '29.90', desc: 'Ideal para pequeños productores' },
-    { id: 'profesional', name: 'Profesional', price: '49.90', desc: 'Para un control completo de tu ganadería' },
-    { id: 'premium', name: 'Premium', price: '89.90', desc: 'Todas las funcionalidades' }
+    { id: 'basico', name: 'Básico', price: '29.90', desc: 'Ideal para pequeños productores', features: ['Hasta 50 animales', 'Registro de historial sanitario', 'Control de alimentación básico', 'Reportes generales', 'Soporte por correo'] },
+    { id: 'profesional', name: 'Profesional', price: '49.90', desc: 'Para un control completo de tu ganadería', features: ['Hasta 200 animales', 'Historial sanitario completo', 'Planes de alimentación avanzados', 'Reportes detallados y exportación', 'Gestión de lotes', 'Citas y recordatorios', 'Soporte prioritario'] },
+    { id: 'premium', name: 'Premium', price: '89.90', desc: 'Todas las funcionalidades', features: ['Animales ilimitados', 'Todas las funcionalidades', 'Análisis y reportes avanzados', 'Exportación de datos (PDF/Excel)', 'Integración con dispositivos RFID', 'Soporte dedicado', 'Capacitación personalizada'] }
   ];
 
   selectedPlan = this.plans[1];
