@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Service } from '@angular/core';
 import { Pregnancy } from '../domain/model/pregnancy.entity';
 import { PregnancyResource } from './pregnancies-response';
 
 /**
  * Maps pregnancy resources from the API into Pregnancy domain entities.
  */
-@Injectable({ providedIn: 'root' })
+@Service()
 export class PregnancyAssembler {
-
   /**
    * Converts a raw pregnancy resource into a Pregnancy entity.
    */
@@ -33,6 +32,6 @@ export class PregnancyAssembler {
    * Converts a list of raw pregnancy resources into Pregnancy entities.
    */
   toEntitiesFromResponse(resources: PregnancyResource[]): Pregnancy[] {
-    return resources.map(resource => this.toEntityFromResource(resource));
+    return resources.map((resource) => this.toEntityFromResource(resource));
   }
 }
