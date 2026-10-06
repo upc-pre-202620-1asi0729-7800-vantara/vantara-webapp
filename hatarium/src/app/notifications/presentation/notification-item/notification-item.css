@@ -1,0 +1,14 @@
+.notification {
+  padding: 16px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.notification h3 {
+  margin-top: 0;
+}
+
+button {
+  cursor: pointer;
+}
