@@ -9,12 +9,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {LivestockStore} from '../../../application/livestock-store';
 import {FeedingPlan} from '../../../domain/model/feeding-plan.entity';
 import { MatIconModule } from '@angular/material/icon';
+import {TranslatePipe} from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-feeding-plan-detail',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, TranslatePipe],
   templateUrl: './feeding-plan-detail.html',
   styleUrl: './feeding-plan-detail.css',
   changeDetection: ChangeDetectionStrategy.Eager

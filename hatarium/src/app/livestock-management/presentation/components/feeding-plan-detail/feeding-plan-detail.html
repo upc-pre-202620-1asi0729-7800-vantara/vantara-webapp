@@ -11,7 +11,7 @@
           class="back-button"
           type="button"
           (click)="goBack()">
-          ← Volver a Alimentación
+          ← {{ 'feeding.backToFeeding' | translate }}
         </button>
 
         <div class="title-row">
@@ -20,13 +20,13 @@
 
           <span class="status-badge">
             <span class="status-dot"></span>
-            {{ currentPlan.status === 'active' ? 'Activo' : currentPlan.status }}
+            {{ currentPlan.status === 'active' ? ('feeding.active' | translate) : currentPlan.status }}
           </span>
 
         </div>
 
         <p>
-          Plan alimentario para {{ lot()?.name || currentPlan.lotId }}.
+          {{ 'feeding.planForLot' | translate: { lot: lot()?.name || currentPlan.lotId } }}
         </p>
 
       </div>
@@ -50,10 +50,10 @@
             </div>
 
             <div>
-              <h2>Progreso de peso</h2>
+              <h2>{{ 'feeding.weightProgress' | translate }}</h2>
 
               <p>
-                Seguimiento del peso promedio del lote.
+                {{ 'feeding.weightProgressSubtitle' | translate }}
               </p>
             </div>
 
@@ -68,7 +68,7 @@
                   {{ currentPlan.currentAverageWeight }} kg
                 </strong>
 
-                <span>Peso actual</span>
+                <span>{{ 'feeding.currentWeight' | translate }}</span>
               </div>
 
               <div class="target-weight">
@@ -77,7 +77,7 @@
                   {{ currentPlan.targetWeight }} kg
                 </strong>
 
-                <span>Peso objetivo</span>
+                <span>{{ 'feeding.targetWeight' | translate }}</span>
 
               </div>
 
@@ -96,12 +96,12 @@
 
               <span>
                 <strong>{{ getProgress(currentPlan) }}%</strong>
-                del objetivo
+                {{ 'feeding.ofTarget' | translate }}
               </span>
 
               <span>
                 <strong>+{{ getRemainingWeight(currentPlan) }} kg</strong>
-                por alcanzar
+                {{ 'feeding.toReach' | translate }}
               </span>
 
             </div>
@@ -122,10 +122,10 @@
 
             <div>
 
-              <h2>Ración e ingredientes</h2>
+              <h2>{{ 'feeding.rationAndIngredients' | translate }}</h2>
 
               <p>
-                Ingredientes y cantidades diarias por animal.
+                {{ 'feeding.rationSubtitle' | translate }}
               </p>
 
             </div>
@@ -136,10 +136,10 @@
 
             <div class="table-header">
 
-              <span>Nombre</span>
+              <span>{{ 'animal.name' | translate }}</span>
 
               <span>
-                Cantidad por animal (kg/día)
+                {{ 'feeding.quantityPerAnimalDay' | translate }}
               </span>
 
             </div>
@@ -177,7 +177,7 @@
           </div>
 
           <div>
-            <h2>Información del plan</h2>
+            <h2>{{ 'feeding.planInfo' | translate }}</h2>
           </div>
 
         </div>
@@ -186,7 +186,7 @@
 
           <div class="information-row">
 
-            <span>Lote</span>
+            <span>{{ 'feeding.lot' | translate }}</span>
 
             <strong>
               {{ lot()?.name || currentPlan.lotId }}
@@ -196,17 +196,17 @@
 
           <div class="information-row">
 
-            <span>Animal</span>
+            <span>{{ 'feeding.animals' | translate }}</span>
 
             <strong>
-              {{ getAnimal(currentPlan)?.earTag || 'Todos los animales del lote' }}
+              {{ getAnimal(currentPlan)?.earTag || ('feeding.allLotAnimals' | translate) }}
             </strong>
 
           </div>
 
           <div class="information-row">
 
-            <span>Estado</span>
+            <span>{{ 'animal.status' | translate }}</span>
 
             <strong>
 
@@ -215,7 +215,7 @@
                 <span class="status-dot"></span>
 
                 {{ currentPlan.status === 'active'
-                ? 'Activo'
+                ? ('feeding.active' | translate)
                 : currentPlan.status }}
 
               </span>
@@ -227,7 +227,7 @@
 
           <div class="information-row">
 
-            <span>Inicio</span>
+            <span>{{ 'feeding.start' | translate }}</span>
 
             <strong>
               {{ currentPlan.startsOn | date:'dd MMM yyyy' }}
@@ -238,7 +238,7 @@
 
           <div class="information-row">
 
-            <span>Fin</span>
+            <span>{{ 'feeding.end' | translate }}</span>
 
             <strong>
               {{ currentPlan.endsOn | date:'dd MMM yyyy' }}
@@ -249,7 +249,7 @@
 
           <div class="information-row">
 
-            <span>Objetivo</span>
+            <span>{{ 'feeding.objective' | translate }}</span>
 
             <strong>
               {{ currentPlan.objective }}
@@ -260,7 +260,7 @@
 
           <div class="information-row">
 
-            <span>Peso promedio actual</span>
+            <span>{{ 'feeding.currentAverageWeight' | translate }}</span>
 
             <strong>
               {{ currentPlan.currentAverageWeight }} kg
@@ -271,7 +271,7 @@
 
           <div class="information-row">
 
-            <span>Peso objetivo</span>
+            <span>{{ 'feeding.targetWeight' | translate }}</span>
 
             <strong>
               {{ currentPlan.targetWeight }} kg
@@ -282,7 +282,7 @@
 
           <div class="information-row">
 
-            <span>Frecuencia</span>
+            <span>{{ 'feeding.frequency' | translate }}</span>
 
             <strong>
               {{ currentPlan.frequency }}
@@ -293,7 +293,7 @@
 
           <div class="information-row">
 
-            <span>Días de la semana</span>
+            <span>{{ 'feeding.daysOfWeek' | translate }}</span>
 
             <strong>
               {{ currentPlan.daysOfWeek.join(', ') }}
@@ -304,7 +304,7 @@
 
           <div class="information-row">
 
-            <span>Instrucciones</span>
+            <span>{{ 'feeding.instructions' | translate }}</span>
 
             <strong>
               {{ currentPlan.instructions }}
@@ -330,10 +330,10 @@
 
         <div>
 
-          <h2>Programación de alimentación</h2>
+          <h2>{{ 'feeding.scheduleTitle' | translate }}</h2>
 
           <p>
-            Horarios y cantidades por animal.
+            {{ 'feeding.scheduleSubtitle' | translate }}
           </p>
 
         </div>
@@ -345,13 +345,13 @@
 
         <div class="schedule-header">
 
-          <span>Horario</span>
+          <span>{{ 'feeding.time' | translate }}</span>
 
           <span>
-            Cantidad por animal (kg)
+            {{ 'feeding.quantityPerAnimalKg' | translate }}
           </span>
 
-          <span>Observaciones</span>
+          <span>{{ 'feeding.observations' | translate }}</span>
 
         </div>
 
@@ -388,14 +388,14 @@
 
     <div class="empty-detail">
 
-      <h2>Plan no encontrado</h2>
+      <h2>{{ 'feeding.planNotFound' | translate }}</h2>
 
       <button
         class="edit-button"
         type="button"
         (click)="goBack()">
 
-        Volver a Alimentación
+        {{ 'feeding.backToFeeding' | translate }}
 
       </button>
 
