@@ -42,7 +42,7 @@ input[type='password'] {
 }
 
 input:focus {
-  border-color: #176846;
+  border-color: #174268;
   box-shadow: 0 0 0 3px rgb(23 104 70 / 12%);
 }
 
@@ -91,13 +91,13 @@ small { color: #b42318; font-size: 11px; }
 }
 
 .role-selector label:has(input:checked) {
-  border-color: #176846;
+  border-color: #174268;
   color: #104f37;
   background: #eff8f3;
   font-weight: 650;
 }
 
-.role-selector input { margin: 0; accent-color: #155a3f; }
+.role-selector input { margin: 0; accent-color: #1565c0; }
 
 .terms-option {
   display: flex;
@@ -109,7 +109,7 @@ small { color: #b42318; font-size: 11px; }
   cursor: pointer;
 }
 
-.terms-option input { flex: 0 0 auto; width: 16px; height: 16px; margin: 0; accent-color: #155a3f; }
+.terms-option input { flex: 0 0 auto; width: 16px; height: 16px; margin: 0; accent-color: #1565c0; }
 
 .primary-button {
   height: 43px;
@@ -172,7 +172,7 @@ small { color: #b42318; font-size: 11px; }
   font-size: 12px;
 }
 
-.switch-flow a { color: #145b3e; font-weight: 650; text-decoration: none; }
+.switch-flow a { color: #143a5b; font-weight: 650; text-decoration: none; }
 
 @media (max-width: 420px) {
   .role-selector,

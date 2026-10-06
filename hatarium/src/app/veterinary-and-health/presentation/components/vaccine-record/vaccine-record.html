@@ -7,10 +7,10 @@
       <p class="page-subtitle">{{ 'VACCINE.SUBTITLE' | translate }}</p>
     </div>
     <div class="header-tag">
-      <mat-icon class="green-icon">event</mat-icon>
+      <mat-icon class="accent-icon">event</mat-icon>
       <div>
         <strong>{{ 'VACCINE.TAG' | translate }}</strong>
-        <p class="tag-sub">12 Sep 2026 · 09:00 a.m. <span class="pill green">{{ 'VACCINE.PILL' | translate }}</span></p>
+        <p class="tag-sub">12 Sep 2026 · 09:00 a.m. <span class="pill accent">{{ 'VACCINE.PILL' | translate }}</span></p>
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
       }
 
       <div class="card-box">
-        <h3><mat-icon class="green-icon">vaccines</mat-icon> {{ 'VACCINE.VACCINE_INFO' | translate }}</h3>
+        <h3><mat-icon class="accent-icon">vaccines</mat-icon> {{ 'VACCINE.VACCINE_INFO' | translate }}</h3>
 
         <div class="form-row">
           <div class="form-group">
@@ -82,7 +82,7 @@
 
         <div class="form-actions">
           <button mat-stroked-button routerLink="/veterinary/appointments">{{ 'COMMON.CANCEL' | translate }}</button>
-          <button mat-flat-button class="btn-green" (click)="saveVaccine()">{{ 'VACCINE.SAVE_VACCINE' | translate }}</button>
+          <button mat-flat-button class="btn-primary-solid" (click)="saveVaccine()">{{ 'VACCINE.SAVE_VACCINE' | translate }}</button>
         </div>
       </div>
     </div>
@@ -90,7 +90,7 @@
     <!-- Columna Derecha (Panel de Historial) -->
     <div class="sidebar-col">
       <div class="card-box">
-        <h4><mat-icon class="green-icon">history</mat-icon> {{ 'VACCINE.LAST_VACCINATIONS' | translate }}</h4>
+        <h4><mat-icon class="accent-icon">history</mat-icon> {{ 'VACCINE.LAST_VACCINATIONS' | translate }}</h4>
         @for (vac of recentVaccines(); track vac.id) {
           <div class="history-item">
             <strong>{{ vac.name }}</strong>

@@ -63,9 +63,9 @@
 }
 
 .form-group select:focus {
-  border-color: #378a5d;
+  border-color: #37638a;
 
-  box-shadow: 0 0 0 3px rgba(55, 138, 93, 0.08);
+  box-shadow: 0 0 0 3px rgba(55, 99, 138, 0.08);
 }
 
 .preferences-info {
@@ -95,7 +95,7 @@
   justify-content: center;
 
   background: #e6f5e9;
-  color: #17613d;
+  color: #173e61;
 
   font-weight: bold;
 }
@@ -129,7 +129,7 @@
 
   padding: 11px 18px;
 
-  background: #155638;
+  background: #153856;
   color: white;
 
   font-size: 13px;

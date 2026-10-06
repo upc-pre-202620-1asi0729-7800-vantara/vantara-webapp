@@ -5,7 +5,7 @@
       <p class="page-subtitle">{{ 'CALENDAR.SUBTITLE' | translate }}</p>
     </div>
     <div class="header-actions">
-      <button mat-flat-button class="btn-green" (click)="goToNewAppointment()">
+      <button mat-flat-button class="btn-primary-solid" (click)="goToNewAppointment()">
         <mat-icon>add</mat-icon> {{ 'CALENDAR.SCHEDULE_TECHNICAL' | translate }}
       </button>
     </div>
@@ -14,7 +14,7 @@
   <!-- KPIs Resumen de Citas -->
   <div class="kpi-grid">
     <div class="kpi-card">
-      <div class="kpi-icon-wrapper green-light"><mat-icon>event_available</mat-icon></div>
+      <div class="kpi-icon-wrapper accent-light"><mat-icon>event_available</mat-icon></div>
       <div class="kpi-content">
         <span class="kpi-title">{{ 'CALENDAR.KPI_SCHEDULED' | translate }}</span>
         <div class="kpi-number">{{ store.appointments().length }}</div>
@@ -63,7 +63,7 @@
       <button class="pill-filter blue" [class.active]="originFilter() === 'RANCHER_REQUEST'" (click)="setOriginFilter('RANCHER_REQUEST')">
         {{ 'CALENDAR.FILTER_RANCHER' | translate }}
       </button>
-      <button class="pill-filter green" [class.active]="originFilter() === 'TECHNICAL_VISIT'" (click)="setOriginFilter('TECHNICAL_VISIT')">
+      <button class="pill-filter accent" [class.active]="originFilter() === 'TECHNICAL_VISIT'" (click)="setOriginFilter('TECHNICAL_VISIT')">
         {{ 'CALENDAR.FILTER_TECHNICAL' | translate }}
       </button>
     </div>
@@ -89,7 +89,7 @@
               <div class="title-line">
                 <strong>#{{ anim?.earTag || '047' }} · {{ anim?.name || 'Mariposa' }}</strong>
                 @if (apt.origin === 'TECHNICAL_VISIT') {
-                  <span class="origin-badge green">{{ 'CALENDAR.BADGE_TECHNICAL' | translate }}</span>
+                  <span class="origin-badge accent">{{ 'CALENDAR.BADGE_TECHNICAL' | translate }}</span>
                 } @else {
                   <span class="origin-badge blue">{{ 'CALENDAR.BADGE_RANCHER' | translate }}</span>
                 }

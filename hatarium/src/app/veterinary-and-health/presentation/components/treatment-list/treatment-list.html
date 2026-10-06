@@ -7,7 +7,7 @@
       <p class="page-subtitle">{{ 'TREATMENT.SUBTITLE' | translate }}</p>
     </div>
     <div class="cita-header-badge">
-      <mat-icon class="green-icon">event</mat-icon>
+      <mat-icon class="accent-icon">event</mat-icon>
       <div>
         <strong>{{ 'COMMON.APPOINTMENT' | translate }}</strong>
         <small>10 Sep 2026 · 10:30 a.m. <span class="pill yellow">{{ 'COMMON.STATUS_SCHEDULED_PILL' | translate }}</span></small>
@@ -24,7 +24,7 @@
             <h3>#{{ animal()?.earTag }} · {{ animal()?.name }}</h3>
             <p class="sub-info">{{ animal()?.breed }}</p>
             <div class="pills-row">
-              <span class="pill green-light">{{ animal()?.lotName }}</span>
+              <span class="pill accent-light">{{ animal()?.lotName }}</span>
               <span class="pill">{{ animal()?.sex }}</span>
               <span class="pill">{{ 'COMMON.AGE_VALUE' | translate }}</span>
               <span class="pill">{{ animal()?.weight }} kg</span>
@@ -34,7 +34,7 @@
       }
 
       <div class="card-box">
-        <h3 class="box-title"><mat-icon class="green-icon">medication</mat-icon> {{ 'TREATMENT.TREATMENT_INFO' | translate }}</h3>
+        <h3 class="box-title"><mat-icon class="accent-icon">medication</mat-icon> {{ 'TREATMENT.TREATMENT_INFO' | translate }}</h3>
 
         <div class="form-row">
           <div class="form-group">
@@ -120,7 +120,7 @@
 
         <div class="form-actions">
           <button mat-stroked-button routerLink="/veterinary/appointments">{{ 'COMMON.CANCEL' | translate }}</button>
-          <button mat-flat-button class="btn-green" (click)="saveTreatment()">{{ 'TREATMENT.SAVE_TREATMENT' | translate }}</button>
+          <button mat-flat-button class="btn-primary-solid" (click)="saveTreatment()">{{ 'TREATMENT.SAVE_TREATMENT' | translate }}</button>
         </div>
       </div>
     </div>
@@ -128,10 +128,10 @@
     <!-- Columna Derecha -->
     <div class="sidebar-col">
       <div class="card-box">
-        <h4 class="box-title-sm"><mat-icon class="green-icon">published_with_changes</mat-icon> {{ 'COMMON.PROGRESS' | translate }}</h4>
+        <h4 class="box-title-sm"><mat-icon class="accent-icon">published_with_changes</mat-icon> {{ 'COMMON.PROGRESS' | translate }}</h4>
         <div class="stepper-horizontal">
           <div class="step-item active">
-            <div class="step-num green-check">✓</div>
+            <div class="step-num accent-check">✓</div>
             <div class="step-info"><strong>{{ 'COMMON.DIAGNOSIS' | translate }}</strong><small>{{ 'COMMON.COMPLETED' | translate }}</small></div>
           </div>
           <div class="step-item active">
@@ -146,7 +146,7 @@
       </div>
 
       <div class="card-box">
-        <h4 class="box-title-sm"><mat-icon class="green-icon">event</mat-icon> {{ 'COMMON.APPOINTMENT_INFO' | translate }}</h4>
+        <h4 class="box-title-sm"><mat-icon class="accent-icon">event</mat-icon> {{ 'COMMON.APPOINTMENT_INFO' | translate }}</h4>
         <ul class="info-list-sm">
           <li><span>{{ 'COMMON.REASON' | translate }}</span> <strong>Revisión general</strong></li>
           <li><span>{{ 'COMMON.DATETIME' | translate }}</span> <strong>10 Sep 2026 · 10:30 a.m.</strong></li>
@@ -157,7 +157,7 @@
       </div>
 
       <div class="card-box">
-        <h4 class="box-title-sm"><mat-icon class="green-icon">pets</mat-icon> {{ 'COMMON.ANIMAL_INFO' | translate }}</h4>
+        <h4 class="box-title-sm"><mat-icon class="accent-icon">pets</mat-icon> {{ 'COMMON.ANIMAL_INFO' | translate }}</h4>
         <ul class="info-list-sm">
           <li><span>{{ 'COMMON.EAR_TAG' | translate }}</span> <strong>#{{ animal()?.earTag }}</strong></li>
           <li><span>{{ 'COMMON.NAME' | translate }}</span> <strong>{{ animal()?.name }}</strong></li>
@@ -171,7 +171,7 @@
 
       <div class="card-box diag-box">
         <div class="diag-header">
-          <mat-icon class="green-icon">stethoscope</mat-icon>
+          <mat-icon class="accent-icon">stethoscope</mat-icon>
           <div>
             <strong>{{ 'TREATMENT.ASSOCIATED_DIAGNOSIS' | translate }}</strong>
             <p>{{ 'TREATMENT.DIAGNOSIS_DESC' | translate }}</p>

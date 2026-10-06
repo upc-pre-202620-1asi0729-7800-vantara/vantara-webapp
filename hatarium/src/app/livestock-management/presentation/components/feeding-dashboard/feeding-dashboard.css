@@ -49,7 +49,7 @@
 
 .module-badge {
   background: #dff3e7;
-  color: #176340;
+  color: #174063;
   padding: 6px 11px;
   border-radius: 20px;
   font-size: 12px;
@@ -88,8 +88,8 @@
 }
 
 .primary-button {
-  background: #145c3a;
-  border: 1px solid #145c3a;
+  background: #143a5c;
+  border: 1px solid #143a5c;
   color: white;
 }
 
@@ -138,7 +138,7 @@
   height: 36px;
   border-radius: 10px;
   background: #edf7f0;
-  color: #26764c;
+  color: #265176;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -234,7 +234,7 @@
 
 .active-count {
   background: #e8f7ed;
-  color: #28734b;
+  color: #285073;
   padding: 7px 12px;
   border-radius: 20px;
   font-size: 12px;
@@ -281,7 +281,7 @@
 
 .objective-badge {
   background: #ddf5e7;
-  color: #28734b;
+  color: #285073;
   padding: 5px 9px;
   border-radius: 15px;
   font-size: 11px;
@@ -343,7 +343,7 @@
 }
 
 .progress-label strong {
-  color: #28734b;
+  color: #285073;
 }
 
 .progress-bar {
@@ -355,7 +355,7 @@
 
 .progress-value {
   height: 100%;
-  background: #55a574;
+  background: #558ea5;
   border-radius: 10px;
 }
 
@@ -379,7 +379,7 @@
 .detail-button {
   border: none;
   background: transparent;
-  color: #276b48;
+  color: #274b6b;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
@@ -389,7 +389,7 @@
   width: 100%;
   border: none;
   background: transparent;
-  color: #276b48;
+  color: #274b6b;
   font-size: 12px;
   font-weight: 600;
   padding: 18px 0 3px;
@@ -430,7 +430,7 @@
 
 .food-status {
   background: #e1f6e9;
-  color: #28734b;
+  color: #285073;
   padding: 6px 9px;
   border-radius: 15px;
   font-size: 10px;
@@ -464,7 +464,7 @@
   height: 8px;
   margin-top: 5px;
   border-radius: 50%;
-  background: #28a96b;
+  background: #286da9;
   flex-shrink: 0;
 }
 
@@ -614,7 +614,7 @@
 
 .ration-segment {
   height: 100%;
-  background: #38a56c;
+  background: #3872a5;
   border-right: 2px solid white;
 }
 
@@ -657,7 +657,7 @@
   border-radius: 9px;
 
   background: #ffffff;
-  color: #176b45;
+  color: #17446b;
 
   font-family: 'Poppins', sans-serif;
   font-size: 13px;
@@ -675,7 +675,7 @@
 
 .details-button:hover {
   background: #e9f7ef;
-  border-color: #54ad7a;
+  border-color: #5494ad;
 }
 
 .details-button:hover span {

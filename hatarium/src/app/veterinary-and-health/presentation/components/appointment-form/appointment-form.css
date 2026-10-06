@@ -6,7 +6,7 @@
 }
 
 .back-link {
-  color: #0d5c3a;
+  color: #1565c0;
   font-weight: 600;
   text-decoration: none;
   display: inline-block;
@@ -64,8 +64,8 @@
   margin: 0 0 0.85rem 0;
 }
 
-.green-icon {
-  color: #0d5c3a;
+.accent-icon {
+  color: #1565c0;
 }
 
 .form-group {
@@ -92,8 +92,8 @@
 }
 
 .form-input:focus {
-  border-color: #0d5c3a;
-  box-shadow: 0 0 0 3px rgba(13, 92, 58, 0.1);
+  border-color: #1565c0;
+  box-shadow: 0 0 0 3px rgba(18, 55, 87, 0.1);
 }
 
 .form-row {
@@ -109,32 +109,32 @@
   margin-top: 1.5rem;
 }
 
-.btn-green {
-  background-color: #0d5c3a !important;
+.btn-primary-solid {
+  background-color: #1565c0 !important;
   color: #ffffff !important;
   font-weight: 600 !important;
   border-radius: 8px !important;
 }
 
-.info-green-box {
+.info-highlight-box {
   background: #f0fdf4;
-  border: 1px solid #bbf7d0;
+  border: 1px solid #c0e4f2;
   display: flex;
   gap: 0.75rem;
   padding: 1rem;
 }
 
-.info-green-box strong {
+.info-highlight-box strong {
   display: block;
   font-size: 0.85rem;
-  color: #166534;
+  color: #164065;
   margin-bottom: 0.2rem;
 }
 
-.info-green-box p {
+.info-highlight-box p {
   margin: 0;
   font-size: 0.8rem;
-  color: #15803d;
+  color: #1e88e5;
   line-height: 1.3;
 }
 

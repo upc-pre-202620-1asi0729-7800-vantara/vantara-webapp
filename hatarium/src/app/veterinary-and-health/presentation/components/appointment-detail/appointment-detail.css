@@ -6,7 +6,7 @@
 }
 
 .back-link {
-  color: #0d5c3a;
+  color: #1565c0;
   font-weight: 600;
   text-decoration: none;
   display: inline-block;
@@ -98,7 +98,7 @@
   font-weight: 600;
 }
 
-.pill.green-light {
+.pill.accent-light {
   background: #e0f2fe;
   color: #0369a1;
 }
@@ -113,8 +113,8 @@
   color: #1e293b;
 }
 
-.green-icon {
-  color: #0d5c3a;
+.accent-icon {
+  color: #1565c0;
 }
 
 .info-grid {
@@ -205,7 +205,7 @@
 
 .action-box {
   background: #ffffff;
-  border-left: 4px solid #0d5c3a;
+  border-left: 4px solid #1565c0;
 }
 
 .action-box-header {
@@ -215,7 +215,7 @@
 }
 
 .action-icon {
-  color: #0d5c3a;
+  color: #1565c0;
 }
 
 .action-box-header h4 {
@@ -231,8 +231,8 @@
   color: #64748b;
 }
 
-.btn-dark-green {
-  background-color: #0d5c3a !important;
+.btn-primary-strong {
+  background-color: #1565c0 !important;
   color: #ffffff !important;
   font-weight: 600 !important;
   border-radius: 8px !important;
@@ -280,7 +280,7 @@
 }
 
 .step-item.active .step-num {
-  background: #0d5c3a;
+  background: #1565c0;
   color: #ffffff;
 }
 

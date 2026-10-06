@@ -37,9 +37,9 @@
   min-height: 176px;
   padding: 20px;
   box-sizing: border-box;
-  border: 1px solid rgba(39, 83, 57, 0.12);
+  border: 1px solid rgba(39, 62, 83, 0.12);
   border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(23, 66, 40, 0.06);
+  box-shadow: 0 8px 24px rgba(23, 46, 66, 0.06);
 }
 
 .summary-card--females {
@@ -65,7 +65,7 @@
   margin-bottom: 16px;
   border-radius: 12px;
   place-items: center;
-  color: #17613a;
+  color: #173e61;
   background: rgba(218, 244, 228, 0.9);
 }
 
@@ -104,14 +104,14 @@
   margin-top: 14px;
   overflow: hidden;
   border-radius: 999px;
-  background: rgba(21, 89, 51, 0.1);
+  background: rgba(21, 57, 89, 0.1);
 }
 
 .summary-progress span {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: #17613a;
+  background: #173e61;
   transition: width 200ms ease;
 }
 
@@ -132,9 +132,9 @@
   min-height: 390px;
   padding: 24px;
   box-sizing: border-box;
-  border: 1px solid rgba(39, 83, 57, 0.14);
+  border: 1px solid rgba(39, 62, 83, 0.14);
   border-radius: 18px;
-  box-shadow: 0 8px 24px rgba(23, 66, 40, 0.06);
+  box-shadow: 0 8px 24px rgba(23, 46, 66, 0.06);
 }
 
 .insight-card--status {
@@ -173,7 +173,7 @@
   aspect-ratio: 1;
   margin-inline: auto;
   border-radius: 50%;
-  box-shadow: 0 10px 30px rgba(16, 92, 54, 0.14);
+  box-shadow: 0 10px 30px rgba(19, 56, 89, 0.14);
 }
 
 .donut-chart::after {
@@ -181,7 +181,7 @@
   inset: 24%;
   border-radius: 50%;
   background: #f8fbf8;
-  box-shadow: inset 0 0 0 1px rgba(29, 91, 56, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(29, 62, 91, 0.08);
   content: '';
 }
 
@@ -222,7 +222,7 @@
   gap: 12px;
   min-height: 46px;
   padding: 0 10px;
-  border-bottom: 1px solid rgba(46, 91, 63, 0.1);
+  border-bottom: 1px solid rgba(46, 70, 91, 0.1);
 }
 
 .status-legend__label {
@@ -250,11 +250,11 @@
 }
 
 .status-dot--pregnant {
-  background: #168a58;
+  background: #1c5384;
 }
 
 .status-dot--vacant {
-  background: #83c9a4;
+  background: #83b5c9;
 }
 
 .status-dot--heat {
@@ -275,7 +275,7 @@
   align-items: center;
   gap: 12px;
   min-height: 76px;
-  border-bottom: 1px solid rgba(39, 83, 57, 0.1);
+  border-bottom: 1px solid rgba(39, 62, 83, 0.1);
 }
 
 .event-row__icon {
@@ -340,16 +340,16 @@
 .events-view-all {
   align-self: flex-end;
   margin-top: auto;
-  color: #175b37;
+  color: #173b5b;
 }
 
 .recent-events-card {
   margin-top: 24px;
   padding: 22px 24px 16px;
-  border: 1px solid rgba(48, 100, 67, 0.12);
+  border: 1px solid rgba(48, 76, 100, 0.12);
   border-radius: 18px;
   background: #eef6ef;
-  box-shadow: 0 8px 24px rgba(23, 66, 40, 0.05);
+  box-shadow: 0 8px 24px rgba(23, 46, 66, 0.05);
 }
 
 .recent-events-card__header h2 {
@@ -407,7 +407,7 @@
 
 .recent-events-table td {
   padding: 12px;
-  border-top: 1px solid rgba(48, 100, 67, 0.1);
+  border-top: 1px solid rgba(48, 76, 100, 0.1);
   color: #536159;
   font-size: 0.8rem;
   vertical-align: middle;
@@ -451,7 +451,7 @@
 }
 
 .event-status {
-  color: #3f7757;
+  color: #3f5d77;
   font-weight: 600;
 }
 
@@ -461,7 +461,7 @@
   gap: 3px;
   padding: 4px 0;
   border: 0;
-  color: #154c2f;
+  color: #15324c;
   background: transparent;
   font: inherit;
   font-weight: 700;
@@ -481,7 +481,7 @@
 
 .recent-events-card__footer {
   padding: 14px 12px 0;
-  border-top: 1px solid rgba(48, 100, 67, 0.08);
+  border-top: 1px solid rgba(48, 76, 100, 0.08);
   color: #748078;
   font-size: 0.75rem;
 }

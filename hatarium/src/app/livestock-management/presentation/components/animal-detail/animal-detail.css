@@ -112,7 +112,7 @@
   border-radius: 8px;
 
   background: #e5f6ea;
-  color: #168447;
+  color: #1b507f;
 
   font-size: 14px;
   font-weight: 700;
@@ -183,7 +183,7 @@
   border-radius: 20px;
 
   background: #e4f8eb;
-  color: #168447;
+  color: #1b507f;
 
   font-size: 13px;
   font-weight: 600;
@@ -195,7 +195,7 @@
 
   border-radius: 50%;
 
-  background: #1ca653;
+  background: #2265a0;
 }
 
 .animal-status small {
@@ -439,7 +439,7 @@
 
   background: #e4f8eb;
 
-  color: #168447 !important;
+  color: #1b507f !important;
 
   font-weight: 600 !important;
 }
@@ -450,7 +450,7 @@
 
   border-radius: 50%;
 
-  background: #1ca653;
+  background: #2265a0;
 }
 
 
@@ -575,13 +575,13 @@
 
   border-radius: 50%;
 
-  background: #18a653;
+  background: #21639d;
 }
 
 .health-status-main strong {
   display: block;
 
-  color: #168447;
+  color: #1b507f;
 
   font-size: 16px;
   font-weight: 700;

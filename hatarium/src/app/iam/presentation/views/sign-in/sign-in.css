@@ -52,7 +52,7 @@ input[type='text'] {
 }
 
 input:focus {
-  border-color: #176846;
+  border-color: #174268;
   box-shadow: 0 0 0 3px rgb(23 104 70 / 12%);
 }
 
@@ -86,13 +86,13 @@ small { color: #b42318; font-size: 12px; }
 
 .form-options a,
 .switch-flow a {
-  color: #145b3e;
+  color: #143a5b;
   font-weight: 650;
   text-decoration: none;
 }
 
 .check-option { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-.check-option input { width: 17px; height: 17px; accent-color: #155a3f; }
+.check-option input { width: 17px; height: 17px; accent-color: #1565c0; }
 
 .primary-button {
   height: 48px;
@@ -116,7 +116,7 @@ small { color: #b42318; font-size: 12px; }
 }
 
 .error { color: #8e251f; background: #fef0ee; }
-.success { color: #135c3c; background: #ecf8f1; }
+.success { color: #133a5c; background: #ecf8f1; }
 
 .separator {
   display: flex;

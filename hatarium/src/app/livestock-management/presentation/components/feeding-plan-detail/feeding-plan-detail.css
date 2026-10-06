@@ -67,7 +67,7 @@
   padding: 7px 13px;
   border-radius: 18px;
   background: #e3f7e9;
-  color: #14633f;
+  color: #153e62;
   font-size: 13px;
   font-weight: 600;
 }
@@ -76,7 +76,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #1a9a5a;
+  background: #205e94;
 }
 
 .edit-button {
@@ -138,7 +138,7 @@
   justify-content: center;
   border-radius: 11px;
   background: #e5f7eb;
-  color: #12613f;
+  color: #143c5f;
   font-size: 20px;
 }
 
@@ -206,7 +206,7 @@
 .progress-fill {
   height: 100%;
   border-radius: 20px;
-  background: #38ae70;
+  background: #388dae;
 }
 
 .progress-summary {
@@ -218,7 +218,7 @@
 }
 
 .progress-summary strong {
-  color: #14633f;
+  color: #153e62;
 }
 
 /* =========================
@@ -328,7 +328,7 @@
   padding: 5px 10px;
   border-radius: 16px;
   background: #e3f7e9;
-  color: #14633f;
+  color: #153e62;
   font-size: 12px;
   font-weight: 600;
 }

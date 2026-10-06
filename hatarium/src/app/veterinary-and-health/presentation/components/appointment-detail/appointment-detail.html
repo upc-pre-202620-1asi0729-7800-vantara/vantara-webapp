@@ -26,7 +26,7 @@
             <h2 class="animal-name">#{{ animal()?.earTag }} · {{ animal()?.name }}</h2>
             <p class="animal-breed">{{ animal()?.breed }}</p>
             <div class="pills-row">
-              <span class="pill green-light">{{ animal()?.lotName }}</span>
+              <span class="pill accent-light">{{ animal()?.lotName }}</span>
               <span class="pill">{{ animal()?.sex }}</span>
               <span class="pill">{{ 'COMMON.AGE_VALUE' | translate }}</span>
               <span class="pill">{{ animal()?.weight }} kg</span>
@@ -37,7 +37,7 @@
 
       <!-- Datos Básicos de la Cita -->
       <div class="card-box">
-        <h3 class="box-title"><mat-icon class="green-icon">event</mat-icon> {{ 'COMMON.APPOINTMENT_INFO' | translate }}</h3>
+        <h3 class="box-title"><mat-icon class="accent-icon">event</mat-icon> {{ 'COMMON.APPOINTMENT_INFO' | translate }}</h3>
         <div class="info-grid">
           <div class="info-item">
             <span class="label">{{ 'DETAIL.DATETIME' | translate }}</span>
@@ -126,14 +126,14 @@
             <p>{{ 'DETAIL.REGISTER_DIAGNOSIS_SUB' | translate }}</p>
           </div>
         </div>
-        <button mat-flat-button class="btn-dark-green full-width" (click)="goToRegisterDiagnosis()">
+        <button mat-flat-button class="btn-primary-strong full-width" (click)="goToRegisterDiagnosis()">
           {{ 'DETAIL.REGISTER_DIAGNOSIS_BTN' | translate }}
         </button>
       </div>
 
       <!-- Progreso de la Atención (Stepper del Mockup) -->
       <div class="card-box">
-        <h4 class="section-sub"><mat-icon class="green-icon">published_with_changes</mat-icon> {{ 'COMMON.PROGRESS' | translate }}</h4>
+        <h4 class="section-sub"><mat-icon class="accent-icon">published_with_changes</mat-icon> {{ 'COMMON.PROGRESS' | translate }}</h4>
         <div class="stepper-horizontal">
           <div class="step-item active">
             <div class="step-num">1</div>
@@ -161,7 +161,7 @@
 
       <!-- Historial de esta Cita -->
       <div class="card-box">
-        <h4 class="section-sub"><mat-icon class="green-icon">history</mat-icon> {{ 'DETAIL.HISTORY_TITLE' | translate }}</h4>
+        <h4 class="section-sub"><mat-icon class="accent-icon">history</mat-icon> {{ 'DETAIL.HISTORY_TITLE' | translate }}</h4>
         <div class="empty-history">
           <mat-icon class="empty-icon">description</mat-icon>
           <p><strong>{{ 'DETAIL.NO_RECORDS' | translate }}</strong></p>

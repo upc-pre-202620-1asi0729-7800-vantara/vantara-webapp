@@ -3,12 +3,12 @@
 .page-title { font-size: 1.75rem; font-weight: 700; color: #111827; margin: 0; }
 .page-subtitle { color: #6b7280; font-size: 0.9rem; margin-top: 0.2rem; }
 
-.btn-green { background-color: #0d5c3a !important; color: white !important; border-radius: 8px !important; font-weight: 600 !important; }
+.btn-primary-solid { background-color: #1565c0 !important; color: white !important; border-radius: 8px !important; font-weight: 600 !important; }
 
 .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
 .kpi-card { background: white; border-radius: 12px; border: 1px solid #e5e7eb; padding: 1.25rem; display: flex; align-items: center; gap: 1rem; }
 .kpi-icon-wrapper { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
-.kpi-icon-wrapper.green-light { background: #dcfce7; color: #15803d; }
+.kpi-icon-wrapper.accent-light { background: #e3f2fd; color: #1e88e5; }
 .kpi-icon-wrapper.blue-light { background: #e0f2fe; color: #0369a1; }
 .kpi-icon-wrapper.orange-light { background: #ffedd5; color: #c2410c; }
 
@@ -18,7 +18,7 @@
 
 .tabs-nav-bar { display: flex; gap: 0.5rem; border-bottom: 1px solid #e5e7eb; margin-bottom: 1.25rem; }
 .tab-btn { background: transparent; border: none; padding: 0.75rem 1.25rem; font-size: 0.9rem; font-weight: 600; color: #64748b; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; border-bottom: 3px solid transparent; }
-.tab-btn.active { color: #0d5c3a; border-bottom-color: #0d5c3a; background: white; border-radius: 8px 8px 0 0; }
+.tab-btn.active { color: #1565c0; border-bottom-color: #1565c0; background: white; border-radius: 8px 8px 0 0; }
 
 .filters-bar { display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem; }
 .search-input-wrapper { flex: 1; background: white; border: 1px solid #d1d5db; border-radius: 8px; padding: 0.5rem 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
@@ -26,21 +26,21 @@
 
 .origin-pills-filter { display: flex; gap: 0.5rem; }
 .pill-filter { border: 1px solid #d1d5db; background: white; padding: 0.5rem 0.85rem; border-radius: 8px; font-size: 0.82rem; font-weight: 600; color: #475569; cursor: pointer; }
-.pill-filter.active { background: #0d5c3a; color: white; border-color: #0d5c3a; }
+.pill-filter.active { background: #1565c0; color: white; border-color: #1565c0; }
 .pill-filter.blue.active { background: #0284c7; color: white; border-color: #0284c7; }
-.pill-filter.green.active { background: #16a34a; color: white; border-color: #16a34a; }
+.pill-filter.accent.active { background: #1976d2; color: white; border-color: #1976d2; }
 
 .section-block { background: white; border-radius: 12px; border: 1px solid #e5e7eb; padding: 1.25rem; }
 .cards-list { display: flex; flex-direction: column; gap: 0.75rem; }
 
 .appointment-card-item { display: grid; grid-template-columns: 90px 45px 2.5fr 1.5fr 110px 100px; align-items: center; gap: 1rem; background: white; border: 1px solid #f1f5f9; border-radius: 10px; padding: 1rem; }
-.day-number { font-size: 1.4rem; font-weight: 800; color: #0d5c3a; }
+.day-number { font-size: 1.4rem; font-weight: 800; color: #1565c0; }
 .month-year { font-size: 0.75rem; font-weight: 600; color: #64748b; }
 .animal-avatar { font-size: 2rem; }
 
 .origin-badge { padding: 0.2rem 0.55rem; border-radius: 6px; font-size: 0.72rem; font-weight: 700; margin-left: 0.5rem; }
 .origin-badge.blue { background: #e0f2fe; color: #0369a1; }
-.origin-badge.green { background: #dcfce7; color: #15803d; }
+.origin-badge.accent { background: #e3f2fd; color: #1e88e5; }
 
 .sub-text { margin: 0.2rem 0 0 0; font-size: 0.85rem; color: #64748b; }
 .vet-col { display: flex; align-items: center; gap: 0.4rem; color: #475569; font-size: 0.85rem; }
@@ -48,7 +48,7 @@
 
 .status-pill { padding: 0.25rem 0.65rem; border-radius: 12px; font-size: 0.75rem; font-weight: 700; }
 .status-pill.scheduled { background: #fef3c7; color: #d97706; }
-.status-pill.completed { background: #dcfce7; color: #15803d; }
+.status-pill.completed { background: #e3f2fd; color: #1e88e5; }
 
-.btn-link-action { color: #0d5c3a; font-weight: 700; border: none; background: transparent; cursor: pointer; }
+.btn-link-action { color: #1565c0; font-weight: 700; border: none; background: transparent; cursor: pointer; }
 .empty-msg { text-align: center; color: #94a3b8; font-size: 0.85rem; padding: 2rem 0; }

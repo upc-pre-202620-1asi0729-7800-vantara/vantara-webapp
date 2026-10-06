@@ -11,7 +11,7 @@
   <div class="two-col-layout">
     <div class="main-form-col">
       <div class="card-box">
-        <h3 class="box-title"><mat-icon class="green-icon">event_available</mat-icon> {{ 'FORM.SCHEDULING_DETAILS' | translate }}</h3>
+        <h3 class="box-title"><mat-icon class="accent-icon">event_available</mat-icon> {{ 'FORM.SCHEDULING_DETAILS' | translate }}</h3>
 
         <div class="form-group">
           <label>{{ 'FORM.SELECT_ANIMAL' | translate }}</label>
@@ -66,14 +66,14 @@
 
         <div class="form-actions">
           <button mat-stroked-button routerLink="/veterinary/appointments">{{ 'COMMON.CANCEL' | translate }}</button>
-          <button mat-flat-button class="btn-green" (click)="saveAppointment()">{{ 'FORM.SCHEDULE_AND_NOTIFY' | translate }}</button>
+          <button mat-flat-button class="btn-primary-solid" (click)="saveAppointment()">{{ 'FORM.SCHEDULE_AND_NOTIFY' | translate }}</button>
         </div>
       </div>
     </div>
 
     <div class="sidebar-col">
-      <div class="card-box info-green-box">
-        <mat-icon class="green-icon">check_circle</mat-icon>
+      <div class="card-box info-highlight-box">
+        <mat-icon class="accent-icon">check_circle</mat-icon>
         <div>
           <strong>{{ 'FORM.VISIT_INFO' | translate }}</strong>
           <p>{{ 'FORM.VISIT_INFO_TEXT' | translate }}</p>
@@ -81,7 +81,7 @@
       </div>
 
       <div class="card-box">
-        <h4 class="box-title-sm"><mat-icon class="green-icon">assignment_ind</mat-icon> {{ 'FORM.RESPONSIBLE' | translate }}</h4>
+        <h4 class="box-title-sm"><mat-icon class="accent-icon">assignment_ind</mat-icon> {{ 'FORM.RESPONSIBLE' | translate }}</h4>
         <ul class="info-list-sm">
           <li><span>{{ 'FORM.REQUESTED_BY' | translate }}</span> <strong>Veterinario (Dr. Rodríguez)</strong></li>
           <li><span>{{ 'FORM.RANCHER_TO_NOTIFY' | translate }}</span> <strong>Carlos Mendoza</strong></li>
