@@ -9,13 +9,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LivestockStore } from '../../../application/livestock-store';
 import {MatButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
+import {TranslatePipe} from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-animal-detail',
   imports: [
     MatButton,
-    MatIcon
+    MatIcon,
+    TranslatePipe
   ],
   templateUrl: './animal-detail.html',
   styleUrl: './animal-detail.css',

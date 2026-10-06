@@ -7,7 +7,7 @@
       mat-button
       class="back-button" (click)="goBackToAnimals()">
       <mat-icon>arrow_back</mat-icon>
-      Volver a Ganado
+      {{ 'animal.backToLivestock' | translate }}
     </button>
 
   </section>
@@ -76,16 +76,16 @@
       <div class="animal-status">
 
         <span class="status-label">
-          Estado actual
+          {{ 'animal.currentStatus' | translate }}
         </span>
 
         <span class="status-badge">
           <span class="status-dot"></span>
-          Saludable
+          {{ 'livestock.healthyStatus' | translate }}
         </span>
 
         <small>
-          Óptimo estado sanitario
+          {{ 'animal.optimalHealth' | translate }}
         </small>
 
       </div>
@@ -98,22 +98,22 @@
 
       <button class="detail-tab active">
         <mat-icon>person</mat-icon>
-        Información general
+        {{ 'animal.tabGeneral' | translate }}
       </button>
 
       <button class="detail-tab">
         <mat-icon>favorite</mat-icon>
-        Historial sanitario
+        {{ 'animal.tabHealth' | translate }}
       </button>
 
       <button class="detail-tab">
         <mat-icon>eco</mat-icon>
-        Alimentación
+        {{ 'animal.tabFeeding' | translate }}
       </button>
 
       <button class="detail-tab">
         <mat-icon>calendar_month</mat-icon>
-        Citas
+        {{ 'animal.tabAppointments' | translate }}
       </button>
 
     </nav>
@@ -134,7 +134,7 @@
                 <mat-icon>description</mat-icon>
               </div>
 
-              <h2>Información básica</h2>
+              <h2>{{ 'animal.basicInfo' | translate }}</h2>
             </div>
 
             <button
@@ -142,7 +142,7 @@
               class="small-edit-button"
             >
               <mat-icon>edit</mat-icon>
-              Editar
+              {{ 'profile.save' | translate }}
             </button>
 
           </div>
@@ -150,32 +150,32 @@
           <div class="basic-info-list">
 
             <div class="info-row">
-              <span>Arete / ID externo</span>
+              <span>{{ 'animal.earTag' | translate }}</span>
               <strong>{{ animal.earTag }}</strong>
             </div>
 
             <div class="info-row">
-              <span>Nombre</span>
+              <span>{{ 'animal.name' | translate }}</span>
               <strong>{{ animal.name }}</strong>
             </div>
 
             <div class="info-row">
-              <span>Lote</span>
+              <span>{{ 'animal.lot' | translate }}</span>
               <strong>{{ getLotName(animal.lotId) }}</strong>
             </div>
 
             <div class="info-row">
-              <span>Especie</span>
+              <span>{{ 'animal.species' | translate }}</span>
               <strong>{{ animal.species }}</strong>
             </div>
 
             <div class="info-row">
-              <span>Raza</span>
+              <span>{{ 'animal.breed' | translate }}</span>
               <strong>{{ animal.breed }}</strong>
             </div>
 
             <div class="info-row">
-              <span>Sexo</span>
+              <span>{{ 'animal.sex' | translate }}</span>
               <strong>
                 <mat-icon>
                   {{ animal.sex === 'Macho' ? 'male' : 'female' }}
@@ -185,30 +185,30 @@
             </div>
 
             <div class="info-row">
-              <span>Fecha de nacimiento</span>
+              <span>{{ 'animal.birthDate' | translate }}</span>
               <strong>{{ animal.birthDate }}</strong>
             </div>
 
             <div class="info-row">
-              <span>Edad</span>
+              <span>{{ 'animal.age' | translate }}</span>
               <strong>{{ getAge(animal.birthDate) }}</strong>
             </div>
 
             <div class="info-row">
-              <span>Peso actual</span>
+              <span>{{ 'animal.currentWeight' | translate }}</span>
               <strong>{{ animal.weight }} kg</strong>
             </div>
 
             <div class="info-row">
-              <span>Estado</span>
+              <span>{{ 'animal.status' | translate }}</span>
               <strong class="healthy-status">
                 <span class="status-dot"></span>
-                Saludable
+                {{ 'livestock.healthyStatus' | translate }}
               </strong>
             </div>
 
             <div class="info-row">
-              <span>Fecha de registro</span>
+              <span>{{ 'animal.registeredAt' | translate }}</span>
               <strong>{{ animal.registeredAt }}</strong>
             </div>
 
@@ -228,7 +228,7 @@
                 <mat-icon>verified_user</mat-icon>
               </div>
 
-              <h2>Estado sanitario actual</h2>
+              <h2>{{ 'animal.currentHealthStatus' | translate }}</h2>
             </div>
 
           </div>
@@ -242,8 +242,8 @@
               </div>
 
               <div>
-                <strong>Saludable</strong>
-                <small>Óptimo estado sanitario</small>
+                <strong>{{ 'livestock.healthyStatus' | translate }}</strong>
+                <small>{{ 'animal.optimalHealth' | translate }}</small>
               </div>
 
             </div>
@@ -251,13 +251,13 @@
             <div class="health-controls">
 
               <div>
-                <span>Último control</span>
-                <strong>Sin datos</strong>
+                <span>{{ 'animal.lastCheck' | translate }}</span>
+                <strong>{{ 'animal.noData' | translate }}</strong>
               </div>
 
               <div>
-                <span>Próximo control</span>
-                <strong>Sin datos</strong>
+                <span>{{ 'animal.nextCheck' | translate }}</span>
+                <strong>{{ 'animal.noData' | translate }}</strong>
               </div>
 
             </div>
@@ -283,7 +283,7 @@
                 <mat-icon>photo_camera</mat-icon>
               </div>
 
-              <h2>Foto del animal</h2>
+              <h2>{{ 'animal.photo' | translate }}</h2>
             </div>
 
             <button
@@ -291,7 +291,7 @@
               class="small-edit-button"
             >
               <mat-icon>photo_camera</mat-icon>
-              Cambiar foto
+              {{ 'animal.changePhoto' | translate }}
             </button>
 
           </div>
@@ -312,7 +312,7 @@
                 <mat-icon>pets</mat-icon>
 
                 <span>
-              No hay una foto registrada
+              {{ 'animal.noPhoto' | translate }}
             </span>
 
               </div>
@@ -335,7 +335,7 @@
                 <mat-icon>groups</mat-icon>
               </div>
 
-              <h2>Genealogía</h2>
+              <h2>{{ 'animal.genealogy' | translate }}</h2>
             </div>
 
             <button
@@ -343,7 +343,7 @@
               class="small-edit-button"
             >
               <mat-icon>edit</mat-icon>
-              Editar
+              {{ 'profile.save' | translate }}
             </button>
 
           </div>
@@ -351,7 +351,7 @@
           <div class="genealogy-list">
 
             <div class="info-row">
-              <span>Madre</span>
+              <span>{{ 'animal.mother' | translate }}</span>
 
               <strong>
                 {{ getMotherName(animal.motherId) }}
@@ -359,7 +359,7 @@
             </div>
 
             <div class="info-row">
-              <span>Padre</span>
+              <span>{{ 'animal.father' | translate }}</span>
 
               <strong>
                 {{ getFatherName(animal.fatherId) }}
@@ -382,14 +382,14 @@
                 <mat-icon>favorite</mat-icon>
               </div>
 
-              <h2>Resumen sanitario</h2>
+              <h2>{{ 'animal.healthSummary' | translate }}</h2>
             </div>
 
             <button
               mat-stroked-button
               class="small-edit-button"
             >
-              Ver historial
+              {{ 'animal.viewHistory' | translate }}
               <mat-icon>arrow_forward</mat-icon>
             </button>
 
@@ -399,22 +399,22 @@
 
             <div class="health-stat">
               <strong>—</strong>
-              <span>Total de eventos</span>
+              <span>{{ 'animal.totalEvents' | translate }}</span>
             </div>
 
             <div class="health-stat">
               <strong>—</strong>
-              <span>Vacunas aplicadas</span>
+              <span>{{ 'animal.vaccinesApplied' | translate }}</span>
             </div>
 
             <div class="health-stat">
               <strong>—</strong>
-              <span>Tratamientos</span>
+              <span>{{ 'animal.treatments' | translate }}</span>
             </div>
 
             <div class="health-stat">
               <strong>—</strong>
-              <span>Controles veterinarios</span>
+              <span>{{ 'animal.vetChecks' | translate }}</span>
             </div>
 
           </div>
