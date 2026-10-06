@@ -1,1 +1,5 @@
+<div class="lang-bar">
+  <button type="button" (click)="switchLanguage('es')" [class.active]="currentLang() === 'es'">ES</button>
+  <button type="button" (click)="switchLanguage('en')" [class.active]="currentLang() === 'en'">EN</button>
+</div>
 <router-outlet/>
