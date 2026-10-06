@@ -8,6 +8,7 @@ import { FeedingDashboard } from './livestock-management/presentation/components
 import { FeedingPlanDetail } from './livestock-management/presentation/components/feeding-plan-detail/feeding-plan-detail';
 import { FeedingPlanCreate } from './livestock-management/presentation/components/feeding-plan-add/feeding-plan-add';
 import { ProfileView } from './profile/presentation/profile-view/profile-view';
+import { NotificationCenterView } from './notifications/presentation/notification-center-view/notification-center-view';
 
 export const routes: Routes = [
   {
@@ -31,6 +32,7 @@ export const routes: Routes = [
       { path: 'livestock/feeding/add', component: FeedingPlanCreate },
       { path: 'livestock/feeding/:id', component: FeedingPlanDetail },
       { path: 'profile', component: ProfileView },
+      { path: 'notifications', component: NotificationCenterView },
       {
         path: 'config/payments',
         loadChildren: () =>

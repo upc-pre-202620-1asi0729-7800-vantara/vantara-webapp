@@ -6,6 +6,7 @@ import { NotificationList } from '../notification-list/notification-list';
 import { NotificationStore } from '../../application/Notification-Store';
 import { NotificationService } from '../../application/notification-service';
 import { NotificationApiClient } from '../../infrastructure/notification-api-client';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-notification-center-view',
@@ -27,7 +28,7 @@ export class NotificationCenterView implements OnInit {
     this.store = new NotificationStore();
 
     const api = new NotificationApiClient(
-      'http://localhost:3000'
+      environment.hatariumApiBaseUrl
     );
 
     this.service = new NotificationService(
