@@ -1,6 +1,6 @@
-import {Component, inject, signal} from '@angular/core';
+import {Component, effect, inject, signal} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {IamStore} from '../../../application/iam.store';
 import {AuthenticationLayout} from '../../components/authentication-layout/authentication-layout';
 
@@ -14,6 +14,15 @@ import {AuthenticationLayout} from '../../components/authentication-layout/authe
 export class SignIn {
   protected readonly store = inject(IamStore);
   protected readonly passwordVisible = signal(false);
+  private readonly router = inject(Router);
+
+  constructor() {
+    effect(() => {
+      if (this.store.currentAccount()) {
+        void this.router.navigateByUrl('/suscripcion');
+      }
+    });
+  }
 
   protected readonly form = new FormGroup({
     email: new FormControl('', {
