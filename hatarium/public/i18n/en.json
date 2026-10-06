@@ -335,7 +335,10 @@
       "action": "Review alerts"
     },
     "title": "Home",
-    "content": "Hatarium main dashboard."
+    "content": "Hatarium main dashboard.",
+    "greetingMorning": "Good morning, {{name}}",
+    "greetingAfternoon": "Good afternoon, {{name}}",
+    "greetingEvening": "Good evening, {{name}}"
   },
   "payments": {
     "chooseSubscription": "Choose your subscription",

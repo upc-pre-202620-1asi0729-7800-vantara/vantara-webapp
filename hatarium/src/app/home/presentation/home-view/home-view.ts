@@ -42,6 +42,16 @@ export class HomeView implements OnInit {
   private readonly session = inject(SessionProfile);
 
   readonly userName = this.session.fullName;
+
+  /** Greeting key depends on the current hour, resolved by the TranslatePipe. */
+  readonly greetingKey = signal(this.greetingFor(new Date().getHours()));
+
+  private greetingFor(hour: number): string {
+    if (hour < 12) return 'home.greetingMorning';
+    if (hour < 19) return 'home.greetingAfternoon';
+    return 'home.greetingEvening';
+  }
+
   readonly counts = signal<Counts>({ animals: 0, lots: 0, appointments: 0, alerts: 0 });
   readonly activity = signal<NotificationItem[]>([]);
   readonly openHealthAlerts = signal<NotificationItem[]>([]);

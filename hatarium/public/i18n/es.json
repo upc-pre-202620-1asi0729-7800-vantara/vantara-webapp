@@ -335,7 +335,10 @@
       "action": "Revisar alertas"
     },
     "title": "Inicio",
-    "content": "Panel principal de Hatarium."
+    "content": "Panel principal de Hatarium.",
+    "greetingMorning": "Buenos días, {{name}}",
+    "greetingAfternoon": "Buenas tardes, {{name}}",
+    "greetingEvening": "Buenas noches, {{name}}"
   },
   "payments": {
     "chooseSubscription": "Elige tu suscripción",
