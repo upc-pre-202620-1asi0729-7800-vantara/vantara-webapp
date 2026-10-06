@@ -1,1 +1,116 @@
-{}
+{
+  "sidebar": {
+    "home": "Home",
+    "livestock": "Livestock",
+    "health": "Health",
+    "reproductive": "Reproductive",
+    "feeding": "Feeding",
+    "lots": "Lots",
+    "reports": "Reports",
+    "appointments": "Appointments",
+    "alerts": "Alerts"
+  },
+  "dashboard": {
+    "title": "Reproduction",
+    "subtitle": "Control your herd's reproductive cycle and register reproductive events.",
+    "registerEvent": "Register event",
+    "placeholder": "Reproductive events overview (data coming in a future iteration).",
+    "summary": {
+      "ariaLabel": "Reproductive summary",
+      "reproductiveFemales": "Reproductive females",
+      "ofTotal": "of total",
+      "pregnant": "Pregnant",
+      "ofFemales": "of females",
+      "upcomingCalvings": "Upcoming calvings",
+      "nextTwoMonths": "In the next 2 months",
+      "followUpRequired": "Require follow-up",
+      "veterinaryReview": "Veterinary review",
+      "loadError": "The reproductive summary could not be loaded."
+    },
+    "reproductiveStatus": {
+      "title": "Herd reproductive status",
+      "subtitle": "Reproductive status distribution among females",
+      "females": "Reproductive females",
+      "pregnant": "Pregnant",
+      "vacant": "Vacant",
+      "inHeat": "In heat",
+      "issues": "Reproductive issues"
+    },
+    "upcomingEvents": {
+      "title": "Upcoming reproductive events",
+      "subtitle": "Events expected from current records",
+      "estimatedCalving": "Estimated calving",
+      "upcoming": "Upcoming",
+      "empty": "There are no scheduled reproductive events.",
+      "viewAll": "View all scheduled events"
+    },
+    "recentEvents": {
+      "title": "Recent reproductive events",
+      "subtitle": "Latest pregnancy, calving, dry-off and weaning records.",
+      "date": "Date",
+      "animal": "Animal",
+      "eventType": "Event type",
+      "detail": "Detail",
+      "status": "Status",
+      "action": "Action",
+      "view": "View",
+      "empty": "There are no reproductive events registered yet.",
+      "showing": "Showing",
+      "of": "of",
+      "types": {
+        "pregnancy": "Pregnancy",
+        "calving": "Calving",
+        "dryOff": "Dry-off",
+        "weaning": "Weaning"
+      },
+      "details": {
+        "pregnancy": "Pregnancy confirmation",
+        "calving": "Registered calving",
+        "dryOff": "Start of dry period",
+        "weaning": "Registered weaning"
+      },
+      "statuses": {
+        "confirmed": "Confirmed",
+        "completed": "Completed",
+        "registered": "Registered"
+      }
+    }
+  },
+  "eventSelector": {
+    "title": "Register reproductive event",
+    "subtitle": "Select the type of event you want to register.",
+    "pregnancy": "Pregnancy",
+    "pregnancyDesc": "Register the confirmation of pregnancy of an animal and the estimated calving date.",
+    "calving": "Calving",
+    "calvingDesc": "Register the birth of the calf and the calving details.",
+    "dryOff": "Dry-off",
+    "dryOffDesc": "Register the start of the dry period of the animal.",
+    "weaning": "Weaning",
+    "weaningDesc": "Register the weaning of the calf and its data.",
+    "whatIsEvent": "What is a reproductive event?",
+    "whatIsEventDesc": "Reproductive events let you keep full control of your animals' reproductive cycle, including pregnancy, calving, dry-off and weaning."
+  },
+  "forms": {
+    "pregnancyTitle": "Register pregnancy",
+    "calvingTitle": "Register calving",
+    "dryOffTitle": "Register dry-off",
+    "weaningTitle": "Register weaning",
+    "animalId": "Animal ID",
+    "calfId": "Calf ID (optional)",
+    "confirmedOn": "Confirmation date",
+    "expectedCalvingOn": "Expected calving",
+    "pregnancyId": "Pregnancy ID",
+    "calvingOn": "Calving date",
+    "outcome": "Outcome",
+    "outcomePlaceholder": "E.g. health",
+    "dryOffOn": "Dry-off date",
+    "weanedOn": "Weaning date",
+    "weaningWeightKg": "Weaning weight (kg)",
+    "cancel": "Cancel",
+    "close": "Close",
+    "submitPregnancy": "Register pregnancy",
+    "submitCalving": "Register calving",
+    "submitDryOff": "Register dry-off",
+    "submitWeaning": "Register weaning"
+  }
+}

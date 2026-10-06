@@ -1,13 +1,32 @@
-<mat-toolbar>
-  <mat-toolbar-row>
-    <h1>ACME Learning Center</h1>
-    <div class="mat-spacer"></div>
-    @for (option of options(); track option.label) {
-      <a mat-button [routerLink]="option.link" routerLinkActive="active">{{ option.label | translate }}</a>
-    }
-    <app-authentication-section/>
-    <app-language-switcher/>
-  </mat-toolbar-row>
-</mat-toolbar>
-<router-outlet/>
-<app-footer-content/>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav mode="side" opened class="sidenav">
+    <div class="brand">
+      <mat-icon>agriculture</mat-icon>
+      <div>
+        <strong>Hatarium</strong>
+        <small>Gestión Ganadera</small>
+      </div>
+    </div>
+    <mat-nav-list>
+      @for (option of options; track option.labelKey) {
+        @if (option.link) {
+          <a mat-list-item [routerLink]="option.link" routerLinkActive="active">
+            <mat-icon matListItemIcon>{{ option.icon }}</mat-icon>
+            <span matListItemTitle>{{ option.labelKey | translate }}</span>
+          </a>
+        } @else {
+          <mat-list-item class="disabled" aria-disabled="true">
+            <mat-icon matListItemIcon>{{ option.icon }}</mat-icon>
+            <span matListItemTitle>{{ option.labelKey | translate }}</span>
+          </mat-list-item>
+        }
+      }
+    </mat-nav-list>
+    <div class="switcher">
+      <app-language-switcher/>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet/>
+  </mat-sidenav-content>
+</mat-sidenav-container>

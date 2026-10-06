@@ -1,1 +1,116 @@
-{}
+{
+  "sidebar": {
+    "home": "Inicio",
+    "livestock": "Ganado",
+    "health": "Salud",
+    "reproductive": "ReproducciÃ³n",
+    "feeding": "AlimentaciÃ³n",
+    "lots": "Lotes",
+    "reports": "Reportes",
+    "appointments": "Citas",
+    "alerts": "Alertas"
+  },
+  "dashboard": {
+    "title": "ReproducciÃ³n",
+    "subtitle": "Controla el ciclo reproductivo de tu ganado y registra los eventos reproductivos.",
+    "registerEvent": "Registrar evento",
+    "placeholder": "Vista general de eventos reproductivos (pendiente de datos en una prÃ³xima iteraciÃ³n).",
+    "summary": {
+      "ariaLabel": "Resumen reproductivo",
+      "reproductiveFemales": "Hembras reproductivas",
+      "ofTotal": "del total",
+      "pregnant": "PreÃ±adas",
+      "ofFemales": "de hembras",
+      "upcomingCalvings": "PrÃ³ximos partos",
+      "nextTwoMonths": "En los prÃ³ximos 2 meses",
+      "followUpRequired": "Requieren seguimiento",
+      "veterinaryReview": "RevisiÃ³n veterinaria",
+      "loadError": "No se pudo cargar el resumen reproductivo."
+    },
+    "reproductiveStatus": {
+      "title": "Estado reproductivo del ganado",
+      "subtitle": "DistribuciÃ³n del estado reproductivo en hembras",
+      "females": "Hembras reproductivas",
+      "pregnant": "PreÃ±adas",
+      "vacant": "VacÃ­as",
+      "inHeat": "En celo",
+      "issues": "Problemas reproductivos"
+    },
+    "upcomingEvents": {
+      "title": "PrÃ³ximos eventos reproductivos",
+      "subtitle": "Eventos previstos segÃºn los registros actuales",
+      "estimatedCalving": "Parto estimado",
+      "upcoming": "PrÃ³ximo",
+      "empty": "No hay eventos reproductivos programados.",
+      "viewAll": "Ver todos los eventos programados"
+    },
+    "recentEvents": {
+      "title": "Eventos reproductivos recientes",
+      "subtitle": "Ãšltimos registros de preÃ±ez, parto, secado y destete del ganado.",
+      "date": "Fecha",
+      "animal": "Animal",
+      "eventType": "Tipo de evento",
+      "detail": "Detalle",
+      "status": "Estado",
+      "action": "AcciÃ³n",
+      "view": "Ver",
+      "empty": "TodavÃ­a no hay eventos reproductivos registrados.",
+      "showing": "Mostrando",
+      "of": "de",
+      "types": {
+        "pregnancy": "PreÃ±ez",
+        "calving": "Parto",
+        "dryOff": "Secado",
+        "weaning": "Destete"
+      },
+      "details": {
+        "pregnancy": "ConfirmaciÃ³n de preÃ±ez",
+        "calving": "Parto registrado",
+        "dryOff": "Inicio de periodo seco",
+        "weaning": "Destete registrado"
+      },
+      "statuses": {
+        "confirmed": "Confirmado",
+        "completed": "Completado",
+        "registered": "Registrado"
+      }
+    }
+  },
+  "eventSelector": {
+    "title": "Registrar evento reproductivo",
+    "subtitle": "Selecciona el tipo de evento que deseas registrar.",
+    "pregnancy": "PreÃ±ez",
+    "pregnancyDesc": "Registra la confirmaciÃ³n de preÃ±ez de un animal y la fecha estimada de parto.",
+    "calving": "Parto",
+    "calvingDesc": "Registra el nacimiento de la crÃ­a y los detalles del parto.",
+    "dryOff": "Secado",
+    "dryOffDesc": "Registra el inicio del periodo seco del animal.",
+    "weaning": "Destete",
+    "weaningDesc": "Registra el destete de la crÃ­a y sus datos.",
+    "whatIsEvent": "Â¿QuÃ© es un evento reproductivo?",
+    "whatIsEventDesc": "Los eventos reproductivos permiten llevar un control completo del ciclo reproductivo de tus animales, incluyendo preÃ±ez, parto, secado y destete."
+  },
+  "forms": {
+    "pregnancyTitle": "Registrar preÃ±ez",
+    "calvingTitle": "Registrar parto",
+    "dryOffTitle": "Registrar secado",
+    "weaningTitle": "Registrar destete",
+    "animalId": "ID del animal",
+    "calfId": "ID de la crÃ­a (opcional)",
+    "confirmedOn": "Fecha de confirmaciÃ³n",
+    "expectedCalvingOn": "Parto esperado",
+    "pregnancyId": "ID de la preÃ±ez",
+    "calvingOn": "Fecha del parto",
+    "outcome": "Resultado",
+    "outcomePlaceholder": "Ej: health",
+    "dryOffOn": "Fecha de secado",
+    "weanedOn": "Fecha de destete",
+    "weaningWeightKg": "Peso al destete (kg)",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "submitPregnancy": "Registrar preÃ±ez",
+    "submitCalving": "Registrar parto",
+    "submitDryOff": "Registrar secado",
+    "submitWeaning": "Registrar destete"
+  }
+}

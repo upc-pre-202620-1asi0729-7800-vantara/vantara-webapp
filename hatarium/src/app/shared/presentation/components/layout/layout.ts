@@ -1,41 +1,39 @@
-import {Component, signal} from '@angular/core';
-import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatButtonModule} from '@angular/material/button';
-import {TranslatePipe} from '@ngx-translate/core';
-import {LanguageSwitcher} from '../language-switcher/language-switcher';
-import {FooterContent} from '../footer-content/footer-content';
-import {
-  AuthenticationSection
-} from '../../../../iam/presentation/components/authentication-section/authentication-section';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
+import { LanguageSwitcher } from '../language-switcher/language-switcher';
+
+interface NavOption {
+  labelKey: string;
+  icon: string;
+  link?: string;
+}
 
 /**
- * Main shell component that hosts top-level navigation and routed content.
+ * Application layout with a sidenav focused on the reproductive bounded context.
  */
 @Component({
   selector: 'app-layout',
-  imports: [
-    RouterOutlet,
-    RouterLink,
-    MatToolbarModule,
-    MatButtonModule,
-    RouterLinkActive,
-    TranslatePipe,
-    LanguageSwitcher,
-    FooterContent,
-    AuthenticationSection,
-  ],
+  imports: [MatSidenavModule, MatToolbarModule, MatIconModule, MatListModule, RouterOutlet, RouterLink, RouterLinkActive, TranslatePipe, LanguageSwitcher],
   templateUrl: './layout.html',
-  styleUrl: './layout.css'
+  styleUrl: './layout.css',
+  changeDetection: ChangeDetectionStrategy.Eager
 })
 export class Layout {
-  /**
-   * Array of navigation options for the application's menu.
-   */
-  options = signal([
-    {link: '/home', label: 'option.home'},
-    {link: '/about', label: 'option.about'},
-    {link: '/learning/categories', label: 'option.categories'},
-    {link: '/learning/courses', label: 'option.courses'}
-  ]);
+  /** Navigation options shown in the sidenav. Only Reproducción is routed for now. */
+  readonly options: NavOption[] = [
+    { labelKey: 'sidebar.home', icon: 'home' },
+    { labelKey: 'sidebar.livestock', icon: 'pets' },
+    { labelKey: 'sidebar.health', icon: 'health_and_safety' },
+    { labelKey: 'sidebar.reproductive', icon: 'favorite', link: '/reproductive' },
+    { labelKey: 'sidebar.feeding', icon: 'restaurant' },
+    { labelKey: 'sidebar.lots', icon: 'warehouse' },
+    { labelKey: 'sidebar.reports', icon: 'bar_chart' },
+    { labelKey: 'sidebar.appointments', icon: 'event' },
+    { labelKey: 'sidebar.alerts', icon: 'notifications' }
+  ];
 }

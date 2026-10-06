@@ -1,0 +1,67 @@
+<div class="form-overlay">
+  <mat-card
+    class="event-dialog"
+    role="dialog"
+    aria-modal="true"
+    cdkTrapFocus
+    cdkTrapFocusAutoCapture
+    [attr.aria-label]="'forms.calvingTitle' | translate"
+  >
+    <mat-card-header>
+      <mat-card-title>{{ 'forms.calvingTitle' | translate }}</mat-card-title>
+      <a
+        mat-icon-button
+        class="dialog-close"
+        routerLink="/reproductive"
+        [attr.aria-label]="'forms.close' | translate"
+      >
+        <mat-icon>close</mat-icon>
+      </a>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <section class="form-section">
+          <h3>Información del animal</h3>
+          <mat-form-field appearance="outline">
+            <mat-label>Animal</mat-label>
+            <mat-select disabled
+              ><mat-option value="">Selecciona un animal…</mat-option></mat-select
+            >
+          </mat-form-field>
+        </section>
+        <section class="form-section">
+          <h3>Detalles del parto</h3>
+          <mat-form-field appearance="outline"
+            ><mat-label>{{ 'forms.pregnancyId' | translate }}</mat-label
+            ><input matInput formControlName="pregnancyId" required
+          /></mat-form-field>
+          <mat-form-field appearance="outline"
+            ><mat-label>{{ 'forms.calvingOn' | translate }}</mat-label
+            ><input matInput type="date" formControlName="calvingOn" required
+          /></mat-form-field>
+          <mat-form-field appearance="outline"
+            ><mat-label>{{ 'forms.outcome' | translate }}</mat-label
+            ><input
+              matInput
+              formControlName="outcome"
+              [placeholder]="'forms.outcomePlaceholder' | translate"
+              required
+          /></mat-form-field>
+        </section>
+        <section class="form-section">
+          <h3>Información adicional</h3>
+          <mat-form-field appearance="outline">
+            <mat-label>Observaciones</mat-label>
+            <textarea matInput rows="3" disabled></textarea>
+          </mat-form-field>
+        </section>
+        <div class="actions">
+          <a mat-button routerLink="/reproductive">{{ 'forms.cancel' | translate }}</a>
+          <button mat-raised-button color="primary" type="submit">
+            {{ 'forms.submitCalving' | translate }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
