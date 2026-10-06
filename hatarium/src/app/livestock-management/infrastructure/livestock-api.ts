@@ -59,6 +59,14 @@ export class LivestockApi {
       )
     );
   }
+  createAnimal(animal: AnimalResource): Observable<Animal> {
+    return this.http.post<AnimalResource>(
+      this.animalsUrl,
+      animal
+    ).pipe(
+      map(resource => this.animalAssembler.toEntityFromResource(resource))
+    );
+  }
 
   getLots(): Observable<Lot[]> {
     return this.http.get<LotResource[]>(this.lotsUrl).pipe(
@@ -185,4 +193,5 @@ export class LivestockApi {
       )
     );
   }
+
 }

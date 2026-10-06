@@ -9,6 +9,7 @@ import {
 export class FeedingLogAssembler {
 
   toEntityFromResource(resource: FeedingLogResource): FeedingLog {
+
     let feedingLog = new FeedingLog();
 
     feedingLog.id = resource.id;
@@ -25,7 +26,10 @@ export class FeedingLogAssembler {
     return feedingLog;
   }
 
-  toEntitiesFromResponse(response: FeedingLogsResponse): FeedingLog[] {
+  toEntitiesFromResponse(
+    response: FeedingLogsResponse
+  ): FeedingLog[] {
+
     return response.feedingLogs.map((resource) =>
       this.toEntityFromResource(resource)
     );

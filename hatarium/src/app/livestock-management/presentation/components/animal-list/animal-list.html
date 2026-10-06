@@ -1,0 +1,253 @@
+﻿<div class="animal-page">
+
+  <!-- HEADER -->
+  <section class="page-header">
+    <div class="page-title">
+      <h1>Mi Ganado</h1>
+      <p>Gestiona y consulta todos los animales registrados en tu ganadería.</p>
+    </div>
+
+    <button
+      mat-flat-button
+      class="register-button"
+      (click)="goToAddAnimal()">
+      <mat-icon>add</mat-icon>
+      Registrar Animal
+    </button>
+  </section>
+
+
+  <!-- ESTADÍSTICAS -->
+  <section class="statistics-grid">
+
+    <mat-card class="stat-card">
+      <div class="stat-header">
+        <span>Total animales</span>
+
+        <div class="stat-icon">
+          <mat-icon>pets</mat-icon>
+        </div>
+      </div>
+
+      <strong>{{ totalAnimals() }}</strong>
+      <small>Animales registrados</small>
+    </mat-card>
+
+
+    <mat-card class="stat-card">
+      <div class="stat-header">
+        <span>Lotes activos</span>
+
+        <div class="stat-icon">
+          <mat-icon>inventory_2</mat-icon>
+        </div>
+      </div>
+
+      <strong>{{ activeLots() }}</strong>
+      <small>En pastoreo y engorde</small>
+    </mat-card>
+
+
+    <mat-card class="stat-card">
+      <div class="stat-header">
+        <span>Saludables</span>
+
+        <div class="stat-icon">
+          <mat-icon>verified</mat-icon>
+        </div>
+      </div>
+
+      <strong>—</strong>
+      <small>Datos de Salud</small>
+    </mat-card>
+
+
+    <mat-card class="stat-card">
+      <div class="stat-header">
+        <span>Requieren atención</span>
+
+        <div class="stat-icon warning">
+          <mat-icon>warning_amber</mat-icon>
+        </div>
+      </div>
+
+      <strong>—</strong>
+      <small>Datos de Salud</small>
+    </mat-card>
+
+  </section>
+
+  <mat-card class="filters-card">
+    <div class="filters-row">
+      <div class="search-box">
+        <mat-icon>search</mat-icon>
+        <input
+          type="text"
+          placeholder="Buscar por ID, nombre, raza o lote..."
+          [value]="searchTerm()"
+          (input)="setSearchTerm($any($event.target).value)">
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-select
+          [value]="selectedLot()"
+          (selectionChange)="setLot($event.value)">
+          <mat-option value="">Lote</mat-option>
+          @for (lot of lots(); track lot.id) {
+            <mat-option [value]="lot.id">
+              {{ lot.name }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-select
+          [value]="selectedSex()"
+          (selectionChange)="setSex($event.value)">
+          <mat-option value="">Sexo</mat-option>
+          <mat-option value="Hembra">Hembra</mat-option>
+          <mat-option value="Macho">Macho</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-select
+          [value]="selectedBreed()"
+          (selectionChange)="setBreed($event.value)">
+          <mat-option value="">Raza</mat-option>
+          @for (breed of breeds(); track breed) {
+            <mat-option [value]="breed">
+              {{ breed }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="lot-tabs">
+      <button
+        class="lot-tab"
+        [class.active]="selectedLot() === ''"
+        (click)="setLot('')">
+        Todos ({{ totalAnimals() }})
+      </button>
+      @for (lot of lots(); track lot.id) {
+        <button
+          class="lot-tab"
+          [class.active]="selectedLot() === lot.id"
+          (click)="setLot(lot.id)">
+          {{ lot.name }}
+          ({{ animals().filter(a => a.lotId === lot.id).length }})
+        </button>
+      }
+    </div>
+  </mat-card>
+
+  <mat-card class="animals-card">
+    <div class="table-title">
+      <h2>Animales registrados</h2>
+      <span class="animal-count">
+        {{ filteredAnimals().length }} animales
+      </span>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+        <tr>
+          <th>ANIMAL</th>
+          <th>LOTE</th>
+          <th>SEXO</th>
+          <th>RAZA</th>
+          <th>PESO</th>
+          <th>ESTADO</th>
+          <th>ÚLTIMO CONTROL</th>
+          <th>ACCIÓN</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (animal of filteredAnimals(); track animal.id) {
+            <tr>
+              <td>
+                <div class="animal-cell">
+                  <div class="animal-avatar">
+                    <mat-icon>pets</mat-icon>
+                  </div>
+                  <div class="animal-info">
+                    <strong>#{{ animal.earTag }}</strong>
+                    <small>{{ animal.name }}</small>
+                  </div>
+                </div>
+              </td>
+              <td>
+                {{ getLotName(animal.lotId) }}
+              </td>
+              <td>
+                {{ animal.sex }}
+              </td>
+              <td>
+                {{ animal.breed }}
+              </td>
+              <td>
+                {{ animal.weight }} kg
+              </td>
+              <td>
+                <span class="status-badge status-healthy">
+                  <span class="status-dot"></span>
+                  Saludable
+                </span>
+              </td>
+              <td>
+                —
+              </td>
+              <td>
+                <button
+                  mat-button
+                  class="view-button"
+                  (click)="goToAnimalDetail(animal.id)">
+                  Ver →
+                </button>
+              </td>
+            </tr>
+          }
+          @if (filteredAnimals().length === 0) {
+            <tr>
+              <td colspan="8" class="empty-state">
+                <mat-icon>search_off</mat-icon>
+                <p>No se encontraron animales.</p>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination">
+      <span>
+        Mostrando {{ filteredAnimals().length }}
+        de {{ totalAnimals() }} animales
+      </span>
+      <div class="pagination-buttons">
+        <button mat-button disabled>
+          ← Anterior
+        </button>
+        <button
+          mat-flat-button
+          class="current-page">
+          1
+        </button>
+        <button mat-button>
+          2
+        </button>
+        <button mat-button>
+          3
+        </button>
+        <span>...</span>
+        <button mat-button>
+          Siguiente →
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</div>
