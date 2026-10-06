@@ -333,7 +333,9 @@
     "healthBanner": {
       "title": "{{count}} pending health alert",
       "action": "Review alerts"
-    }
+    },
+    "title": "Home",
+    "content": "Hatarium main dashboard."
   },
   "payments": {
     "chooseSubscription": "Choose your subscription",
@@ -727,5 +729,13 @@
     "timelineSummary": "Animal: {{animal}} · Confirmed: {{confirmed}} · Expected calving: {{calving}}",
     "timelineCalving": "Calving: {{ended}} · Outcome: {{outcome}} · Weight: {{weight}} kg",
     "noPregnancies": "No pregnancies recorded."
+  },
+  "about": {
+    "title": "About",
+    "content": "Hatarium is a livestock management platform."
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "and": "and"
   }
 }

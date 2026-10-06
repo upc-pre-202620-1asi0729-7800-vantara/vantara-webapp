@@ -333,7 +333,9 @@
     "healthBanner": {
       "title": "{{count}} alerta sanitaria pendiente",
       "action": "Revisar alertas"
-    }
+    },
+    "title": "Inicio",
+    "content": "Panel principal de Hatarium."
   },
   "payments": {
     "chooseSubscription": "Elige tu suscripción",
@@ -727,5 +729,13 @@
     "timelineSummary": "Animal: {{animal}} · Confirmada: {{confirmed}} · Parto esperado: {{calving}}",
     "timelineCalving": "Parto: {{ended}} · Resultado: {{outcome}} · Peso: {{weight}} kg",
     "noPregnancies": "No hay preñeces registradas."
+  },
+  "about": {
+    "title": "Acerca de",
+    "content": "Hatarium es una plataforma de gestión pecuaria."
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados.",
+    "and": "y"
   }
 }
