@@ -1,0 +1,772 @@
+﻿/* =========================
+   PÁGINA
+========================= */
+
+.animal-detail-page {
+  min-height: 0;
+  padding: 28px 32px 0 32px;
+  margin: 0;
+  background: #f4faf6;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.back-button {
+  color: #07583f !important;
+  font-weight: 600;
+}
+
+.back-button mat-icon {
+  margin-right: 6px;
+}
+
+.edit-button {
+  border: 1px solid #d3e4da !important;
+  border-radius: 10px !important;
+  color: #17372d !important;
+  background: #ffffff !important;
+}
+
+
+/* =========================
+   RESUMEN DEL ANIMAL
+========================= */
+
+.animal-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px;
+
+  background: #ffffff;
+  border: 1px solid #e4eee8;
+  border-radius: 16px;
+
+  box-sizing: border-box;
+}
+
+.animal-main-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.animal-photo {
+  width: 96px;
+  height: 96px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 12px;
+
+  background: #e8f5ec;
+  color: #07583f;
+}
+
+.animal-photo mat-icon {
+  font-size: 42px;
+  width: 42px;
+  height: 42px;
+}
+
+.animal-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.animal-name-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.animal-name-row h1 {
+  margin: 0;
+
+  color: #151d4d;
+
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.animal-tag {
+  padding: 6px 10px;
+
+  border-radius: 8px;
+
+  background: #e5f6ea;
+  color: #168447;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.animal-breed {
+  color: #77847f;
+  font-size: 14px;
+}
+
+.animal-meta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.animal-meta span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  color: #6d7974;
+
+  font-size: 13px;
+}
+
+.animal-meta mat-icon {
+  width: 17px;
+  height: 17px;
+
+  font-size: 17px;
+
+  color: #718c81;
+}
+
+
+/* =========================
+   ESTADO
+========================= */
+
+.animal-status {
+  min-width: 150px;
+
+  padding: 14px 18px;
+
+  border: 1px solid #e7edf0;
+  border-radius: 12px;
+
+  background: #ffffff;
+}
+
+.status-label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #8b9893;
+  font-size: 12px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 5px 10px;
+
+  border-radius: 20px;
+
+  background: #e4f8eb;
+  color: #168447;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #1ca653;
+}
+
+.animal-status small {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #8a9891;
+
+  font-size: 10px;
+}
+
+
+/* =========================
+   TABS
+========================= */
+
+.detail-tabs {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-top: 18px;
+
+  border-bottom: 1px solid #dce9e2;
+}
+
+.detail-tab {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 13px 16px;
+
+  border: none;
+  border-bottom: 2px solid transparent;
+
+  background: transparent;
+
+  color: #72817a;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+.detail-tab mat-icon {
+  width: 19px;
+  height: 19px;
+
+  font-size: 19px;
+}
+
+.detail-tab.active {
+  color: #07583f;
+  border-bottom-color: #07583f;
+  font-weight: 600;
+}
+
+
+/* =========================
+   GRID PRINCIPAL
+========================= */
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 0.85fr;
+  gap: 20px;
+  margin-top: 24px;
+  align-items: start;
+  min-height: 0;
+}
+
+.left-column,
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+
+
+.basic-info-card,
+.animal-photo-card,
+.health-status-card,
+.genealogy-card,
+.health-summary-card {
+  background: #ffffff;
+
+  border: 1px solid #e4eee8;
+  border-radius: 16px;
+
+  padding: 22px;
+
+  box-sizing: border-box;
+
+  min-width: 0;
+}
+
+
+/* =========================
+   HEADER DE TARJETAS
+========================= */
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding-bottom: 16px;
+
+  border-bottom: 1px solid #edf2ef;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-title h2 {
+  margin: 0;
+
+  color: #151d4d;
+
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.card-icon {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #e5f7ea;
+  color: #07583f;
+}
+
+.card-icon mat-icon {
+  width: 20px;
+  height: 20px;
+
+  font-size: 20px;
+}
+
+
+/* =========================
+   BOTONES PEQUEÑOS
+========================= */
+
+.small-edit-button {
+  min-height: 34px !important;
+
+  border: 1px solid #d5e7dc !important;
+  border-radius: 9px !important;
+
+  color: #07583f !important;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.small-edit-button mat-icon {
+  width: 16px;
+  height: 16px;
+
+  margin-right: 5px;
+
+  font-size: 16px;
+}
+
+
+/* =========================
+   INFORMACIÓN BÁSICA
+========================= */
+
+.basic-info-list {
+  margin-top: 8px;
+}
+
+.info-row {
+  display: grid;
+
+  grid-template-columns: 210px 1fr;
+
+  align-items: center;
+
+  min-height: 38px;
+
+  border-bottom: 1px solid #edf2ef;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-row > span {
+  color: #72817a;
+  font-size: 13px;
+}
+
+.info-row strong {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  color: #151d4d;
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.info-row strong mat-icon {
+  width: 17px;
+  height: 17px;
+
+  font-size: 17px;
+
+  color: #07583f;
+}
+
+
+/* =========================
+   ESTADO SALUDABLE
+========================= */
+
+.healthy-status {
+  width: fit-content;
+
+  padding: 4px 9px;
+
+  border-radius: 20px;
+
+  background: #e4f8eb;
+
+  color: #168447 !important;
+
+  font-weight: 600 !important;
+}
+
+.healthy-status .status-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #1ca653;
+}
+
+
+/* =========================
+   FOTO DEL ANIMAL
+========================= */
+
+.animal-photo-card {
+  margin: 0;
+}
+
+.photo-container {
+  margin-top: 18px;
+
+  width: 100%;
+  height: 280px;
+
+  overflow: hidden;
+
+  border-radius: 12px;
+
+  background: #f1f8f3;
+}
+
+.photo-container img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+.photo-placeholder {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  color: #6e8178;
+}
+
+.photo-placeholder mat-icon {
+  width: 48px;
+  height: 48px;
+
+  font-size: 48px;
+
+  color: #79a58d;
+}
+
+.photo-placeholder span {
+  font-size: 13px;
+}
+
+
+/* =========================
+   GENEALOGÍA
+========================= */
+
+.genealogy-card {
+  margin: 0;
+}
+
+.genealogy-list {
+  margin-top: 10px;
+}
+
+.genealogy-card .info-row {
+  grid-template-columns: 110px 1fr;
+}
+
+
+/* =========================
+   ESTADO SANITARIO
+========================= */
+
+.health-status-card {
+  margin: 0;
+}
+
+.health-status-content {
+  margin-top: 18px;
+}
+
+.health-status-main {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 14px;
+
+  border-radius: 12px;
+
+  background: #eaf8ee;
+}
+
+.health-status-icon {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #d5f2df;
+}
+
+.health-status-icon span {
+  width: 13px;
+  height: 13px;
+
+  border-radius: 50%;
+
+  background: #18a653;
+}
+
+.health-status-main strong {
+  display: block;
+
+  color: #168447;
+
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.health-status-main small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #6c8b79;
+
+  font-size: 12px;
+}
+
+.health-controls {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  margin-top: 18px;
+}
+
+.health-controls > div {
+  padding: 0 16px;
+}
+
+.health-controls > div:first-child {
+  border-right: 1px solid #e5ece8;
+}
+
+.health-controls span {
+  display: block;
+
+  color: #81908a;
+
+  font-size: 11px;
+}
+
+.health-controls strong {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #151d4d;
+
+  font-size: 13px;
+}
+
+
+/* =========================
+   RESUMEN SANITARIO
+========================= */
+
+.health-summary-card {
+  margin: 0;
+}
+
+.health-summary-stats {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  margin-top: 18px;
+}
+
+.health-stat {
+  padding: 4px 20px;
+
+  border-right: 1px solid #e5ece8;
+}
+
+.health-stat:first-child {
+  padding-left: 0;
+}
+
+.health-stat:last-child {
+  border-right: none;
+}
+
+.health-stat strong {
+  display: block;
+
+  color: #15204f;
+
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.health-stat span {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #7b8c85;
+
+  font-size: 13px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1000px) {
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+
+    grid-template-areas:
+      "basic"
+      "photo"
+      "health"
+      "genealogy"
+      "summary";
+  }
+
+  .animal-summary {
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .animal-status {
+    min-width: 140px;
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .animal-detail-page {
+    padding: 20px 16px;
+  }
+
+  .animal-summary {
+    flex-direction: column;
+  }
+
+  .animal-status {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .animal-name-row {
+    flex-wrap: wrap;
+  }
+
+  .animal-meta {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .info-row {
+    grid-template-columns: 140px 1fr;
+  }
+
+  .health-summary-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .health-stat {
+    padding: 10px;
+    border-bottom: 1px solid #e5ece8;
+  }
+
+}
+
+/* =========================
+   AJUSTE FINAL DE ALTURA
+========================= */
+
+
+.animal-detail-page {
+  min-height: 0 !important;
+  height: auto !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.detail-grid {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.health-summary-card {
+  margin-bottom: 0 !important;
+}

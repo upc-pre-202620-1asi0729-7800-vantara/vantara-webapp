@@ -1,0 +1,1175 @@
+﻿<div class="feeding-add">
+
+
+  <!-- HEADER -->
+  <div class="page-header">
+
+    <div class="header-left">
+
+      <button
+        class="back-button"
+        type="button"
+        (click)="goBack()">
+        ← Volver a Alimentación
+      </button>
+
+      <h1>Nuevo plan alimentario</h1>
+
+      <p>
+        Crea un plan de alimentación para tu ganado.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- PROGRESS -->
+  <div class="step-progress">
+
+    <div
+      class="step"
+      [class.active]="currentStep === 1">
+
+      <span [class.completed]="currentStep > 1">1</span>
+
+      <div>
+        <strong>Información general</strong>
+        <small>Datos del plan</small>
+      </div>
+
+    </div>
+
+    <div
+      class="progress-line"
+      [class.completed]="currentStep >= 2">
+    </div>
+
+    <div
+      class="step"
+      [class.active]="currentStep === 2">
+
+      <span [class.completed]="currentStep > 2">2</span>
+
+      <div>
+        <strong>Ración</strong>
+        <small>Ingredientes</small>
+      </div>
+
+    </div>
+
+    <div
+      class="progress-line"
+      [class.completed]="currentStep >= 3">
+    </div>
+
+    <div
+      class="step"
+      [class.active]="currentStep === 3">
+
+      <span [class.completed]="currentStep > 3">3</span>
+
+      <div>
+        <strong>Programación</strong>
+        <small>Horarios</small>
+      </div>
+
+    </div>
+
+    <div
+      class="progress-line"
+      [class.completed]="currentStep >= 4">
+    </div>
+
+    <div
+      class="step"
+      [class.active]="currentStep === 4">
+
+      <span>4</span>
+
+      <div>
+        <strong>Revisión</strong>
+        <small>Confirmar</small>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="feeding-content">
+
+    <div class="feeding-form">
+
+      @if (currentStep === 1) {
+
+        <section class="form-card">
+
+          <div class="section-header">
+
+            <div class="section-icon">
+              <mat-icon>description</mat-icon>
+            </div>
+
+            <div>
+              <h2>Información general</h2>
+              <p>Define los datos principales del plan alimentario.</p>
+            </div>
+
+          </div>
+
+
+          <div class="form-grid">
+
+            <!-- Nombre -->
+            <div class="form-field full-width">
+
+              <label for="planName">
+                Nombre del plan
+              </label>
+
+              <input
+                id="planName"
+                type="text"
+                [(ngModel)]="planName"
+                placeholder="Ej. Plan de engorde - Lote A">
+
+            </div>
+
+
+            <!-- Lote -->
+            <div class="form-field">
+
+              <label for="lot">
+                Lote
+              </label>
+
+              <select
+                id="lot"
+                [(ngModel)]="selectedLotId"
+                (ngModelChange)="onLotChange()">
+
+                <option value="">
+                  Selecciona un lote
+                </option>
+
+                @for (lot of lots(); track lot.id) {
+
+                  <option [value]="lot.id">
+                    {{ lot.name }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <!-- Animal -->
+            <div class="form-field">
+
+              <label for="animal">
+                Animal
+              </label>
+
+              <select
+                id="animal"
+                [(ngModel)]="selectedAnimalId"
+                [disabled]="!selectedLotId">
+
+                <option [ngValue]="null">
+                  Todos los animales del lote
+                </option>
+
+                @for (animal of filteredAnimals; track animal.id) {
+
+                  <option [ngValue]="animal.id">
+                    {{ animal.earTag }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <!-- Fecha inicio -->
+            <div class="form-field">
+
+              <label for="startsOn">
+                Fecha de inicio
+              </label>
+
+              <input
+                id="startsOn"
+                type="date"
+                [(ngModel)]="startsOn">
+
+            </div>
+
+
+            <!-- Fecha finalización -->
+            <div class="form-field">
+
+              <label for="endsOn">
+                Fecha de finalización
+              </label>
+
+              <input
+                id="endsOn"
+                type="date"
+                [(ngModel)]="endsOn">
+
+            </div>
+
+
+            <!-- Objetivo -->
+            <div class="form-field">
+
+              <label for="objective">
+                Objetivo
+              </label>
+
+              <input
+                id="objective"
+                type="text"
+                [(ngModel)]="objective"
+                placeholder="Ej. Aumentar peso">
+
+            </div>
+
+
+            <!-- Peso actual -->
+            <div class="form-field">
+
+              <label for="currentWeight">
+                Peso promedio actual (kg)
+              </label>
+
+              <input
+                id="currentWeight"
+                type="number"
+                min="0"
+                [(ngModel)]="currentAverageWeight"
+                placeholder="Ej. 420">
+
+            </div>
+
+
+            <!-- Peso objetivo -->
+            <div class="form-field">
+
+              <label for="targetWeight">
+                Peso objetivo (kg)
+              </label>
+
+              <input
+                id="targetWeight"
+                type="number"
+                min="0"
+                [(ngModel)]="targetWeight"
+                placeholder="Ej. 500">
+
+            </div>
+
+
+            <!-- Instrucciones -->
+            <div class="form-field full-width">
+
+              <label for="instructions">
+                Instrucciones
+              </label>
+
+              <textarea
+                id="instructions"
+                rows="4"
+                [(ngModel)]="instructions"
+                placeholder="Escribe las indicaciones para este plan...">
+          </textarea>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-actions">
+
+            <button
+              class="secondary-button"
+              type="button"
+              (click)="goBack()">
+              Cancelar
+            </button>
+
+            <button
+              class="primary-button"
+              type="button"
+              (click)="nextStep()">
+              Continuar
+              <span>→</span>
+            </button>
+
+          </div>
+
+        </section>
+
+      }
+
+
+      <!-- STEP 2 -->
+      @if (currentStep === 2) {
+
+        <section class="form-card">
+
+          <div class="section-header">
+
+            <div class="section-icon">
+              <mat-icon>restaurant</mat-icon>
+            </div>
+
+            <div>
+              <h2>Ración e ingredientes</h2>
+
+              <p>
+                Define los alimentos y cantidades que forman parte del plan.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="ingredients-header">
+
+            <div>
+              <strong>Ingredientes de la ración</strong>
+              <span>
+            Agrega todos los alimentos que recibirá el ganado.
+          </span>
+            </div>
+
+            <button
+              type="button"
+              class="add-ingredient-button"
+              (click)="addIngredient()">
+
+              <mat-icon>add</mat-icon>
+              Agregar ingrediente
+
+            </button>
+
+          </div>
+
+
+          <div class="ingredients-list">
+
+            @for (ingredient of ingredients; track $index) {
+
+              <div class="ingredient-row">
+
+                <div class="ingredient-number">
+                  {{ $index + 1 }}
+                </div>
+
+
+                <div class="form-field ingredient-name">
+
+                  <label>
+                    Ingrediente
+                  </label>
+
+                  <input
+                    type="text"
+                    [(ngModel)]="ingredient.feedName"
+                    placeholder="Ej. Pasto elefante">
+
+                </div>
+
+
+                <div class="form-field ingredient-quantity">
+
+                  <label>
+                    Cantidad diaria
+                  </label>
+
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.1"
+                    [(ngModel)]="ingredient.dailyQuantity"
+                    placeholder="Ej. 7">
+
+                </div>
+
+
+                <div class="form-field ingredient-unit">
+
+                  <label>
+                    Unidad
+                  </label>
+
+                  <select [(ngModel)]="ingredient.unit">
+
+                    <option value="kg">kg</option>
+                    <option value="g">g</option>
+                    <option value="L">L</option>
+
+                  </select>
+
+                </div>
+
+
+                <button
+                  type="button"
+                  class="remove-ingredient-button"
+                  [disabled]="ingredients.length === 1"
+                  (click)="removeIngredient($index)"
+                  title="Eliminar ingrediente">
+
+                  <mat-icon>delete_outline</mat-icon>
+
+                </button>
+
+              </div>
+
+            }
+
+          </div>
+
+
+          <div class="ration-summary">
+
+            <div class="summary-icon">
+              <mat-icon>scale</mat-icon>
+            </div>
+
+            <div class="summary-content">
+
+          <span>
+            Total de la ración diaria
+          </span>
+
+              <strong>
+                {{ totalDailyQuantity | number:'1.0-2' }} kg
+              </strong>
+
+            </div>
+
+            <span class="summary-description">
+          Suma de las cantidades registradas
+        </span>
+
+          </div>
+
+
+          <div class="form-actions">
+
+            <button
+              class="secondary-button"
+              type="button"
+              (click)="previousStep()">
+              ← Atrás
+            </button>
+
+            <button
+              class="primary-button"
+              type="button"
+              (click)="nextStep()">
+              Continuar
+              <span>→</span>
+            </button>
+
+          </div>
+
+        </section>
+
+      }
+
+
+      <!-- STEP 3 -->
+      @if (currentStep === 3) {
+
+        <section class="form-card">
+
+          <div class="section-header">
+
+            <div class="section-icon">
+              <mat-icon>schedule</mat-icon>
+            </div>
+
+            <div>
+              <h2>Programación de alimentación</h2>
+              <p>
+                Define cuándo y cuánto alimento recibirá el ganado.
+              </p>
+            </div>
+
+          </div>
+
+
+          <!-- FRECUENCIA -->
+          <div class="form-grid">
+
+            <div class="form-field full-width">
+
+              <label for="frequency">
+                Frecuencia de alimentación
+              </label>
+
+              <select
+                id="frequency"
+                [(ngModel)]="frequency">
+
+                <option value="1 vez al día">
+                  1 vez al día
+                </option>
+
+                <option value="2 veces al día">
+                  2 veces al día
+                </option>
+
+                <option value="3 veces al día">
+                  3 veces al día
+                </option>
+
+                <option value="4 veces al día">
+                  4 veces al día
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <!-- DÍAS -->
+          <div class="schedule-section">
+
+            <div class="schedule-section-header">
+
+              <div>
+
+                <strong>
+                  Días de alimentación
+                </strong>
+
+                <span>
+              Selecciona los días en los que se aplicará el plan.
+            </span>
+
+              </div>
+
+            </div>
+
+
+            <div class="days-selector">
+
+              @for (
+                day of [
+                  'Lunes',
+                  'Martes',
+                  'Miércoles',
+                  'Jueves',
+                  'Viernes',
+                  'Sábado',
+                  'Domingo'
+                ];
+                track day
+                ) {
+
+                <label class="day-option">
+
+                  <input
+                    type="checkbox"
+                    [checked]="daysOfWeek.includes(day)"
+                    (change)="toggleDay(day)">
+
+                  <span>
+                {{ day }}
+              </span>
+
+                </label>
+
+              }
+
+            </div>
+
+          </div>
+
+
+          <!-- HORARIOS -->
+          <div class="schedule-section">
+
+            <div class="schedule-section-header">
+
+              <div>
+
+                <strong>
+                  Horarios de alimentación
+                </strong>
+
+                <span>
+              Define la hora y cantidad por animal.
+            </span>
+
+              </div>
+
+
+              <button
+                type="button"
+                class="add-ingredient-button"
+                (click)="addSchedule()">
+
+                <mat-icon>add</mat-icon>
+                Agregar horario
+
+              </button>
+
+            </div>
+
+
+            <div class="schedule-list">
+
+              @for (schedule of schedules; track $index) {
+
+                <div class="schedule-row">
+
+                  <div class="schedule-number">
+                    {{ $index + 1 }}
+                  </div>
+
+
+                  <div class="form-field">
+
+                    <label>
+                      Hora
+                    </label>
+
+                    <input
+                      type="time"
+                      [(ngModel)]="schedule.time">
+
+                  </div>
+
+
+                  <div class="form-field">
+
+                    <label>
+                      Cantidad por animal
+                    </label>
+
+                    <input
+                      type="number"
+                      min="0"
+                      step="0.1"
+                      [(ngModel)]="schedule.quantityPerAnimal"
+                      placeholder="Ej. 6">
+
+                  </div>
+
+
+                  <div class="schedule-unit">
+                    kg / animal
+                  </div>
+
+
+                  <button
+                    type="button"
+                    class="remove-ingredient-button"
+                    [disabled]="schedules.length === 1"
+                    (click)="removeSchedule($index)"
+                    title="Eliminar horario">
+
+                    <mat-icon>delete_outline</mat-icon>
+
+                  </button>
+
+                </div>
+
+              }
+
+            </div>
+
+
+            <!-- RESUMEN DE RACIÓN -->
+            <div class="schedule-summary">
+
+              <div>
+
+            <span>
+              Ración diaria establecida
+            </span>
+
+                <strong>
+                  {{ totalDailyQuantity | number:'1.0-2' }} kg
+                </strong>
+
+              </div>
+
+
+              <div>
+
+            <span>
+              Programado
+            </span>
+
+                <strong>
+                  {{ totalScheduledQuantity | number:'1.0-2' }} kg
+                </strong>
+
+              </div>
+
+
+              <div
+                class="schedule-status"
+                [class.invalid]="totalScheduledQuantity > totalDailyQuantity">
+
+                <mat-icon>
+                  {{
+                    totalScheduledQuantity > totalDailyQuantity
+                      ? 'error_outline'
+                      : 'check_circle'
+                  }}
+                </mat-icon>
+
+                <span>
+              {{
+                    totalScheduledQuantity > totalDailyQuantity
+                      ? 'La cantidad programada supera la ración diaria'
+                      : 'Cantidad dentro del límite'
+                  }}
+            </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- ACTIONS -->
+          <div class="form-actions">
+
+            <button
+              class="secondary-button"
+              type="button"
+              (click)="previousStep()">
+              ← Atrás
+            </button>
+
+            <button
+              class="primary-button"
+              type="button"
+              (click)="nextStep()">
+              Continuar
+              <span>→</span>
+            </button>
+
+          </div>
+
+        </section>
+
+      }
+
+
+      <!-- STEP 4 -->
+      @if (currentStep === 4) {
+
+        <section class="form-card">
+
+          <div class="section-header">
+
+            <div class="section-icon">
+              <mat-icon>fact_check</mat-icon>
+            </div>
+
+            <div>
+              <h2>Revisión del plan</h2>
+              <p>
+                Verifica la información antes de crear el plan alimentario.
+              </p>
+            </div>
+
+          </div>
+
+
+          <!-- INFORMACIÓN GENERAL -->
+          <div class="review-section">
+
+            <div class="review-section-header">
+              <mat-icon>description</mat-icon>
+
+              <div>
+                <strong>Información general</strong>
+                <span>Datos principales del plan</span>
+              </div>
+            </div>
+
+
+            <div class="review-grid">
+
+              <div class="review-item">
+                <span>Nombre del plan</span>
+                <strong>{{ planName }}</strong>
+              </div>
+
+              <div class="review-item">
+                <span>Lote</span>
+                <strong>
+                  {{
+                    lots().find(lot => lot.id === selectedLotId)?.name
+                    || '—'
+                  }}
+                </strong>
+              </div>
+
+              <div class="review-item">
+                <span>Animal</span>
+                <strong>
+                  {{
+                    selectedAnimalId
+                      ? (animals().find(animal => animal.id === selectedAnimalId)?.earTag || '—')
+                      : 'Todos los animales del lote'
+                  }}
+                </strong>
+              </div>
+
+              <div class="review-item">
+                <span>Periodo</span>
+                <strong>
+                  {{ startsOn }} → {{ endsOn }}
+                </strong>
+              </div>
+
+              <div class="review-item">
+                <span>Objetivo</span>
+                <strong>{{ objective }}</strong>
+              </div>
+
+              <div class="review-item">
+                <span>Peso</span>
+                <strong>
+                  {{ currentAverageWeight }} kg → {{ targetWeight }} kg
+                </strong>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- RACIÓN -->
+          <div class="review-section">
+
+            <div class="review-section-header">
+
+              <mat-icon>restaurant</mat-icon>
+
+              <div>
+                <strong>Ración e ingredientes</strong>
+                <span>Alimentos establecidos para el plan</span>
+              </div>
+
+            </div>
+
+
+            <div class="review-ingredients">
+
+              @for (ingredient of ingredients; track $index) {
+
+                <div class="review-ingredient">
+
+                  <div class="review-number">
+                    {{ $index + 1 }}
+                  </div>
+
+                  <div class="review-ingredient-name">
+                    <strong>{{ ingredient.feedName }}</strong>
+                    <span>{{ ingredient.unit }}</span>
+                  </div>
+
+                  <strong>
+                    {{ ingredient.dailyQuantity | number:'1.0-2' }}
+                    {{ ingredient.unit }}/día
+                  </strong>
+
+                </div>
+
+              }
+
+            </div>
+
+
+            <div class="review-total">
+
+        <span>
+          Total de la ración diaria
+        </span>
+
+              <strong>
+                {{ totalDailyQuantity | number:'1.0-2' }} kg
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <!-- PROGRAMACIÓN -->
+          <div class="review-section">
+
+            <div class="review-section-header">
+
+              <mat-icon>schedule</mat-icon>
+
+              <div>
+                <strong>Programación</strong>
+                <span>Frecuencia y horarios de alimentación</span>
+              </div>
+
+            </div>
+
+
+            <div class="review-schedule-info">
+
+              <div class="review-item">
+                <span>Frecuencia</span>
+                <strong>{{ frequency }}</strong>
+              </div>
+
+              <div class="review-item">
+                <span>Días</span>
+                <strong>
+                  {{ daysOfWeek.join(', ') }}
+                </strong>
+              </div>
+
+            </div>
+
+
+            <div class="review-schedules">
+
+              @for (schedule of schedules; track $index) {
+
+                <div class="review-schedule">
+
+                  <mat-icon>schedule</mat-icon>
+
+                  <strong>
+                    {{ schedule.time }}
+                  </strong>
+
+                  <span>
+              {{ schedule.quantityPerAnimal | number:'1.0-2' }}
+                    kg / animal
+            </span>
+
+                </div>
+
+              }
+
+            </div>
+
+          </div>
+
+
+          <!-- INSTRUCCIONES -->
+          @if (instructions.trim()) {
+
+            <div class="review-section">
+
+              <div class="review-section-header">
+
+                <mat-icon>notes</mat-icon>
+
+                <div>
+                  <strong>Instrucciones</strong>
+                  <span>Indicaciones adicionales del plan</span>
+                </div>
+
+              </div>
+
+              <div class="review-instructions">
+                {{ instructions }}
+              </div>
+
+            </div>
+
+          }
+
+
+          <!-- ACTIONS -->
+          <div class="form-actions">
+
+            <button
+              class="secondary-button"
+              type="button"
+              (click)="previousStep()">
+              ← Atrás
+            </button>
+
+            <button
+              class="primary-button"
+              type="button"
+              (click)="createPlan()">
+              Crear plan
+              <span>✓</span>
+            </button>
+
+          </div>
+
+        </section>
+
+      }
+
+    </div>
+
+    <aside class="plan-summary">
+
+      <div class="summary-header">
+        <div class="summary-header-icon">
+          <mat-icon>assignment</mat-icon>
+        </div>
+
+        <div>
+          <h2>Resumen del plan</h2>
+          <span>Información configurada</span>
+        </div>
+      </div>
+
+      <div class="summary-divider"></div>
+
+      <div class="summary-group">
+
+        <span class="summary-label">Plan</span>
+
+        <strong>
+          {{ planName || 'Sin definir' }}
+        </strong>
+
+      </div>
+
+      <div class="summary-group">
+
+        <span class="summary-label">Lote</span>
+
+        <strong>
+          {{
+            lots().find(lot => lot.id === selectedLotId)?.name
+            || 'Sin seleccionar'
+          }}
+        </strong>
+
+      </div>
+
+      <div class="summary-group">
+
+        <span class="summary-label">Animal</span>
+
+        <strong>
+          {{
+            selectedAnimalId
+              ? (animals().find(animal => animal.id === selectedAnimalId)?.earTag || '—')
+              : selectedLotId
+                ? 'Todos los animales del lote'
+                : 'Sin seleccionar'
+          }}
+        </strong>
+
+      </div>
+
+      <div class="summary-divider"></div>
+
+      <div class="summary-group">
+
+        <span class="summary-label">Objetivo</span>
+
+        <strong>
+          {{ objective || 'Sin definir' }}
+        </strong>
+
+      </div>
+
+      <div class="summary-weight">
+
+        <div>
+          <span>Peso actual</span>
+          <strong>
+            {{ currentAverageWeight ?? '—' }}
+            <small>kg</small>
+          </strong>
+        </div>
+
+        <div class="weight-arrow">
+          →
+        </div>
+
+        <div>
+          <span>Peso objetivo</span>
+          <strong>
+            {{ targetWeight ?? '—' }}
+            <small>kg</small>
+          </strong>
+        </div>
+
+      </div>
+
+      <div class="summary-divider"></div>
+
+      <div class="summary-group">
+
+        <span class="summary-label">Ración diaria</span>
+
+        <strong class="summary-highlight">
+          {{ totalDailyQuantity | number:'1.0-2' }} kg
+        </strong>
+
+      </div>
+
+      <div class="summary-group">
+
+        <span class="summary-label">Frecuencia</span>
+
+        <strong>
+          {{ frequency || 'Sin definir' }}
+        </strong>
+
+      </div>
+
+      <div class="summary-group">
+
+        <span class="summary-label">Horarios</span>
+
+        <div class="summary-schedules">
+
+          @for (schedule of schedules; track $index) {
+
+            <div class="summary-schedule">
+              <mat-icon>schedule</mat-icon>
+
+              <span>
+              {{ schedule.time || '--:--' }}
+            </span>
+
+              <strong>
+                {{ schedule.quantityPerAnimal ?? 0 }}
+                kg
+              </strong>
+            </div>
+
+          }
+
+        </div>
+
+      </div>
+
+    </aside>
+
+  </div>
+
+
+  <!-- STEP 1 -->
+
+
+</div>

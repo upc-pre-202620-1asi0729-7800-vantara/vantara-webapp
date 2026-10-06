@@ -1,0 +1,350 @@
+﻿<div class="feeding-dashboard">
+
+  <!-- HEADER -->
+  <header class="feeding-header">
+    <div class="header-info">
+      <div class="title-row">
+        <h1>Alimentación</h1>
+        <span class="module-badge">Módulo Operativo</span>
+      </div>
+
+      <p>
+        Planes nutricionales y distribución diaria por lotes.
+      </p>
+    </div>
+
+    <div class="header-actions">
+      <button class="outline-button">
+        <span>▣</span>
+        Registrar entrega / consumo
+      </button>
+
+      <button class="primary-button">
+        <span>+</span>
+        Nuevo plan alimentario
+      </button>
+    </div>
+  </header>
+
+
+  <!-- SUMMARY CARDS -->
+  <section class="summary-grid">
+
+    <article class="summary-card">
+      <div class="summary-card-top">
+        <span>CONSUMO DIARIO TOTAL</span>
+        <div class="summary-icon">⚖</div>
+      </div>
+
+      <strong>
+        {{ getTotalDailyQuantity() }} kg
+      </strong>
+
+      <small>Consumo planificado por día</small>
+    </article>
+
+
+    <article class="summary-card">
+      <div class="summary-card-top">
+        <span>LOTES CON PLAN ACTIVO</span>
+        <div class="summary-icon">▣</div>
+      </div>
+
+      <strong>{{ feedingPlans().length }} Lotes</strong>
+
+      <small>
+        {{ feedingPlans().length }} planes activos
+      </small>
+    </article>
+
+
+    <article class="summary-card">
+      <div class="summary-card-top">
+        <span>ANIMALES CUBIERTOS</span>
+        <div class="summary-icon">↗</div>
+      </div>
+
+      <strong>{{ getCoveredAnimals() }}</strong>
+
+      <small>Animales bajo un plan</small>
+    </article>
+
+
+    <article class="summary-card alert-card">
+      <div class="summary-card-top">
+        <span>ALERTAS</span>
+        <div class="summary-icon alert-icon">⚠</div>
+      </div>
+
+      <strong>Sin alertas</strong>
+
+      <small>Revisión de alimentación pendiente</small>
+    </article>
+
+  </section>
+
+
+  <!-- MAIN CONTENT -->
+  <div class="content-grid">
+
+    <!-- PLANES -->
+    <section class="plans-panel">
+
+      <div class="panel-header">
+        <div>
+          <h2>Planes alimentarios</h2>
+          <p>Por lote y dosificación activa</p>
+        </div>
+
+        <span class="active-count">
+          {{ feedingPlans().length }} Activos
+        </span>
+      </div>
+
+
+      <div class="plans-list">
+
+        @for (plan of feedingPlans(); track plan.id) {
+
+          <article class="feeding-plan">
+
+            <div class="plan-top">
+
+              <div class="plan-title">
+                <h3>{{ getLot(plan)?.name || plan.name }}</h3>
+
+                <span class="objective-badge"> {{ getLot(plan)?.purpose || plan.objective }}</span>
+              </div>
+
+              <div class="daily-quantity">
+                <strong>
+                  {{ getPlanTotalDailyQuantity(plan) }} kg
+                </strong>
+                <small>por día</small>
+              </div>
+
+            </div>
+
+
+            <div class="plan-details">
+
+              <div>
+                <span>Lote</span>
+                <strong>{{ getLot(plan)?.name || plan.lotId }}</strong>
+              </div>
+
+              <div>
+                <span>Frecuencia</span>
+                <strong>{{ plan.frequency }}</strong>
+              </div>
+
+              <div>
+                <span>Animales</span>
+                <strong>{{ getAnimalsInPlan(plan) }}</strong>
+              </div>
+
+            </div>
+
+
+            <div class="ration-info">
+
+              <div class="ration-header">
+                <span>Ración diaria</span>
+
+                <strong>
+                  {{ getRationTotal(plan.id) }} kg
+                </strong>
+              </div>
+
+              <div class="ration-bar">
+
+                @for (
+                  item of feedingPlanItems();
+                  track item.id
+                  ) {
+
+                  @if (item.feedingPlanId === plan.id) {
+
+                    <div
+                      class="ration-segment"
+                      [style.width.%]="getRationPercentage(plan.id, item.dailyQuantity)"
+                      [title]="item.feedName + ': ' + item.dailyQuantity + ' ' + item.unit">
+
+                    </div>
+
+                  }
+
+                }
+
+              </div>
+
+              <div class="ration-legend">
+                @for (
+                  item of feedingPlanItems();
+                  track item.id
+                  ) {
+                  @if (item.feedingPlanId === plan.id) {
+                    <span><b>{{ getRationPercentage(plan.id, item.dailyQuantity) }}%</b> {{ item.feedName }}</span>
+                  }
+                }
+              </div>
+            </div>
+
+
+            <div class="plan-progress">
+
+              <div class="progress-label">
+                <span>Progreso hacia peso objetivo</span>
+
+                <strong>
+                  {{ getProgress(plan) }}%
+                </strong>
+              </div>
+
+              <div class="progress-bar">
+                <div
+                  class="progress-value"
+                  [style.width.%]="getProgress(plan)">
+                </div>
+              </div>
+
+            </div>
+
+
+            <div class="plan-footer">
+
+              @if (getLastFeeding(plan); as lastFeeding) {
+
+                <span class="plan-date">
+                  🗓 Última alimentación:
+                  {{ lastFeeding.feedAt | date:'dd/MM/yyyy HH:mm' }}</span>
+              } @else {
+                <span class="plan-date">
+                  🗓 Sin registros de alimentación</span>
+              }
+              <button
+                type="button"
+                class="details-button"
+                [routerLink]="['/livestock/feeding', plan.id]">
+                Ver detalles
+                <span>→</span>
+              </button>
+
+            </div>
+
+          </article>
+
+        } @empty {
+
+          <div class="empty-state">
+            <span>🍽️</span>
+            <h3>No hay planes alimentarios</h3>
+            <p>Crea un nuevo plan para comenzar.</p>
+          </div>
+
+        }
+
+      </div>
+
+
+      <button class="view-all-button">
+        Ver todos los planes nutricionales →
+      </button>
+
+    </section>
+
+
+    <!-- RIGHT COLUMN -->
+    <aside class="right-column">
+
+      <!-- ALIMENTOS -->
+      <section class="inventory-panel">
+
+        <div class="panel-header">
+          <div>
+            <h2>Alimentos utilizados</h2>
+            <p>Alimentos registrados en los planes</p>
+          </div>
+        </div>
+
+
+        <div class="food-list">
+
+          @for (item of feedingPlanItems(); track item.id) {
+
+            <article class="food-item">
+
+              <div class="food-info">
+                <strong>{{ item.feedName }}</strong>
+
+                <span>
+                  Cantidad diaria:
+                  {{ item.dailyQuantity }} {{ item.unit }}
+                </span>
+              </div>
+
+              <span class="food-status">
+                En plan
+              </span>
+
+            </article>
+
+          } @empty {
+
+            <div class="empty-small">
+              No hay alimentos registrados.
+            </div>
+
+          }
+
+        </div>
+
+      </section>
+
+
+      <!-- ACTIVIDAD -->
+      <section class="activity-panel">
+
+        <div class="panel-header">
+          <div>
+            <h2>Actividad reciente</h2>
+            <p>Últimos registros de raciones</p>
+          </div>
+
+          <span class="activity-icon">◷</span>
+        </div>
+
+
+        <div class="activity-list">
+
+          @for (log of feedingLogs(); track log.id) {
+
+            <div class="activity-item">
+              <span class="activity-dot"></span>
+              <div>
+                <strong>
+                  {{ getActivityTitle(log) }}
+                </strong>
+                <span>
+                  {{ getActivityDate(log) }} · {{ getActivityTime(log) }}
+                </span>
+              </div>
+            </div>
+
+          } @empty {
+
+            <div class="empty-small">
+              No hay actividad reciente.
+            </div>
+
+          }
+
+        </div>
+
+      </section>
+
+    </aside>
+
+  </div>
+
+</div>
