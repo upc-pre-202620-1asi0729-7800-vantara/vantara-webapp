@@ -3,8 +3,8 @@
   <!-- HEADER -->
   <section class="page-header">
     <div class="page-title">
-      <h1>Mi Ganado</h1>
-      <p>Gestiona y consulta todos los animales registrados en tu ganadería.</p>
+      <h1>{{ 'livestock.title' | translate }}</h1>
+      <p>{{ 'livestock.subtitle' | translate }}</p>
     </div>
 
     <button
@@ -12,7 +12,7 @@
       class="register-button"
       (click)="goToAddAnimal()">
       <mat-icon>add</mat-icon>
-      Registrar Animal
+      {{ 'livestock.registerAnimal' | translate }}
     </button>
   </section>
 
@@ -22,7 +22,7 @@
 
     <mat-card class="stat-card">
       <div class="stat-header">
-        <span>Total animales</span>
+        <span>{{ 'livestock.totalAnimals' | translate }}</span>
 
         <div class="stat-icon">
           <mat-icon>pets</mat-icon>
@@ -30,13 +30,13 @@
       </div>
 
       <strong>{{ totalAnimals() }}</strong>
-      <small>Animales registrados</small>
+      <small>{{ 'livestock.registeredAnimals' | translate }}</small>
     </mat-card>
 
 
     <mat-card class="stat-card">
       <div class="stat-header">
-        <span>Lotes activos</span>
+        <span>{{ 'livestock.activeLots' | translate }}</span>
 
         <div class="stat-icon">
           <mat-icon>inventory_2</mat-icon>
@@ -44,13 +44,13 @@
       </div>
 
       <strong>{{ activeLots() }}</strong>
-      <small>En pastoreo y engorde</small>
+      <small>{{ 'livestock.grazingAndFattening' | translate }}</small>
     </mat-card>
 
 
     <mat-card class="stat-card">
       <div class="stat-header">
-        <span>Saludables</span>
+        <span>{{ 'livestock.healthy' | translate }}</span>
 
         <div class="stat-icon">
           <mat-icon>verified</mat-icon>
@@ -58,13 +58,13 @@
       </div>
 
       <strong>—</strong>
-      <small>Datos de Salud</small>
+      <small>{{ 'livestock.healthData' | translate }}</small>
     </mat-card>
 
 
     <mat-card class="stat-card">
       <div class="stat-header">
-        <span>Requieren atención</span>
+        <span>{{ 'livestock.needsAttention' | translate }}</span>
 
         <div class="stat-icon warning">
           <mat-icon>warning_amber</mat-icon>
@@ -72,7 +72,7 @@
       </div>
 
       <strong>—</strong>
-      <small>Datos de Salud</small>
+      <small>{{ 'livestock.healthData' | translate }}</small>
     </mat-card>
 
   </section>
@@ -83,7 +83,7 @@
         <mat-icon>search</mat-icon>
         <input
           type="text"
-          placeholder="Buscar por ID, nombre, raza o lote..."
+          placeholder="{{ 'livestock.searchPlaceholder' | translate }}"
           [value]="searchTerm()"
           (input)="setSearchTerm($any($event.target).value)">
       </div>
@@ -92,7 +92,7 @@
         <mat-select
           [value]="selectedLot()"
           (selectionChange)="setLot($event.value)">
-          <mat-option value="">Lote</mat-option>
+          <mat-option value="">{{ 'livestock.lot' | translate }}</mat-option>
           @for (lot of lots(); track lot.id) {
             <mat-option [value]="lot.id">
               {{ lot.name }}
@@ -105,9 +105,9 @@
         <mat-select
           [value]="selectedSex()"
           (selectionChange)="setSex($event.value)">
-          <mat-option value="">Sexo</mat-option>
-          <mat-option value="Hembra">Hembra</mat-option>
-          <mat-option value="Macho">Macho</mat-option>
+          <mat-option value="">{{ 'livestock.sex' | translate }}</mat-option>
+          <mat-option value="Hembra">{{ 'livestock.female' | translate }}</mat-option>
+          <mat-option value="Macho">{{ 'livestock.male' | translate }}</mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -115,7 +115,7 @@
         <mat-select
           [value]="selectedBreed()"
           (selectionChange)="setBreed($event.value)">
-          <mat-option value="">Raza</mat-option>
+          <mat-option value="">{{ 'livestock.breed' | translate }}</mat-option>
           @for (breed of breeds(); track breed) {
             <mat-option [value]="breed">
               {{ breed }}
@@ -130,7 +130,7 @@
         class="lot-tab"
         [class.active]="selectedLot() === ''"
         (click)="setLot('')">
-        Todos ({{ totalAnimals() }})
+        {{ 'livestock.all' | translate }} ({{ totalAnimals() }})
       </button>
       @for (lot of lots(); track lot.id) {
         <button
@@ -146,9 +146,9 @@
 
   <mat-card class="animals-card">
     <div class="table-title">
-      <h2>Animales registrados</h2>
+      <h2>{{ 'livestock.registeredAnimals' | translate }}</h2>
       <span class="animal-count">
-        {{ filteredAnimals().length }} animales
+        {{ filteredAnimals().length }} {{ 'livestock.animals' | translate }}
       </span>
     </div>
 
@@ -156,14 +156,14 @@
       <table>
         <thead>
         <tr>
-          <th>ANIMAL</th>
-          <th>LOTE</th>
-          <th>SEXO</th>
-          <th>RAZA</th>
-          <th>PESO</th>
-          <th>ESTADO</th>
-          <th>ÚLTIMO CONTROL</th>
-          <th>ACCIÓN</th>
+          <th>{{ 'livestock.colAnimal' | translate }}</th>
+          <th>{{ 'livestock.colLot' | translate }}</th>
+          <th>{{ 'livestock.colSex' | translate }}</th>
+          <th>{{ 'livestock.colBreed' | translate }}</th>
+          <th>{{ 'livestock.colWeight' | translate }}</th>
+          <th>{{ 'livestock.colStatus' | translate }}</th>
+          <th>{{ 'livestock.colLastCheck' | translate }}</th>
+          <th>{{ 'livestock.colAction' | translate }}</th>
         </tr>
         </thead>
         <tbody>
@@ -195,7 +195,7 @@
               <td>
                 <span class="status-badge status-healthy">
                   <span class="status-dot"></span>
-                  Saludable
+                  {{ 'livestock.healthyStatus' | translate }}
                 </span>
               </td>
               <td>
@@ -206,7 +206,7 @@
                   mat-button
                   class="view-button"
                   (click)="goToAnimalDetail(animal.id)">
-                  Ver →
+                  {{ 'livestock.view' | translate }} →
                 </button>
               </td>
             </tr>
@@ -215,7 +215,7 @@
             <tr>
               <td colspan="8" class="empty-state">
                 <mat-icon>search_off</mat-icon>
-                <p>No se encontraron animales.</p>
+                <p>{{ 'livestock.noResults' | translate }}</p>
               </td>
             </tr>
           }
@@ -225,12 +225,11 @@
 
     <div class="pagination">
       <span>
-        Mostrando {{ filteredAnimals().length }}
-        de {{ totalAnimals() }} animales
+        {{ 'livestock.showing' | translate: { shown: filteredAnimals().length, total: totalAnimals() } }}
       </span>
       <div class="pagination-buttons">
         <button mat-button disabled>
-          ← Anterior
+          ← {{ 'livestock.previous' | translate }}
         </button>
         <button
           mat-flat-button
@@ -245,7 +244,7 @@
         </button>
         <span>...</span>
         <button mat-button>
-          Siguiente →
+          {{ 'livestock.next' | translate }} →
         </button>
       </div>
     </div>
