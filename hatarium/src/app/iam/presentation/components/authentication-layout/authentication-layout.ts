@@ -1,9 +1,10 @@
 import {Component, input} from '@angular/core';
+import {TranslatePipe} from '@ngx-translate/core';
 
 /** Shared split-screen shell used by the public IAM views. */
 @Component({
   selector: 'app-authentication-layout',
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './authentication-layout.html',
   styleUrl: './authentication-layout.css'
 })

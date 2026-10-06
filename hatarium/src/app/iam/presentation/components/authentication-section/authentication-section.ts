@@ -1,12 +1,13 @@
 import {Component, inject} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
+import {TranslatePipe} from '@ngx-translate/core';
 import {IamStore} from '../../../application/iam.store';
 
 /** Minimal authentication actions for the application shell. */
 @Component({
   selector: 'app-authentication-section',
-  imports: [RouterLink, MatButtonModule],
+  imports: [RouterLink, MatButtonModule, TranslatePipe],
   templateUrl: './authentication-section.html',
   styleUrl: './authentication-section.css'
 })

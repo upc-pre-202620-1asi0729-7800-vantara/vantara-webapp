@@ -11,13 +11,13 @@
 
     <footer>
       <span>Copyright © {{ currentYear }} Vantara.</span>
-      <a href="#privacy">Política de Privacidad</a>
+      <a href="#privacy">{{ 'auth.privacyPolicy' | translate }}</a>
     </footer>
   </section>
 
   <aside
     class="hero-panel"
     [style.background-image]="'url(&quot;' + heroImage() + '&quot;)'"
-    aria-label="Plataforma de control pecuario Hatarium"
+    [attr.aria-label]="'auth.heroAria' | translate"
   ></aside>
 </main>

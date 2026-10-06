@@ -10,7 +10,8 @@
     "appointments": "Appointments",
     "alerts": "Alerts",
     "profile": "Profile",
-    "payments": "Settings"
+    "payments": "Settings",
+    "tagline": "Livestock Management"
   },
   "dashboard": {
     "title": "Reproduction",
@@ -452,7 +453,10 @@
       "verifying": "Verifying…",
       "action": "Verify email"
     },
-    "backToSignIn": "Back to sign in"
+    "backToSignIn": "Back to sign in",
+    "privacyPolicy": "Privacy Policy",
+    "heroAria": "Hatarium livestock management platform",
+    "signOut": "Sign out"
   },
   "livestock": {
     "title": "My Livestock",

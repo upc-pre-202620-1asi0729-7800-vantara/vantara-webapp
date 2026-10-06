@@ -10,7 +10,8 @@
     "appointments": "Citas",
     "alerts": "Alertas",
     "profile": "Perfil",
-    "payments": "Configuración"
+    "payments": "Configuración",
+    "tagline": "Gestión Ganadera"
   },
   "dashboard": {
     "title": "ReproducciÃ³n",
@@ -452,7 +453,10 @@
       "verifying": "Verificando…",
       "action": "Verificar correo"
     },
-    "backToSignIn": "Volver a iniciar sesión"
+    "backToSignIn": "Volver a iniciar sesión",
+    "privacyPolicy": "Política de Privacidad",
+    "heroAria": "Plataforma de control pecuario Hatarium",
+    "signOut": "Cerrar sesión"
   },
   "livestock": {
     "title": "Mi Ganado",

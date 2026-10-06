@@ -4,7 +4,7 @@
       <mat-icon>agriculture</mat-icon>
       <div>
         <strong>Hatarium</strong>
-        <small>Gestión Ganadera</small>
+        <small>{{ 'sidebar.tagline' | translate }}</small>
       </div>
     </div>
     <mat-nav-list>
@@ -43,13 +43,13 @@
     <header class="topbar">
       <span class="topbar-title">Hatarium</span>
       <span class="spacer"></span>
-      <a mat-icon-button routerLink="/notifications" aria-label="Notificaciones" class="bell-btn">
+      <a mat-icon-button routerLink="/notifications" [attr.aria-label]="'notifications.title' | translate" class="bell-btn">
         <mat-icon>notifications</mat-icon>
         <span class="badge-dot"></span>
       </a>
       <button mat-stroked-button color="primary" (click)="signOut()" class="signout-btn">
         <mat-icon>logout</mat-icon>
-        Cerrar sesión
+        {{ 'auth.signOut' | translate }}
       </button>
     </header>
     <router-outlet/>
