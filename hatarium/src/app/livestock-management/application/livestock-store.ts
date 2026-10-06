@@ -19,7 +19,6 @@ export class LivestockStore {
   private feedingLogsSignal = signal<FeedingLog[]>([]);
 
   private liveStockApi = inject(LivestockApi);
-  private router = inject(Router);
 
   readonly animals = computed(() => this.animalsSignal());
   readonly lots = computed(() => this.lotsSignal());
