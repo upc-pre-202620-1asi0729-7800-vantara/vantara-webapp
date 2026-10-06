@@ -392,7 +392,9 @@
     "health": "Salud",
     "loading": "Cargando notificaciones...",
     "empty": "No hay notificaciones.",
-    "loadError": "No se pudieron cargar las notificaciones"
+    "loadError": "No se pudieron cargar las notificaciones",
+    "status": "Estado",
+    "markAsRead": "Marcar como leída"
   },
   "auth": {
     "email": "Correo electrónico",
@@ -704,5 +706,18 @@
     "dailyRation": "Ración diaria",
     "kgPerAnimal": "kg / animal",
     "dayShort": "día"
+  },
+  "reproductive": {
+    "title": "Gestión Reproductiva",
+    "history": "Historial reproductivo",
+    "registerPregnancy": "Registrar preñez",
+    "animalId": "ID del animal",
+    "calfIdOptional": "ID del ternero (opcional)",
+    "confirmedOn": "Fecha de confirmación",
+    "expectedCalving": "Parto esperado",
+    "confirmPregnancy": "Confirmar preñez",
+    "timelineSummary": "Animal: {{animal}} · Confirmada: {{confirmed}} · Parto esperado: {{calving}}",
+    "timelineCalving": "Parto: {{ended}} · Resultado: {{outcome}} · Peso: {{weight}} kg",
+    "noPregnancies": "No hay preñeces registradas."
   }
 }

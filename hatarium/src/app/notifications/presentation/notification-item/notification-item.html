@@ -11,12 +11,12 @@
   </small>
 
   <p>
-    Estado: {{ notification.status }}
+    {{ 'notifications.status' | translate }}: {{ notification.status }}
   </p>
 
   @if (!notification.isRead()) {
     <button (click)="markAsRead()">
-      Marcar como leída
+      {{ 'notifications.markAsRead' | translate }}
     </button>
   }
 

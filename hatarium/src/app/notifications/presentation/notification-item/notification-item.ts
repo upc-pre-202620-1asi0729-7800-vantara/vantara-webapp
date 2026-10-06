@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Notification } from '../../domain/model/notification.entity';
 
 @Component({
   selector: 'app-notification-item',
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './notification-item.html',
   styleUrl: './notification-item.css'
 })

@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ReproductiveStore } from '../../../application/reproductive.store';
 
 /**
@@ -16,7 +17,8 @@ import { ReproductiveStore } from '../../../application/reproductive.store';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    TranslatePipe
   ],
   templateUrl: './pregnancy-form.html',
   styleUrl: './pregnancy-form.css',

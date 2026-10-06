@@ -392,7 +392,9 @@
     "health": "Health",
     "loading": "Loading notifications...",
     "empty": "No notifications.",
-    "loadError": "Could not load notifications"
+    "loadError": "Could not load notifications",
+    "status": "Status",
+    "markAsRead": "Mark as read"
   },
   "auth": {
     "email": "Email",
@@ -704,5 +706,18 @@
     "dailyRation": "Daily ration",
     "kgPerAnimal": "kg / animal",
     "dayShort": "day"
+  },
+  "reproductive": {
+    "title": "Reproductive Management",
+    "history": "Reproductive history",
+    "registerPregnancy": "Register pregnancy",
+    "animalId": "Animal ID",
+    "calfIdOptional": "Calf ID (optional)",
+    "confirmedOn": "Confirmation date",
+    "expectedCalving": "Expected calving",
+    "confirmPregnancy": "Confirm pregnancy",
+    "timelineSummary": "Animal: {{animal}} · Confirmed: {{confirmed}} · Expected calving: {{calving}}",
+    "timelineCalving": "Calving: {{ended}} · Outcome: {{outcome}} · Weight: {{weight}} kg",
+    "noPregnancies": "No pregnancies recorded."
   }
 }
