@@ -1,25 +1,32 @@
 <div class="form-page-container">
-  <a routerLink="/veterinary/appointments" class="back-link">&larr; Volver a citas</a>
+  <a routerLink="/veterinary/appointments" class="back-link">{{ 'CLINICAL.BACK' | translate }}</a>
 
-  <div class="form-header">
+  <div class="page-header">
     <div>
-      <h1 class="page-title">Registrar diagnóstico clínico</h1>
-      <p class="page-subtitle">Documenta la condición médica (US028).</p>
+      <h1 class="page-title">{{ 'CLINICAL.TITLE' | translate }}</h1>
+      <p class="page-subtitle">{{ 'CLINICAL.SUBTITLE' | translate }}</p>
+    </div>
+    <div class="cita-header-badge">
+      <mat-icon class="green-icon">event</mat-icon>
+      <div>
+        <strong>{{ 'COMMON.APPOINTMENT' | translate }}</strong>
+        <small>10 Sep 2026 · 10:30 a.m. <span class="pill yellow">{{ 'COMMON.STATUS_SCHEDULED_PILL' | translate }}</span></small>
+      </div>
     </div>
   </div>
 
   <div class="two-col-layout">
     <div class="main-form-col">
-      <!-- Tarjeta del Animal traída dinámicamente de /animals/anm-047 -->
       @if (animal()) {
-        <div class="card-box animal-summary">
-          <div class="animal-avatar-lg">🐮</div>
+        <div class="card-box animal-summary-card">
+          <div class="animal-avatar">🐮</div>
           <div>
             <h3>#{{ animal()?.earTag }} · {{ animal()?.name }}</h3>
             <p class="sub-info">{{ animal()?.breed }}</p>
             <div class="pills-row">
-              <span class="pill">{{ animal()?.lotName }}</span>
+              <span class="pill green-light">{{ animal()?.lotName }}</span>
               <span class="pill">{{ animal()?.sex }}</span>
+              <span class="pill">{{ 'COMMON.AGE_VALUE' | translate }}</span>
               <span class="pill">{{ animal()?.weight }} kg</span>
             </div>
           </div>
@@ -27,62 +34,135 @@
       }
 
       <div class="card-box">
-        <h3><mat-icon>assignment</mat-icon> Información del diagnóstico</h3>
+        <h3 class="box-title"><mat-icon class="green-icon">assignment</mat-icon> {{ 'CLINICAL.DIAGNOSIS_INFO' | translate }}</h3>
 
-        <div class="form-group">
-          <label>Diagnóstico principal *</label>
-          <input type="text" [(ngModel)]="diagnosis" placeholder="Escribe el diagnóstico" class="form-input" />
-        </div>
-
-        <div class="form-group">
-          <label>Síntomas observados *</label>
-          <input type="text" [(ngModel)]="symptoms" placeholder="Describe los síntomas observados" class="form-input" />
+        <div class="form-row">
+          <div class="form-group">
+            <label>{{ 'CLINICAL.DATE' | translate }}</label>
+            <input type="date" [(ngModel)]="diagDate" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label>{{ 'CLINICAL.TIME' | translate }}</label>
+            <input type="time" [(ngModel)]="diagTime" class="form-input" />
+          </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label>Gravedad / Severidad *</label>
-            <select [(ngModel)]="severity" class="form-input">
-              <option value="low">Low (Leve)</option>
-              <option value="medium">Medium (Moderada)</option>
-              <option value="high">High (Grave)</option>
-            </select>
+            <label>{{ 'CLINICAL.MAIN_DIAGNOSIS' | translate }}</label>
+            <input type="text" [(ngModel)]="diagnosis" [placeholder]="'CLINICAL.DIAGNOSIS_PLACEHOLDER' | translate" class="form-input" />
           </div>
           <div class="form-group">
-            <label>Estado de Salud *</label>
-            <select [(ngModel)]="healthStatus" class="form-input">
-              <option value="healthy">Healthy (Saludable)</option>
-              <option value="follow_up">Follow Up (En seguimiento)</option>
-              <option value="sick">Sick (Enfermo)</option>
-            </select>
+            <label>{{ 'CLINICAL.TYPE' | translate }}</label>
+            <div class="radio-pills">
+              <label class="radio-label" [class.selected]="diagType === 'Clinico'">
+                <input type="radio" [(ngModel)]="diagType" value="Clinico" /> ✓ {{ 'CLINICAL.TYPE_CLINICAL' | translate }}
+              </label>
+              <label class="radio-label" [class.selected]="diagType === 'Complementario'">
+                <input type="radio" [(ngModel)]="diagType" value="Complementario" /> {{ 'CLINICAL.TYPE_COMPLEMENTARY' | translate }}
+              </label>
+            </div>
           </div>
         </div>
 
         <div class="form-group">
-          <label>Notas del diagnóstico</label>
-          <textarea rows="3" [(ngModel)]="notes" placeholder="Observaciones generales..." class="form-input"></textarea>
+          <label>{{ 'CLINICAL.SEVERITY' | translate }}</label>
+          <div class="radio-pills">
+            <label class="radio-label green" [class.selected]="severity === 'Leve'">
+              <input type="radio" [(ngModel)]="severity" value="Leve" /> ✓ {{ 'CLINICAL.SEVERITY_MILD' | translate }}
+            </label>
+            <label class="radio-label orange" [class.selected]="severity === 'Moderada'">
+              <input type="radio" [(ngModel)]="severity" value="Moderada" /> {{ 'CLINICAL.SEVERITY_MODERATE' | translate }}
+            </label>
+            <label class="radio-label red" [class.selected]="severity === 'Grave'">
+              <input type="radio" [(ngModel)]="severity" value="Grave" /> {{ 'CLINICAL.SEVERITY_SEVERE' | translate }}
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'CLINICAL.DESCRIPTION' | translate }}</label>
+          <textarea rows="3" [(ngModel)]="notes" [placeholder]="'CLINICAL.DESCRIPTION_PLACEHOLDER' | translate" class="form-input"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>{{ 'CLINICAL.SIGNS' | translate }}</label>
+            <input type="text" [(ngModel)]="symptoms" [placeholder]="'CLINICAL.SIGNS_PLACEHOLDER' | translate" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label>{{ 'CLINICAL.PROBABLE_CAUSE' | translate }}</label>
+            <input type="text" [(ngModel)]="causeProbable" [placeholder]="'CLINICAL.CAUSE_PLACEHOLDER' | translate" class="form-input" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'CLINICAL.FILES_EVIDENCE' | translate }}</label>
+          <div class="drag-drop-box">
+            <mat-icon>cloud_upload</mat-icon>
+            <p><strong>{{ 'COMMON.DRAG_DROP' | translate }}</strong></p>
+            <small>{{ 'CLINICAL.UPLOAD_HINT' | translate }}</small>
+          </div>
         </div>
 
         <div class="form-actions">
-          <button mat-stroked-button routerLink="/veterinary/appointments">Cancelar</button>
-          <button mat-flat-button class="btn-green" (click)="saveDiagnosis()">✓ Guardar e ir a Prescripción</button>
+          <button mat-stroked-button routerLink="/veterinary/appointments">{{ 'COMMON.CANCEL' | translate }}</button>
+          <button mat-flat-button class="btn-green" (click)="saveDiagnosis()">{{ 'CLINICAL.SAVE_DIAGNOSIS' | translate }}</button>
         </div>
       </div>
     </div>
 
-    <!-- Columna Derecha con Historial --><div class="sidebar-col">
-    <div class="card-box">
-      <h4><mat-icon>history</mat-icon> Registros Médicos Existentes</h4>
-      @for (record of animalRecords(); track record.id) {
-        <div class="history-item">
-          <strong>{{ record.diagnosis }}</strong>
-          <p>{{ record.symptoms }} - {{ record.recordedAt }}</p>
-          <span class="badge-tag">{{ record.severity }}</span>
+    <!-- Columna Derecha -->
+    <div class="sidebar-col">
+      <div class="card-box">
+        <h4 class="box-title-sm"><mat-icon class="green-icon">published_with_changes</mat-icon> {{ 'COMMON.PROGRESS' | translate }}</h4>
+        <div class="stepper-horizontal">
+          <div class="step-item active">
+            <div class="step-num">✓</div>
+            <div class="step-info"><strong>{{ 'COMMON.DIAGNOSIS' | translate }}</strong><small>{{ 'COMMON.IN_REGISTRY' | translate }}</small></div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-info"><strong>{{ 'COMMON.TREATMENT' | translate }}</strong><small>{{ 'COMMON.OPTIONAL' | translate }}</small></div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-info"><strong>{{ 'COMMON.VACCINATION' | translate }}</strong><small>{{ 'COMMON.OPTIONAL' | translate }}</small></div>
+          </div>
         </div>
-      } @empty {
-        <p style="color: #64748b; font-size: 0.85rem;">No hay diagnósticos previos para este animal.</p>
-      }
+      </div>
+
+      <div class="card-box">
+        <h4 class="box-title-sm"><mat-icon class="green-icon">event</mat-icon> {{ 'COMMON.APPOINTMENT_INFO' | translate }}</h4>
+        <ul class="info-list-sm">
+          <li><span>{{ 'COMMON.REASON' | translate }}</span> <strong>Revisión general</strong></li>
+          <li><span>{{ 'COMMON.DATETIME' | translate }}</span> <strong>10 Sep 2026 · 10:30 a.m.</strong></li>
+          <li><span>{{ 'COMMON.VETERINARIAN' | translate }}</span> <strong>{{ 'COMMON.DR_RODRIGUEZ' | translate }}</strong></li>
+          <li><span>{{ 'COMMON.VISIT_TYPE' | translate }}</span> <strong>{{ 'COMMON.VISIT_TYPE_VALUE' | translate }}</strong></li>
+          <li><span>{{ 'COMMON.STATUS' | translate }}</span> <span class="pill yellow">{{ 'COMMON.STATUS_SCHEDULED_PILL' | translate }}</span></li>
+        </ul>
+      </div>
+
+      <div class="card-box">
+        <h4 class="box-title-sm"><mat-icon class="green-icon">pets</mat-icon> {{ 'COMMON.ANIMAL_INFO' | translate }}</h4>
+        <ul class="info-list-sm">
+          <li><span>{{ 'COMMON.EAR_TAG' | translate }}</span> <strong>#{{ animal()?.earTag }}</strong></li>
+          <li><span>{{ 'COMMON.NAME' | translate }}</span> <strong>{{ animal()?.name }}</strong></li>
+          <li><span>{{ 'COMMON.BREED' | translate }}</span> <strong>{{ animal()?.breed }}</strong></li>
+          <li><span>{{ 'COMMON.SEX' | translate }}</span> <strong>{{ animal()?.sex }}</strong></li>
+          <li><span>{{ 'COMMON.AGE' | translate }}</span> <strong>{{ 'COMMON.AGE_VALUE' | translate }}</strong></li>
+          <li><span>{{ 'COMMON.WEIGHT' | translate }}</span> <strong>{{ animal()?.weight }} kg</strong></li>
+          <li><span>{{ 'COMMON.LOT' | translate }}</span> <strong>{{ animal()?.lotName }}</strong></li>
+        </ul>
+      </div>
+
+      <div class="card-box info-blue-box">
+        <mat-icon class="info-icon">info</mat-icon>
+        <div>
+          <strong>{{ 'COMMON.IMPORTANT' | translate }}</strong>
+          <p>{{ 'COMMON.IMPORTANT_TEXT' | translate }}</p>
+        </div>
+      </div>
     </div>
-  </div>
   </div>
 </div>

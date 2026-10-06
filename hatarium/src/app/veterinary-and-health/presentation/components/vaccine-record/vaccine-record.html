@@ -1,0 +1,106 @@
+<div class="vaccine-page-container">
+  <a routerLink="/veterinary/appointments" class="back-link">{{ 'VACCINE.BACK' | translate }}</a>
+
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">{{ 'VACCINE.TITLE' | translate }}</h1>
+      <p class="page-subtitle">{{ 'VACCINE.SUBTITLE' | translate }}</p>
+    </div>
+    <div class="header-tag">
+      <mat-icon class="green-icon">event</mat-icon>
+      <div>
+        <strong>{{ 'VACCINE.TAG' | translate }}</strong>
+        <p class="tag-sub">12 Sep 2026 · 09:00 a.m. <span class="pill green">{{ 'VACCINE.PILL' | translate }}</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col-layout">
+    <!-- Columna Principal (Formulario) -->
+    <div class="main-form-col">
+      @if (animal()) {
+        <div class="card-box animal-card">
+          <div class="animal-avatar">🐮</div>
+          <div>
+            <h3>#{{ animal()?.earTag }} · {{ animal()?.name }}</h3>
+            <p class="sub-info">{{ animal()?.breed }}</p>
+            <div class="pills-row">
+              <span class="pill">{{ animal()?.lotName }}</span>
+              <span class="pill">{{ animal()?.sex }}</span>
+              <span class="pill">{{ animal()?.weight }} kg</span>
+            </div>
+          </div>
+        </div>
+      }
+
+      <div class="card-box">
+        <h3><mat-icon class="green-icon">vaccines</mat-icon> {{ 'VACCINE.VACCINE_INFO' | translate }}</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>{{ 'VACCINE.VACCINE' | translate }}</label>
+            <select [(ngModel)]="vaccineName" class="form-input">
+              <option value="Fiebre Aftosa">Fiebre Aftosa</option>
+              <option value="Brucelosis">Brucelosis</option>
+              <option value="Carbunco">Carbunco</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>{{ 'VACCINE.LOT' | translate }}</label>
+            <input type="text" [(ngModel)]="lotNumber" class="form-input" [placeholder]="'VACCINE.LOT_PLACEHOLDER' | translate" />
+          </div>
+        </div>
+
+        <div class="form-row three-col">
+          <div class="form-group">
+            <label>{{ 'VACCINE.APPLIED_DATE' | translate }}</label>
+            <input type="date" [(ngModel)]="appliedAt" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label>{{ 'VACCINE.ROUTE' | translate }}</label>
+            <select [(ngModel)]="routeAdmin" class="form-input">
+              <option value="Subcutánea">{{ 'TREATMENT.ROUTE_SC' | translate }}</option>
+              <option value="Intramuscular">{{ 'TREATMENT.ROUTE_IM' | translate }}</option>
+              <option value="Oral">{{ 'TREATMENT.ROUTE_ORAL' | translate }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>{{ 'VACCINE.DOSE' | translate }}</label>
+            <input type="text" [(ngModel)]="dose" class="form-input" [placeholder]="'VACCINE.DOSE_PLACEHOLDER' | translate" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'VACCINE.NEXT_DOSE' | translate }}</label>
+          <input type="date" [(ngModel)]="nextDoseAt" class="form-input" />
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'VACCINE.OBSERVATIONS' | translate }}</label>
+          <textarea rows="3" [(ngModel)]="observations" class="form-input" [placeholder]="'VACCINE.OBS_PLACEHOLDER' | translate"></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button mat-stroked-button routerLink="/veterinary/appointments">{{ 'COMMON.CANCEL' | translate }}</button>
+          <button mat-flat-button class="btn-green" (click)="saveVaccine()">{{ 'VACCINE.SAVE_VACCINE' | translate }}</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Columna Derecha (Panel de Historial) -->
+    <div class="sidebar-col">
+      <div class="card-box">
+        <h4><mat-icon class="green-icon">history</mat-icon> {{ 'VACCINE.LAST_VACCINATIONS' | translate }}</h4>
+        @for (vac of recentVaccines(); track vac.id) {
+          <div class="history-item">
+            <strong>{{ vac.name }}</strong>
+            <p>{{ 'VACCINE.LOT_LABEL' | translate }} {{ vac.lotNumber }} - {{ vac.appliedAt }}</p>
+            <small>{{ 'VACCINE.ROUTE_LABEL' | translate }} {{ vac.route }}</small>
+          </div>
+        } @empty {
+          <p style="color: #64748b; font-size: 0.85rem;">{{ 'VACCINE.NO_VACCINES' | translate }}</p>
+        }
+      </div>
+    </div>
+  </div>
+</div>

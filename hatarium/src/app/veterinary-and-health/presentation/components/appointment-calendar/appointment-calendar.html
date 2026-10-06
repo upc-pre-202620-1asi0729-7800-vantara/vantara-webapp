@@ -1,98 +1,126 @@
-<div class="citas-container">
+<div class="citas-page">
   <div class="top-header">
     <div>
-      <h1 class="page-title">Citas veterinarias</h1>
-      <p class="page-subtitle">Gestiona las citas programadas con el equipo veterinario.</p>
+      <h1 class="page-title">{{ 'CALENDAR.TITLE' | translate }}</h1>
+      <p class="page-subtitle">{{ 'CALENDAR.SUBTITLE' | translate }}</p>
     </div>
     <div class="header-actions">
-      <button mat-flat-button class="btn-green" (click)="toggleNewAppointmentModal()">
-        <mat-icon>add</mat-icon> Nueva cita
+      <button mat-flat-button class="btn-green" (click)="goToNewAppointment()">
+        <mat-icon>add</mat-icon> {{ 'CALENDAR.SCHEDULE_TECHNICAL' | translate }}
       </button>
     </div>
   </div>
 
-  @if (showNewAppointmentForm()) {
-    <div class="card-box modal-form">
-      <h3><mat-icon>event</mat-icon> Registrar Nueva Cita Técnica</h3>
-      <div class="form-row">
-        <div class="field-group">
-          <label>Motivo de la cita *</label>
-          <input type="text" [(ngModel)]="newReason" placeholder="Ej. Control de peso, Vacunación" class="custom-input" />
-        </div>
-        <div class="field-group">
-          <label>Fecha y Hora *</label>
-          <input type="datetime-local" [(ngModel)]="newScheduledAt" class="custom-input" />
-        </div>
-        <div class="field-group">
-          <label>Animal *</label>
-          <select [(ngModel)]="newAnimalId" class="custom-input">
-            @for (animal of availableAnimals(); track animal.id) {
-              <option [value]="animal.id">
-                #{{ animal.earTag }} · {{ animal.name }} ({{ animal.breed }})
-              </option>
-            }
-          </select>
-        </div>
+  <!-- KPIs Resumen de Citas -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-icon-wrapper green-light"><mat-icon>event_available</mat-icon></div>
+      <div class="kpi-content">
+        <span class="kpi-title">{{ 'CALENDAR.KPI_SCHEDULED' | translate }}</span>
+        <div class="kpi-number">{{ store.appointments().length }}</div>
+        <span class="kpi-sub">{{ 'CALENDAR.KPI_TOTAL_SYSTEM' | translate }}</span>
       </div>
-      <div class="btn-actions">
-        <button mat-stroked-button (click)="toggleNewAppointmentModal()">Cancelar</button>
-        <button mat-flat-button class="btn-green" (click)="saveNewAppointment()">Guardar cita</button>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon-wrapper blue-light"><mat-icon>person</mat-icon></div>
+      <div class="kpi-content">
+        <span class="kpi-title">{{ 'CALENDAR.KPI_RANCHER' | translate }}</span>
+        <div class="kpi-number">2</div>
+        <span class="kpi-sub">{{ 'CALENDAR.KPI_ATTENTIONS_REQUIRED' | translate }}</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon-wrapper orange-light"><mat-icon>handyman</mat-icon></div>
+      <div class="kpi-content">
+        <span class="kpi-title">{{ 'CALENDAR.KPI_TECHNICAL' | translate }}</span>
+        <div class="kpi-number">2</div>
+        <span class="kpi-sub">{{ 'CALENDAR.KPI_SANITARY_CONTROLS' | translate }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pestañas Principales -->
+  <div class="tabs-nav-bar">
+    <button class="tab-btn" [class.active]="activeTab() === 'proximas'" (click)="setTab('proximas')">
+      <mat-icon>event</mat-icon> {{ 'CALENDAR.TAB_UPCOMING' | translate }}
+    </button>
+    <button class="tab-btn" [class.active]="activeTab() === 'historial'" (click)="setTab('historial')">
+      <mat-icon>history</mat-icon> {{ 'CALENDAR.TAB_HISTORY' | translate }}
+    </button>
+  </div>
+
+  <!-- Barra de Filtros por Origen -->
+  <div class="filters-bar">
+    <div class="search-input-wrapper">
+      <mat-icon>search</mat-icon>
+      <input type="text" [(ngModel)]="searchTerm" [placeholder]="'CALENDAR.SEARCH_PLACEHOLDER' | translate" />
+    </div>
+
+    <div class="origin-pills-filter">
+      <button class="pill-filter" [class.active]="originFilter() === 'ALL'" (click)="setOriginFilter('ALL')">
+        {{ 'CALENDAR.FILTER_ALL' | translate }}
+      </button>
+      <button class="pill-filter blue" [class.active]="originFilter() === 'RANCHER_REQUEST'" (click)="setOriginFilter('RANCHER_REQUEST')">
+        {{ 'CALENDAR.FILTER_RANCHER' | translate }}
+      </button>
+      <button class="pill-filter green" [class.active]="originFilter() === 'TECHNICAL_VISIT'" (click)="setOriginFilter('TECHNICAL_VISIT')">
+        {{ 'CALENDAR.FILTER_TECHNICAL' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Listado de Tarjetas -->
+  @if (activeTab() === 'proximas') {
+    <div class="section-block">
+      <div class="cards-list">
+        @for (apt of filteredAppointments(); track apt.id) {
+          @let animId = appointmentAnimalMap()[apt.id] || 'anm-047';
+          @let anim = animalMap()[animId];
+
+          <div class="appointment-card-item">
+            <div class="date-column">
+              <span class="day-number">{{ apt.scheduledAt | date:'dd' }}</span>
+              <span class="month-year">{{ apt.scheduledAt | date:'MMM yyyy' }}</span>
+            </div>
+
+            <div class="animal-avatar">🐮</div>
+
+            <div class="animal-info-col">
+              <div class="title-line">
+                <strong>#{{ anim?.earTag || '047' }} · {{ anim?.name || 'Mariposa' }}</strong>
+                @if (apt.origin === 'TECHNICAL_VISIT') {
+                  <span class="origin-badge green">{{ 'CALENDAR.BADGE_TECHNICAL' | translate }}</span>
+                } @else {
+                  <span class="origin-badge blue">{{ 'CALENDAR.BADGE_RANCHER' | translate }}</span>
+                }
+              </div>
+              <p class="sub-text">{{ apt.reason }} · {{ 'COMMON.LOT' | translate }} {{ anim?.lotName || 'Lote A' }}</p>
+            </div>
+
+            <div class="vet-col">
+              <mat-icon>person</mat-icon>
+              <div>
+                <strong>Dr. Rodríguez</strong>
+                <small>CMPV 12345</small>
+              </div>
+            </div>
+
+            <div class="status-col">
+              <span class="status-pill" [ngClass]="apt.status">
+                {{ apt.status === 'scheduled' ? ('CALENDAR.STATUS_SCHEDULED' | translate) : ('CALENDAR.STATUS_COMPLETED' | translate) }}
+              </span>
+            </div>
+
+            <div class="action-col">
+              <button class="btn-link-action" (click)="goToDetail(apt.id)">
+                {{ 'CALENDAR.VIEW_APPOINTMENT' | translate }}
+              </button>
+            </div>
+          </div>
+        } @empty {
+          <p class="empty-msg">{{ 'CALENDAR.EMPTY' | translate }}</p>
+        }
       </div>
     </div>
   }
-
-  <!-- KPIs -->
-  <div class="kpi-row">
-    <div class="kpi-card">
-      <div class="kpi-icon-wrapper green-bg"><mat-icon>event</mat-icon></div>
-      <div>
-        <span class="kpi-label">CITAS PROGRAMADAS</span>
-        <div class="kpi-val">{{ store.appointments().length }}</div>
-        <span class="kpi-sub">Total en sistema</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Próximas Citas -->
-  <div class="section-block">
-    <h3 class="section-title">Próximas citas</h3>
-
-    <div class="upcoming-list">
-      @for (apt of filteredAppointments(); track apt.id) {
-        @let currentAnimalId = appointmentAnimalMap()[apt.id] || 'anm-047';
-        @let animal = animalMap()[currentAnimalId];
-
-        <div class="upcoming-card">
-          <div class="date-badge">
-            <span class="day">{{ apt.scheduledAt | date:'dd' }}</span>
-            <span class="month-year">{{ apt.scheduledAt | date:'MMM' }}</span>
-          </div>
-
-          <div class="animal-avatar">🐮</div>
-
-          <div class="info-block">
-            <div class="animal-name">
-              #{{ animal?.earTag || '047' }} · {{ animal?.name || 'María' }}
-              <span class="badge-blue">{{ apt.reason }}</span>
-            </div>
-            <span class="subtext">Raza: {{ animal?.breed || 'Holstein mestiza' }} - Lote: {{ animal?.lotName || 'Lote A' }}</span>
-          </div>
-
-          <div class="vet-info">
-            <mat-icon>person_outline</mat-icon>
-            <div>
-              <strong>Dr. García López</strong>
-              <small>{{ apt.veterinarianId }}</small>
-            </div>
-          </div>
-
-          <span class="status-pill" [ngClass]="apt.status">{{ apt.status }}</span>
-
-          <button mat-button class="action-link" (click)="goToDiagnosis(apt.id)">
-            Atender / Ver cita &rarr;
-          </button>
-        </div>
-      }
-    </div>
-  </div>
 </div>

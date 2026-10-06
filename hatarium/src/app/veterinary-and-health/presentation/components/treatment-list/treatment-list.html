@@ -1,80 +1,184 @@
-<div class="treatment-page">
-  <a routerLink="/veterinary/history" class="back-link">&larr; Volver a diagnóstico</a>
+<div class="treatment-page-container">
+  <a routerLink="/veterinary/appointments" class="back-link">{{ 'TREATMENT.BACK' | translate }}</a>
 
   <div class="page-header">
     <div>
-      <h1 class="page-title">Prescribir tratamiento médico</h1>
-      <p class="page-subtitle">Prescripción e indicaciones de recuperación (US029).</p>
+      <h1 class="page-title">{{ 'TREATMENT.TITLE' | translate }}</h1>
+      <p class="page-subtitle">{{ 'TREATMENT.SUBTITLE' | translate }}</p>
+    </div>
+    <div class="cita-header-badge">
+      <mat-icon class="green-icon">event</mat-icon>
+      <div>
+        <strong>{{ 'COMMON.APPOINTMENT' | translate }}</strong>
+        <small>10 Sep 2026 · 10:30 a.m. <span class="pill yellow">{{ 'COMMON.STATUS_SCHEDULED_PILL' | translate }}</span></small>
+      </div>
     </div>
   </div>
 
-  <div class="layout-grid">
-    <div class="form-column">
+  <div class="two-col-layout">
+    <div class="main-form-col">
+      @if (animal()) {
+        <div class="card-box animal-card">
+          <div class="animal-avatar">🐮</div>
+          <div>
+            <h3>#{{ animal()?.earTag }} · {{ animal()?.name }}</h3>
+            <p class="sub-info">{{ animal()?.breed }}</p>
+            <div class="pills-row">
+              <span class="pill green-light">{{ animal()?.lotName }}</span>
+              <span class="pill">{{ animal()?.sex }}</span>
+              <span class="pill">{{ 'COMMON.AGE_VALUE' | translate }}</span>
+              <span class="pill">{{ animal()?.weight }} kg</span>
+            </div>
+          </div>
+        </div>
+      }
+
       <div class="card-box">
-        <h3 class="section-title"><mat-icon>medication</mat-icon> Prescripción médica</h3>
+        <h3 class="box-title"><mat-icon class="green-icon">medication</mat-icon> {{ 'TREATMENT.TREATMENT_INFO' | translate }}</h3>
 
         <div class="form-row">
-          <div class="field-group">
-            <label>Medicamento *</label>
-            <select [(ngModel)]="selectedMedicationId" class="custom-input">
+          <div class="form-group">
+            <label>{{ 'TREATMENT.TYPE' | translate }}</label>
+            <select [(ngModel)]="treatmentType" class="form-input">
+              <option value="Preventivo">{{ 'TREATMENT.TYPE_PREVENTIVE' | translate }}</option>
+              <option value="Curativo">{{ 'TREATMENT.TYPE_CURATIVE' | translate }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>{{ 'TREATMENT.PURPOSE' | translate }}</label>
+            <select [(ngModel)]="purpose" class="form-input">
+              <option value="Tratamiento rutinario">{{ 'TREATMENT.PURPOSE_ROUTINE' | translate }}</option>
+              <option value="Control de infección">{{ 'TREATMENT.PURPOSE_INFECTION' | translate }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>{{ 'TREATMENT.MEDICATION' | translate }}</label>
+            <select [(ngModel)]="selectedMedicationId" class="form-input">
               @for (med of medicationsList(); track med.id) {
                 <option [value]="med.id">{{ med.name }} ({{ med.activeIngredient }})</option>
               }
             </select>
           </div>
-          <div class="field-group">
-            <label>Tipo de tratamiento *</label>
-            <select [(ngModel)]="treatmentType" class="custom-input">
-              <option value="Preventivo">Preventivo</option>
-              <option value="Curativo">Curativo</option>
-            </select>
+          <div class="form-group">
+            <label>{{ 'TREATMENT.DOSE' | translate }}</label>
+            <div class="inline-inputs">
+              <input type="text" [(ngModel)]="dose" [placeholder]="'TREATMENT.DOSE_PLACEHOLDER' | translate" class="form-input" />
+              <select [(ngModel)]="doseUnit" class="form-input unit-select">
+                <option value="mL">mL</option>
+                <option value="mg">mg</option>
+              </select>
+            </div>
           </div>
         </div>
 
         <div class="form-row three-col">
-          <div class="field-group">
-            <label>Dosis *</label>
-            <input type="text" [(ngModel)]="dose" class="custom-input" />
-          </div>
-          <div class="field-group">
-            <label>Vía de administración *</label>
-            <select [(ngModel)]="routeAdmin" class="custom-input">
-              <option value="Intramuscular">Intramuscular</option>
-              <option value="Intramamaria">Intramamaria</option>
-              <option value="Oral">Oral</option>
+          <div class="form-group">
+            <label>{{ 'TREATMENT.ROUTE' | translate }}</label>
+            <select [(ngModel)]="routeAdmin" class="form-input">
+              <option value="Intramuscular">{{ 'TREATMENT.ROUTE_IM' | translate }}</option>
+              <option value="Subcutánea">{{ 'TREATMENT.ROUTE_SC' | translate }}</option>
+              <option value="Oral">{{ 'TREATMENT.ROUTE_ORAL' | translate }}</option>
             </select>
           </div>
-          <div class="field-group">
-            <label>Frecuencia (Horas) *</label>
-            <input type="text" [(ngModel)]="frequencyHours" class="custom-input" />
+          <div class="form-group">
+            <label>{{ 'TREATMENT.FREQUENCY' | translate }}</label>
+            <select [(ngModel)]="frequencyHours" class="form-input">
+              <option value="24">{{ 'TREATMENT.FREQ_24' | translate }}</option>
+              <option value="12">{{ 'TREATMENT.FREQ_12' | translate }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>{{ 'TREATMENT.DURATION' | translate }}</label>
+            <div class="inline-inputs">
+              <input type="number" [(ngModel)]="durationDays" class="form-input" />
+              <span class="unit-label">{{ 'TREATMENT.DAYS' | translate }}</span>
+            </div>
           </div>
         </div>
 
-        <div class="field-group">
-          <label>Instrucciones de administración *</label>
-          <textarea rows="3" [(ngModel)]="instructions" class="custom-input"></textarea>
+        <div class="form-group">
+          <label>{{ 'TREATMENT.INSTRUCTIONS' | translate }}</label>
+          <textarea rows="3" [(ngModel)]="instructions" class="form-input"></textarea>
         </div>
 
-        <div class="btn-actions">
-          <button mat-stroked-button routerLink="/veterinary/appointments">Cancelar</button>
-          <button mat-flat-button class="btn-green" (click)="saveTreatment()">✓ Prescribir tratamiento</button>
+        <div class="form-group">
+          <label>{{ 'TREATMENT.OBSERVATIONS' | translate }}</label>
+          <textarea rows="2" [(ngModel)]="notes" class="form-input"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'TREATMENT.FILES' | translate }}</label>
+          <div class="drag-drop-box">
+            <mat-icon>cloud_upload</mat-icon>
+            <p><strong>{{ 'COMMON.DRAG_DROP' | translate }}</strong></p>
+            <small>{{ 'TREATMENT.UPLOAD_HINT' | translate }}</small>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button mat-stroked-button routerLink="/veterinary/appointments">{{ 'COMMON.CANCEL' | translate }}</button>
+          <button mat-flat-button class="btn-green" (click)="saveTreatment()">{{ 'TREATMENT.SAVE_TREATMENT' | translate }}</button>
         </div>
       </div>
     </div>
 
-    <!-- Lista de tratamientos en db.json --><div class="sidebar-column">
-    <div class="card-box">
-      <h4><mat-icon>vaccines</mat-icon> Tratamientos del Animal</h4>
-      @for (trt of animalTreatments(); track trt.id) {
-        <div class="history-item">
-          <strong>{{ trt.treatmentType }} - {{ trt.dose }}</strong>
-          <p>Vía: {{ trt.route }} (Cada {{ trt.frequencyHours }}h)</p>
-          <span class="pill-badge green">{{ trt.status }}</span>
+    <!-- Columna Derecha -->
+    <div class="sidebar-col">
+      <div class="card-box">
+        <h4 class="box-title-sm"><mat-icon class="green-icon">published_with_changes</mat-icon> {{ 'COMMON.PROGRESS' | translate }}</h4>
+        <div class="stepper-horizontal">
+          <div class="step-item active">
+            <div class="step-num green-check">✓</div>
+            <div class="step-info"><strong>{{ 'COMMON.DIAGNOSIS' | translate }}</strong><small>{{ 'COMMON.COMPLETED' | translate }}</small></div>
+          </div>
+          <div class="step-item active">
+            <div class="step-num">2</div>
+            <div class="step-info"><strong>{{ 'COMMON.TREATMENT' | translate }}</strong><small>{{ 'COMMON.IN_REGISTRY' | translate }}</small></div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-info"><strong>{{ 'COMMON.VACCINATION' | translate }}</strong><small>{{ 'COMMON.OPTIONAL' | translate }}</small></div>
+          </div>
         </div>
-      } @empty {
-        <p style="color: #64748b; font-size: 0.85rem;">No hay tratamientos registrados para este animal.</p>
-      }
+      </div>
+
+      <div class="card-box">
+        <h4 class="box-title-sm"><mat-icon class="green-icon">event</mat-icon> {{ 'COMMON.APPOINTMENT_INFO' | translate }}</h4>
+        <ul class="info-list-sm">
+          <li><span>{{ 'COMMON.REASON' | translate }}</span> <strong>Revisión general</strong></li>
+          <li><span>{{ 'COMMON.DATETIME' | translate }}</span> <strong>10 Sep 2026 · 10:30 a.m.</strong></li>
+          <li><span>{{ 'COMMON.VETERINARIAN' | translate }}</span> <strong>{{ 'COMMON.DR_RODRIGUEZ' | translate }}</strong></li>
+          <li><span>{{ 'COMMON.VISIT_TYPE' | translate }}</span> <strong>{{ 'COMMON.VISIT_TYPE_VALUE' | translate }}</strong></li>
+          <li><span>{{ 'COMMON.STATUS' | translate }}</span> <span class="pill yellow">{{ 'COMMON.STATUS_SCHEDULED_PILL' | translate }}</span></li>
+        </ul>
+      </div>
+
+      <div class="card-box">
+        <h4 class="box-title-sm"><mat-icon class="green-icon">pets</mat-icon> {{ 'COMMON.ANIMAL_INFO' | translate }}</h4>
+        <ul class="info-list-sm">
+          <li><span>{{ 'COMMON.EAR_TAG' | translate }}</span> <strong>#{{ animal()?.earTag }}</strong></li>
+          <li><span>{{ 'COMMON.NAME' | translate }}</span> <strong>{{ animal()?.name }}</strong></li>
+          <li><span>{{ 'COMMON.BREED' | translate }}</span> <strong>{{ animal()?.breed }}</strong></li>
+          <li><span>{{ 'COMMON.SEX' | translate }}</span> <strong>{{ animal()?.sex }}</strong></li>
+          <li><span>{{ 'COMMON.AGE' | translate }}</span> <strong>{{ 'COMMON.AGE_VALUE' | translate }}</strong></li>
+          <li><span>{{ 'COMMON.WEIGHT' | translate }}</span> <strong>{{ animal()?.weight }} kg</strong></li>
+          <li><span>{{ 'COMMON.LOT' | translate }}</span> <strong>{{ animal()?.lotName }}</strong></li>
+        </ul>
+      </div>
+
+      <div class="card-box diag-box">
+        <div class="diag-header">
+          <mat-icon class="green-icon">stethoscope</mat-icon>
+          <div>
+            <strong>{{ 'TREATMENT.ASSOCIATED_DIAGNOSIS' | translate }}</strong>
+            <p>{{ 'TREATMENT.DIAGNOSIS_DESC' | translate }}</p>
+            <small>10 Sep 2026 · Dr. Rodríguez</small>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
   </div>
 </div>
