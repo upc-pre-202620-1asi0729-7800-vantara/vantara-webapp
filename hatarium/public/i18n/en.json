@@ -329,7 +329,11 @@
     "notifications": "Notifications",
     "viewAlerts": "View alerts",
     "recentActivity": "Recent activity",
-    "noActivity": "No recent activity."
+    "noActivity": "No recent activity.",
+    "healthBanner": {
+      "title": "{{count}} pending health alert",
+      "action": "Review alerts"
+    }
   },
   "payments": {
     "chooseSubscription": "Choose your subscription",

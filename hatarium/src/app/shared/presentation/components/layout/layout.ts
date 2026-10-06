@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,7 +8,7 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageSwitcher } from '../language-switcher/language-switcher';
 import { IamStore } from '../../../../iam/application/iam.store';
-import { environment } from '../../../../../environments/environment';
+import { SessionProfile } from '../../../application/session-profile';
 
 interface NavOption {
   labelKey: string;
@@ -30,17 +29,11 @@ interface NavOption {
 export class Layout {
   private readonly iamStore = inject(IamStore);
   private readonly router = inject(Router);
-  private readonly http = inject(HttpClient);
+  private readonly session = inject(SessionProfile);
 
-  readonly userName = signal('Juan Quispe');
-  readonly userRole = signal('Administrador');
-
-  constructor() {
-    this.http.get<Array<{ fullName: string }>>(`${environment.hatariumApiBaseUrl}/users`)
-      .subscribe(users => {
-        if (users.length) this.userName.set(users[0].fullName);
-      });
-  }
+  readonly userName = this.session.fullName;
+  readonly userRole = this.session.roleName;
+  readonly initials = this.session.initials;
 
   signOut(): void {
     this.iamStore.signOut();

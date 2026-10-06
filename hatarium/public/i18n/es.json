@@ -329,7 +329,11 @@
     "notifications": "Notificaciones",
     "viewAlerts": "Ver alertas",
     "recentActivity": "Actividad reciente",
-    "noActivity": "No hay actividad reciente."
+    "noActivity": "No hay actividad reciente.",
+    "healthBanner": {
+      "title": "{{count}} alerta sanitaria pendiente",
+      "action": "Revisar alertas"
+    }
   },
   "payments": {
     "chooseSubscription": "Elige tu suscripción",

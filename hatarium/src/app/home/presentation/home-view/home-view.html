@@ -4,6 +4,19 @@
     <p>{{ 'home.subtitle' | translate }}</p>
   </header>
 
+  @if (openHealthAlerts().length) {
+    <section class="health-banner">
+      <mat-icon class="banner-icon">health_and_safety</mat-icon>
+      <div class="banner-text">
+        <strong>{{ 'home.healthBanner.title' | translate: { count: openHealthAlerts().length } }}</strong>
+        <p>{{ openHealthAlerts()[0].description }}</p>
+      </div>
+      <a mat-stroked-button color="primary" routerLink="/notifications">
+        {{ 'home.healthBanner.action' | translate }}
+      </a>
+    </section>
+  }
+
   <section class="cards">
     <mat-card class="stat">
       <mat-card-content>

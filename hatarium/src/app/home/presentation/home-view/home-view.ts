@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { UpperCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { environment } from '../../../../environments/environment';
+import { SessionProfile } from '../../../shared/application/session-profile';
 
 interface Counts {
   animals: number;
@@ -18,13 +20,9 @@ interface NotificationItem {
   id: string;
   title: string;
   description: string;
+  type: string;
   status: string;
   sentAt: string;
-}
-
-interface User {
-  id: string;
-  fullName: string;
 }
 
 /**
@@ -34,17 +32,19 @@ interface User {
  */
 @Component({
   selector: 'app-home-view',
-  imports: [MatCardModule, MatIconModule, RouterLink, TranslatePipe, UpperCasePipe],
+  imports: [MatCardModule, MatButtonModule, MatIconModule, RouterLink, TranslatePipe, UpperCasePipe],
   templateUrl: './home-view.html',
   styleUrl: './home-view.css',
   changeDetection: ChangeDetectionStrategy.Eager
 })
 export class HomeView implements OnInit {
   private readonly http = inject(HttpClient);
+  private readonly session = inject(SessionProfile);
 
-  readonly userName = signal('Ganadero');
+  readonly userName = this.session.fullName;
   readonly counts = signal<Counts>({ animals: 0, lots: 0, appointments: 0, alerts: 0 });
   readonly activity = signal<NotificationItem[]>([]);
+  readonly openHealthAlerts = signal<NotificationItem[]>([]);
   readonly loading = signal(true);
 
   ngOnInit(): void {
@@ -53,9 +53,6 @@ export class HomeView implements OnInit {
 
   private load(): void {
     const base = environment.hatariumApiBaseUrl;
-    this.http.get<User[]>(`${base}/users`).subscribe(users => {
-      if (users.length) this.userName.set(users[0].fullName);
-    });
     this.http.get<unknown[]>(`${base}/animals`).subscribe(a => {
       this.counts.update(c => ({ ...c, animals: a.length }));
     });
@@ -68,6 +65,11 @@ export class HomeView implements OnInit {
     this.http.get<NotificationItem[]>(`${base}/notifications`).subscribe(list => {
       const unread = list.filter(n => n.status === 'unread').length;
       this.counts.update(c => ({ ...c, alerts: unread }));
+      this.openHealthAlerts.set(
+        list
+          .filter(n => n.type === 'HEALTH_ALERT' && n.status === 'unread')
+          .sort((a, b) => b.sentAt.localeCompare(a.sentAt))
+      );
       this.activity.set(
         [...list].sort((a, b) => b.sentAt.localeCompare(a.sentAt)).slice(0, 5)
       );
