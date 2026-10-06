@@ -10,13 +10,13 @@
         class="back-button"
         type="button"
         (click)="goBack()">
-        ← Volver a Alimentación
+        ← {{ 'feeding.backToFeeding' | translate }}
       </button>
 
-      <h1>Nuevo plan alimentario</h1>
+      <h1>{{ 'feedingPlanAdd.title' | translate }}</h1>
 
       <p>
-        Crea un plan de alimentación para tu ganado.
+        {{ 'feedingPlanAdd.subtitle' | translate }}
       </p>
 
     </div>
@@ -34,8 +34,8 @@
       <span [class.completed]="currentStep > 1">1</span>
 
       <div>
-        <strong>Información general</strong>
-        <small>Datos del plan</small>
+        <strong>{{ 'feedingPlanAdd.generalInfo' | translate }}</strong>
+        <small>{{ 'feedingPlanAdd.planData' | translate }}</small>
       </div>
 
     </div>
@@ -52,8 +52,8 @@
       <span [class.completed]="currentStep > 2">2</span>
 
       <div>
-        <strong>Ración</strong>
-        <small>Ingredientes</small>
+        <strong>{{ 'feedingPlanAdd.ration' | translate }}</strong>
+        <small>{{ 'feedingPlanAdd.ingredients' | translate }}</small>
       </div>
 
     </div>
@@ -70,8 +70,8 @@
       <span [class.completed]="currentStep > 3">3</span>
 
       <div>
-        <strong>Programación</strong>
-        <small>Horarios</small>
+        <strong>{{ 'feedingPlanAdd.schedule' | translate }}</strong>
+        <small>{{ 'feedingPlanAdd.schedules' | translate }}</small>
       </div>
 
     </div>
@@ -88,8 +88,8 @@
       <span>4</span>
 
       <div>
-        <strong>Revisión</strong>
-        <small>Confirmar</small>
+        <strong>{{ 'feedingPlanAdd.review' | translate }}</strong>
+        <small>{{ 'feedingPlanAdd.confirm' | translate }}</small>
       </div>
 
     </div>
@@ -111,8 +111,8 @@
             </div>
 
             <div>
-              <h2>Información general</h2>
-              <p>Define los datos principales del plan alimentario.</p>
+              <h2>{{ 'feedingPlanAdd.generalInfo' | translate }}</h2>
+              <p>{{ 'feedingPlanAdd.generalInfoSubtitle' | translate }}</p>
             </div>
 
           </div>
@@ -124,14 +124,14 @@
             <div class="form-field full-width">
 
               <label for="planName">
-                Nombre del plan
+                {{ 'feedingPlanAdd.planName' | translate }}
               </label>
 
               <input
                 id="planName"
                 type="text"
                 [(ngModel)]="planName"
-                placeholder="Ej. Plan de engorde - Lote A">
+                placeholder="{{ 'feedingPlanAdd.planNameExample' | translate }}">
 
             </div>
 
@@ -140,7 +140,7 @@
             <div class="form-field">
 
               <label for="lot">
-                Lote
+                {{ 'feeding.lot' | translate }}
               </label>
 
               <select
@@ -149,7 +149,7 @@
                 (ngModelChange)="onLotChange()">
 
                 <option value="">
-                  Selecciona un lote
+                  {{ 'feedingPlanAdd.selectLot' | translate }}
                 </option>
 
                 @for (lot of lots(); track lot.id) {
@@ -169,7 +169,7 @@
             <div class="form-field">
 
               <label for="animal">
-                Animal
+                {{ 'feedingPlanAdd.animal' | translate }}
               </label>
 
               <select
@@ -178,7 +178,7 @@
                 [disabled]="!selectedLotId">
 
                 <option [ngValue]="null">
-                  Todos los animales del lote
+                  {{ 'feeding.allLotAnimals' | translate }}
                 </option>
 
                 @for (animal of filteredAnimals; track animal.id) {
@@ -198,7 +198,7 @@
             <div class="form-field">
 
               <label for="startsOn">
-                Fecha de inicio
+                {{ 'feeding.start' | translate }}
               </label>
 
               <input
@@ -213,7 +213,7 @@
             <div class="form-field">
 
               <label for="endsOn">
-                Fecha de finalización
+                {{ 'feeding.end' | translate }}
               </label>
 
               <input
@@ -228,14 +228,14 @@
             <div class="form-field">
 
               <label for="objective">
-                Objetivo
+                {{ 'feeding.objective' | translate }}
               </label>
 
               <input
                 id="objective"
                 type="text"
                 [(ngModel)]="objective"
-                placeholder="Ej. Aumentar peso">
+                placeholder="{{ 'feedingPlanAdd.objectiveExample' | translate }}">
 
             </div>
 
@@ -244,7 +244,7 @@
             <div class="form-field">
 
               <label for="currentWeight">
-                Peso promedio actual (kg)
+                {{ 'feedingPlanAdd.currentAverageWeightLabel' | translate }}
               </label>
 
               <input
@@ -252,7 +252,7 @@
                 type="number"
                 min="0"
                 [(ngModel)]="currentAverageWeight"
-                placeholder="Ej. 420">
+                placeholder="{{ 'feedingPlanAdd.weightExample' | translate }}">
 
             </div>
 
@@ -261,7 +261,7 @@
             <div class="form-field">
 
               <label for="targetWeight">
-                Peso objetivo (kg)
+                {{ 'feedingPlanAdd.targetWeightLabel' | translate }}
               </label>
 
               <input
@@ -269,7 +269,7 @@
                 type="number"
                 min="0"
                 [(ngModel)]="targetWeight"
-                placeholder="Ej. 500">
+                placeholder="{{ 'feedingPlanAdd.weightExample2' | translate }}">
 
             </div>
 
@@ -278,14 +278,14 @@
             <div class="form-field full-width">
 
               <label for="instructions">
-                Instrucciones
+                {{ 'feeding.instructions' | translate }}
               </label>
 
               <textarea
                 id="instructions"
                 rows="4"
                 [(ngModel)]="instructions"
-                placeholder="Escribe las indicaciones para este plan...">
+                placeholder="{{ 'feedingPlanAdd.instructionsPlaceholder' | translate }}">
           </textarea>
 
             </div>
@@ -299,14 +299,14 @@
               class="secondary-button"
               type="button"
               (click)="goBack()">
-              Cancelar
+              {{ 'payments.cancel' | translate }}
             </button>
 
             <button
               class="primary-button"
               type="button"
               (click)="nextStep()">
-              Continuar
+              {{ 'feedingPlanAdd.continue' | translate }}
               <span>→</span>
             </button>
 
@@ -329,10 +329,10 @@
             </div>
 
             <div>
-              <h2>Ración e ingredientes</h2>
+              <h2>{{ 'feeding.rationAndIngredients' | translate }}</h2>
 
               <p>
-                Define los alimentos y cantidades que forman parte del plan.
+                {{ 'feedingPlanAdd.rationSubtitle' | translate }}
               </p>
             </div>
 
@@ -342,9 +342,9 @@
           <div class="ingredients-header">
 
             <div>
-              <strong>Ingredientes de la ración</strong>
+              <strong>{{ 'feedingPlanAdd.rationIngredients' | translate }}</strong>
               <span>
-            Agrega todos los alimentos que recibirá el ganado.
+            {{ 'feedingPlanAdd.rationIngredientsHint' | translate }}
           </span>
             </div>
 
@@ -354,7 +354,7 @@
               (click)="addIngredient()">
 
               <mat-icon>add</mat-icon>
-              Agregar ingrediente
+              {{ 'feedingPlanAdd.addIngredient' | translate }}
 
             </button>
 
@@ -375,13 +375,13 @@
                 <div class="form-field ingredient-name">
 
                   <label>
-                    Ingrediente
+                    {{ 'feedingPlanAdd.ingredient' | translate }}
                   </label>
 
                   <input
                     type="text"
                     [(ngModel)]="ingredient.feedName"
-                    placeholder="Ej. Pasto elefante">
+                    placeholder="{{ 'feedingPlanAdd.ingredientExample' | translate }}">
 
                 </div>
 
@@ -389,7 +389,7 @@
                 <div class="form-field ingredient-quantity">
 
                   <label>
-                    Cantidad diaria
+                    {{ 'feeding.dailyQuantity' | translate }}
                   </label>
 
                   <input
@@ -397,7 +397,7 @@
                     min="0"
                     step="0.1"
                     [(ngModel)]="ingredient.dailyQuantity"
-                    placeholder="Ej. 7">
+                    placeholder="{{ 'feedingPlanAdd.quantityExample' | translate }}">
 
                 </div>
 
@@ -405,7 +405,7 @@
                 <div class="form-field ingredient-unit">
 
                   <label>
-                    Unidad
+                    {{ 'feedingPlanAdd.unit' | translate }}
                   </label>
 
                   <select [(ngModel)]="ingredient.unit">
@@ -424,7 +424,7 @@
                   class="remove-ingredient-button"
                   [disabled]="ingredients.length === 1"
                   (click)="removeIngredient($index)"
-                  title="Eliminar ingrediente">
+                  title="{{ 'feedingPlanAdd.removeIngredient' | translate }}">
 
                   <mat-icon>delete_outline</mat-icon>
 
@@ -446,7 +446,7 @@
             <div class="summary-content">
 
           <span>
-            Total de la ración diaria
+            {{ 'feedingPlanAdd.totalDailyRation' | translate }}
           </span>
 
               <strong>
@@ -456,7 +456,7 @@
             </div>
 
             <span class="summary-description">
-          Suma de las cantidades registradas
+          {{ 'feedingPlanAdd.registeredQuantities' | translate }}
         </span>
 
           </div>
@@ -468,14 +468,14 @@
               class="secondary-button"
               type="button"
               (click)="previousStep()">
-              ← Atrás
+              ← {{ 'feedingPlanAdd.back' | translate }}
             </button>
 
             <button
               class="primary-button"
               type="button"
               (click)="nextStep()">
-              Continuar
+              {{ 'feedingPlanAdd.continue' | translate }}
               <span>→</span>
             </button>
 
@@ -498,9 +498,9 @@
             </div>
 
             <div>
-              <h2>Programación de alimentación</h2>
+              <h2>{{ 'feeding.scheduleTitle' | translate }}</h2>
               <p>
-                Define cuándo y cuánto alimento recibirá el ganado.
+                {{ 'feedingPlanAdd.scheduleSubtitle' | translate }}
               </p>
             </div>
 
@@ -513,7 +513,7 @@
             <div class="form-field full-width">
 
               <label for="frequency">
-                Frecuencia de alimentación
+                {{ 'feedingPlanAdd.feedingFrequency' | translate }}
               </label>
 
               <select
@@ -521,19 +521,19 @@
                 [(ngModel)]="frequency">
 
                 <option value="1 vez al día">
-                  1 vez al día
+                  {{ 'feedingPlanAdd.oncePerDay' | translate }}
                 </option>
 
                 <option value="2 veces al día">
-                  2 veces al día
+                  {{ 'feedingPlanAdd.twicePerDay' | translate }}
                 </option>
 
                 <option value="3 veces al día">
-                  3 veces al día
+                  {{ 'feedingPlanAdd.thricePerDay' | translate }}
                 </option>
 
                 <option value="4 veces al día">
-                  4 veces al día
+                  {{ 'feedingPlanAdd.fourTimesPerDay' | translate }}
                 </option>
 
               </select>
@@ -551,11 +551,11 @@
               <div>
 
                 <strong>
-                  Días de alimentación
+                  {{ 'feedingPlanAdd.feedingDays' | translate }}
                 </strong>
 
                 <span>
-              Selecciona los días en los que se aplicará el plan.
+              {{ 'feedingPlanAdd.feedingDaysHint' | translate }}
             </span>
 
               </div>
@@ -586,7 +586,7 @@
                     (change)="toggleDay(day)">
 
                   <span>
-                {{ day }}
+                {{ 'feedingPlanAdd.days.' + day | translate }}
               </span>
 
                 </label>
@@ -606,11 +606,11 @@
               <div>
 
                 <strong>
-                  Horarios de alimentación
+                  {{ 'feedingPlanAdd.feedingTimes' | translate }}
                 </strong>
 
                 <span>
-              Define la hora y cantidad por animal.
+              {{ 'feedingPlanAdd.feedingTimesHint' | translate }}
             </span>
 
               </div>
@@ -622,7 +622,7 @@
                 (click)="addSchedule()">
 
                 <mat-icon>add</mat-icon>
-                Agregar horario
+                {{ 'feedingPlanAdd.addTime' | translate }}
 
               </button>
 
@@ -643,7 +643,7 @@
                   <div class="form-field">
 
                     <label>
-                      Hora
+                      {{ 'feeding.time' | translate }}
                     </label>
 
                     <input
@@ -656,7 +656,7 @@
                   <div class="form-field">
 
                     <label>
-                      Cantidad por animal
+                      {{ 'feedingPlanAdd.quantityPerAnimal' | translate }}
                     </label>
 
                     <input
@@ -664,13 +664,13 @@
                       min="0"
                       step="0.1"
                       [(ngModel)]="schedule.quantityPerAnimal"
-                      placeholder="Ej. 6">
+                      placeholder="{{ 'feedingPlanAdd.quantityExample' | translate }}">
 
                   </div>
 
 
                   <div class="schedule-unit">
-                    kg / animal
+                    {{ 'feedingPlanAdd.kgPerAnimal' | translate }}
                   </div>
 
 
@@ -679,7 +679,7 @@
                     class="remove-ingredient-button"
                     [disabled]="schedules.length === 1"
                     (click)="removeSchedule($index)"
-                    title="Eliminar horario">
+                    title="{{ 'feedingPlanAdd.removeTime' | translate }}">
 
                     <mat-icon>delete_outline</mat-icon>
 
@@ -698,7 +698,7 @@
               <div>
 
             <span>
-              Ración diaria establecida
+              {{ 'feedingPlanAdd.establishedDailyRation' | translate }}
             </span>
 
                 <strong>
@@ -711,7 +711,7 @@
               <div>
 
             <span>
-              Programado
+              {{ 'feedingPlanAdd.scheduled' | translate }}
             </span>
 
                 <strong>
@@ -736,8 +736,8 @@
                 <span>
               {{
                     totalScheduledQuantity > totalDailyQuantity
-                      ? 'La cantidad programada supera la ración diaria'
-                      : 'Cantidad dentro del límite'
+                      ? ('feedingPlanAdd.exceedsRation' | translate)
+                      : ('feedingPlanAdd.withinLimit' | translate)
                   }}
             </span>
 
@@ -755,14 +755,14 @@
               class="secondary-button"
               type="button"
               (click)="previousStep()">
-              ← Atrás
+              ← {{ 'feedingPlanAdd.back' | translate }}
             </button>
 
             <button
               class="primary-button"
               type="button"
               (click)="nextStep()">
-              Continuar
+              {{ 'feedingPlanAdd.continue' | translate }}
               <span>→</span>
             </button>
 
@@ -785,9 +785,9 @@
             </div>
 
             <div>
-              <h2>Revisión del plan</h2>
+              <h2>{{ 'feedingPlanAdd.planReview' | translate }}</h2>
               <p>
-                Verifica la información antes de crear el plan alimentario.
+                {{ 'feedingPlanAdd.planReviewSubtitle' | translate }}
               </p>
             </div>
 
@@ -801,8 +801,8 @@
               <mat-icon>description</mat-icon>
 
               <div>
-                <strong>Información general</strong>
-                <span>Datos principales del plan</span>
+                <strong>{{ 'feedingPlanAdd.generalInfo' | translate }}</strong>
+                <span>{{ 'feedingPlanAdd.planData' | translate }}</span>
               </div>
             </div>
 
@@ -810,12 +810,12 @@
             <div class="review-grid">
 
               <div class="review-item">
-                <span>Nombre del plan</span>
+                <span>{{ 'feedingPlanAdd.planName' | translate }}</span>
                 <strong>{{ planName }}</strong>
               </div>
 
               <div class="review-item">
-                <span>Lote</span>
+                <span>{{ 'feeding.lot' | translate }}</span>
                 <strong>
                   {{
                     lots().find(lot => lot.id === selectedLotId)?.name
@@ -830,25 +830,25 @@
                   {{
                     selectedAnimalId
                       ? (animals().find(animal => animal.id === selectedAnimalId)?.earTag || '—')
-                      : 'Todos los animales del lote'
+                      : ('feeding.allLotAnimals' | translate)
                   }}
                 </strong>
               </div>
 
               <div class="review-item">
-                <span>Periodo</span>
+                <span>{{ 'feedingPlanAdd.period' | translate }}</span>
                 <strong>
                   {{ startsOn }} → {{ endsOn }}
                 </strong>
               </div>
 
               <div class="review-item">
-                <span>Objetivo</span>
+                <span>{{ 'feeding.objective' | translate }}</span>
                 <strong>{{ objective }}</strong>
               </div>
 
               <div class="review-item">
-                <span>Peso</span>
+                <span>{{ 'feedingPlanAdd.weight' | translate }}</span>
                 <strong>
                   {{ currentAverageWeight }} kg → {{ targetWeight }} kg
                 </strong>
@@ -867,8 +867,8 @@
               <mat-icon>restaurant</mat-icon>
 
               <div>
-                <strong>Ración e ingredientes</strong>
-                <span>Alimentos establecidos para el plan</span>
+                <strong>{{ 'feeding.rationAndIngredients' | translate }}</strong>
+                <span>{{ 'feedingPlanAdd.planFeeds' | translate }}</span>
               </div>
 
             </div>
@@ -891,7 +891,7 @@
 
                   <strong>
                     {{ ingredient.dailyQuantity | number:'1.0-2' }}
-                    {{ ingredient.unit }}/día
+                    {{ ingredient.unit }}/{{ 'feedingPlanAdd.dayShort' | translate }}
                   </strong>
 
                 </div>
@@ -904,7 +904,7 @@
             <div class="review-total">
 
         <span>
-          Total de la ración diaria
+          {{ 'feedingPlanAdd.totalDailyRation' | translate }}
         </span>
 
               <strong>
@@ -924,8 +924,8 @@
               <mat-icon>schedule</mat-icon>
 
               <div>
-                <strong>Programación</strong>
-                <span>Frecuencia y horarios de alimentación</span>
+                <strong>{{ 'feedingPlanAdd.schedule' | translate }}</strong>
+                <span>{{ 'feedingPlanAdd.scheduleAndTimes' | translate }}</span>
               </div>
 
             </div>
@@ -934,12 +934,12 @@
             <div class="review-schedule-info">
 
               <div class="review-item">
-                <span>Frecuencia</span>
+                <span>{{ 'feeding.frequency' | translate }}</span>
                 <strong>{{ frequency }}</strong>
               </div>
 
               <div class="review-item">
-                <span>Días</span>
+                <span>{{ 'feedingPlanAdd.days' | translate }}</span>
                 <strong>
                   {{ daysOfWeek.join(', ') }}
                 </strong>
@@ -962,7 +962,7 @@
 
                   <span>
               {{ schedule.quantityPerAnimal | number:'1.0-2' }}
-                    kg / animal
+                    {{ 'feedingPlanAdd.kgPerAnimal' | translate }}
             </span>
 
                 </div>
@@ -984,8 +984,8 @@
                 <mat-icon>notes</mat-icon>
 
                 <div>
-                  <strong>Instrucciones</strong>
-                  <span>Indicaciones adicionales del plan</span>
+                  <strong>{{ 'feeding.instructions' | translate }}</strong>
+                  <span>{{ 'feedingPlanAdd.additionalNotes' | translate }}</span>
                 </div>
 
               </div>
@@ -1006,14 +1006,14 @@
               class="secondary-button"
               type="button"
               (click)="previousStep()">
-              ← Atrás
+              ← {{ 'feedingPlanAdd.back' | translate }}
             </button>
 
             <button
               class="primary-button"
               type="button"
               (click)="createPlan()">
-              Crear plan
+              {{ 'feedingPlanAdd.createPlan' | translate }}
               <span>✓</span>
             </button>
 
@@ -1033,8 +1033,8 @@
         </div>
 
         <div>
-          <h2>Resumen del plan</h2>
-          <span>Información configurada</span>
+          <h2>{{ 'feedingPlanAdd.planSummary' | translate }}</h2>
+          <span>{{ 'feedingPlanAdd.configuredInfo' | translate }}</span>
         </div>
       </div>
 
@@ -1042,22 +1042,22 @@
 
       <div class="summary-group">
 
-        <span class="summary-label">Plan</span>
+        <span class="summary-label">{{ 'feedingPlanAdd.plan' | translate }}</span>
 
         <strong>
-          {{ planName || 'Sin definir' }}
+          {{ planName || ('feedingPlanAdd.notDefined' | translate) }}
         </strong>
 
       </div>
 
       <div class="summary-group">
 
-        <span class="summary-label">Lote</span>
+        <span class="summary-label">{{ 'feeding.lot' | translate }}</span>
 
         <strong>
           {{
             lots().find(lot => lot.id === selectedLotId)?.name
-            || 'Sin seleccionar'
+            || ('feedingPlanAdd.notSelected' | translate)
           }}
         </strong>
 
@@ -1065,14 +1065,14 @@
 
       <div class="summary-group">
 
-        <span class="summary-label">Animal</span>
+        <span class="summary-label">{{ 'feedingPlanAdd.animal' | translate }}</span>
 
         <strong>
           {{
             selectedAnimalId
               ? (animals().find(animal => animal.id === selectedAnimalId)?.earTag || '—')
               : selectedLotId
-                ? 'Todos los animales del lote'
+                ? ('feeding.allLotAnimals' | translate)
                 : 'Sin seleccionar'
           }}
         </strong>
@@ -1083,10 +1083,10 @@
 
       <div class="summary-group">
 
-        <span class="summary-label">Objetivo</span>
+        <span class="summary-label">{{ 'feeding.objective' | translate }}</span>
 
         <strong>
-          {{ objective || 'Sin definir' }}
+          {{ objective || ('feedingPlanAdd.notDefined' | translate) }}
         </strong>
 
       </div>
@@ -1094,7 +1094,7 @@
       <div class="summary-weight">
 
         <div>
-          <span>Peso actual</span>
+          <span>{{ 'feeding.currentWeight' | translate }}</span>
           <strong>
             {{ currentAverageWeight ?? '—' }}
             <small>kg</small>
@@ -1106,7 +1106,7 @@
         </div>
 
         <div>
-          <span>Peso objetivo</span>
+          <span>{{ 'feeding.targetWeight' | translate }}</span>
           <strong>
             {{ targetWeight ?? '—' }}
             <small>kg</small>
@@ -1119,7 +1119,7 @@
 
       <div class="summary-group">
 
-        <span class="summary-label">Ración diaria</span>
+        <span class="summary-label">{{ 'feedingPlanAdd.dailyRation' | translate }}</span>
 
         <strong class="summary-highlight">
           {{ totalDailyQuantity | number:'1.0-2' }} kg
@@ -1129,17 +1129,17 @@
 
       <div class="summary-group">
 
-        <span class="summary-label">Frecuencia</span>
+        <span class="summary-label">{{ 'feeding.frequency' | translate }}</span>
 
         <strong>
-          {{ frequency || 'Sin definir' }}
+          {{ frequency || ('feedingPlanAdd.notDefined' | translate) }}
         </strong>
 
       </div>
 
       <div class="summary-group">
 
-        <span class="summary-label">Horarios</span>
+        <span class="summary-label">{{ 'feedingPlanAdd.schedules' | translate }}</span>
 
         <div class="summary-schedules">
 

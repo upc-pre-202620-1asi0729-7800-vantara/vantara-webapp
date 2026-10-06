@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import {TranslatePipe} from '@ngx-translate/core';
 import {LivestockStore} from '../../../application/livestock-store';
 import {FeedingPlan} from '../../../domain/model/feeding-plan.entity';
 import {FeedingPlanItem} from '../../../domain/model/feeding-plan-item.entity';
@@ -18,7 +19,8 @@ import {FeedingPlanItem} from '../../../domain/model/feeding-plan-item.entity';
   imports: [
     CommonModule,
     FormsModule,
-    MatIconModule
+    MatIconModule,
+    TranslatePipe
   ],
   templateUrl: './feeding-plan-add.html',
   styleUrl: './feeding-plan-add.css',
