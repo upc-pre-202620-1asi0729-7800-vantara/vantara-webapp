@@ -4,7 +4,7 @@
   inject
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {LivestockStore} from '../../../application/livestock-store';
 import {FeedingPlan} from '../../../domain/model/feeding-plan.entity';
 import {FeedingLog} from '../../../domain/model/feeding-log.entity';
@@ -20,6 +20,8 @@ import {FeedingLog} from '../../../domain/model/feeding-log.entity';
 export class FeedingDashboard {
 
   private livestockStore = inject(LivestockStore);
+  private router = inject(Router);
+
 
   readonly feedingPlans = this.livestockStore.feedingPlans;
   readonly feedingPlanItems = this.livestockStore.feedingPlanItems;
@@ -161,4 +163,9 @@ export class FeedingDashboard {
       hour12: false
     });
   }
+
+  goCreateFeedingPlan(): void {
+    this.router.navigate(['/livestock/feeding/add']);
+  }
+
 }
