@@ -27,13 +27,15 @@ export class Layout {
   /** Navigation options shown in the sidenav. Only Reproducción is routed for now. */
   readonly options: NavOption[] = [
     { labelKey: 'sidebar.home', icon: 'home' },
-    { labelKey: 'sidebar.livestock', icon: 'pets' },
+    { labelKey: 'sidebar.livestock', icon: 'pets', link: '/livestock/animals' },
     { labelKey: 'sidebar.health', icon: 'health_and_safety' },
     { labelKey: 'sidebar.reproductive', icon: 'favorite', link: '/reproductive' },
-    { labelKey: 'sidebar.feeding', icon: 'restaurant' },
+    { labelKey: 'sidebar.feeding', icon: 'restaurant', link: '/livestock/feeding' },
     { labelKey: 'sidebar.lots', icon: 'warehouse' },
     { labelKey: 'sidebar.reports', icon: 'bar_chart' },
     { labelKey: 'sidebar.appointments', icon: 'event' },
-    { labelKey: 'sidebar.alerts', icon: 'notifications' }
+    { labelKey: 'sidebar.alerts', icon: 'notifications' },
+    { labelKey: 'sidebar.profile', icon: 'account_circle', link: '/profile' },
+    { labelKey: 'sidebar.payments', icon: 'settings', link: '/config/payments' }
   ];
 }

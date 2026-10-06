@@ -8,7 +8,9 @@
     "lots": "Lots",
     "reports": "Reports",
     "appointments": "Appointments",
-    "alerts": "Alerts"
+    "alerts": "Alerts",
+    "profile": "Profile",
+    "payments": "Settings"
   },
   "dashboard": {
     "title": "Reproduction",

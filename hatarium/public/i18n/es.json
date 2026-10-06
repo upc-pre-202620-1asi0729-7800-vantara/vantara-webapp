@@ -8,7 +8,9 @@
     "lots": "Lotes",
     "reports": "Reportes",
     "appointments": "Citas",
-    "alerts": "Alertas"
+    "alerts": "Alertas",
+    "profile": "Perfil",
+    "payments": "Configuración"
   },
   "dashboard": {
     "title": "ReproducciÃ³n",
