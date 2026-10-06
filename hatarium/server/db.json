@@ -1,4 +1,4 @@
-﻿{
+{
   "roles": [
     {
       "id": "role-001",
@@ -642,6 +642,81 @@
       "weaningWeightKg": null,
       "status": "confirmed",
       "notes": "Gestación confirmada en control reproductivo."
+    },
+    {
+      "id": "preg-002",
+      "animalId": "anm-018",
+      "calfId": "anm-062",
+      "confirmedOn": "2025-11-03",
+      "expectedCalvingOn": "2026-08-10",
+      "endedOn": "2026-08-09",
+      "outcome": "healthy",
+      "birthWeightKg": "35",
+      "dryOffOn": "2026-06-10",
+      "weanedOn": "2026-09-09",
+      "weaningWeightKg": "85",
+      "status": "weaned",
+      "notes": "Parto sin complicaciones. Cría en buen estado."
+    },
+    {
+      "animalId": "013",
+      "calfId": "ternero002",
+      "confirmedOn": "2003-01-15",
+      "expectedCalvingOn": "2004-02-15",
+      "endedOn": null,
+      "outcome": null,
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "confirmed",
+      "notes": null,
+      "id": "aRrxMG9eErs"
+    },
+    {
+      "animalId": "animal4",
+      "calfId": "2",
+      "confirmedOn": "2025-02-15",
+      "expectedCalvingOn": "2026-06-16",
+      "endedOn": null,
+      "outcome": null,
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "confirmed",
+      "notes": null,
+      "id": "ZC-g3wyu8-I"
+    },
+    {
+      "animalId": "123",
+      "calfId": "123123",
+      "confirmedOn": "2000-10-01",
+      "expectedCalvingOn": "2001-06-15",
+      "endedOn": null,
+      "outcome": null,
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "confirmed",
+      "notes": null,
+      "id": "bvT6SU37GMA"
+    },
+    {
+      "animalId": "123",
+      "calfId": "123",
+      "confirmedOn": "2000-04-05",
+      "expectedCalvingOn": "2006-05-02",
+      "endedOn": null,
+      "outcome": null,
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "confirmed",
+      "notes": null,
+      "id": "OorTMU0O6Kw"
     }
   ],
   "payments": [
@@ -668,6 +743,90 @@
       "createdAt": "2026-09-01",
       "confirmedAt": "2026-09-01",
       "cancelledAt": null
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción mensual",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "5nfvVr8FkS4"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción mensual",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "7Zf_SryOPVk"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción mensual",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "o7Q4q09WW6s"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción Profesional",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "bnrFd0go7WU"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción Básico",
+      "amount": "29.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "O9PN82xq72Q"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción mensual",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "WrgGuvuyTMg"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción mensual",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "KKxYA3_bb5E"
     }
   ],
   "transactions": [
@@ -789,5 +948,6 @@
       "relatedEntityId": "vac-001",
       "createdAt": "2026-09-07"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
