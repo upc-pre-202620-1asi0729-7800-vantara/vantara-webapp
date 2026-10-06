@@ -1,0 +1,23 @@
+<h1>Suscripción y pagos</h1>
+<mat-card class="plan-card">
+  <mat-card-header>
+    <mat-card-title>Plan actual: {{ store.currentPlanName() ?? 'Ninguno' }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    @if (store.currentPlanAmount()) {
+      <p>{{ store.currentPlanAmount() }} / mes · Activo · Desde {{ store.currentPlanSince() }}</p>
+    } @else {
+      <p>No tienes un plan activo.</p>
+    }
+    <a mat-raised-button color="primary" routerLink="/suscripcion">Ver planes</a>
+  </mat-card-content>
+</mat-card>
+<h2>Historial de pagos</h2>
+<mat-card>
+  <mat-card-content>
+    @for (payment of store.payments(); track payment.id) {
+      <p>{{ payment.createdAt }} — {{ payment.concept }} — {{ payment.formattedAmount() }} — {{ payment.status }}</p>
+    }
+    <a mat-button routerLink="/config/payments/history">Ver todo</a>
+  </mat-card-content>
+</mat-card>

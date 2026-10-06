@@ -1,5 +1,5 @@
-/** Development environment configuration. */
 export const environment = {
+/** Development environment configuration. */
   production: false,
   hatariumApiBaseUrl: 'http://localhost:4000',
   hatariumRolesEndpointPath: '/roles',

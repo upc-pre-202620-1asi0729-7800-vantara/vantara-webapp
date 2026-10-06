@@ -1,0 +1,11 @@
+<h1>Confirmar pago</h1>
+<mat-card>
+  <mat-card-content>
+    <p>Plan {{ plan.name }} — {{ plan.currency }} {{ plan.price }} / mes</p>
+    <p>Método: Visa •••• 4582 · Total: S/ 49.90</p>
+    <div class="actions">
+      <a mat-button routerLink="/config/payments/method">Cancelar</a>
+      <button mat-raised-button color="primary" (click)="pay()">Pagar</button>
+    </div>
+  </mat-card-content>
+</mat-card>

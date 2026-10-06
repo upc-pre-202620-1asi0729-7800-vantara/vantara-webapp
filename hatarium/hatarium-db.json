@@ -22,6 +22,7 @@
       "roleId": "role-001",
       "email": "juan.quispe@hatarium.com",
       "status": "active",
+      "emailVerified": true,
       "createdAt": "2026-01-10"
     },
     {
@@ -29,6 +30,7 @@
       "roleId": "role-002",
       "email": "carlos.mendoza@hatarium.com",
       "status": "active",
+      "emailVerified": true,
       "createdAt": "2026-01-12"
     },
     {
@@ -36,9 +38,12 @@
       "roleId": "role-003",
       "email": "garcia.lopez@hatarium.com",
       "status": "active",
+      "emailVerified": true,
       "createdAt": "2026-01-15"
     }
   ],
+  "accountCredentials": [],
+  "emailVerifications": [],
   "users": [
     {
       "id": "usr-001",
@@ -738,6 +743,90 @@
       "createdAt": "2026-09-01",
       "confirmedAt": "2026-09-01",
       "cancelledAt": null
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción mensual",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "5nfvVr8FkS4"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción mensual",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "7Zf_SryOPVk"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción mensual",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "o7Q4q09WW6s"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción Profesional",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "bnrFd0go7WU"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción Básico",
+      "amount": "29.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "O9PN82xq72Q"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción mensual",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "WrgGuvuyTMg"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción mensual",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "KKxYA3_bb5E"
     }
   ],
   "transactions": [

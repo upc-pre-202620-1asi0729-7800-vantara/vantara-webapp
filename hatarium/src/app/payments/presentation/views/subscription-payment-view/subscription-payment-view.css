@@ -1,0 +1,61 @@
+:host {
+  display: block;
+  padding: 24px;
+  background: #f4faf4;
+}
+.pay-page {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.plans-grid mat-card {
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+.plans-grid mat-card.selected {
+  border-color: #2e7d32;
+}
+.price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1b5e20;
+}
+.desc {
+  color: #4a4a4a;
+}
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+}
+.features li {
+  padding: 2px 0;
+  color: #333;
+}
+.features li::before {
+  content: '✓ ';
+  color: #2e7d32;
+  font-weight: bold;
+}
+.subtitle {
+  margin-bottom: 16px;
+}
+.total {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+.form-card {
+  margin-top: 16px;
+}
+.form-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 16px 0;
+  max-width: 420px;
+}
