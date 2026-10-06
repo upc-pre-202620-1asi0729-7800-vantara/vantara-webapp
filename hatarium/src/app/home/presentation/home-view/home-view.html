@@ -1,0 +1,52 @@
+<div class="home">
+  <header class="hero">
+    <h1>Buenos días, {{ userName() }}</h1>
+    <p>Aquí tienes un resumen del estado de tu ganadería.</p>
+  </header>
+
+  <section class="cards">
+    <mat-card class="stat">
+      <mat-card-content>
+        <div class="stat-top"><span>TOTAL GANADO</span><mat-icon>pets</mat-icon></div>
+        <strong>{{ counts().animals }}</strong>
+        <small><a routerLink="/livestock/animals">Ver animales</a></small>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="stat">
+      <mat-card-content>
+        <div class="stat-top"><span>LOTES</span><mat-icon>warehouse</mat-icon></div>
+        <strong>{{ counts().lots }}</strong>
+        <small>lotes activos</small>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="stat">
+      <mat-card-content>
+        <div class="stat-top"><span>CITAS</span><mat-icon>event</mat-icon></div>
+        <strong>{{ counts().appointments }}</strong>
+        <small><a routerLink="/veterinary/appointments">Ver citas</a></small>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="stat alert">
+      <mat-card-content>
+        <div class="stat-top"><span>ALERTAS</span><mat-icon>notifications</mat-icon></div>
+        <strong>{{ counts().alerts }}</strong>
+        <small><a routerLink="/notifications">Ver alertas</a></small>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <mat-card class="activity">
+    <mat-card-content>
+      <h2>Actividad reciente</h2>
+      @for (item of activity(); track item.id) {
+        <div class="item">
+          <strong>{{ item.title }}</strong>
+          <p>{{ item.description }}</p>
+          <small>{{ item.sentAt }}</small>
+        </div>
+      } @empty {
+        <p>No hay actividad reciente.</p>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -25,6 +25,19 @@
     <div class="switcher">
       <app-language-switcher/>
     </div>
+    <mat-nav-list class="bottom-nav">
+      <a mat-list-item routerLink="/config/payments" routerLinkActive="active">
+        <mat-icon matListItemIcon>settings</mat-icon>
+        <span matListItemTitle>{{ 'sidebar.payments' | translate }}</span>
+      </a>
+    </mat-nav-list>
+    <a class="profile-card" routerLink="/profile">
+      <div class="avatar">JQ</div>
+      <div class="profile-info">
+        <strong>{{ userName() }}</strong>
+        <small>{{ userRole() }}</small>
+      </div>
+    </a>
   </mat-sidenav>
   <mat-sidenav-content>
     <header class="topbar">
