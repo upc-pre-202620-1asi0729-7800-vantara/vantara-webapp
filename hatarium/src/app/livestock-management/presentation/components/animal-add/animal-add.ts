@@ -14,6 +14,7 @@ import { MatIcon } from '@angular/material/icon';
 import {MatFormField, MatHint} from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatSelect, MatOption } from '@angular/material/select';
+import {TranslatePipe} from '@ngx-translate/core';
 import {LivestockStore} from '../../../application/livestock-store';
 import {Router} from '@angular/router';
 import {Animal} from '../../../domain/model/animal.entity';
@@ -29,7 +30,8 @@ import {Animal} from '../../../domain/model/animal.entity';
     MatInput,
     MatSelect,
     MatOption,
-    MatHint
+    MatHint,
+    TranslatePipe
   ],
   templateUrl: './animal-add.html',
   changeDetection: ChangeDetectionStrategy.Eager,
