@@ -9,6 +9,12 @@ import { FeedingPlanDetail } from './livestock-management/presentation/component
 import { FeedingPlanCreate } from './livestock-management/presentation/components/feeding-plan-add/feeding-plan-add';
 import { ProfileView } from './profile/presentation/profile-view/profile-view';
 import { NotificationCenterView } from './notifications/presentation/notification-center-view/notification-center-view';
+import { AppointmentCalendarComponent } from './veterinary-and-health/presentation/components/appointment-calendar/appointment-calendar';
+import { ClinicalHistoryComponent } from './veterinary-and-health/presentation/components/clinical-history/clinical-history';
+import { TreatmentListComponent } from './veterinary-and-health/presentation/components/treatment-list/treatment-list';
+import { AppointmentDetailComponent } from './veterinary-and-health/presentation/components/appointment-detail/appointment-detail';
+import { VaccineRecordComponent } from './veterinary-and-health/presentation/components/vaccine-record/vaccine-record';
+import { AppointmentFormComponent } from './veterinary-and-health/presentation/components/appointment-form/appointment-form';
 
 export const routes: Routes = [
   {
@@ -33,6 +39,12 @@ export const routes: Routes = [
       { path: 'livestock/feeding/:id', component: FeedingPlanDetail },
       { path: 'profile', component: ProfileView },
       { path: 'notifications', component: NotificationCenterView },
+      { path: 'veterinary/appointments', component: AppointmentCalendarComponent },
+      { path: 'veterinary/appointments/new', component: AppointmentFormComponent },
+      { path: 'veterinary/appointments/:id', component: AppointmentDetailComponent },
+      { path: 'veterinary/history/new', component: ClinicalHistoryComponent },
+      { path: 'veterinary/treatments/new', component: TreatmentListComponent },
+      { path: 'veterinary/vaccines/new', component: VaccineRecordComponent },
       {
         path: 'config/payments',
         loadChildren: () =>
