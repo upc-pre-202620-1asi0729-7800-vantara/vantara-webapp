@@ -6,7 +6,8 @@ import {FeedingPlan} from '../domain/model/feeding-plan.entity';
 import {FeedingPlanItem} from '../domain/model/feeding-plan-item.entity';
 import {FeedingLog} from '../domain/model/feeding-log.entity';
 import {LivestockApi} from '../infrastructure/livestock-api';
-import {Router} from '@angular/router';
+import { forkJoin, Observable, of } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 @Service()
 export class LivestockStore {
@@ -52,11 +53,9 @@ export class LivestockStore {
   }
 
   loadFeedingPlans() {
-    if (this.feedingPlansSignal().length === 0) {
-      this.liveStockApi.getFeedingPlans().subscribe(feedingPlans => {
-        this.feedingPlansSignal.set(feedingPlans);
-      });
-    }
+    this.liveStockApi.getFeedingPlans().subscribe(feedingPlans => {
+      this.feedingPlansSignal.set(feedingPlans);
+    });
   }
 
   loadFeedingPlanItems() {
@@ -82,6 +81,50 @@ export class LivestockStore {
         createdAnimal
       ]);
     });
+  }
+
+  createFeedingPlan(
+    plan: FeedingPlan,
+    items: FeedingPlanItem[]
+  ): Observable<FeedingPlan> {
+
+    return this.liveStockApi.createFeedingPlan(plan).pipe(
+
+      switchMap(createdPlan => {
+
+        const itemsToCreate = items.map(item => ({
+          ...item,
+          feedingPlanId: createdPlan.id
+        }));
+
+        if (itemsToCreate.length === 0) {
+          return of(createdPlan);
+        }
+
+        return forkJoin(
+          itemsToCreate.map(item =>
+            this.liveStockApi.createFeedingPlanItem(item)
+          )
+        ).pipe(
+
+          tap(createdItems => {
+            this.feedingPlanItemsSignal.update(items => [
+              ...items,
+              ...createdItems
+            ]);
+          }),
+
+          map(() => createdPlan)
+        );
+      }),
+
+      tap(createdPlan => {
+        this.feedingPlansSignal.update(plans => [
+          ...plans,
+          createdPlan
+        ]);
+      })
+    );
   }
 
 }

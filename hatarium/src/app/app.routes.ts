@@ -6,7 +6,7 @@ import { AnimalDetail } from './livestock-management/presentation/components/ani
 
 import { FeedingDashboard } from './livestock-management/presentation/components/feeding-dashboard/feeding-dashboard';
 import { FeedingPlanDetail } from './livestock-management/presentation/components/feeding-plan-detail/feeding-plan-detail';
-import {FeedingPlanCreate} from './livestock-management/presentation/feeding-plan-add/feeding-plan-add';
+import {FeedingPlanCreate} from './livestock-management/presentation/components/feeding-plan-add/feeding-plan-add';
 
 export const routes: Routes = [
 

@@ -194,4 +194,28 @@ export class LivestockApi {
     );
   }
 
+  createFeedingPlan(plan: FeedingPlan): Observable<FeedingPlan> {
+    return this.http.post<FeedingPlanResource>(
+      this.feedingPlansUrl,
+      plan
+    ).pipe(
+      map(resource =>
+        this.feedingPlanAssembler.toEntityFromResource(resource)
+      )
+    );
+  }
+
+  createFeedingPlanItem(
+    item: FeedingPlanItem
+  ): Observable<FeedingPlanItem> {
+    return this.http.post<FeedingPlanItemResource>(
+      this.feedingPlanItemsUrl,
+      item
+    ).pipe(
+      map(resource =>
+        this.feedingPlanItemAssembler.toEntityFromResource(resource)
+      )
+    );
+  }
+
 }

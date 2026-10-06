@@ -7,7 +7,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import {LivestockStore} from '../../application/livestock-store';
+import {LivestockStore} from '../../../application/livestock-store';
+import {FeedingPlan} from '../../../domain/model/feeding-plan.entity';
+import {FeedingPlanItem} from '../../../domain/model/feeding-plan-item.entity';
 
 
 @Component({
@@ -221,5 +223,55 @@ export class FeedingPlanCreate {
       ) &&
       this.totalScheduledQuantity <= this.totalDailyQuantity
     );
+  }
+
+  createPlan(): void {
+
+    const planId = `fp-${Date.now()}`;
+
+    const plan: FeedingPlan = {
+      id: planId,
+      lotId: this.selectedLotId,
+      animalId: this.selectedAnimalId,
+      name: this.planName.trim(),
+      startsOn: this.startsOn,
+      endsOn: this.endsOn,
+      objective: this.objective.trim(),
+      currentAverageWeight: this.currentAverageWeight ?? 0,
+      targetWeight: this.targetWeight ?? 0,
+      frequency: this.frequency,
+      daysOfWeek: this.daysOfWeek,
+      schedules: this.schedules.map(schedule => ({
+        time: schedule.time,
+        quantityPerAnimal: schedule.quantityPerAnimal ?? 0
+      })),
+      instructions: this.instructions.trim(),
+      status: 'active'
+    };
+
+    const items: FeedingPlanItem[] = this.ingredients.map(
+      (ingredient, index) => ({
+        id: `fpi-${Date.now()}-${index}`,
+        feedingPlanId: planId,
+        feedName: ingredient.feedName.trim(),
+        dailyQuantity: ingredient.dailyQuantity ?? 0,
+        unit: ingredient.unit
+      })
+    );
+
+    this.livestockStore.createFeedingPlan(plan, items).subscribe({
+      next: createdPlan => {
+        this.router.navigate([
+          '/livestock/feeding',
+          createdPlan.id
+        ]);
+      },
+      error: error => {
+        console.error(
+          'Error al crear el plan alimentario:',
+          error
+        );
+      }
+    });
   }
 }
