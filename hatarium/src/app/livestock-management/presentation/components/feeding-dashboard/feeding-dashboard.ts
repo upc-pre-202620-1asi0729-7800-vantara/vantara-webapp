@@ -5,6 +5,7 @@
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {Router, RouterLink} from '@angular/router';
+import {TranslatePipe} from '@ngx-translate/core';
 import {LivestockStore} from '../../../application/livestock-store';
 import {FeedingPlan} from '../../../domain/model/feeding-plan.entity';
 import {FeedingLog} from '../../../domain/model/feeding-log.entity';
@@ -12,7 +13,7 @@ import {FeedingLog} from '../../../domain/model/feeding-log.entity';
 @Component({
   selector: 'app-feeding-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, TranslatePipe],
   templateUrl: './feeding-dashboard.html',
   styleUrl: './feeding-dashboard.css',
   changeDetection: ChangeDetectionStrategy.Eager

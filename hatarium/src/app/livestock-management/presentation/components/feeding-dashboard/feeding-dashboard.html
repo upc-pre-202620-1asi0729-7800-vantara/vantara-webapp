@@ -4,12 +4,12 @@
   <header class="feeding-header">
     <div class="header-info">
       <div class="title-row">
-        <h1>Alimentación</h1>
-        <span class="module-badge">Módulo Operativo</span>
+        <h1>{{ 'feeding.title' | translate }}</h1>
+        <span class="module-badge">{{ 'feeding.moduleBadge' | translate }}</span>
       </div>
 
       <p>
-        Planes nutricionales y distribución diaria por lotes.
+        {{ 'feeding.subtitle' | translate }}
       </p>
     </div>
 
@@ -20,7 +20,7 @@
         [routerLink]="['/livestock/feeding/add']">
         <span>+</span>
 
-        Nuevo plan alimentario
+        {{ 'feeding.newPlan' | translate }}
       </button>
     </div>
   </header>
@@ -31,7 +31,7 @@
 
     <article class="summary-card">
       <div class="summary-card-top">
-        <span>CONSUMO DIARIO TOTAL</span>
+        <span>{{ 'feeding.dailyConsumption' | translate | uppercase }}</span>
         <div class="summary-icon">⚖</div>
       </div>
 
@@ -39,45 +39,45 @@
         {{ getTotalDailyQuantity() }} kg
       </strong>
 
-      <small>Consumo planificado por día</small>
+      <small>{{ 'feeding.plannedPerDay' | translate }}</small>
     </article>
 
 
     <article class="summary-card">
       <div class="summary-card-top">
-        <span>LOTES CON PLAN ACTIVO</span>
+        <span>{{ 'feeding.lotsWithPlan' | translate | uppercase }}</span>
         <div class="summary-icon">▣</div>
       </div>
 
-      <strong>{{ feedingPlans().length }} Lotes</strong>
+      <strong>{{ feedingPlans().length }} {{ 'feeding.lots' | translate }}</strong>
 
       <small>
-        {{ feedingPlans().length }} planes activos
+        {{ feedingPlans().length }} {{ 'feeding.activePlans' | translate }}
       </small>
     </article>
 
 
     <article class="summary-card">
       <div class="summary-card-top">
-        <span>ANIMALES CUBIERTOS</span>
+        <span>{{ 'feeding.coveredAnimals' | translate | uppercase }}</span>
         <div class="summary-icon">↗</div>
       </div>
 
       <strong>{{ getCoveredAnimals() }}</strong>
 
-      <small>Animales bajo un plan</small>
+      <small>{{ 'feeding.animalsUnderPlan' | translate }}</small>
     </article>
 
 
     <article class="summary-card alert-card">
       <div class="summary-card-top">
-        <span>ALERTAS</span>
+        <span>{{ 'feeding.alerts' | translate | uppercase }}</span>
         <div class="summary-icon alert-icon">⚠</div>
       </div>
 
-      <strong>Sin alertas</strong>
+      <strong>{{ 'feeding.noAlerts' | translate }}</strong>
 
-      <small>Revisión de alimentación pendiente</small>
+      <small>{{ 'feeding.pendingReview' | translate }}</small>
     </article>
 
   </section>
@@ -91,12 +91,12 @@
 
       <div class="panel-header">
         <div>
-          <h2>Planes alimentarios</h2>
-          <p>Por lote y dosificación activa</p>
+          <h2>{{ 'feeding.plansTitle' | translate }}</h2>
+          <p>{{ 'feeding.plansSubtitle' | translate }}</p>
         </div>
 
         <span class="active-count">
-          {{ feedingPlans().length }} Activos
+          {{ feedingPlans().length }} {{ 'feeding.active' | translate }}
         </span>
       </div>
 
@@ -119,7 +119,7 @@
                 <strong>
                   {{ getPlanTotalDailyQuantity(plan) }} kg
                 </strong>
-                <small>por día</small>
+                <small>{{ 'feeding.perDay' | translate }}</small>
               </div>
 
             </div>
@@ -128,17 +128,17 @@
             <div class="plan-details">
 
               <div>
-                <span>Lote</span>
+                <span>{{ 'feeding.lot' | translate }}</span>
                 <strong>{{ getLot(plan)?.name || plan.lotId }}</strong>
               </div>
 
               <div>
-                <span>Frecuencia</span>
+                <span>{{ 'feeding.frequency' | translate }}</span>
                 <strong>{{ plan.frequency }}</strong>
               </div>
 
               <div>
-                <span>Animales</span>
+                <span>{{ 'feeding.animals' | translate }}</span>
                 <strong>{{ getAnimalsInPlan(plan) }}</strong>
               </div>
 
@@ -148,7 +148,7 @@
             <div class="ration-info">
 
               <div class="ration-header">
-                <span>Ración diaria</span>
+                <span>{{ 'feeding.dailyRation' | translate }}</span>
 
                 <strong>
                   {{ getRationTotal(plan.id) }} kg
@@ -193,7 +193,7 @@
             <div class="plan-progress">
 
               <div class="progress-label">
-                <span>Progreso hacia peso objetivo</span>
+                <span>{{ 'feeding.progressToTarget' | translate }}</span>
 
                 <strong>
                   {{ getProgress(plan) }}%
@@ -215,17 +215,17 @@
               @if (getLastFeeding(plan); as lastFeeding) {
 
                 <span class="plan-date">
-                  🗓 Última alimentación:
+                  🗓 {{ 'feeding.lastFeeding' | translate }}:
                   {{ lastFeeding.feedAt | date:'dd/MM/yyyy HH:mm' }}</span>
               } @else {
                 <span class="plan-date">
-                  🗓 Sin registros de alimentación</span>
+                  🗓 {{ 'feeding.noFeedingRecords' | translate }}</span>
               }
               <button
                 type="button"
                 class="details-button"
                 [routerLink]="['/livestock/feeding', plan.id]">
-                Ver detalles
+                {{ 'feeding.viewDetails' | translate }}
                 <span>→</span>
               </button>
 
@@ -237,8 +237,8 @@
 
           <div class="empty-state">
             <span>🍽️</span>
-            <h3>No hay planes alimentarios</h3>
-            <p>Crea un nuevo plan para comenzar.</p>
+            <h3>{{ 'feeding.noPlans' | translate }}</h3>
+            <p>{{ 'feeding.noPlansHint' | translate }}</p>
           </div>
 
         }
@@ -256,8 +256,8 @@
 
         <div class="panel-header">
           <div>
-            <h2>Alimentos utilizados</h2>
-            <p>Alimentos registrados en los planes</p>
+            <h2>{{ 'feeding.feedsUsed' | translate }}</h2>
+            <p>{{ 'feeding.feedsUsedSubtitle' | translate }}</p>
           </div>
         </div>
 
@@ -272,13 +272,13 @@
                 <strong>{{ item.feedName }}</strong>
 
                 <span>
-                  Cantidad diaria:
+                  {{ 'feeding.dailyQuantity' | translate }}:
                   {{ item.dailyQuantity }} {{ item.unit }}
                 </span>
               </div>
 
               <span class="food-status">
-                En plan
+                {{ 'feeding.inPlan' | translate }}
               </span>
 
             </article>
@@ -286,7 +286,7 @@
           } @empty {
 
             <div class="empty-small">
-              No hay alimentos registrados.
+              {{ 'feeding.noFeeds' | translate }}
             </div>
 
           }
@@ -301,8 +301,8 @@
 
         <div class="panel-header">
           <div>
-            <h2>Actividad reciente</h2>
-            <p>Últimos registros de raciones</p>
+            <h2>{{ 'feeding.recentActivity' | translate }}</h2>
+            <p>{{ 'feeding.recentActivitySubtitle' | translate }}</p>
           </div>
 
           <span class="activity-icon">◷</span>
@@ -328,7 +328,7 @@
           } @empty {
 
             <div class="empty-small">
-              No hay actividad reciente.
+              {{ 'feeding.noActivity' | translate }}
             </div>
 
           }
