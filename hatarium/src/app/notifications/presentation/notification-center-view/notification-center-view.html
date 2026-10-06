@@ -2,7 +2,7 @@
 
   <div class="header">
 
-    <h2>Notificaciones</h2>
+    <h2>{{ 'notifications.title' | translate }}</h2>
 
     <app-notification-badge
       [unreadCount]="store.unreadCount()">
@@ -16,11 +16,11 @@
     (change)="filterByType(typeFilter.value)">
 
     <option value="">
-      Todas
+      {{ 'notifications.all' | translate }}
     </option>
 
     <option value="HEALTH_ALERT">
-      Salud
+      {{ 'notifications.health' | translate }}
     </option>
 
   </select>
@@ -28,7 +28,7 @@
 
   @if (store.loading) {
 
-    <p>Cargando notificaciones...</p>
+    <p>{{ 'notifications.loading' | translate }}</p>
 
   } @else {
 

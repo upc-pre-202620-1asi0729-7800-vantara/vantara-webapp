@@ -2,13 +2,14 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * View with the available subscription plans.
  */
 @Component({
   selector: 'app-plans-view',
-  imports: [RouterLink, MatButtonModule, MatCardModule],
+  imports: [RouterLink, MatButtonModule, MatCardModule, TranslatePipe],
   templateUrl: './plans-view.html',
   styleUrl: './plans-view.css',
   changeDetection: ChangeDetectionStrategy.Eager

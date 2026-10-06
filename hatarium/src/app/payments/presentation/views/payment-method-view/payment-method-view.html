@@ -1,15 +1,15 @@
-<h1>Método de pago</h1>
+<h1>{{ 'payments.method' | translate }}</h1>
 <mat-card>
   <mat-card-content>
-    <button mat-stroked-button type="button" (click)="generateRandomData()">Generar datos aleatorios</button>
+    <button mat-stroked-button type="button" (click)="generateRandomData()">{{ 'payments.randomData' | translate }}</button>
     <form [formGroup]="form" (ngSubmit)="submit()">
-      <mat-form-field appearance="outline"><mat-label>Número de tarjeta</mat-label><input matInput formControlName="cardNumber" required></mat-form-field>
-      <mat-form-field appearance="outline"><mat-label>Nombre del titular</mat-label><input matInput formControlName="cardHolder" required></mat-form-field>
-      <mat-form-field appearance="outline"><mat-label>Fecha de vencimiento</mat-label><input matInput formControlName="expiry" placeholder="MM/AA" required></mat-form-field>
+      <mat-form-field appearance="outline"><mat-label>{{ 'payments.cardNumber' | translate }}</mat-label><input matInput formControlName="cardNumber" required></mat-form-field>
+      <mat-form-field appearance="outline"><mat-label>{{ 'payments.cardHolder' | translate }}</mat-label><input matInput formControlName="cardHolder" required></mat-form-field>
+      <mat-form-field appearance="outline"><mat-label>{{ 'payments.expiry' | translate }}</mat-label><input matInput formControlName="expiry" placeholder="MM/AA" required></mat-form-field>
       <mat-form-field appearance="outline"><mat-label>CVV</mat-label><input matInput formControlName="cvv" required></mat-form-field>
       <div class="actions">
-        <a mat-button routerLink="/config/payments/plans">Cancelar</a>
-        <button mat-raised-button color="primary" type="submit">Guardar tarjeta</button>
+        <a mat-button routerLink="/config/payments/plans">{{ 'payments.cancel' | translate }}</a>
+        <button mat-raised-button color="primary" type="submit">{{ 'payments.saveCard' | translate }}</button>
       </div>
     </form>
   </mat-card-content>

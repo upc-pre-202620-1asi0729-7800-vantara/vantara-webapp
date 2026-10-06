@@ -1,12 +1,12 @@
-<h1>Planes de suscripción</h1>
+<h1>{{ 'payments.plansTitle' | translate }}</h1>
 <div class="plans-grid">
   @for (plan of plans; track plan.name) {
     <mat-card>
       <mat-card-header><mat-card-title>{{ plan.name }}</mat-card-title></mat-card-header>
       <mat-card-content>
-        <p class="price">{{ plan.price }} / mes</p>
+        <p class="price">{{ plan.price }} {{ 'payments.perMonth' | translate }}</p>
         <p>{{ plan.animals }}</p>
-        <a mat-raised-button color="primary" routerLink="/config/payments/method">Seleccionar plan</a>
+        <a mat-raised-button color="primary" routerLink="/config/payments/method">{{ 'payments.selectPlanBtn' | translate }}</a>
       </mat-card-content>
     </mat-card>
   }

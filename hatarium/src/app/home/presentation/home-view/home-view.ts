@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { UpperCasePipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import { environment } from '../../../../environments/environment';
 
 interface Counts {
@@ -32,7 +34,7 @@ interface User {
  */
 @Component({
   selector: 'app-home-view',
-  imports: [MatCardModule, MatIconModule, RouterLink],
+  imports: [MatCardModule, MatIconModule, RouterLink, TranslatePipe, UpperCasePipe],
   templateUrl: './home-view.html',
   styleUrl: './home-view.css',
   changeDetection: ChangeDetectionStrategy.Eager

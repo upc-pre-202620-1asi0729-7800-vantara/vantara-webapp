@@ -7,12 +7,14 @@ import { NotificationStore } from '../../application/Notification-Store';
 import { NotificationService } from '../../application/notification-service';
 import { NotificationApiClient } from '../../infrastructure/notification-api-client';
 import { environment } from '../../../../environments/environment';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-notification-center-view',
   imports: [
     NotificationBadge,
-    NotificationList
+    NotificationList,
+    TranslatePipe
   ],
   templateUrl: './notification-center-view.html',
   styleUrl: './notification-center-view.css'

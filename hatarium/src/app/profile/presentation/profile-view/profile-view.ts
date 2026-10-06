@@ -7,12 +7,14 @@ import { ProfileStore } from '../../application/profile-store';
 import { ProfileService } from '../../application/profile-service';
 import { ProfileApiClient } from '../../infrastructure/profile-api-client';
 import { environment } from '../../../../environments/environment';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile-view',
   imports: [
     ProfileForm,
-    Preferences
+    Preferences,
+    TranslatePipe
   ],
   templateUrl: './profile-view.html',
   styleUrl: './profile-view.css'

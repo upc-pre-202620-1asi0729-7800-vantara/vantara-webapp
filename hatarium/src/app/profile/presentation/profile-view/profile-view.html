@@ -2,15 +2,15 @@
 
   <div class="page-header">
     <div>
-      <h1>Perfil y configuración</h1>
-      <p>Administra tu información personal y las preferencias de tu cuenta.</p>
+      <h1>{{ 'profile.title' | translate }}</h1>
+      <p>{{ 'profile.subtitle' | translate }}</p>
     </div>
   </div>
 
   @if (store.loading) {
 
     <div class="status-card">
-      <p>Cargando perfil...</p>
+      <p>{{ 'profile.loading' | translate }}</p>
     </div>
 
   } @else {
@@ -38,11 +38,11 @@
         </div>
 
         <div class="profile-info">
-          <span class="profile-label">Mi cuenta</span>
+          <span class="profile-label">{{ 'profile.account' | translate }}</span>
 
           <h2>{{ store.profile.displayName() }}</h2>
 
-          <p>{{ store.profile.phone || 'Sin teléfono registrado' }}</p>
+          <p>{{ store.profile.phone || ('profile.noPhone' | translate) }}</p>
 
           <div class="profile-meta">
             <span>{{ store.profile.theme }}</span>

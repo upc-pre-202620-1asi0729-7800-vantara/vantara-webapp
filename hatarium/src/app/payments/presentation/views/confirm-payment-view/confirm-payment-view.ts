@@ -3,13 +3,14 @@ import { Router, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { PaymentService } from '../../../application/payment.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * View to confirm the payment before processing it.
  */
 @Component({
   selector: 'app-confirm-payment-view',
-  imports: [RouterLink, MatButtonModule, MatCardModule],
+  imports: [RouterLink, MatButtonModule, MatCardModule, TranslatePipe],
   templateUrl: './confirm-payment-view.html',
   styleUrl: './confirm-payment-view.css',
   changeDetection: ChangeDetectionStrategy.Eager

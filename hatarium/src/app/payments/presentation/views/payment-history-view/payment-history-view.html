@@ -1,4 +1,4 @@
-<h1>Historial de pagos</h1>
+<h1>{{ 'payments.history' | translate }}</h1>
 <mat-card>
   <mat-card-content>
     <mat-list>
@@ -8,7 +8,7 @@
           <div matListItemLine>{{ payment.formattedAmount() }} · {{ payment.status }}</div>
         </mat-list-item>
       } @empty {
-        <p>No hay pagos registrados.</p>
+        <p>{{ 'payments.noPayments' | translate }}</p>
       }
     </mat-list>
   </mat-card-content>

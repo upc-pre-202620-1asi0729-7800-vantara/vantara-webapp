@@ -1,43 +1,43 @@
 <div class="home">
   <header class="hero">
-    <h1>Buenos días, {{ userName() }}</h1>
-    <p>Aquí tienes un resumen del estado de tu ganadería.</p>
+    <h1>{{ 'home.greeting' | translate: { name: userName() } }}</h1>
+    <p>{{ 'home.subtitle' | translate }}</p>
   </header>
 
   <section class="cards">
     <mat-card class="stat">
       <mat-card-content>
-        <div class="stat-top"><span>TOTAL GANADO</span><mat-icon>pets</mat-icon></div>
+        <div class="stat-top"><span>{{ 'home.totalLivestock' | translate | uppercase }}</span><mat-icon>pets</mat-icon></div>
         <strong>{{ counts().animals }}</strong>
-        <small><a routerLink="/livestock/animals">Ver animales</a></small>
+        <small><a routerLink="/livestock/animals">{{ 'home.viewAnimals' | translate }}</a></small>
       </mat-card-content>
     </mat-card>
     <mat-card class="stat">
       <mat-card-content>
-        <div class="stat-top"><span>LOTES</span><mat-icon>warehouse</mat-icon></div>
+        <div class="stat-top"><span>{{ 'home.lots' | translate | uppercase }}</span><mat-icon>warehouse</mat-icon></div>
         <strong>{{ counts().lots }}</strong>
-        <small>lotes activos</small>
+        <small>{{ 'home.activeLots' | translate }}</small>
       </mat-card-content>
     </mat-card>
     <mat-card class="stat">
       <mat-card-content>
-        <div class="stat-top"><span>CITAS</span><mat-icon>event</mat-icon></div>
+        <div class="stat-top"><span>{{ 'home.appointments' | translate | uppercase }}</span><mat-icon>event</mat-icon></div>
         <strong>{{ counts().appointments }}</strong>
-        <small><a routerLink="/veterinary/appointments">Ver citas</a></small>
+        <small><a routerLink="/veterinary/appointments">{{ 'home.viewAppointments' | translate }}</a></small>
       </mat-card-content>
     </mat-card>
     <mat-card class="stat alert">
       <mat-card-content>
-        <div class="stat-top"><span>ALERTAS</span><mat-icon>notifications</mat-icon></div>
+        <div class="stat-top"><span>{{ 'home.alerts' | translate | uppercase }}</span><mat-icon>notifications</mat-icon></div>
         <strong>{{ counts().alerts }}</strong>
-        <small><a routerLink="/notifications">Ver alertas</a></small>
+        <small><a routerLink="/notifications">{{ 'home.viewAlerts' | translate }}</a></small>
       </mat-card-content>
     </mat-card>
   </section>
 
   <mat-card class="activity">
     <mat-card-content>
-      <h2>Actividad reciente</h2>
+      <h2>{{ 'home.recentActivity' | translate }}</h2>
       @for (item of activity(); track item.id) {
         <div class="item">
           <strong>{{ item.title }}</strong>
@@ -45,7 +45,7 @@
           <small>{{ item.sentAt }}</small>
         </div>
       } @empty {
-        <p>No hay actividad reciente.</p>
+        <p>{{ 'home.noActivity' | translate }}</p>
       }
     </mat-card-content>
   </mat-card>

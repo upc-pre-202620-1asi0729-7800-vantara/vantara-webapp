@@ -6,13 +6,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { PaymentService } from '../../../application/payment.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 /**
  * Standalone view to pay for a subscription the first time.
  */
 @Component({
   selector: 'app-subscription-payment-view',
-  imports: [ReactiveFormsModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule],
+  imports: [ReactiveFormsModule, MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, TranslatePipe],
   templateUrl: './subscription-payment-view.html',
   styleUrl: './subscription-payment-view.css',
   changeDetection: ChangeDetectionStrategy.Eager
