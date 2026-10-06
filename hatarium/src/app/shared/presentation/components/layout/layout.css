@@ -51,3 +51,41 @@
   opacity: 0.5;
   pointer-events: none;
 }
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.topbar-title {
+  font-weight: 600;
+  color: #1b5e20;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.bell-btn {
+  position: relative;
+}
+
+.badge-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  background: #d32f2f;
+  border-radius: 50%;
+}
+
+.signout-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}

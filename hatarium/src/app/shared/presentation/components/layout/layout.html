@@ -27,6 +27,18 @@
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
+    <header class="topbar">
+      <span class="topbar-title">Hatarium</span>
+      <span class="spacer"></span>
+      <a mat-icon-button routerLink="/notifications" aria-label="Notificaciones" class="bell-btn">
+        <mat-icon>notifications</mat-icon>
+        <span class="badge-dot"></span>
+      </a>
+      <button mat-stroked-button color="primary" (click)="signOut()" class="signout-btn">
+        <mat-icon>logout</mat-icon>
+        Cerrar sesión
+      </button>
+    </header>
     <router-outlet/>
   </mat-sidenav-content>
 </mat-sidenav-container>

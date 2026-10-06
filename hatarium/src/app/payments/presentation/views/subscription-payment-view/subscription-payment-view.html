@@ -11,6 +11,9 @@
       >
         <mat-card-header>
           <mat-card-title>{{ plan.name }}</mat-card-title>
+          @if (plan.popular) {
+            <span class="popular-badge">Más popular</span>
+          }
         </mat-card-header>
         <mat-card-content>
           <p class="price">S/ {{ plan.price }} / mes</p>
