@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { User } from '../../domain/model/user.entity';
 import { ProfileDraft } from '../../application/profile-draft';
@@ -7,7 +8,7 @@ import { ProfileService } from '../../application/profile-service';
 
 @Component({
   selector: 'app-profile-form',
-  imports: [FormsModule],
+  imports: [FormsModule, TranslatePipe],
   templateUrl: './profile-form.html',
   styleUrl: './profile-form.css'
 })

@@ -1,13 +1,14 @@
 import {Component, effect, inject, signal} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {TranslatePipe} from '@ngx-translate/core';
 import {IamStore} from '../../../application/iam.store';
 import {AuthenticationLayout} from '../../components/authentication-layout/authentication-layout';
 
 /** Confirms ownership of the email used during account registration. */
 @Component({
   selector: 'app-verify-email',
-  imports: [ReactiveFormsModule, RouterLink, AuthenticationLayout],
+  imports: [ReactiveFormsModule, RouterLink, AuthenticationLayout, TranslatePipe],
   templateUrl: './verify-email.html',
   styleUrl: './verify-email.css'
 })

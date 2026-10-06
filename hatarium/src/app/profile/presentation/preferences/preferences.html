@@ -3,8 +3,8 @@
   <div class="card-header">
 
     <div>
-      <h3>Preferencias</h3>
-      <p>Personaliza la experiencia de Hatarium.</p>
+      <h3>{{ 'profile.preferences' | translate }}</h3>
+      <p>{{ 'profile.preferencesSubtitle' | translate }}</p>
     </div>
 
   </div>
@@ -12,11 +12,11 @@
 
   <div class="form-group">
 
-    <label>Tema</label>
+    <label>{{ 'profile.theme' | translate }}</label>
 
     <select [(ngModel)]="theme">
-      <option value="light">Claro</option>
-      <option value="dark">Oscuro</option>
+      <option value="light">{{ 'profile.themeLight' | translate }}</option>
+      <option value="dark">{{ 'profile.themeDark' | translate }}</option>
     </select>
 
   </div>
@@ -24,7 +24,7 @@
 
   <div class="form-group">
 
-    <label>Idioma</label>
+    <label>{{ 'profile.language' | translate }}</label>
 
     <select [(ngModel)]="locale">
       <option value="es">Español</option>
@@ -40,8 +40,8 @@
       <span class="icon">◐</span>
 
       <div>
-        <strong>Tema actual</strong>
-        <p>{{ theme === 'light' ? 'Claro' : 'Oscuro' }}</p>
+        <strong>{{ 'profile.currentTheme' | translate }}</strong>
+        <p>{{ (theme === 'light' ? 'profile.themeLight' : 'profile.themeDark') | translate }}</p>
       </div>
     </div>
 
@@ -50,7 +50,7 @@
       <span class="icon">文</span>
 
       <div>
-        <strong>Idioma</strong>
+        <strong>{{ 'profile.language' | translate }}</strong>
         <p>{{ locale === 'es' ? 'Español' : 'English' }}</p>
       </div>
     </div>
@@ -64,7 +64,7 @@
       class="primary-button"
       (click)="apply()">
 
-      Aplicar preferencias
+      {{ 'profile.applyPreferences' | translate }}
 
     </button>
 

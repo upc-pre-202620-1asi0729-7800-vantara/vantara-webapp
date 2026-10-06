@@ -371,7 +371,20 @@
     "preferences": "Preferences",
     "theme": "Theme",
     "language": "Language",
-    "loadError": "Could not load the profile"
+    "loadError": "Could not load the profile",
+    "preferencesSubtitle": "Customize your Hatarium experience.",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "currentTheme": "Current theme",
+    "applyPreferences": "Apply preferences",
+    "personalInfo": "Personal information",
+    "personalInfoSubtitle": "Update the data visible on your profile.",
+    "namePlaceholder": "Enter your name",
+    "phone": "Phone",
+    "photo": "Profile photo",
+    "imageUrl": "Image URL",
+    "photoHelper": "You can add a URL to show your profile photo.",
+    "saveChanges": "Save changes"
   },
   "notifications": {
     "title": "Notifications",
@@ -427,7 +440,17 @@
     "errors": {
       "invalidCredentials": "Incorrect email or password.",
       "registerFailed": "The account could not be registered."
-    }
+    },
+    "verifyEmail": {
+      "title": "Verify your email",
+      "subtitle": "We sent a six-digit code to confirm this address belongs to you.",
+      "code": "Verification code",
+      "codeInvalid": "The code must contain exactly six numbers.",
+      "mockNote": "In the Fake API, the generated code is temporarily stored in emailVerifications.",
+      "verifying": "Verifying…",
+      "action": "Verify email"
+    },
+    "backToSignIn": "Back to sign in"
   },
   "livestock": {
     "title": "My Livestock",

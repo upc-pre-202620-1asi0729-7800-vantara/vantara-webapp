@@ -1,12 +1,13 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { User } from '../../domain/model/user.entity';
 import { ProfileService } from '../../application/profile-service';
 
 @Component({
   selector: 'app-preferences',
-  imports: [FormsModule],
+  imports: [FormsModule, TranslatePipe],
   templateUrl: './preferences.html',
   styleUrl: './preferences.css'
 })

@@ -2,23 +2,23 @@
 
   <div class="card-header">
     <div>
-      <h3>Información personal</h3>
-      <p>Actualiza los datos visibles de tu perfil.</p>
+      <h3>{{ 'profile.personalInfo' | translate }}</h3>
+      <p>{{ 'profile.personalInfoSubtitle' | translate }}</p>
     </div>
   </div>
 
   <div class="form-group">
-    <label>Nombre completo</label>
+    <label>{{ 'auth.fullName' | translate }}</label>
 
     <input
       type="text"
       [(ngModel)]="draft.fullName"
-      placeholder="Ingresa tu nombre">
+      [placeholder]="'profile.namePlaceholder' | translate">
   </div>
 
 
   <div class="form-group">
-    <label>Teléfono</label>
+    <label>{{ 'profile.phone' | translate }}</label>
 
     <input
       type="text"
@@ -28,15 +28,15 @@
 
 
   <div class="form-group">
-    <label>Foto de perfil</label>
+    <label>{{ 'profile.photo' | translate }}</label>
 
     <input
       type="text"
       [(ngModel)]="draft.photoUrl"
-      placeholder="URL de la imagen">
+      [placeholder]="'profile.imageUrl' | translate">
 
     <span class="helper-text">
-      Puedes agregar una URL para mostrar tu foto de perfil.
+      {{ 'profile.photoHelper' | translate }}
     </span>
   </div>
 
@@ -46,7 +46,7 @@
       class="primary-button"
       (click)="save()">
 
-      Guardar cambios
+      {{ 'profile.saveChanges' | translate }}
 
     </button>
   </div>

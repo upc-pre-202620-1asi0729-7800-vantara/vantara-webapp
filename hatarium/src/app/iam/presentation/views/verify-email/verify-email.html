@@ -2,21 +2,21 @@
   <section class="verification-card">
     <div class="mail-icon" aria-hidden="true">✉</div>
     <header>
-      <h1>Verifica tu correo</h1>
-      <p>Ingresamos un código de seis dígitos para confirmar que esta dirección te pertenece.</p>
+      <h1>{{ 'auth.verifyEmail.title' | translate }}</h1>
+      <p>{{ 'auth.verifyEmail.subtitle' | translate }}</p>
     </header>
 
     <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
       <div class="field">
-        <label for="verification-email">Correo electrónico</label>
+        <label for="verification-email">{{ 'auth.email' | translate }}</label>
         <input id="verification-email" type="email" formControlName="email" autocomplete="email">
         @if (form.controls.email.touched && form.controls.email.invalid) {
-          <small>Ingresa un correo electrónico válido.</small>
+          <small>{{ 'auth.emailInvalid' | translate }}</small>
         }
       </div>
 
       <div class="field">
-        <label for="verification-code">Código de verificación</label>
+        <label for="verification-code">{{ 'auth.verifyEmail.code' | translate }}</label>
         <input
           id="verification-code"
           class="code-input"
@@ -28,21 +28,21 @@
           autocomplete="one-time-code"
         >
         @if (form.controls.code.touched && form.controls.code.invalid) {
-          <small>El código debe contener exactamente seis números.</small>
+          <small>{{ 'auth.verifyEmail.codeInvalid' | translate }}</small>
         }
       </div>
 
-      <p class="mock-note">En la Fake API, el código generado se almacena temporalmente en <code>emailVerifications</code>.</p>
+      <p class="mock-note">{{ 'auth.verifyEmail.mockNote' | translate }}</p>
 
       @if (store.error()) {
         <p class="feedback" role="alert">{{ store.error() }}</p>
       }
 
       <button class="primary-button" type="submit" [disabled]="store.loading()">
-        {{ store.loading() ? 'Verificando…' : 'Verificar correo' }}
+        {{ store.loading() ? ('auth.verifyEmail.verifying' | translate) : ('auth.verifyEmail.action' | translate) }}
       </button>
     </form>
 
-    <a class="back-link" routerLink="/iam/sign-in">Volver a iniciar sesión</a>
+    <a class="back-link" routerLink="/iam/sign-in">{{ 'auth.backToSignIn' | translate }}</a>
   </section>
 </app-authentication-layout>
