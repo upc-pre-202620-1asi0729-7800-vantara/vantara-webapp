@@ -1,14 +1,15 @@
-﻿import { Injectable, inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Appointment } from '../domain/model/appointment.entity';
 import { MedicalRecord } from '../domain/model/medical-record.entity';
 import { Treatment } from '../domain/model/treatment.entity';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class VeterinaryApiClient {
   private http = inject(HttpClient);
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = environment.hatariumApiBaseUrl;
 
   getAppointments(): Observable<Appointment[]> {
     return this.http.get<Appointment[]>(`${this.baseUrl}/appointments`);
