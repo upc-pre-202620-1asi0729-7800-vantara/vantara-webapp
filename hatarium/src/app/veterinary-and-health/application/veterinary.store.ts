@@ -101,7 +101,6 @@ export class VeterinaryStore {
     });
   }
 
-  /** Registra un nuevo tratamiento (US029) */
   public createTreatment(treatment: Partial<Treatment>): void {
     this.loadingSignal.set(true);
     this.api.createTreatment(treatment).subscribe({

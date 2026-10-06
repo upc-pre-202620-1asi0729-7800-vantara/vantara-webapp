@@ -14,6 +14,23 @@ export interface AnimalDTO {
   photoUrl?: string;
 }
 
+export interface VaccineDTO {
+  id?: string;
+  animalId: string;
+  veterinarianId: string;
+  name: string;
+  dose: string;
+  doseUnit: string;
+  laboratory: string;
+  lotNumber: string;
+  appliedAt: string;
+  nextDoseAt: string;
+  route: string;
+  applicationSite: string;
+  status: string;
+  observations: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class ExternalDataService {
   private http = inject(HttpClient);
@@ -87,5 +104,19 @@ export class ExternalDataService {
   /** Obtener medicamentos */
   getMedications(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/medications`);
+  }
+
+  /** Obtiene las vacunas aplicadas a un animal desde hatarium-db.json */
+  getVaccinesByAnimal(animalId: string): Observable<VaccineDTO[]> {
+    return this.http.get<VaccineDTO[]>(`${this.baseUrl}/vaccines?animalId=${animalId}`).pipe(
+      catchError(() => of([]))
+    );
+  }
+
+  /** Registra una nueva vacuna aplicada en hatarium-db.json */
+  createVaccine(vaccine: VaccineDTO): Observable<VaccineDTO | null> {
+    return this.http.post<VaccineDTO>(`${this.baseUrl}/vaccines`, vaccine).pipe(
+      catchError(() => of(null))
+    );
   }
 }

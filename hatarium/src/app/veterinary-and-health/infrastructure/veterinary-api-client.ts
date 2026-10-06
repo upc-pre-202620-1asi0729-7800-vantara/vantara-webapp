@@ -30,4 +30,12 @@ export class VeterinaryApiClient {
   createTreatment(treatment: Partial<Treatment>): Observable<Treatment> {
     return this.http.post<Treatment>(`${this.baseUrl}/treatments`, treatment);
   }
+
+  getVaccines(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/vaccines`);
+  }
+  createVaccine(vaccine: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/vaccines`, vaccine);
+  }
+
 }
