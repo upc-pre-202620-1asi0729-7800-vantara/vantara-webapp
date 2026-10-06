@@ -21,11 +21,9 @@ import {Router} from '@angular/router';
     MatButton,
     MatIcon,
     MatFormField,
-    MatInput,
     MatSelect,
     MatOption,
     MatTableModule,
-    MatLabel
   ],
   templateUrl: './animal-list.html',
   changeDetection: ChangeDetectionStrategy.Eager,

@@ -26,7 +26,6 @@ import {Animal} from '../../../domain/model/animal.entity';
     MatButton,
     MatIcon,
     MatFormField,
-    MatLabel,
     MatInput,
     MatSelect,
     MatOption,
