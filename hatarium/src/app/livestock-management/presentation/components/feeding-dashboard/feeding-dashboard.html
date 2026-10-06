@@ -14,13 +14,12 @@
     </div>
 
     <div class="header-actions">
-      <button class="outline-button">
-        <span>▣</span>
-        Registrar entrega / consumo
-      </button>
-
-      <button class="primary-button">
+      <button
+        type="button"
+        class="primary-button"
+        [routerLink]="['/livestock/feeding/add']">
         <span>+</span>
+
         Nuevo plan alimentario
       </button>
     </div>
@@ -245,11 +244,6 @@
         }
 
       </div>
-
-
-      <button class="view-all-button">
-        Ver todos los planes nutricionales →
-      </button>
 
     </section>
 
