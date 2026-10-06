@@ -1,13 +1,13 @@
 <app-authentication-layout heroImage="assets/auth/sign-in-reference.png">
   <section class="auth-card">
     <header class="title-block">
-      <h1>Bienvenido de nuevo</h1>
-      <p>Ingresa tus credenciales para acceder a tu plataforma.</p>
+      <h1>{{ 'auth.signIn.title' | translate }}</h1>
+      <p>{{ 'auth.signIn.subtitle' | translate }}</p>
     </header>
 
     <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
       <div class="field">
-        <label for="sign-in-email">Correo electrónico</label>
+        <label for="sign-in-email">{{ 'auth.email' | translate }}</label>
         <input
           id="sign-in-email"
           type="email"
@@ -16,38 +16,38 @@
           autocomplete="email"
         >
         @if (form.controls.email.touched && form.controls.email.invalid) {
-          <small>Ingresa un correo electrónico válido.</small>
+          <small>{{ 'auth.emailInvalid' | translate }}</small>
         }
       </div>
 
       <div class="field">
-        <label for="sign-in-password">Contraseña</label>
+        <label for="sign-in-password">{{ 'auth.password' | translate }}</label>
         <div class="password-field">
           <input
             id="sign-in-password"
             [type]="passwordVisible() ? 'text' : 'password'"
             formControlName="password"
-            placeholder="Ingresa tu contraseña"
+            placeholder="{{ 'auth.passwordPlaceholder' | translate }}"
             autocomplete="current-password"
           >
           <button
             class="visibility-button"
             type="button"
             (click)="togglePasswordVisibility()"
-            [attr.aria-label]="passwordVisible() ? 'Ocultar contraseña' : 'Mostrar contraseña'"
-          >{{ passwordVisible() ? 'Ocultar' : 'Ver' }}</button>
+            [attr.aria-label]="passwordVisible() ? ('auth.hidePassword' | translate) : ('auth.showPassword' | translate)"
+          >{{ passwordVisible() ? ('auth.hide' | translate) : ('auth.show' | translate) }}</button>
         </div>
         @if (form.controls.password.touched && form.controls.password.invalid) {
-          <small>La contraseña es obligatoria.</small>
+          <small>{{ 'auth.passwordRequired' | translate }}</small>
         }
       </div>
 
       <div class="form-options">
         <label class="check-option">
           <input type="checkbox" formControlName="rememberMe">
-          <span>Recordarme</span>
+          <span>{{ 'auth.rememberMe' | translate }}</span>
         </label>
-        <a href="#forgot-password">¿Olvidaste tu contraseña?</a>
+        <a href="#forgot-password">{{ 'auth.forgotPassword' | translate }}</a>
       </div>
 
       @if (store.error()) {
@@ -55,21 +55,21 @@
       }
 
       @if (store.currentAccount(); as account) {
-        <p class="feedback success">Sesión iniciada como {{ account.email }}.</p>
+        <p class="feedback success">{{ 'auth.signedInAs' | translate: { email: account.email } }}</p>
       }
 
       <button class="primary-button" type="submit" [disabled]="store.loading()">
-        {{ store.loading() ? 'Iniciando sesión…' : 'Iniciar Sesión' }}
+        {{ store.loading() ? ('auth.signingIn' | translate) : ('auth.signInAction' | translate) }}
       </button>
     </form>
 
-    <div class="separator"><span>O ingresa con</span></div>
+    <div class="separator"><span>{{ 'auth.orLoginWith' | translate }}</span></div>
 
-    <div class="social-actions" aria-label="Opciones de acceso social pendientes">
+    <div class="social-actions" [attr.aria-label]="'auth.socialAria' | translate">
       <button type="button"><strong class="google">G</strong> Google</button>
       <button type="button"><strong class="apple">●</strong> Apple</button>
     </div>
 
-    <p class="switch-flow">¿No tienes una cuenta? <a routerLink="/iam/sign-up">Regístrate Ahora.</a></p>
+    <p class="switch-flow">{{ 'auth.noAccount' | translate }} <a routerLink="/iam/sign-up">{{ 'auth.signUpNow' | translate }}</a></p>
   </section>
 </app-authentication-layout>

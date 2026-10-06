@@ -1,6 +1,7 @@
 import {Component, effect, inject, signal} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router, RouterLink} from '@angular/router';
+import {TranslatePipe} from '@ngx-translate/core';
 import {IamStore} from '../../../application/iam.store';
 import {RegistrationRole} from '../../../domain/model/registration-role';
 import {AuthenticationLayout} from '../../components/authentication-layout/authentication-layout';
@@ -8,7 +9,7 @@ import {AuthenticationLayout} from '../../components/authentication-layout/authe
 /** Collects the data required to create a role-specific Hatarium account. */
 @Component({
   selector: 'app-sign-up',
-  imports: [ReactiveFormsModule, RouterLink, AuthenticationLayout],
+  imports: [ReactiveFormsModule, RouterLink, AuthenticationLayout, TranslatePipe],
   templateUrl: './sign-up.html',
   styleUrl: './sign-up.css'
 })

@@ -380,5 +380,53 @@
     "loading": "Loading notifications...",
     "empty": "No notifications.",
     "loadError": "Could not load notifications"
+  },
+  "auth": {
+    "email": "Email",
+    "emailInvalid": "Enter a valid email address.",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "passwordRequired": "Password is required.",
+    "passwordRules": "Use at least 8 characters, one letter, one number and one symbol.",
+    "passwordHelp": "Minimum 8 characters, including numbers and symbols",
+    "minLength": "Minimum 8 characters",
+    "hidePassword": "Hide password",
+    "showPassword": "Show password",
+    "hide": "Hide",
+    "show": "Show",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot your password?",
+    "signedInAs": "Signed in as {{email}}.",
+    "signingIn": "Signing in…",
+    "signInAction": "Sign In",
+    "creatingAccount": "Creating account…",
+    "signUpAction": "Create Free Account",
+    "orLoginWith": "Or sign in with",
+    "orSignUpWith": "Or sign up with",
+    "socialAria": "Social sign-in options pending",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "signUpNow": "Sign Up Now.",
+    "fullName": "Full name",
+    "fullNameRequired": "Enter your full name.",
+    "organization": "Farm or veterinary clinic name",
+    "organizationRequired": "Enter your organization name.",
+    "accountType": "Account type",
+    "roleRancher": "Rancher",
+    "roleVeterinarian": "Veterinarian",
+    "acceptTerms": "I accept Hatarium's Terms of Service and Privacy Policy.",
+    "termsRequired": "You must accept the terms to continue.",
+    "signIn": {
+      "title": "Welcome back",
+      "subtitle": "Enter your credentials to access your platform."
+    },
+    "signUp": {
+      "title": "Create your account",
+      "subtitle": "Start managing your herd with precision technology."
+    },
+    "errors": {
+      "invalidCredentials": "Incorrect email or password.",
+      "registerFailed": "The account could not be registered."
+    }
   }
 }

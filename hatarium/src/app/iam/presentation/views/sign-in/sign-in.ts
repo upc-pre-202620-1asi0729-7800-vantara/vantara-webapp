@@ -1,13 +1,14 @@
 import {Component, effect, inject, signal} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router, RouterLink} from '@angular/router';
+import {TranslatePipe} from '@ngx-translate/core';
 import {IamStore} from '../../../application/iam.store';
 import {AuthenticationLayout} from '../../components/authentication-layout/authentication-layout';
 
 /** Collects the credentials used to access an existing Hatarium account. */
 @Component({
   selector: 'app-sign-in',
-  imports: [ReactiveFormsModule, RouterLink, AuthenticationLayout],
+  imports: [ReactiveFormsModule, RouterLink, AuthenticationLayout, TranslatePipe],
   templateUrl: './sign-in.html',
   styleUrl: './sign-in.css'
 })

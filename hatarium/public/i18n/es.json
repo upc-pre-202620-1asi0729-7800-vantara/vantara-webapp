@@ -380,5 +380,53 @@
     "loading": "Cargando notificaciones...",
     "empty": "No hay notificaciones.",
     "loadError": "No se pudieron cargar las notificaciones"
+  },
+  "auth": {
+    "email": "Correo electrónico",
+    "emailInvalid": "Ingresa un correo electrónico válido.",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Ingresa tu contraseña",
+    "passwordRequired": "La contraseña es obligatoria.",
+    "passwordRules": "Usa al menos 8 caracteres, una letra, un número y un símbolo.",
+    "passwordHelp": "Mínimo 8 caracteres, incluye números y símbolos",
+    "minLength": "Mínimo 8 caracteres",
+    "hidePassword": "Ocultar contraseña",
+    "showPassword": "Mostrar contraseña",
+    "hide": "Ocultar",
+    "show": "Ver",
+    "rememberMe": "Recordarme",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "signedInAs": "Sesión iniciada como {{email}}.",
+    "signingIn": "Iniciando sesión…",
+    "signInAction": "Iniciar Sesión",
+    "creatingAccount": "Creando cuenta…",
+    "signUpAction": "Crear Cuenta Gratuita",
+    "orLoginWith": "O ingresa con",
+    "orSignUpWith": "O regístrate con",
+    "socialAria": "Opciones de acceso social pendientes",
+    "noAccount": "¿No tienes una cuenta?",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "signUpNow": "Regístrate Ahora.",
+    "fullName": "Nombre y apellidos",
+    "fullNameRequired": "Ingresa tu nombre completo.",
+    "organization": "Nombre de la ganadería o veterinaria",
+    "organizationRequired": "Ingresa el nombre de tu organización.",
+    "accountType": "Tipo de cuenta",
+    "roleRancher": "Ganadero",
+    "roleVeterinarian": "Veterinario",
+    "acceptTerms": "Acepto los Términos de Servicio y la Política de Privacidad de Hatarium.",
+    "termsRequired": "Debes aceptar los términos para continuar.",
+    "signIn": {
+      "title": "Bienvenido de nuevo",
+      "subtitle": "Ingresa tus credenciales para acceder a tu plataforma."
+    },
+    "signUp": {
+      "title": "Crea tu cuenta",
+      "subtitle": "Comienza a gestionar tu hato con tecnología de precisión."
+    },
+    "errors": {
+      "invalidCredentials": "Correo o contraseña incorrectos.",
+      "registerFailed": "No se pudo registrar la cuenta."
+    }
   }
 }
