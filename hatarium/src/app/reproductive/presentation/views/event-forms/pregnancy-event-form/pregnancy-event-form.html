@@ -24,17 +24,22 @@
           <h3>Información del animal</h3>
           <mat-form-field appearance="outline">
             <mat-label>Animal</mat-label>
-            <mat-select disabled
-              ><mat-option value="">Selecciona un animal…</mat-option></mat-select
-            >
+            <mat-select formControlName="animalId" required placeholder="Selecciona un animal...">
+              @for (option of animalSelection.options(); track option.value) {
+                <mat-option [value]="option.value">{{ option.label }}</mat-option>
+              }
+            </mat-select>
           </mat-form-field>
+          @if (animalSelection.loading()) {
+            <p role="status">Cargando animales...</p>
+          } @else if (animalSelection.error()) {
+            <p role="alert">{{ animalSelection.error() }}</p>
+          } @else if (!animalSelection.options().length) {
+            <p role="status">No hay hembras activas disponibles.</p>
+          }
         </section>
         <section class="form-section">
           <h3>Detalles de la preñez</h3>
-          <mat-form-field appearance="outline"
-            ><mat-label>{{ 'forms.animalId' | translate }}</mat-label
-            ><input matInput formControlName="animalId" required
-          /></mat-form-field>
           <mat-form-field appearance="outline"
             ><mat-label>{{ 'forms.calfId' | translate }}</mat-label
             ><input matInput formControlName="calfId"

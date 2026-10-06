@@ -24,20 +24,25 @@
           <h3>Información del animal</h3>
           <mat-form-field appearance="outline">
             <mat-label>Animal</mat-label>
-            <mat-select disabled
-              ><mat-option value="">Selecciona un animal…</mat-option></mat-select
-            >
+            <mat-select formControlName="pregnancyId" required placeholder="Selecciona un animal...">
+              @for (option of animalSelection.options(); track option.value) {
+                <mat-option [value]="option.value">{{ option.label }}</mat-option>
+              }
+            </mat-select>
           </mat-form-field>
+          @if (animalSelection.loading()) {
+            <p role="status">Cargando animales...</p>
+          } @else if (animalSelection.error()) {
+            <p role="alert">{{ animalSelection.error() }}</p>
+          } @else if (!animalSelection.options().length) {
+            <p role="status">No hay animales con una preñez vigente para este evento.</p>
+          }
         </section>
         <section class="form-section">
           <h3>Detalles del secado</h3>
           <mat-form-field appearance="outline"
-            ><mat-label>{{ 'forms.pregnancyId' | translate }}</mat-label
-            ><input matInput formControlName="pregnancyId" required
-          /></mat-form-field>
-          <mat-form-field appearance="outline"
             ><mat-label>{{ 'forms.dryOffOn' | translate }}</mat-label
-            ><input matInput type="date" formControlName="dryOffOn" required
+            ><input matInput type="date" formControlName="dryOffOn" [max]="today" required
           /></mat-form-field>
         </section>
         <section class="form-section">
@@ -48,9 +53,10 @@
           </mat-form-field>
         </section>
         <div class="actions">
+          @if (saveError()) { <p role="alert">{{ saveError() }}</p> }
           <a mat-button routerLink="/reproductive">{{ 'forms.cancel' | translate }}</a>
-          <button mat-raised-button color="primary" type="submit">
-            {{ 'forms.submitDryOff' | translate }}
+          <button mat-raised-button color="primary" type="submit" [disabled]="saving()">
+            {{ (saving() ? 'calf.saving' : 'forms.submitDryOff') | translate }}
           </button>
         </div>
       </form>

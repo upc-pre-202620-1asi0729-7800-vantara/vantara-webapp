@@ -10,6 +10,8 @@ export class ProfileApiMapper {
     user.id = data.id ?? '';
     user.accountId = data.accountId ?? '';
     user.fullName = data.fullName ?? '';
+    user.organizationName = data.organizationName ?? '';
+    user.email = data.email ?? '';
     user.phone = data.phone ?? '';
     user.photoUrl = data.photoUrl?? '';
     user.theme = data.theme ?? '';

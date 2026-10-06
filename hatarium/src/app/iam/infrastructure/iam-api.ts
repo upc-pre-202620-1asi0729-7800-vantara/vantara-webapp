@@ -16,12 +16,16 @@ export class IamApi extends BaseApi {
     return this.accountsEndpoint.getAll();
   }
 
+  validatePassword(accountId: string, password: string): Observable<boolean> {
+    return this.authenticationEndpoint.validatePassword(accountId, password);
+  }
+
   getAccountById(accountId: string): Observable<Account> {
     return this.accountsEndpoint.getById(accountId);
   }
 
-  registerAccount(email: string, password: string, role: RegistrationRole): Observable<Account> {
-    return this.authenticationEndpoint.registerAccount(email, password, role);
+  registerAccount(email: string, password: string, role: RegistrationRole, fullName: string, organizationName: string): Observable<Account> {
+    return this.authenticationEndpoint.registerAccount(email, password, role, fullName, organizationName);
   }
 
   verifyEmail(email: string, code: string): Observable<Account> {

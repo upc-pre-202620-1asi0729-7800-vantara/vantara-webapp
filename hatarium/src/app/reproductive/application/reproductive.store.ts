@@ -3,6 +3,7 @@ import { Pregnancy } from '../domain/model/pregnancy.entity';
 import { ReproductiveApi } from '../infrastructure/reproductive-api';
 import { PregnancyDraft } from './pregnancy-draft';
 import { EMPTY_REPRODUCTIVE_SUMMARY, ReproductiveSummary } from './reproductive-summary';
+import { Observable, tap } from 'rxjs';
 
 /**
  * Application store that coordinates pregnancy state for presentation components.
@@ -74,6 +75,7 @@ export class ReproductiveStore {
     this.reproductiveApi.confirm(draft).subscribe({
       next: (pregnancy) => {
         this.pregnanciesSignal.update((list) => [...list, pregnancy]);
+        this.loadSummary();
       },
       error: () => this.errorMessageSignal.set('No se pudo confirmar la preñez.'),
     });
@@ -92,11 +94,10 @@ export class ReproductiveStore {
   /**
    * Records the dry-off date and refreshes the local entry.
    */
-  recordDryOff(id: string, on: string): void {
-    this.reproductiveApi.recordDryOff(id, on).subscribe({
-      next: (updated) => this.replacePregnancy(updated),
-      error: () => this.errorMessageSignal.set('No se pudo registrar el secado.'),
-    });
+  recordDryOff(id: string, on: string): Observable<Pregnancy> {
+    return this.reproductiveApi.recordDryOff(id, on).pipe(
+      tap(updated => this.replacePregnancy(updated)),
+    );
   }
 
   /**
@@ -111,5 +112,6 @@ export class ReproductiveStore {
 
   private replacePregnancy(value: Pregnancy): void {
     this.pregnanciesSignal.update((list) => list.map((p) => (p.id === value.id ? value : p)));
+    this.loadSummary();
   }
 }

@@ -5,7 +5,7 @@
 
 h1 {
   margin: 0 0 5px;
-  color: #121a2b;
+  color: #0d1f1a;
   font-size: clamp(28px, 2.15vw, 37px);
   line-height: 1.1;
   letter-spacing: -0.045em;
@@ -30,7 +30,7 @@ input[type='password'] {
   width: 100%;
   height: 39px;
   padding: 0 14px;
-  border: 1px solid #d8e0ea;
+  border: 1px solid #d8eae5;
   border-radius: 9px;
   outline: none;
   box-sizing: border-box;
@@ -42,7 +42,7 @@ input[type='password'] {
 }
 
 input:focus {
-  border-color: #174268;
+  border-color: #114b39;
   box-shadow: 0 0 0 3px rgb(23 104 70 / 12%);
 }
 
@@ -83,7 +83,7 @@ small { color: #b42318; font-size: 11px; }
   justify-content: center;
   gap: 7px;
   min-height: 37px;
-  border: 1px solid #d8e0ea;
+  border: 1px solid #d8eae5;
   border-radius: 9px;
   color: #536178;
   font-size: 13px;
@@ -91,13 +91,13 @@ small { color: #b42318; font-size: 11px; }
 }
 
 .role-selector label:has(input:checked) {
-  border-color: #174268;
+  border-color: #114b39;
   color: #104f37;
   background: #eff8f3;
   font-weight: 650;
 }
 
-.role-selector input { margin: 0; accent-color: #1565c0; }
+.role-selector input { margin: 0; accent-color: #07583f; }
 
 .terms-option {
   display: flex;
@@ -109,7 +109,7 @@ small { color: #b42318; font-size: 11px; }
   cursor: pointer;
 }
 
-.terms-option input { flex: 0 0 auto; width: 16px; height: 16px; margin: 0; accent-color: #1565c0; }
+.terms-option input { flex: 0 0 auto; width: 16px; height: 16px; margin: 0; accent-color: #07583f; }
 
 .primary-button {
   height: 43px;
@@ -147,12 +147,12 @@ small { color: #b42318; font-size: 11px; }
 }
 
 .separator::before,
-.separator::after { content: ''; flex: 1; height: 1px; background: #e4e9ef; }
+.separator::after { content: ''; flex: 1; height: 1px; background: #e4efec; }
 .social-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
 .social-actions button {
   height: 39px;
-  border: 1px solid #d9e1eb;
+  border: 1px solid #d9ebe6;
   border-radius: 9px;
   color: #4a5870;
   background: #fff;
@@ -162,8 +162,8 @@ small { color: #b42318; font-size: 11px; }
   cursor: pointer;
 }
 
-.google { color: #4285f4; margin-right: 7px; }
-.apple { color: #101828; margin-right: 7px; }
+.google { color: #27b88d; margin-right: 7px; }
+.apple { color: #0c1d18; margin-right: 7px; }
 
 .switch-flow {
   margin: 17px 0 0;
@@ -172,7 +172,7 @@ small { color: #b42318; font-size: 11px; }
   font-size: 12px;
 }
 
-.switch-flow a { color: #143a5b; font-weight: 650; text-decoration: none; }
+.switch-flow a { color: #0e4232; font-weight: 650; text-decoration: none; }
 
 @media (max-width: 420px) {
   .role-selector,

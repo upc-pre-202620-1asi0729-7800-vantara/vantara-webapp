@@ -35,8 +35,10 @@ export class Notification {
   }
 
   formattedDate():string{
-    const fecha =new Date(this.sentAt);
-    return fecha.toLocaleDateString();
+    const date = new Date(this.sentAt || this.scheduledAt || this.createdAt);
+    return Number.isNaN(date.getTime()) ? '' : date.toLocaleString(undefined, {
+      day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit',
+    });
   }
 }
 

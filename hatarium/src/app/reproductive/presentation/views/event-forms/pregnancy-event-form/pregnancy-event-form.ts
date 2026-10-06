@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { CdkTrapFocus } from '@angular/cdk/a11y';
 import { TranslatePipe } from '@ngx-translate/core';
+import { reproductiveEventOptions } from '../../../../application/reproductive-event-options';
 import { ReproductiveStore } from '../../../../application/reproductive.store';
 
 /**
@@ -36,6 +37,8 @@ export class PregnancyEventForm {
   private fb = inject(FormBuilder);
   private store = inject(ReproductiveStore);
   private router = inject(Router);
+
+  readonly animalSelection = reproductiveEventOptions('pregnancy');
 
   form = this.fb.group({
     animalId: ['', Validators.required],

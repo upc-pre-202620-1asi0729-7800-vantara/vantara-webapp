@@ -2,6 +2,7 @@
   <div>
     <h1>{{ 'dashboard.title' | translate }}</h1>
     <p>{{ 'dashboard.subtitle' | translate }}</p>
+    <p>{{ 'calf.count' | translate: { count: store.summary().calfCount } }}</p>
   </div>
   <a mat-raised-button color="primary" routerLink="/reproductive/new-event-reproductive">
     <mat-icon>add</mat-icon> {{ 'dashboard.registerEvent' | translate }}
@@ -116,8 +117,19 @@
           <strong>{{ store.summary().statusDistribution.issues }}</strong>
           <span>{{ statusPercentage(store.summary().statusDistribution.issues) }}%</span>
         </div>
+        <div class="status-legend__row">
+          <span>{{ 'dashboard.summary.upcomingCalvings' | translate }}</span>
+          <strong>{{ store.summary().upcomingCalvings }}</strong>
+          <span>{{ statusPercentage(store.summary().upcomingCalvings) }}%</span>
+        </div>
+        <div class="status-legend__row">
+          <span>{{ 'dashboard.summary.followUpRequired' | translate }}</span>
+          <strong>{{ store.summary().followUpRequired }}</strong>
+          <span>{{ statusPercentage(store.summary().followUpRequired) }}%</span>
+        </div>
       </div>
     </div>
+    <p>{{ 'dashboard.reproductiveStatus.relatedIndicators' | translate }}</p>
   </article>
 
   <article class="insight-card insight-card--events">

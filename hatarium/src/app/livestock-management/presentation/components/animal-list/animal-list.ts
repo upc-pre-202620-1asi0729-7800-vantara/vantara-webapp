@@ -45,13 +45,16 @@ export class AnimalList {
   selectedBreed = signal('');
 
   constructor() {
-    this.livestockStore.loadAnimals();
+    this.livestockStore.loadAnimals(true);
     this.livestockStore.loadLots();
   }
 
   totalAnimals = computed(() =>
     this.animals().length
   );
+
+  totalCalves = computed(() => this.animals().filter(animal =>
+    animal.status === 'active' && animal.isCalf()).length);
 
   activeLots = computed(() =>
     this.lots().filter(lot => lot.status === 'active').length

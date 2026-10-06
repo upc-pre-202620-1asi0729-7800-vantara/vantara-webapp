@@ -54,4 +54,5 @@ export interface AnimalResource {
 
   /** Animal photo URL. */
   photoUrl: string;
+  weanedOn?: string | null;
 }

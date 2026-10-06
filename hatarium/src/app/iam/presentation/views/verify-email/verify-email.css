@@ -13,13 +13,13 @@
   margin: 0 auto 20px;
   border-radius: 50%;
   color: #fff;
-  background: #1565c0;
+  background: #07583f;
   font-size: 25px;
 }
 
 h1 {
   margin: 0 0 8px;
-  color: #121a2b;
+  color: #0d1f1a;
   font-size: clamp(29px, 2.15vw, 37px);
   letter-spacing: -.045em;
 }
@@ -47,7 +47,7 @@ input {
   width: 100%;
   height: 48px;
   padding: 0 15px;
-  border: 1px solid #d8e0ea;
+  border: 1px solid #d8eae5;
   border-radius: 10px;
   outline: none;
   box-sizing: border-box;
@@ -57,7 +57,7 @@ input {
 }
 
 input:focus {
-  border-color: #174268;
+  border-color: #114b39;
   box-shadow: 0 0 0 3px rgb(23 104 70 / 12%);
 }
 
@@ -107,7 +107,7 @@ small { color: #b42318; font-size: 12px; }
 .back-link {
   display: inline-block;
   margin-top: 24px;
-  color: #143a5b;
+  color: #0e4232;
   font-size: 14px;
   font-weight: 650;
   text-decoration: none;

@@ -41,6 +41,8 @@
           <span class="profile-label">{{ 'profile.account' | translate }}</span>
 
           <h2>{{ store.profile.displayName() }}</h2>
+          <p>{{ store.profile.email }}</p>
+          @if (store.profile.organizationName) { <p>{{ store.profile.organizationName }}</p> }
 
           <p>{{ store.profile.phone || ('profile.noPhone' | translate) }}</p>
 

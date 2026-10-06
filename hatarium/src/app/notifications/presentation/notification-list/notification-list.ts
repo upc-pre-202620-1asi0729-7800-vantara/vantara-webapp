@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Notification } from '../../domain/model/notification.entity';
 import { NotificationItem } from '../notification-item/notification-item';
+import { MatIconModule } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-notification-list',
-  imports: [NotificationItem],
+  imports: [NotificationItem, MatIconModule, TranslatePipe],
   templateUrl: './notification-list.html',
   styleUrl: './notification-list.css'
 })

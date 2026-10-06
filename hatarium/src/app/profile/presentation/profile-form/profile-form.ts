@@ -22,6 +22,7 @@ export class ProfileForm implements OnChanges {
   ngOnChanges(): void {
     if (this.profile) {
       this.draft.fullName = this.profile.fullName;
+      this.draft.organizationName = this.profile.organizationName;
       this.draft.phone = this.profile.phone;
       this.draft.photoUrl = this.profile.photoUrl;
       this.draft.theme = this.profile.theme;

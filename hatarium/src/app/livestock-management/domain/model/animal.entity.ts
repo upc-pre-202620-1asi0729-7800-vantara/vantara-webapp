@@ -1,3 +1,5 @@
+import { isCalf } from '../../../shared/domain/model/animal-age';
+
 export class Animal {
   id: string;
   rancherId: string;
@@ -14,6 +16,11 @@ export class Animal {
   status: string;
   registeredAt: string;
   photoUrl: string;
+  weanedOn: string | null;
+
+  isCalf(): boolean {
+    return isCalf(this.birthDate);
+  }
 
   constructor() {
     this.id = '';
@@ -31,5 +38,6 @@ export class Animal {
     this.status = '';
     this.registeredAt = '';
     this.photoUrl = '';
+    this.weanedOn = null;
   }
 }

@@ -1,50 +1,40 @@
-<section class="notification-center">
-
-  <div class="header">
-
-    <h2>{{ 'notifications.title' | translate }}</h2>
-
-    <app-notification-badge
-      [unreadCount]="store.unreadCount()">
-    </app-notification-badge>
-
+<section class="notification-center" [attr.aria-busy]="store.loading">
+  <header class="notification-header">
+    <div class="heading-group">
+      <span class="heading-icon"><mat-icon>notifications_active</mat-icon></span>
+      <div><p class="eyebrow">{{ 'notifications.activity' | translate }}</p>
+        <h1>{{ 'notifications.title' | translate }}</h1>
+        <p class="subtitle">{{ 'notifications.subtitle' | translate }}</p></div>
+    </div>
+    <button class="refresh-button" type="button" (click)="refresh()" [disabled]="store.loading">
+      <mat-icon>refresh</mat-icon>{{ 'notifications.refresh' | translate }}</button>
+  </header>
+  <div class="notification-stats">
+    <article><span>{{ 'notifications.total' | translate }}</span><strong>{{ store.notifications.length }}</strong><mat-icon>inbox</mat-icon></article>
+    <article class="stat-unread"><span>{{ 'notifications.unread' | translate }}</span><strong>{{ store.unreadCount() }}</strong><mat-icon>mark_email_unread</mat-icon></article>
+    <article><span>{{ 'notifications.read' | translate }}</span><strong>{{ store.notifications.length - store.unreadCount() }}</strong><mat-icon>done_all</mat-icon></article>
   </div>
-
-
-  <select
-    #typeFilter
-    (change)="filterByType(typeFilter.value)">
-
-    <option value="">
-      {{ 'notifications.all' | translate }}
-    </option>
-
-    <option value="HEALTH_ALERT">
-      {{ 'notifications.health' | translate }}
-    </option>
-
-  </select>
-
-
-  @if (store.loading) {
-
-    <p>{{ 'notifications.loading' | translate }}</p>
-
-  } @else {
-
-    @if (store.errorMessage) {
-
-      <p class="error">
-        {{ store.errorMessage }}
-      </p>
-
+  <section class="activity-panel">
+    <div class="panel-heading">
+      <div><h2>{{ 'notifications.recent' | translate }}</h2><p>{{ 'notifications.recentHint' | translate }}</p></div>
+      <app-notification-badge [unreadCount]="store.unreadCount()"></app-notification-badge>
+    </div>
+    <div class="filter-toolbar">
+      <div class="type-filters" role="group" [attr.aria-label]="'notifications.filterLabel' | translate">
+        @for (filter of filters; track filter.type) {
+          <button type="button" [class.active]="(store.selectedType || '') === filter.type"
+            [attr.aria-pressed]="(store.selectedType || '') === filter.type" (click)="filterByType(filter.type)">
+            <mat-icon>{{ filter.icon }}</mat-icon>{{ filter.key | translate }}</button>
+        }
+      </div>
+      <label class="unread-filter"><input type="checkbox" [checked]="store.unreadOnly()"
+        (change)="store.unreadOnly.set($any($event.target).checked)">{{ 'notifications.onlyUnread' | translate }}</label>
+    </div>
+    @if (store.errorMessage) { <p class="error" role="alert"><mat-icon>error_outline</mat-icon>{{ store.errorMessage }}</p> }
+    @if (store.loading) {
+      <div class="loading-state" role="status"><mat-icon>hourglass_top</mat-icon>{{ 'notifications.loading' | translate }}</div>
+    } @else {
+      <app-notification-list [notifications]="store.visibleNotifications()" (markRead)="markAsRead($event)"></app-notification-list>
     }
-
-    <app-notification-list
-      [notifications]="store.visibleNotifications()"
-      (markRead)="markAsRead($event)">
-    </app-notification-list>
-
-  }
-
+  </section>
 </section>

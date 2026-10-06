@@ -22,6 +22,7 @@ export class AnimalAssembler {
     animal.status = resource.status;
     animal.registeredAt = resource.registeredAt;
     animal.photoUrl = resource.photoUrl;
+    animal.weanedOn = resource.weanedOn ?? null;
     return animal;
   }
 

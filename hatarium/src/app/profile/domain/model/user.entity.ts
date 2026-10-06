@@ -2,6 +2,8 @@ export class User {
   id: string;
   accountId: string;
   fullName: string;
+  organizationName = '';
+  email = '';
   phone?: string;
   photoUrl?: string;
   theme: string;

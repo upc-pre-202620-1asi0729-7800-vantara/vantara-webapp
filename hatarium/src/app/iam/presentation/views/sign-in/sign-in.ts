@@ -31,8 +31,7 @@ export class SignIn {
       validators: [Validators.required, Validators.email]
     }),
     password: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required]
+      nonNullable: true
     }),
     rememberMe: new FormControl(false, {nonNullable: true})
   });
@@ -42,7 +41,7 @@ export class SignIn {
       this.form.markAllAsTouched();
       return;
     }
-    this.store.signIn(this.form.controls.email.value);
+    this.store.signIn(this.form.controls.email.value, this.form.controls.password.value);
   }
 
   protected togglePasswordVisibility(): void {

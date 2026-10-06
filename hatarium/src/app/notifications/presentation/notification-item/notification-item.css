@@ -1,14 +1,25 @@
-.notification {
-  padding: 16px;
-  margin-bottom: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-.notification h3 {
-  margin-top: 0;
-}
-
-button {
-  cursor: pointer;
+.notification { display: flex; gap: 16px; padding: 20px; border: 1px solid #e4ece6; border-radius: 13px; background: #fff; }
+.notification.unread { border-color: #cde6d6; background: #f5fbf7; box-shadow: inset 3px 0 #38996b; }
+.event-icon { width: 44px; height: 44px; border-radius: 12px; background: #eaf3ed; color: #458468; display: grid; place-items: center; flex-shrink: 0; }
+.birth .event-icon { color: #a3693a; background: #fff0df; }
+.notification-content { flex: 1; min-width: 0; }
+.item-heading { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.category { color: #498969; text-transform: uppercase; font-size: 10px; font-weight: 700; letter-spacing: .7px; }
+time { color: #89978e; font-size: 11px; }
+h3 { margin: 8px 0; font-size: 15px; color: #244632; line-height: 1.5; }
+.unread-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #259c62; margin-left: 6px; vertical-align: middle; }
+p { margin: 0; font-size: 13px; line-height: 1.7; color: #6d7e73; overflow-wrap: anywhere; }
+.item-actions { display: flex; align-items: center; justify-content: flex-end; gap: 18px; margin-top: 14px; flex-wrap: wrap; }
+.item-actions button, .item-actions a, .read-status { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; }
+.item-actions button { border: 1px solid #cddfd2; background: white; border-radius: 7px; padding: 6px 10px; color: #367d56; cursor: pointer; }
+.item-actions a { color: #3a805a; text-decoration: none; font-weight: 600; }
+.item-actions mat-icon { font-size: 15px; width: 15px; height: 15px; }
+.read-status { color: #96a299; }
+button:focus-visible, a:focus-visible { outline: 2px solid #168a58; outline-offset: 3px; }
+@media (max-width: 640px) {
+  .notification { padding: 14px; gap: 10px; }
+  .event-icon { width: 34px; height: 34px; border-radius: 9px; }
+  .event-icon mat-icon { font-size: 20px; width: 20px; height: 20px; }
+  .item-heading { align-items: flex-start; flex-direction: column; gap: 5px; }
+  .item-actions { justify-content: flex-start; gap: 12px; }
 }

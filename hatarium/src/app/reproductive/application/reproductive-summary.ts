@@ -3,6 +3,7 @@
  */
 export interface ReproductiveSummary {
   reproductiveFemales: number;
+  calfCount: number;
   reproductiveFemalePercentage: number;
   pregnantFemales: number;
   pregnantPercentage: number;
@@ -46,6 +47,7 @@ export interface RecentReproductiveEvent {
 /** Initial dashboard summary used while the API request is in progress. */
 export const EMPTY_REPRODUCTIVE_SUMMARY: ReproductiveSummary = {
   reproductiveFemales: 0,
+  calfCount: 0,
   reproductiveFemalePercentage: 0,
   pregnantFemales: 0,
   pregnantPercentage: 0,

@@ -13,7 +13,10 @@ export class NotificationApiClient {
 
   getNotifications(): Promise<Notification[]> {
     return fetch(`${this.baseUrl}/notifications`)
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) throw new Error(`No se pudieron cargar las notificaciones (${response.status})`);
+        return response.json();
+      })
       .then((data: unknown) => {
         if (!Array.isArray(data)) {
           throw new TypeError('Expected notifications response to be an array');
@@ -35,7 +38,10 @@ export class NotificationApiClient {
         readAt: new Date().toISOString()
       })
     })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) throw new Error(`No se pudo actualizar la notificación (${response.status})`);
+      return response.json();
+    })
     .then(data => this.mapper.toNotification(data))
   }
 

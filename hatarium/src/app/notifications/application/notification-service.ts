@@ -10,14 +10,14 @@ export class NotificationService {
     this.api = api;
   }
 
-  load(): Promise<void> {
+  async load(): Promise<void> {
     this.store.setLoading(true);
-
-    return this.api.getNotifications()
-      .then(notifications => {
-        this.store.setNotifications(notifications);
-        this.store.setLoading(false);
-      });
+    this.store.setError();
+    try {
+      this.store.setNotifications(await this.api.getNotifications());
+    } finally {
+      this.store.setLoading(false);
+    }
   }
 
   refresh(): Promise<void> {
@@ -25,6 +25,7 @@ export class NotificationService {
   }
 
   markAsRead(id: string): Promise<void> {
+    this.store.setError();
     return this.api.markAsRead(id)
       .then(notification => {
         this.store.replaceNotification(notification);

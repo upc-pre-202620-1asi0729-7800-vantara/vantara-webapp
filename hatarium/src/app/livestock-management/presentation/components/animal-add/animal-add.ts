@@ -18,6 +18,7 @@ import {TranslatePipe} from '@ngx-translate/core';
 import {LivestockStore} from '../../../application/livestock-store';
 import {Router} from '@angular/router';
 import {Animal} from '../../../domain/model/animal.entity';
+import {isCalf} from '../../../../shared/domain/model/animal-age';
 
 @Component({
   selector: 'app-animal-add',
@@ -52,12 +53,16 @@ export class AnimalAdd {
   breed = signal('');
   sex = signal('');
   birthDate = signal('');
+  readonly registeringCalf = computed(() => isCalf(this.birthDate()));
+  readonly today = new Date().toLocaleDateString('sv-SE');
   weight = signal<number | null>(null);
 
   motherId = signal('');
   fatherId = signal('');
 
   photoUrl = signal('');
+  readonly saving = signal(false);
+  readonly saveError = signal<string | null>(null);
 
   constructor() {
     this.livestockStore.loadLots();
@@ -65,11 +70,11 @@ export class AnimalAdd {
   }
 
   mothers = computed(() =>
-    this.animals().filter(animal => animal.sex === 'Hembra')
+    this.animals().filter(animal => animal.sex === 'Hembra' && !animal.isCalf())
   );
 
   fathers = computed(() =>
-    this.animals().filter(animal => animal.sex === 'Macho')
+    this.animals().filter(animal => animal.sex === 'Macho' && !animal.isCalf())
   );
 
   setLot(value: string) {
@@ -129,6 +134,7 @@ export class AnimalAdd {
   }
 
   registerAnimal() {
+    if (this.saving()) return;
     if (
       !this.selectedLot() ||
       !this.earTag() ||
@@ -145,11 +151,20 @@ export class AnimalAdd {
 
     const newAnimal = new Animal();
 
-    newAnimal.id = `anm-${this.earTag()}`;
+    if (this.birthDate() > this.today || this.weight()! <= 0) {
+      alert('La fecha de nacimiento no puede estar en el futuro y el peso debe ser mayor que cero.');
+      return;
+    }
+    if (this.animals().some(animal => animal.earTag === this.earTag().trim())) {
+      alert('El arete ya pertenece a otro animal.');
+      return;
+    }
+
+    newAnimal.id = `anm-${this.earTag().trim()}`;
     newAnimal.rancherId = 'usr-002';
     newAnimal.lotId = this.selectedLot();
-    newAnimal.earTag = this.earTag();
-    newAnimal.name = this.name();
+    newAnimal.earTag = this.earTag().trim();
+    newAnimal.name = this.name().trim();
     newAnimal.species = this.species();
     newAnimal.breed = this.breed();
     newAnimal.sex = this.sex();
@@ -160,8 +175,18 @@ export class AnimalAdd {
     newAnimal.status = 'active';
     newAnimal.registeredAt = new Date().toISOString().split('T')[0];
     newAnimal.photoUrl = this.photoUrl();
-    this.livestockStore.createAnimal(newAnimal);
-    this.router.navigate(['/livestock/animals']);
+    this.saving.set(true);
+    this.saveError.set(null);
+    this.livestockStore.createAnimal(newAnimal).subscribe({
+      next: () => {
+        this.saving.set(false);
+        this.router.navigate(['/livestock/animals']);
+      },
+      error: () => {
+        this.saving.set(false);
+        this.saveError.set('No se pudo registrar el animal. Comprueba el servidor y vuelve a intentar.');
+      },
+    });
 
   }
   cancel() {

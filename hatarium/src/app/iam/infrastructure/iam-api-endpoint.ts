@@ -1,6 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {inject, Service} from '@angular/core';
-import {catchError, forkJoin, from, map, Observable, switchMap, throwError} from 'rxjs';
+import {catchError, forkJoin, from, map, Observable, of, switchMap, throwError} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {ErrorHandlingEnabledBaseType} from '../../shared/infrastructure/error-handling-enabled-base-type';
 import {Account, AccountStatus} from '../domain/model/account.entity';
@@ -26,7 +26,7 @@ export class IamApiEndpoint extends ErrorHandlingEnabledBaseType {
   private readonly registrationAssembler = inject(RegistrationAssembler);
   private readonly emailVerificationAssembler = inject(EmailVerificationAssembler);
 
-  registerAccount(email: string, password: string, role: RegistrationRole): Observable<Account> {
+  registerAccount(email: string, password: string, role: RegistrationRole, fullName: string, organizationName: string): Observable<Account> {
     const request = this.registrationAssembler.toRequest(email, password, role);
     const accountsUrl = `${this.baseUrl}${this.accountsEndpoint}`;
     const rolesUrl = `${this.baseUrl}${this.rolesEndpoint}`;
@@ -54,6 +54,10 @@ export class IamApiEndpoint extends ErrorHandlingEnabledBaseType {
         return from(this.hashPassword(request.password)).pipe(
           switchMap(passwordHash => forkJoin({
             account: this.http.post<RegistrationResponse>(accountsUrl, account),
+            profile: this.http.post(this.baseUrl + '/users', {
+              id: 'usr-' + accountId, accountId, fullName: fullName.trim(),
+              organizationName: organizationName.trim(), phone: '', photoUrl: '', theme: 'light', locale: 'es',
+            }),
             credential: this.http.post<AccountCredentialResource>(
               credentialsUrl,
               this.registrationAssembler.toCredentialResource(accountId, passwordHash)
@@ -119,6 +123,16 @@ export class IamApiEndpoint extends ErrorHandlingEnabledBaseType {
   private generateVerificationCode(): string {
     const randomValue = crypto.getRandomValues(new Uint32Array(1))[0] % 1_000_000;
     return randomValue.toString().padStart(6, '0');
+  }
+
+  validatePassword(accountId: string, password: string): Observable<boolean> {
+    return this.http.get<AccountCredentialResource[]>(`${this.baseUrl}${this.accountCredentialsEndpoint}`, {
+      params: {accountId},
+    }).pipe(switchMap(credentials => {
+      // The seeded demo accounts intentionally have no credential record.
+      if (!credentials.length) return of(['acc-001', 'acc-002', 'acc-003'].includes(accountId));
+      return from(this.hashPassword(password)).pipe(map(hash => credentials.some(item => item.passwordHash === hash)));
+    }));
   }
 
   private async hashPassword(password: string): Promise<string> {

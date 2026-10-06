@@ -68,9 +68,9 @@ export class SignUp {
       return;
     }
 
-    const {email, password, role} = this.form.getRawValue();
+    const {email, password, role, fullName, organizationName} = this.form.getRawValue();
     this.registrationRequested.set(true);
-    this.store.registerAccount(email, password, role);
+    this.store.registerAccount(email, password, role, fullName.trim(), organizationName.trim());
   }
 
   protected togglePasswordVisibility(): void {

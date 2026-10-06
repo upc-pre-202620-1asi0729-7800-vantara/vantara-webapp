@@ -56,7 +56,7 @@
   height: 54px;
   border-radius: 14px;
   place-items: center;
-  color: #173e61;
+  color: #114636;
   background: #e4f5e9;
 }
 
@@ -95,8 +95,8 @@
 }
 
 .event-card:hover {
-  border-color: #1976d2;
-  box-shadow: 0 6px 18px rgba(20, 55, 86, 0.08);
+  border-color: #07583f;
+  box-shadow: 0 6px 18px rgba(14, 62, 48, 0.08);
 }
 
 .event-icon {
@@ -108,12 +108,12 @@
 }
 
 .event-pregnancy {
-  background: #e3f2fd;
-  color: #1565c0;
+  background: #e4f4e8;
+  color: #07583f;
 }
 .event-calving {
-  background: #e3f2fd;
-  color: #1976d2;
+  background: #e4f4e8;
+  color: #07583f;
 }
 .event-dryOff {
   background: #fff3e0;
@@ -143,7 +143,7 @@
 .info-box {
   display: flex;
   gap: 12px;
-  background: #e3f2fd;
+  background: #e4f4e8;
   border-radius: 12px;
   padding: 16px;
 }

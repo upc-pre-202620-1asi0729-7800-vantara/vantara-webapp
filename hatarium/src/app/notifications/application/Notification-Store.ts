@@ -1,49 +1,49 @@
+import { computed, signal } from '@angular/core';
 import { Notification } from '../domain/model/notification.entity';
 
 export class NotificationStore {
-  notifications: Notification[];
-  selectedType?: string;
-  loading: boolean;
-  errorMessage?: string;
+  private readonly notificationsState = signal<Notification[]>([]);
+  private readonly selectedTypeState = signal<string | undefined>('');
+  private readonly loadingState = signal(false);
+  private readonly errorState = signal<string | undefined>(undefined);
+  readonly unreadOnly = signal(false);
 
-  constructor() {
-    this.notifications = [];
-    this.loading = false;
-    this.selectedType = '';
-    this.errorMessage = '';
-  }
+  get notifications(): Notification[] { return this.notificationsState(); }
+  get selectedType(): string | undefined { return this.selectedTypeState(); }
+  set selectedType(type: string | undefined) { this.selectedTypeState.set(type); }
+  get loading(): boolean { return this.loadingState(); }
+  get errorMessage(): string | undefined { return this.errorState(); }
 
   setNotifications(values: Notification[]): void {
-    this.notifications = values;
+    this.notificationsState.set([...values].sort((first, second) =>
+      (second.sentAt || second.createdAt || '').localeCompare(first.sentAt || first.createdAt || '')));
   }
 
   replaceNotification(value: Notification): void {
-    this.notifications = this.notifications.map(notification =>
+    this.notificationsState.update(notifications => notifications.map(notification =>
       notification.id === value.id ? value : notification
-    );
+    ));
   }
 
-  visibleNotifications(): Notification[] {
-    if (!this.selectedType) {
-      return this.notifications;
-    }
-
+  readonly visibleNotifications = computed(() => {
     return this.notifications.filter(notification =>
-      notification.type === this.selectedType
-    );
-  }
+      (!this.selectedType || (this.selectedType === 'REMINDERS'
+        ? ['APPOINTMENT_REMINDER', 'VACCINE_REMINDER'].includes(notification.type)
+        : notification.type === this.selectedType)) &&
+      (!this.unreadOnly() || !notification.isRead()));
+  });
 
-  unreadCount(): number {
+  readonly unreadCount = computed(() => {
     return this.notifications.filter(notification =>
       !notification.isRead()
     ).length;
-  }
+  });
 
   setLoading(value: boolean): void {
-    this.loading = value;
+    this.loadingState.set(value);
   }
 
-  setError(message: string): void {
-    this.errorMessage = message;
+  setError(message?: string): void {
+    this.errorState.set(message);
   }
 }

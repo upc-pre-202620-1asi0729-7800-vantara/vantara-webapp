@@ -8,6 +8,7 @@ import {FeedingLog} from '../domain/model/feeding-log.entity';
 import {LivestockApi} from '../infrastructure/livestock-api';
 import { forkJoin, Observable, of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
+import { ActivityNotifications } from '../../notifications/application/activity-notifications';
 
 @Service()
 export class LivestockStore {
@@ -20,6 +21,7 @@ export class LivestockStore {
   private feedingLogsSignal = signal<FeedingLog[]>([]);
 
   private liveStockApi = inject(LivestockApi);
+  private readonly notifications = inject(ActivityNotifications);
 
   readonly animals = computed(() => this.animalsSignal());
   readonly lots = computed(() => this.lotsSignal());
@@ -28,12 +30,18 @@ export class LivestockStore {
   readonly feedingPlanItems = computed(() => this.feedingPlanItemsSignal());
   readonly feedingLogs = computed(() => this.feedingLogsSignal());
 
-  loadAnimals() {
-    if (this.animalsSignal().length === 0) {
+  loadAnimals(force = false) {
+    if (force || this.animalsSignal().length === 0) {
       this.liveStockApi.getAnimals().subscribe(animals => {
         this.animalsSignal.set(animals);
       });
     }
+  }
+
+  rememberAnimal(animal: Animal): void {
+    this.animalsSignal.update(animals => [
+      ...animals.filter(existing => existing.id !== animal.id), animal,
+    ]);
   }
 
   loadLots() {
@@ -74,13 +82,16 @@ export class LivestockStore {
     }
   }
 
-  createAnimal(animal: Animal) {
-    this.liveStockApi.createAnimal(animal).subscribe(createdAnimal => {
-      this.animalsSignal.update(animals => [
-        ...animals,
-        createdAnimal
-      ]);
-    });
+  createAnimal(animal: Animal): Observable<Animal> {
+    return this.liveStockApi.createAnimal(animal).pipe(
+      tap(createdAnimal => this.rememberAnimal(createdAnimal)),
+      switchMap(createdAnimal => this.notifications.publish({
+        recipientUserId: createdAnimal.rancherId, type: 'ANIMAL_REGISTERED',
+        title: 'Nuevo animal registrado',
+        description: `${createdAnimal.name} (#${createdAnimal.earTag}) se agregó al ganado${createdAnimal.isCalf() ? ' como cría / bebé' : ''}.`,
+        relatedEntityType: 'Animal', relatedEntityId: createdAnimal.id,
+      }).pipe(map(() => createdAnimal))),
+    );
   }
 
   createFeedingPlan(
@@ -123,7 +134,14 @@ export class LivestockStore {
           ...plans,
           createdPlan
         ]);
-      })
+      }),
+      switchMap(createdPlan => this.notifications.publish({
+        recipientUserId: this.animals().find(animal => animal.id === createdPlan.animalId)?.rancherId
+          ?? this.lots().find(lot => lot.id === createdPlan.lotId)?.rancherId ?? 'usr-002',
+        type: 'FEEDING_REGISTERED', title: 'Plan de alimentación registrado',
+        description: `Se registró el plan ${createdPlan.name}, desde ${createdPlan.startsOn} hasta ${createdPlan.endsOn}.`,
+        relatedEntityType: 'FeedingPlan', relatedEntityId: createdPlan.id,
+      }).pipe(map(() => createdPlan))),
     );
   }
 

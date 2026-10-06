@@ -9,7 +9,7 @@
 
 h1 {
   margin: 0 0 8px;
-  color: #121a2b;
+  color: #0d1f1a;
   font-size: clamp(30px, 2.25vw, 38px);
   line-height: 1.1;
   letter-spacing: -0.045em;
@@ -41,7 +41,7 @@ input[type='text'] {
   width: 100%;
   height: 48px;
   padding: 0 15px;
-  border: 1px solid #d8e0ea;
+  border: 1px solid #d8eae5;
   border-radius: 10px;
   outline: none;
   box-sizing: border-box;
@@ -52,7 +52,7 @@ input[type='text'] {
 }
 
 input:focus {
-  border-color: #174268;
+  border-color: #114b39;
   box-shadow: 0 0 0 3px rgb(23 104 70 / 12%);
 }
 
@@ -86,13 +86,13 @@ small { color: #b42318; font-size: 12px; }
 
 .form-options a,
 .switch-flow a {
-  color: #143a5b;
+  color: #0e4232;
   font-weight: 650;
   text-decoration: none;
 }
 
 .check-option { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-.check-option input { width: 17px; height: 17px; accent-color: #1565c0; }
+.check-option input { width: 17px; height: 17px; accent-color: #07583f; }
 
 .primary-button {
   height: 48px;
@@ -116,7 +116,7 @@ small { color: #b42318; font-size: 12px; }
 }
 
 .error { color: #8e251f; background: #fef0ee; }
-.success { color: #133a5c; background: #ecf8f1; }
+.success { color: #0e4232; background: #ecf8f1; }
 
 .separator {
   display: flex;
@@ -130,13 +130,13 @@ small { color: #b42318; font-size: 12px; }
 }
 
 .separator::before,
-.separator::after { content: ''; flex: 1; height: 1px; background: #e4e9ef; }
+.separator::after { content: ''; flex: 1; height: 1px; background: #e4efec; }
 
 .social-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
 .social-actions button {
   height: 43px;
-  border: 1px solid #d9e1eb;
+  border: 1px solid #d9ebe6;
   border-radius: 10px;
   color: #4a5870;
   background: #fff;
@@ -145,8 +145,8 @@ small { color: #b42318; font-size: 12px; }
   cursor: pointer;
 }
 
-.google { color: #4285f4; margin-right: 8px; }
-.apple { color: #101828; margin-right: 8px; }
+.google { color: #27b88d; margin-right: 8px; }
+.apple { color: #0c1d18; margin-right: 8px; }
 
 .switch-flow {
   margin: 28px 0 0;

@@ -68,6 +68,15 @@ export class LivestockApi {
     );
   }
 
+  deleteAnimal(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.animalsUrl}/${id}`);
+  }
+
+  updateAnimal(id: string, changes: Partial<AnimalResource>): Observable<Animal> {
+    return this.http.patch<AnimalResource>(`${this.animalsUrl}/${id}`, changes)
+      .pipe(map(resource => this.animalAssembler.toEntityFromResource(resource)));
+  }
+
   getLots(): Observable<Lot[]> {
     return this.http.get<LotResource[]>(this.lotsUrl).pipe(
       map(resources =>

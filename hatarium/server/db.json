@@ -40,10 +40,52 @@
       "status": "active",
       "emailVerified": true,
       "createdAt": "2026-01-15"
+    },
+    {
+      "id": "acc-e4347cc0-e6ae-455a-92aa-78b1bda57925",
+      "roleId": "role-002",
+      "email": "eduardotaza@gmail.com",
+      "status": "inactive",
+      "emailVerified": false,
+      "createdAt": "2026-10-06"
+    },
+    {
+      "id": "acc-f5f67860-99c9-4f0e-9263-41e50ecdead1",
+      "roleId": "role-002",
+      "email": "francolinares06@gmail.com",
+      "status": "active",
+      "emailVerified": true,
+      "createdAt": "2026-10-06"
     }
   ],
-  "accountCredentials": [],
-  "emailVerifications": [],
+  "accountCredentials": [
+    {
+      "id": "cred-62b82f62-f3e6-4941-8178-1778ea470eb0",
+      "accountId": "acc-e4347cc0-e6ae-455a-92aa-78b1bda57925",
+      "passwordHash": "b5055e92bd4a09fe86a00d60d3efa9058065c2e8b3d1425f50beca3cbf71c57a"
+    },
+    {
+      "id": "cred-5fc5525d-ec9b-48ea-84ff-6bf3be482d55",
+      "accountId": "acc-f5f67860-99c9-4f0e-9263-41e50ecdead1",
+      "passwordHash": "f86c1ddf94e894ca5a2cd95bedad86d79aee1300102dd3f9b64d776a64d5302f"
+    }
+  ],
+  "emailVerifications": [
+    {
+      "id": "ver-37fc269b-b327-4f68-8028-5f4d1e1ffb42",
+      "accountId": "acc-e4347cc0-e6ae-455a-92aa-78b1bda57925",
+      "code": "444721",
+      "expiresAt": "2026-10-06T07:08:21.477Z",
+      "verifiedAt": null
+    },
+    {
+      "id": "ver-275a0966-929e-45b9-9e2c-c470de5d8609",
+      "accountId": "acc-f5f67860-99c9-4f0e-9263-41e50ecdead1",
+      "code": "959174",
+      "expiresAt": "2026-10-06T18:14:18.860Z",
+      "verifiedAt": "2026-10-06T18:00:24.451Z"
+    }
+  ],
   "users": [
     {
       "id": "usr-001",
@@ -57,10 +99,10 @@
     {
       "id": "usr-002",
       "accountId": "acc-002",
-      "fullName": "Carlos Mendoza",
+      "fullName": "Fabricio Diaz",
       "phone": "+51 999 333 444",
-      "photoUrl": "",
-      "theme": "light",
+      "photoUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9k0exYqt_JEN4mH0gkddtxqv-bt-P2DrjXg1pGVlDCA&s=10",
+      "theme": "dark",
       "locale": "es"
     },
     {
@@ -69,6 +111,16 @@
       "fullName": "Dr. García López",
       "phone": "+51 999 555 666",
       "photoUrl": "",
+      "theme": "light",
+      "locale": "es"
+    },
+    {
+      "id": "usr-acc-f5f67860-99c9-4f0e-9263-41e50ecdead1",
+      "accountId": "acc-f5f67860-99c9-4f0e-9263-41e50ecdead1",
+      "fullName": "Franco Linares",
+      "organizationName": "Upc",
+      "phone": "",
+      "photoUrl": "https://i.redd.it/4j0md2pk8bvg1.jpg",
       "theme": "light",
       "locale": "es"
     }
@@ -277,6 +329,166 @@
       "status": "active",
       "registeredAt": "2026-03-05",
       "photoUrl": ""
+    },
+    {
+      "id": "anm-22",
+      "rancherId": "usr-002",
+      "lotId": "lot-001",
+      "earTag": "22",
+      "name": "David",
+      "species": "Bovino",
+      "breed": "Brahman",
+      "sex": "Hembra",
+      "birthDate": "2003-09-08",
+      "motherId": "anm-018",
+      "fatherId": "anm-068",
+      "weight": 300,
+      "status": "active",
+      "registeredAt": "2026-10-06",
+      "photoUrl": ""
+    },
+    {
+      "id": "anm-birth-O0fIBIm",
+      "rancherId": "usr-002",
+      "lotId": "lot-003",
+      "earTag": "67",
+      "name": "DavidApellido",
+      "species": "Bovino",
+      "breed": "Jersey",
+      "sex": "Hembra",
+      "birthDate": "2026-10-06",
+      "motherId": "anm-024",
+      "fatherId": null,
+      "weight": 20,
+      "status": "active",
+      "registeredAt": "2026-10-06",
+      "photoUrl": ""
+    },
+    {
+      "id": "anm-demo-aurora",
+      "rancherId": "usr-002",
+      "lotId": "lot-001",
+      "earTag": "D101",
+      "name": "Aurora",
+      "species": "Bovino",
+      "breed": "Holstein",
+      "sex": "Hembra",
+      "birthDate": "2022-03-12",
+      "motherId": null,
+      "fatherId": null,
+      "weight": 430,
+      "status": "active",
+      "registeredAt": "2026-10-06",
+      "photoUrl": "",
+      "weanedOn": null
+    },
+    {
+      "id": "anm-demo-lucero",
+      "rancherId": "usr-002",
+      "lotId": "lot-001",
+      "earTag": "D201",
+      "name": "Lucero",
+      "species": "Bovino",
+      "breed": "Holstein",
+      "sex": "Hembra",
+      "birthDate": "2026-06-28",
+      "motherId": "anm-demo-aurora",
+      "fatherId": null,
+      "weight": 80,
+      "status": "active",
+      "registeredAt": "2026-10-06",
+      "photoUrl": "",
+      "weanedOn": null
+    },
+    {
+      "id": "anm-demo-paloma",
+      "rancherId": "usr-002",
+      "lotId": "lot-002",
+      "earTag": "D102",
+      "name": "Paloma",
+      "species": "Bovino",
+      "breed": "Holstein",
+      "sex": "Hembra",
+      "birthDate": "2021-09-20",
+      "motherId": null,
+      "fatherId": null,
+      "weight": 450,
+      "status": "active",
+      "registeredAt": "2026-10-06",
+      "photoUrl": "",
+      "weanedOn": null
+    },
+    {
+      "id": "anm-demo-sol",
+      "rancherId": "usr-002",
+      "lotId": "lot-002",
+      "earTag": "D202",
+      "name": "Sol",
+      "species": "Bovino",
+      "breed": "Holstein",
+      "sex": "Macho",
+      "birthDate": "2026-07-28",
+      "motherId": "anm-demo-paloma",
+      "fatherId": null,
+      "weight": 65,
+      "status": "active",
+      "registeredAt": "2026-10-06",
+      "photoUrl": "",
+      "weanedOn": null
+    },
+    {
+      "id": "anm-demo-violeta",
+      "rancherId": "usr-002",
+      "lotId": "lot-003",
+      "earTag": "D103",
+      "name": "Violeta",
+      "species": "Bovino",
+      "breed": "Holstein",
+      "sex": "Hembra",
+      "birthDate": "2020-02-15",
+      "motherId": null,
+      "fatherId": null,
+      "weight": 440,
+      "status": "active",
+      "registeredAt": "2026-10-06",
+      "photoUrl": "",
+      "weanedOn": null
+    },
+    {
+      "id": "anm-demo-nieve",
+      "rancherId": "usr-002",
+      "lotId": "lot-003",
+      "earTag": "D203",
+      "name": "Nieve",
+      "species": "Bovino",
+      "breed": "Holstein",
+      "sex": "Hembra",
+      "birthDate": "2026-02-18",
+      "motherId": "anm-demo-violeta",
+      "fatherId": null,
+      "weight": 180,
+      "status": "active",
+      "registeredAt": "2026-10-06",
+      "photoUrl": "",
+      "weanedOn": "2026-06-18"
+    },
+    {
+      "id": "anm-88",
+      "rancherId": "usr-002",
+      "lotId": "lot-001",
+      "earTag": "88",
+      "name": "David2",
+      "species": "Bovino",
+      "breed": "Charolais",
+      "sex": "Macho",
+      "birthDate": "2014-03-09",
+      "motherId": "anm-082",
+      "fatherId": "anm-044",
+      "weight": 282,
+      "status": "active",
+      "registeredAt": "2026-10-06",
+      "photoUrl": "",
+      "weanedOn": null
     }
   ],
   "lots": [
@@ -362,6 +574,29 @@
       "name": "Plan de engorde - Lote A",
       "startsOn": "2026-09-01",
       "endsOn": "2026-12-01",
+      "objective": "Aumentar peso",
+      "currentAverageWeight": 420,
+      "targetWeight": 500,
+      "frequency": "2 veces al día",
+      "daysOfWeek": [
+        "Lunes",
+        "Martes",
+        "Miércoles",
+        "Jueves",
+        "Viernes",
+        "Sábado",
+        "Domingo"
+      ],
+      "schedules": [
+        {
+          "time": "07:00",
+          "quantityPerAnimal": 6
+        },
+        {
+          "time": "17:00",
+          "quantityPerAnimal": 6.5
+        }
+      ],
       "instructions": "Forraje verde, heno y suplemento energético.",
       "status": "active"
     },
@@ -372,6 +607,29 @@
       "name": "Plan de crecimiento - Lote B",
       "startsOn": "2026-09-01",
       "endsOn": "2026-11-30",
+      "objective": "Desarrollo y crecimiento",
+      "currentAverageWeight": 300,
+      "targetWeight": 400,
+      "frequency": "2 veces al día",
+      "daysOfWeek": [
+        "Lunes",
+        "Martes",
+        "Miércoles",
+        "Jueves",
+        "Viernes",
+        "Sábado",
+        "Domingo"
+      ],
+      "schedules": [
+        {
+          "time": "08:00",
+          "quantityPerAnimal": 5
+        },
+        {
+          "time": "17:00",
+          "quantityPerAnimal": 4.5
+        }
+      ],
       "instructions": "Heno, pastoreo controlado y suplemento proteico.",
       "status": "active"
     },
@@ -382,7 +640,90 @@
       "name": "Plan individual Jersey",
       "startsOn": "2026-09-05",
       "endsOn": "2026-12-05",
+      "objective": "Mejorar condición corporal",
+      "currentAverageWeight": 340,
+      "targetWeight": 380,
+      "frequency": "2 veces al día",
+      "daysOfWeek": [
+        "Lunes",
+        "Martes",
+        "Miércoles",
+        "Jueves",
+        "Viernes",
+        "Sábado",
+        "Domingo"
+      ],
+      "schedules": [
+        {
+          "time": "07:30",
+          "quantityPerAnimal": 4
+        },
+        {
+          "time": "17:30",
+          "quantityPerAnimal": 4
+        }
+      ],
       "instructions": "Ración individual según peso y etapa productiva.",
+      "status": "active"
+    },
+    {
+      "id": "UrEMi-Ur2qY",
+      "lotId": "lot-001",
+      "animalId": null,
+      "name": "Plan de Engorde",
+      "startsOn": "2026-10-05",
+      "endsOn": "2026-10-07",
+      "objective": "Amentar peso",
+      "currentAverageWeight": 300,
+      "targetWeight": 400,
+      "frequency": "2 veces al día",
+      "daysOfWeek": [
+        "Lunes",
+        "Miércoles",
+        "Sábado",
+        "Domingo"
+      ],
+      "schedules": [
+        {
+          "time": "07:00",
+          "quantityPerAnimal": 6
+        },
+        {
+          "time": "17:00",
+          "quantityPerAnimal": 6
+        }
+      ],
+      "instructions": "",
+      "status": "active"
+    },
+    {
+      "id": "rHse1Fey2D8",
+      "lotId": "lot-001",
+      "animalId": null,
+      "name": "Plan de Adelgazamiento",
+      "startsOn": "2026-10-05",
+      "endsOn": "2026-10-09",
+      "objective": "Amentar peso",
+      "currentAverageWeight": 300,
+      "targetWeight": 350,
+      "frequency": "4 veces al día",
+      "daysOfWeek": [
+        "Lunes",
+        "Miércoles",
+        "Viernes",
+        "Sábado"
+      ],
+      "schedules": [
+        {
+          "time": "07:00",
+          "quantityPerAnimal": 10
+        },
+        {
+          "time": "17:00",
+          "quantityPerAnimal": 5
+        }
+      ],
+      "instructions": "",
       "status": "active"
     }
   ],
@@ -390,43 +731,71 @@
     {
       "id": "fpi-001",
       "feedingPlanId": "fp-001",
-      "feedName": "Forraje verde",
-      "dailyQuantity": "18",
+      "feedName": "Pasto elefante",
+      "dailyQuantity": "7",
       "unit": "kg"
     },
     {
       "id": "fpi-002",
       "feedingPlanId": "fp-001",
-      "feedName": "Heno",
-      "dailyQuantity": "5",
+      "feedName": "Concentrado proteico",
+      "dailyQuantity": "3",
       "unit": "kg"
     },
     {
       "id": "fpi-003",
       "feedingPlanId": "fp-001",
-      "feedName": "Suplemento energético",
-      "dailyQuantity": "2",
+      "feedName": "Sales minerales",
+      "dailyQuantity": "0.5",
       "unit": "kg"
     },
     {
       "id": "fpi-004",
+      "feedingPlanId": "fp-001",
+      "feedName": "Ensilaje de maíz",
+      "dailyQuantity": "2",
+      "unit": "kg"
+    },
+    {
+      "id": "fpi-005",
       "feedingPlanId": "fp-002",
       "feedName": "Heno",
       "dailyQuantity": "6",
       "unit": "kg"
     },
     {
-      "id": "fpi-005",
+      "id": "fpi-006",
       "feedingPlanId": "fp-002",
       "feedName": "Suplemento proteico",
       "dailyQuantity": "1.5",
       "unit": "kg"
     },
     {
-      "id": "fpi-006",
+      "id": "fpi-007",
       "feedingPlanId": "fp-003",
       "feedName": "Ración balanceada",
       "dailyQuantity": "8",
+      "unit": "kg"
+    },
+    {
+      "id": "St5e6UOG5Qo",
+      "feedingPlanId": "UrEMi-Ur2qY",
+      "feedName": "Pasto Elefante",
+      "dailyQuantity": 12,
+      "unit": "kg"
+    },
+    {
+      "id": "rvGgWLceoQY",
+      "feedingPlanId": "rHse1Fey2D8",
+      "feedName": "Pasto",
+      "dailyQuantity": 10,
+      "unit": "kg"
+    },
+    {
+      "id": "zG4cOq_H7B8",
+      "feedingPlanId": "rHse1Fey2D8",
+      "feedName": "Hierba",
+      "dailyQuantity": 5,
       "unit": "kg"
     }
   ],
@@ -434,38 +803,38 @@
     {
       "id": "fl-001",
       "planItemId": "fpi-001",
-      "animalId": "anm-047",
+      "animalId": null,
       "lotId": "lot-001",
-      "feedName": "Forraje verde",
-      "feedAt": "2026-09-08",
-      "quantity": "18",
+      "feedName": "Pasto elefante",
+      "feedAt": "2026-10-04T07:00:00",
+      "quantity": "196",
       "unit": "kg",
       "recordedBy": "usr-002",
-      "notes": "Consumo normal."
+      "notes": "Entrega correspondiente a la ración de la mañana."
     },
     {
       "id": "fl-002",
       "planItemId": "fpi-002",
-      "animalId": "anm-047",
+      "animalId": null,
       "lotId": "lot-001",
-      "feedName": "Heno",
-      "feedAt": "2026-09-08",
-      "quantity": "5",
+      "feedName": "Concentrado proteico",
+      "feedAt": "2026-10-04T07:00:00",
+      "quantity": "84",
       "unit": "kg",
       "recordedBy": "usr-002",
-      "notes": "Consumo completo."
+      "notes": "Distribución completada para el lote."
     },
     {
       "id": "fl-003",
-      "planItemId": "fpi-004",
-      "animalId": "anm-062",
-      "lotId": "lot-002",
-      "feedName": "Heno",
-      "feedAt": "2026-09-08",
-      "quantity": "6",
+      "planItemId": "fpi-007",
+      "animalId": null,
+      "lotId": "lot-003",
+      "feedName": "Ración balanceada",
+      "feedAt": "2026-10-03T17:30:00",
+      "quantity": "272",
       "unit": "kg",
       "recordedBy": "usr-002",
-      "notes": "Sin incidencias."
+      "notes": "Ración completada."
     }
   ],
   "appointments": [
@@ -490,6 +859,50 @@
       "status": "completed",
       "cancellationReason": null,
       "createdAt": "2026-09-01"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-10-06T10:30:00",
+      "reason": "Franco dejo la escuela",
+      "status": "scheduled",
+      "createdAt": "2026-10-06",
+      "id": "fmeqMr0"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-10-06T10:30:00",
+      "reason": "estuvo en un accidente",
+      "status": "scheduled",
+      "createdAt": "2026-10-06",
+      "id": "HtsBSSY"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-004",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-10-06T10:30:00",
+      "reason": "Revisión periódica de salud y control de peso",
+      "status": "scheduled",
+      "createdAt": "2026-10-06",
+      "id": "PLWW4TC"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-10-06T11:20:00",
+      "reason": "Martin falto a clase",
+      "status": "scheduled",
+      "createdAt": "2026-10-06",
+      "id": "2Nk9IXn"
     }
   ],
   "appointmentAnimals": [
@@ -502,6 +915,26 @@
       "id": "appa-002",
       "appointmentId": "app-002",
       "animalId": "anm-047"
+    },
+    {
+      "appointmentId": "fmeqMr0",
+      "animalId": "anm-073",
+      "id": "WdxpTOH"
+    },
+    {
+      "appointmentId": "HtsBSSY",
+      "animalId": "anm-031",
+      "id": "XCLHvm9"
+    },
+    {
+      "appointmentId": "PLWW4TC",
+      "animalId": "anm-birth-O0fIBIm",
+      "id": "PtZJ_8f"
+    },
+    {
+      "appointmentId": "2Nk9IXn",
+      "animalId": "anm-birth-O0fIBIm",
+      "id": "9gAoMK5"
     }
   ],
   "medicalRecords": [
@@ -634,13 +1067,13 @@
       "calfId": "anm-011",
       "confirmedOn": "2026-05-10",
       "expectedCalvingOn": "2026-10-15",
-      "endedOn": null,
-      "outcome": null,
+      "endedOn": "2004-03-04",
+      "outcome": "saludable",
       "birthWeightKg": null,
       "dryOffOn": "2026-08-15",
       "weanedOn": null,
       "weaningWeightKg": null,
-      "status": "confirmed",
+      "status": "ended",
       "notes": "Gestación confirmada en control reproductivo."
     },
     {
@@ -717,6 +1150,141 @@
       "status": "confirmed",
       "notes": null,
       "id": "OorTMU0O6Kw"
+    },
+    {
+      "animalId": "anm-047",
+      "calfId": "12312",
+      "confirmedOn": "2000-12-01",
+      "expectedCalvingOn": "2001-03-12",
+      "endedOn": null,
+      "outcome": null,
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "confirmed",
+      "notes": null,
+      "id": "p3Q88lo"
+    },
+    {
+      "animalId": "anm-22",
+      "calfId": "1234",
+      "confirmedOn": "2024-04-06",
+      "expectedCalvingOn": "2025-04-06",
+      "endedOn": "2026-10-08",
+      "outcome": "noeml+++",
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "ended",
+      "notes": null,
+      "id": "cq6ey2H"
+    },
+    {
+      "animalId": "anm-011",
+      "calfId": "2311",
+      "confirmedOn": "2001-03-15",
+      "expectedCalvingOn": "2002-04-15",
+      "endedOn": null,
+      "outcome": null,
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "confirmed",
+      "notes": null,
+      "id": "8GiUaFp"
+    },
+    {
+      "animalId": "anm-024",
+      "calfId": "anm-birth-O0fIBIm",
+      "confirmedOn": "2025-04-04",
+      "expectedCalvingOn": "2026-10-07",
+      "endedOn": "2026-10-06",
+      "outcome": "health",
+      "birthWeightKg": "20",
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "ended",
+      "notes": null,
+      "id": "O0fIBIm"
+    },
+    {
+      "id": "preg-demo-aurora",
+      "animalId": "anm-demo-aurora",
+      "calfId": "anm-demo-lucero",
+      "confirmedOn": "2025-09-21",
+      "expectedCalvingOn": "2026-06-28",
+      "endedOn": "2026-06-28",
+      "outcome": "healthy",
+      "birthWeightKg": "35",
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "ended",
+      "notes": "Datos de demostración para probar destete o secado."
+    },
+    {
+      "id": "preg-demo-paloma",
+      "animalId": "anm-demo-paloma",
+      "calfId": "anm-demo-sol",
+      "confirmedOn": "2025-10-21",
+      "expectedCalvingOn": "2026-07-28",
+      "endedOn": "2026-07-28",
+      "outcome": "healthy",
+      "birthWeightKg": "35",
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "ended",
+      "notes": "Datos de demostración para probar destete o secado."
+    },
+    {
+      "id": "preg-demo-violeta-old",
+      "animalId": "anm-demo-violeta",
+      "calfId": "anm-demo-nieve",
+      "confirmedOn": "2025-05-14",
+      "expectedCalvingOn": "2026-02-18",
+      "endedOn": "2026-02-18",
+      "outcome": "healthy",
+      "birthWeightKg": "35",
+      "dryOffOn": null,
+      "weanedOn": "2026-06-18",
+      "weaningWeightKg": "90",
+      "status": "weaned",
+      "notes": "Datos de demostración para probar destete o secado."
+    },
+    {
+      "id": "preg-demo-violeta",
+      "animalId": "anm-demo-violeta",
+      "calfId": null,
+      "confirmedOn": "2026-03-10",
+      "expectedCalvingOn": "2026-12-15",
+      "endedOn": null,
+      "outcome": null,
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "confirmed",
+      "notes": "Datos de demostración para probar destete o secado."
+    },
+    {
+      "animalId": "anm-018",
+      "calfId": "019",
+      "confirmedOn": "2026-10-06",
+      "expectedCalvingOn": "2026-10-08",
+      "endedOn": null,
+      "outcome": null,
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "confirmed",
+      "notes": null,
+      "id": "FfLr6nl"
     }
   ],
   "payments": [
@@ -827,6 +1395,30 @@
       "confirmedAt": "2026-10-05",
       "cancelledAt": null,
       "id": "KKxYA3_bb5E"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción Profesional",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-06",
+      "confirmedAt": "2026-10-06",
+      "cancelledAt": null,
+      "id": "bwDGwki"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción Premium",
+      "amount": "89.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-06",
+      "confirmedAt": "2026-10-06",
+      "cancelledAt": null,
+      "id": "TQHpDp8"
     }
   ],
   "transactions": [
@@ -910,10 +1502,10 @@
       "title": "Animal requiere seguimiento",
       "description": "El animal #018 presenta una alerta sanitaria y requiere seguimiento.",
       "channel": "in_app",
-      "status": "unread",
+      "status": "read",
       "scheduledAt": null,
       "sentAt": "2026-09-06T11:00:00",
-      "readAt": null,
+      "readAt": "2026-10-06T06:35:49.717Z",
       "relatedEntityType": "Animal",
       "relatedEntityId": "anm-018",
       "createdAt": "2026-09-06"
@@ -925,10 +1517,10 @@
       "title": "Próximo control veterinario",
       "description": "El control veterinario del animal #047 está programado para el 08 Dic 2026.",
       "channel": "in_app",
-      "status": "unread",
+      "status": "read",
       "scheduledAt": "2026-12-07T10:00:00",
       "sentAt": null,
-      "readAt": null,
+      "readAt": "2026-10-06T06:35:52.034Z",
       "relatedEntityType": "Appointment",
       "relatedEntityId": "app-001",
       "createdAt": "2026-09-08"
@@ -947,6 +1539,66 @@
       "relatedEntityType": "Vaccine",
       "relatedEntityId": "vac-001",
       "createdAt": "2026-09-07"
+    },
+    {
+      "id": "not-demo-calving",
+      "recipientUserId": "usr-002",
+      "type": "CALVING_REGISTERED",
+      "title": "Parto registrado: Aurora",
+      "description": "Aurora y su cría Lucero están disponibles para probar el registro de destete.",
+      "channel": "in_app",
+      "status": "unread",
+      "scheduledAt": null,
+      "sentAt": "2026-10-06T17:10:45.282Z",
+      "readAt": null,
+      "relatedEntityType": "Pregnancy",
+      "relatedEntityId": "preg-demo-aurora",
+      "createdAt": "2026-10-06"
+    },
+    {
+      "id": "not-demo-animal",
+      "recipientUserId": "usr-002",
+      "type": "ANIMAL_REGISTERED",
+      "title": "Cría registrada: Sol",
+      "description": "Sol, cría de Paloma, está registrada en el Lote B y pendiente de destete.",
+      "channel": "in_app",
+      "status": "read",
+      "scheduledAt": null,
+      "sentAt": "2026-10-06T17:10:45.284Z",
+      "readAt": "2026-10-06T17:22:52.552Z",
+      "relatedEntityType": "Animal",
+      "relatedEntityId": "anm-demo-sol",
+      "createdAt": "2026-10-06"
+    },
+    {
+      "id": "not-demo-feeding",
+      "recipientUserId": "usr-002",
+      "type": "FEEDING_REGISTERED",
+      "title": "Plan de alimentación disponible",
+      "description": "Puedes revisar el plan de engorde del Lote A.",
+      "channel": "in_app",
+      "status": "unread",
+      "scheduledAt": null,
+      "sentAt": "2026-10-06T17:10:45.284Z",
+      "readAt": null,
+      "relatedEntityType": "FeedingPlan",
+      "relatedEntityId": "fp-001",
+      "createdAt": "2026-10-06"
+    },
+    {
+      "recipientUserId": "usr-002",
+      "type": "ANIMAL_REGISTERED",
+      "title": "Nuevo animal registrado",
+      "description": "David2 (#88) se agregó al ganado.",
+      "relatedEntityType": "Animal",
+      "relatedEntityId": "anm-88",
+      "id": "not-animal_registered-anm-88",
+      "channel": "in_app",
+      "status": "read",
+      "scheduledAt": null,
+      "sentAt": "2026-10-06T17:22:21.932Z",
+      "readAt": "2026-10-06T17:22:49.527Z",
+      "createdAt": "2026-10-06T17:22:21.932Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

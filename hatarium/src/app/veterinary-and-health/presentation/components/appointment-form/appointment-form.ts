@@ -1,3 +1,4 @@
+import { firstValueFrom } from 'rxjs';
 import {Component, OnInit, inject, signal} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
@@ -25,6 +26,11 @@ export class AppointmentFormComponent implements OnInit {
   private router = inject(Router);
   private translate = inject(TranslateService);
 
+  readonly saving = signal(false);
+  readonly saveError = signal<string | null>(null);
+  readonly pendingAppointmentId = signal<string | null>(null);
+  private pendingAnimalId = '';
+
   public availableAnimals = signal<AnimalDTO[]>([]);
 
   // Campos del Formulario (US027)
@@ -45,8 +51,9 @@ export class AppointmentFormComponent implements OnInit {
     });
   }
 
-  public saveAppointment(): void {
-    if (!this.reason || !this.scheduledDate || !this.scheduledTime) {
+  public async saveAppointment(): Promise<void> {
+    if (this.saving()) return;
+    if (!this.reason.trim() || !this.scheduledDate || !this.scheduledTime || !this.availableAnimals().some(animal => animal.id === this.selectedAnimalId)) {
       alert(this.translate.instant('FORM.ALERT_FILL'));
       return;
     }
@@ -65,17 +72,22 @@ export class AppointmentFormComponent implements OnInit {
       createdAt: new Date().toISOString().split('T')[0]
     };
 
-    this.apiClient.createAppointment(newApt).subscribe({
-      next: (createdApt) => {
-        this.externalData.createAppointmentAnimal(createdApt.id, this.selectedAnimalId).subscribe(() => {
-          this.store.loadAppointments();
-          alert(this.translate.instant('FORM.ALERT_SUCCESS'));
-          this.router.navigate(['/veterinary/appointments']);
-        });
-      },
-      error: () => {
-        alert(this.translate.instant('FORM.ALERT_ERROR'));
+    this.saving.set(true);
+    this.saveError.set(null);
+    try {
+      if (!this.pendingAppointmentId()) {
+        this.pendingAnimalId = this.selectedAnimalId;
+        const appointment = await firstValueFrom(this.apiClient.createAppointment(newApt));
+        this.pendingAppointmentId.set(appointment.id);
       }
-    });
+      await firstValueFrom(this.externalData.createAppointmentAnimal(this.pendingAppointmentId()!, this.pendingAnimalId));
+      this.store.loadAppointments();
+      alert(this.translate.instant('FORM.ALERT_SUCCESS'));
+      await this.router.navigate(['/veterinary/appointments']);
+    } catch {
+      this.saveError.set(this.pendingAppointmentId() ? 'animalAppointments.linkError' : 'FORM.ALERT_ERROR');
+    } finally {
+      this.saving.set(false);
+    }
   }
 }

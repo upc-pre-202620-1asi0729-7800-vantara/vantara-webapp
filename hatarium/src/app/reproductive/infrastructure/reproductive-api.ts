@@ -6,6 +6,7 @@ import { Pregnancy } from '../domain/model/pregnancy.entity';
 import { PregnancyResource } from './pregnancies-response';
 import { PregnancyAssembler } from './pregnancy-assembler';
 import { PregnancyDraft } from '../application/pregnancy-draft';
+import { isCalf } from '../../shared/domain/model/animal-age';
 import { RecentReproductiveEvent, ReproductiveSummary } from '../application/reproductive-summary';
 import {
   ReproductiveAnimalResource,
@@ -23,6 +24,15 @@ export class ReproductiveApi {
   private readonly medicalRecordsEndpoint = environment.hatariumMedicalRecordsEndpointPath;
   private http = inject(HttpClient);
   private pregnancyAssembler = inject(PregnancyAssembler);
+
+  getAnimals(): Observable<ReproductiveAnimalResource[]> {
+    return this.http.get<ReproductiveAnimalResource[]>(`${this.baseUrl}${this.animalsEndpoint}`);
+  }
+
+  getPregnancy(id: string): Observable<Pregnancy> {
+    return this.http.get<PregnancyResource>(`${this.baseUrl}${this.pregnanciesEndpoint}/${id}`)
+      .pipe(map(resource => this.pregnancyAssembler.toEntityFromResource(resource)));
+  }
 
   /**
    * Retrieves the pregnancy history, optionally filtered by animal.
@@ -50,15 +60,21 @@ export class ReproductiveApi {
       map(({ animals, pregnancies, medicalRecords }) => {
         const activeAnimals = animals.filter((animal) => animal.status === 'active');
         const reproductiveFemales = activeAnimals.filter(
-          (animal) => animal.sex.toLocaleLowerCase() === 'hembra',
+          (animal) => animal.sex.toLocaleLowerCase() === 'hembra' && !isCalf(animal.birthDate),
         );
         const reproductiveFemaleIds = new Set(reproductiveFemales.map((animal) => animal.id));
-        const activePregnancies = pregnancies.filter(
+        const activePregnancyRecords = pregnancies.filter(
           (pregnancy) =>
             reproductiveFemaleIds.has(pregnancy.animalId) &&
             pregnancy.endedOn == null &&
             pregnancy.status !== 'weaned',
         );
+        // Count each female once, even when duplicate pregnancy records exist.
+        const activePregnancies = [...new Map(
+          [...activePregnancyRecords]
+            .sort((first, second) => first.confirmedOn.localeCompare(second.confirmedOn))
+            .map(pregnancy => [pregnancy.animalId, pregnancy]),
+        ).values()];
 
         const today = new Date();
         today.setHours(0, 0, 0, 0);
@@ -158,6 +174,7 @@ export class ReproductiveApi {
 
         return {
           reproductiveFemales: reproductiveFemales.length,
+          calfCount: activeAnimals.filter(animal => isCalf(animal.birthDate)).length,
           reproductiveFemalePercentage: this.percentage(
             reproductiveFemales.length,
             activeAnimals.length,
@@ -205,12 +222,13 @@ export class ReproductiveApi {
   /**
    * Records the calving result of a pregnancy.
    */
-  recordCalving(id: string, on: string, outcome: string): Observable<Pregnancy> {
+  recordCalving(id: string, on: string, outcome: string, calf?: { id: string; weight: number }): Observable<Pregnancy> {
     return this.http
       .patch<PregnancyResource>(`${this.baseUrl}${this.pregnanciesEndpoint}/${id}`, {
         endedOn: on,
         outcome,
         status: 'ended',
+        ...(calf ? { calfId: calf.id, birthWeightKg: String(calf.weight) } : {}),
       })
       .pipe(map((resource) => this.pregnancyAssembler.toEntityFromResource(resource)));
   }

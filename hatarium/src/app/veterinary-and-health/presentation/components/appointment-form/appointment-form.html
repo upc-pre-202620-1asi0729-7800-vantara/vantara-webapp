@@ -15,7 +15,7 @@
 
         <div class="form-group">
           <label>{{ 'FORM.SELECT_ANIMAL' | translate }}</label>
-          <select [(ngModel)]="selectedAnimalId" class="form-input">
+          <select [(ngModel)]="selectedAnimalId" [disabled]="saving() || !!pendingAppointmentId()" class="form-input">
             @for (animal of availableAnimals(); track animal.id) {
               <option [value]="animal.id">
                 #{{ animal.earTag }} · {{ animal.name }} ({{ animal.breed }} - {{ animal.lotName }})
@@ -27,7 +27,7 @@
         <div class="form-row">
           <div class="form-group">
             <label>{{ 'FORM.VISIT_TYPE' | translate }}</label>
-            <select [(ngModel)]="visitType" class="form-input">
+            <select [(ngModel)]="visitType" [disabled]="saving() || !!pendingAppointmentId()" class="form-input">
               <option value="Control sanitario">{{ 'FORM.VISIT_CONTROL' | translate }}</option>
               <option value="Revisión rutinaria">{{ 'FORM.VISIT_ROUTINE' | translate }}</option>
               <option value="Vacunación preventiva">{{ 'FORM.VISIT_VACCINE' | translate }}</option>
@@ -36,7 +36,7 @@
           </div>
           <div class="form-group">
             <label>{{ 'FORM.VETERINARIAN' | translate }}</label>
-            <select [(ngModel)]="veterinarianId" class="form-input">
+            <select [(ngModel)]="veterinarianId" [disabled]="saving() || !!pendingAppointmentId()" class="form-input">
               <option value="usr-003">Dr. Rodríguez (CMPV 12345)</option>
               <option value="usr-004">Dra. García (CMPV 56789)</option>
             </select>
@@ -45,28 +45,29 @@
 
         <div class="form-group">
           <label>{{ 'FORM.REASON' | translate }}</label>
-          <input type="text" [(ngModel)]="reason" [placeholder]="'FORM.REASON_PLACEHOLDER' | translate" class="form-input" />
+          <input type="text" [(ngModel)]="reason" [disabled]="saving() || !!pendingAppointmentId()" [placeholder]="'FORM.REASON_PLACEHOLDER' | translate" class="form-input" />
         </div>
 
         <div class="form-row">
           <div class="form-group">
             <label>{{ 'FORM.SCHEDULED_DATE' | translate }}</label>
-            <input type="date" [(ngModel)]="scheduledDate" class="form-input" />
+            <input type="date" [(ngModel)]="scheduledDate" [disabled]="saving() || !!pendingAppointmentId()" class="form-input" />
           </div>
           <div class="form-group">
             <label>{{ 'FORM.SCHEDULED_TIME' | translate }}</label>
-            <input type="time" [(ngModel)]="scheduledTime" class="form-input" />
+            <input type="time" [(ngModel)]="scheduledTime" [disabled]="saving() || !!pendingAppointmentId()" class="form-input" />
           </div>
         </div>
 
         <div class="form-group">
           <label>{{ 'FORM.NOTES' | translate }}</label>
-          <textarea rows="3" [(ngModel)]="notes" [placeholder]="'FORM.NOTES_PLACEHOLDER' | translate" class="form-input"></textarea>
+          <textarea rows="3" [(ngModel)]="notes" [disabled]="saving() || !!pendingAppointmentId()" [placeholder]="'FORM.NOTES_PLACEHOLDER' | translate" class="form-input"></textarea>
         </div>
 
         <div class="form-actions">
+          @if (saveError(); as errorKey) { <p role="alert">{{ errorKey | translate }}</p> }
           <button mat-stroked-button routerLink="/veterinary/appointments">{{ 'COMMON.CANCEL' | translate }}</button>
-          <button mat-flat-button class="btn-primary-solid" (click)="saveAppointment()">{{ 'FORM.SCHEDULE_AND_NOTIFY' | translate }}</button>
+          <button mat-flat-button class="btn-primary-solid" [disabled]="saving()" (click)="saveAppointment()">{{ (pendingAppointmentId() ? 'animalAppointments.retry' : 'FORM.SCHEDULE_AND_NOTIFY') | translate }}</button>
         </div>
       </div>
     </div>

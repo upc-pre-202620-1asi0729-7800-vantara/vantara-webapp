@@ -8,13 +8,15 @@ import { NotificationService } from '../../application/notification-service';
 import { NotificationApiClient } from '../../infrastructure/notification-api-client';
 import { environment } from '../../../../environments/environment';
 import { TranslatePipe } from '@ngx-translate/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-notification-center-view',
   imports: [
     NotificationBadge,
     NotificationList,
-    TranslatePipe
+    TranslatePipe,
+    MatIconModule
   ],
   templateUrl: './notification-center-view.html',
   styleUrl: './notification-center-view.css'
@@ -24,6 +26,14 @@ export class NotificationCenterView implements OnInit {
   store: NotificationStore;
 
   service: NotificationService;
+  readonly filters = [
+    { type: '', key: 'notifications.all', icon: 'inbox' },
+    { type: 'CALVING_REGISTERED', key: 'notifications.births', icon: 'child_care' },
+    { type: 'FEEDING_REGISTERED', key: 'notifications.feeding', icon: 'grass' },
+    { type: 'ANIMAL_REGISTERED', key: 'notifications.animals', icon: 'pets' },
+    { type: 'HEALTH_ALERT', key: 'notifications.health', icon: 'health_and_safety' },
+    { type: 'REMINDERS', key: 'notifications.reminders', icon: 'event' },
+  ];
 
   constructor() {
 
@@ -40,6 +50,10 @@ export class NotificationCenterView implements OnInit {
   }
 
   ngOnInit(): void {
+    this.refresh();
+  }
+
+  refresh(): void {
 
     this.service.load()
       .catch(() => {

@@ -1,5 +1,4 @@
-.notification-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+.notification-list { display: flex; flex-direction: column; gap: 12px; }
+.empty-state { padding: 45px 20px; text-align: center; color: #7c9282; background: #f8fbf9; border: 1px dashed #d7e5dc; border-radius: 12px; }
+.empty-state mat-icon { color: #80aa90; font-size: 36px; height: 36px; width: 36px; }
+.empty-state p { margin: 12px 0 0; font-size: 14px; }

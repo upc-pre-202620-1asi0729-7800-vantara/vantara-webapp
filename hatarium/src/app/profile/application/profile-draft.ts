@@ -1,5 +1,6 @@
 export class ProfileDraft {
   fullName: string;
+  organizationName = '';
   phone?: string;
   photoUrl?: string;
   theme: string;

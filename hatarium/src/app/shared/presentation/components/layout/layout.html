@@ -32,7 +32,10 @@
       </a>
     </mat-nav-list>
     <a class="profile-card" routerLink="/profile">
-      <div class="avatar">{{ initials() }}</div>
+      <div class="avatar">
+        @if (photoUrl()) { <img [src]="photoUrl()" alt=""> }
+        @else { {{ initials() || '?' }} }
+      </div>
       <div class="profile-info">
         <strong>{{ userName() }}</strong>
         <small>{{ userRole() }}</small>
@@ -43,6 +46,17 @@
     <header class="topbar">
       <span class="topbar-title">Hatarium</span>
       <span class="spacer"></span>
+      <a class="topbar-profile" routerLink="/profile" [attr.aria-label]="('profile.title' | translate) + ': ' + userName()">
+        <span class="avatar">
+          @if (photoUrl()) { <img [src]="photoUrl()" alt=""> }
+          @else { {{ initials() || '?' }} }
+        </span>
+        <span class="profile-info">
+          <strong>{{ userName() || ('profile.title' | translate) }}</strong>
+          <small>{{ userRole() || ('profile.account' | translate) }}</small>
+        </span>
+        <mat-icon>expand_more</mat-icon>
+      </a>
       <a mat-icon-button routerLink="/notifications" [attr.aria-label]="'notifications.title' | translate" class="bell-btn">
         <mat-icon>notifications</mat-icon>
         <span class="badge-dot"></span>

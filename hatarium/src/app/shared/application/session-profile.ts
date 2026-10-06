@@ -27,15 +27,18 @@ export class SessionProfile {
   private readonly http = inject(HttpClient);
   private readonly iamStore = inject(IamStore);
 
-  private readonly users = signal<UserRecord[]>([]);
   private readonly roles = signal<RoleRecord[]>([]);
 
   readonly user = signal<UserRecord | null>(null);
-  readonly role = signal<RoleRecord | null>(null);
+  readonly role = computed(() => this.roles().find(role => role.id === this.iamStore.currentAccount()?.roleId) ?? null);
 
   readonly fullName = computed(() => this.user()?.fullName ?? this.iamStore.currentAccount()?.email ?? '');
   readonly roleName = computed(() => this.role()?.name ?? '');
   readonly photoUrl = computed(() => this.user()?.photoUrl ?? '');
+
+  updateUser(user: UserRecord): void {
+    if (this.iamStore.currentAccount()?.id === user.accountId) this.user.set(user);
+  }
 
   /** Up to two letters taken from the full name, used by the sidebar avatar. */
   readonly initials = computed(() => {
@@ -47,16 +50,19 @@ export class SessionProfile {
 
   constructor() {
     const base = environment.hatariumApiBaseUrl;
-    this.http.get<UserRecord[]>(`${base}/users`).subscribe(list => this.users.set(list));
-    this.http.get<RoleRecord[]>(`${base}/roles`).subscribe(list => this.roles.set(list));
+    this.http.get<RoleRecord[]>(`${base}/roles`).subscribe({
+      next: list => this.roles.set(list), error: () => this.roles.set([]),
+    });
 
-    effect(() => {
+    effect(onCleanup => {
       const account = this.iamStore.currentAccount();
-      const users = this.users();
-      const roles = this.roles();
-
-      this.user.set(account ? users.find(u => u.accountId === account.id) ?? null : null);
-      this.role.set(account ? roles.find(r => r.id === account.roleId) ?? null : null);
+      this.user.set(null);
+      if (!account) return;
+      const request = this.http.get<UserRecord[]>(`${base}/users`, { params: { accountId: account.id } }).subscribe({
+        next: users => this.user.set(users[0] ?? null),
+        error: () => this.user.set(null),
+      });
+      onCleanup(() => request.unsubscribe());
     });
   }
 }

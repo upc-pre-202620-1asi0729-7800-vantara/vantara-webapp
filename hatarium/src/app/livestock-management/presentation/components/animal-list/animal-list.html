@@ -30,7 +30,7 @@
       </div>
 
       <strong>{{ totalAnimals() }}</strong>
-      <small>{{ 'livestock.registeredAnimals' | translate }}</small>
+      <small>{{ 'livestock.registeredAnimals' | translate }} · {{ 'calf.count' | translate: { count: totalCalves() } }}</small>
     </mat-card>
 
 
@@ -177,6 +177,12 @@
                   <div class="animal-info">
                     <strong>#{{ animal.earTag }}</strong>
                     <small>{{ animal.name }}</small>
+                    @if (animal.isCalf()) {
+                      <small class="calf-badge">{{ 'calf.label' | translate }}</small>
+                    }
+                    @if (animal.weanedOn) {
+                      <small class="calf-badge">{{ 'calf.weaned' | translate }}</small>
+                    }
                   </div>
                 </div>
               </td>

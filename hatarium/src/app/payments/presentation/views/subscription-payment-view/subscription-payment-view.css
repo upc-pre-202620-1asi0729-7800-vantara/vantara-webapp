@@ -1,7 +1,7 @@
 :host {
   display: block;
   padding: 24px;
-  background: #f4f9ff;
+  background: #f3faf4;
 }
 .pay-page {
   max-width: 960px;
@@ -18,12 +18,12 @@
   border: 2px solid transparent;
 }
 .plans-grid mat-card.selected {
-  border-color: #1976d2;
+  border-color: #07583f;
 }
 .price {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #0d47a1;
+  color: #123d2a;
 }
 .desc {
   color: #4a4a4a;
@@ -39,7 +39,7 @@
 }
 .features li::before {
   content: '✓ ';
-  color: #1976d2;
+  color: #07583f;
   font-weight: bold;
 }
 .subtitle {
@@ -47,8 +47,8 @@
 }
 .popular-badge {
   margin-left: auto;
-  background: #e3f2fd;
-  color: #0d47a1;
+  background: #e4f4e8;
+  color: #123d2a;
   border-radius: 12px;
   padding: 2px 10px;
   font-size: 0.75rem;

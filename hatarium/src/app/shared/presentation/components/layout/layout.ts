@@ -34,6 +34,7 @@ export class Layout {
   readonly userName = this.session.fullName;
   readonly userRole = this.session.roleName;
   readonly initials = this.session.initials;
+  readonly photoUrl = this.session.photoUrl;
 
   signOut(): void {
     this.iamStore.signOut();
@@ -44,11 +45,11 @@ export class Layout {
   readonly options: NavOption[] = [
     { labelKey: 'sidebar.home', icon: 'home', link: '/home' },
     { labelKey: 'sidebar.livestock', icon: 'pets', link: '/livestock/animals' },
-    { labelKey: 'sidebar.health', icon: 'health_and_safety', link: '/veterinary/appointments' },
+    { labelKey: 'sidebar.health', icon: 'health_and_safety' },
     { labelKey: 'sidebar.reproductive', icon: 'favorite', link: '/reproductive' },
     { labelKey: 'sidebar.feeding', icon: 'restaurant', link: '/livestock/feeding' },
     { labelKey: 'sidebar.reports', icon: 'bar_chart' },
-    { labelKey: 'sidebar.appointments', icon: 'event' },
+    { labelKey: 'sidebar.appointments', icon: 'event', link: '/veterinary/appointments' },
     { labelKey: 'sidebar.alerts', icon: 'notifications', link: '/notifications' }
   ];
 }

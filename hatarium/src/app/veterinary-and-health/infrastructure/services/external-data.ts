@@ -1,6 +1,8 @@
 ﻿import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, forkJoin, map, of, catchError } from 'rxjs';
+import { Observable, forkJoin, map, of, catchError, switchMap } from 'rxjs';
+import { AppointmentAnimal } from '../../domain/model/appointment-animal.entity';
+import { environment } from '../../../../environments/environment';
 
 export interface AnimalDTO {
   id: string;
@@ -34,7 +36,7 @@ export interface VaccineDTO {
 @Injectable({ providedIn: 'root' })
 export class ExternalDataService {
   private http = inject(HttpClient);
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = environment.hatariumApiBaseUrl;
 
   /** Obtiene todos los animales de la Fake API */
   getAnimals(): Observable<AnimalDTO[]> {
@@ -92,12 +94,13 @@ export class ExternalDataService {
   }
 
   /** Registra la relación entre una Cita y un Animal en hatarium-db.json */
-  createAppointmentAnimal(appointmentId: string, animalId: string): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/appointmentAnimals`, {
-      appointmentId,
-      animalId
-    }).pipe(
-      catchError(() => of(null))
+  createAppointmentAnimal(appointmentId: string, animalId: string): Observable<AppointmentAnimal> {
+    const url = `${this.baseUrl}/appointmentAnimals`;
+    return this.http.get<AppointmentAnimal[]>(url, { params: { appointmentId, animalId } }).pipe(
+      switchMap(relations => {
+        const existing = relations.find(item => item.appointmentId === appointmentId && item.animalId === animalId);
+        return existing ? of(existing) : this.http.post<AppointmentAnimal>(url, { appointmentId, animalId });
+      }),
     );
   }
 

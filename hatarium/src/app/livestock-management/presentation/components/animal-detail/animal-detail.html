@@ -33,6 +33,12 @@
             </span>
 
             <h1>{{ animal.name }}</h1>
+            @if (animal.isCalf()) {
+              <span class="calf-badge">{{ 'calf.label' | translate }}</span>
+            }
+            @if (animal.weanedOn) {
+              <span class="calf-badge">{{ 'calf.weaned' | translate }} · {{ animal.weanedOn }}</span>
+            }
 
             <span class="animal-breed">
               {{ animal.breed }}
@@ -96,7 +102,7 @@
     <!-- PESTAÑAS -->
     <nav class="detail-tabs">
 
-      <button class="detail-tab active">
+      <button type="button" class="detail-tab" [class.active]="selectedTab() === 'general'" [attr.aria-pressed]="selectedTab() === 'general'" (click)="selectedTab.set('general')">
         <mat-icon>person</mat-icon>
         {{ 'animal.tabGeneral' | translate }}
       </button>
@@ -111,7 +117,7 @@
         {{ 'animal.tabFeeding' | translate }}
       </button>
 
-      <button class="detail-tab">
+      <button type="button" class="detail-tab" [class.active]="selectedTab() === 'appointments'" [attr.aria-pressed]="selectedTab() === 'appointments'" (click)="selectedTab.set('appointments')">
         <mat-icon>calendar_month</mat-icon>
         {{ 'animal.tabAppointments' | translate }}
       </button>
@@ -120,7 +126,10 @@
 
 
     <!-- GRID DE INFORMACIÓN -->
-    <section class="detail-grid">
+    @if (selectedTab() === 'appointments') {
+      <app-animal-appointments [animalId]="animalId()" />
+    }
+    <section class="detail-grid" [style.display]="selectedTab() === 'general' ? null : 'none'">
 
       <!-- COLUMNA IZQUIERDA -->
       <div class="left-column">
