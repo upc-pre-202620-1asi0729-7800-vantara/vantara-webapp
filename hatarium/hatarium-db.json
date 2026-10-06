@@ -469,8 +469,9 @@
       "rancherId": "usr-002",
       "veterinarianId": "usr-003",
       "requestedBy": "usr-002",
+      "origin": "RANCHER_REQUEST",
       "scheduledAt": "2026-12-08T10:00:00",
-      "reason": "Control veterinario",
+      "reason": "Revisión general de estado y control de peso",
       "status": "scheduled",
       "cancellationReason": null,
       "createdAt": "2026-09-08"
@@ -480,51 +481,80 @@
       "rancherId": "usr-002",
       "veterinarianId": "usr-003",
       "requestedBy": "usr-002",
+      "origin": "RANCHER_REQUEST",
       "scheduledAt": "2026-09-20T09:30:00",
-      "reason": "Revisión rutinaria",
+      "reason": "Evaluación por cojera en pezuña",
       "status": "completed",
       "cancellationReason": null,
       "createdAt": "2026-09-01"
     },
     {
+      "id": "app-003",
       "rancherId": "usr-002",
       "veterinarianId": "usr-003",
-      "requestedBy": "usr-002",
-      "scheduledAt": "2026-10-15T01:22",
-      "reason": "Control de peso",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-10-15T09:00:00",
+      "reason": "Jornada de vacunación preventiva y control de peso",
       "status": "scheduled",
-      "createdAt": "2026-10-04",
-      "id": "ie4nKcLAF14"
+      "cancellationReason": null,
+      "createdAt": "2026-10-04"
+    },
+    {
+      "id": "app-004",
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-10-31T10:30:00",
+      "reason": "Visita técnica de seguimiento sanitario",
+      "status": "scheduled",
+      "cancellationReason": null,
+      "createdAt": "2026-10-04"
     },
     {
       "rancherId": "usr-002",
       "veterinarianId": "usr-003",
-      "requestedBy": "usr-002",
-      "scheduledAt": "2026-10-31T01:30",
-      "reason": "visita rutinaria",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-10-06T10:30:00",
+      "reason": "Revisión periódica de salud y control de peso",
       "status": "scheduled",
-      "createdAt": "2026-10-04",
-      "id": "_a2hSbKZYrQ"
+      "createdAt": "2026-10-06",
+      "id": "HIe7MWh7Puk"
     },
     {
       "rancherId": "usr-002",
-      "veterinarianId": "usr-003",
-      "requestedBy": "usr-002",
-      "scheduledAt": "2026-10-16T01:31",
-      "reason": "dasd",
-      "status": "scheduled",
-      "createdAt": "2026-10-04",
-      "id": "LF1B59X3f6Q"
-    },
-    {
-      "rancherId": "usr-002",
-      "veterinarianId": "usr-003",
-      "requestedBy": "usr-002",
-      "scheduledAt": "2026-10-26T01:42",
+      "veterinarianId": "usr-004",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-10-14T10:30:00",
       "reason": "prueba",
       "status": "scheduled",
-      "createdAt": "2026-10-04",
-      "id": "qqZdzzItvnU"
+      "createdAt": "2026-10-06",
+      "id": "YCPo4j3wNPs"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-10-06T10:30:00",
+      "reason": "Revisión periódica de salud y control de peso",
+      "status": "scheduled",
+      "createdAt": "2026-10-06",
+      "id": "pTd40fFPXP0"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-10-06T10:30:00",
+      "reason": "revision del animal",
+      "status": "scheduled",
+      "createdAt": "2026-10-06",
+      "id": "TLIn9gS3Ol8"
     }
   ],
   "appointmentAnimals": [
@@ -536,12 +566,37 @@
     {
       "id": "appa-002",
       "appointmentId": "app-002",
-      "animalId": "anm-047"
+      "animalId": "anm-018"
     },
     {
-      "appointmentId": "qqZdzzItvnU",
-      "animalId": "anm-011",
-      "id": "_frcZuw9aGk"
+      "id": "appa-003",
+      "appointmentId": "app-003",
+      "animalId": "anm-031"
+    },
+    {
+      "id": "appa-004",
+      "appointmentId": "app-004",
+      "animalId": "anm-011"
+    },
+    {
+      "appointmentId": "HIe7MWh7Puk",
+      "animalId": "anm-047",
+      "id": "5ZqTfgLAxAs"
+    },
+    {
+      "appointmentId": "YCPo4j3wNPs",
+      "animalId": "anm-068",
+      "id": "ZrK4cBHLYsI"
+    },
+    {
+      "appointmentId": "pTd40fFPXP0",
+      "animalId": "anm-044",
+      "id": "NMxHs45iD1g"
+    },
+    {
+      "appointmentId": "TLIn9gS3Ol8",
+      "animalId": "anm-047",
+      "id": "kq5MzqRI4xA"
     }
   ],
   "medicalRecords": [
@@ -604,6 +659,42 @@
       "healthStatus": "sick",
       "notes": "aaaaaaaaa PO",
       "id": "srfOn33IwBk"
+    },
+    {
+      "appointmentId": "app-001",
+      "animalId": "anm-047",
+      "veterinarianId": "usr-003",
+      "recordedAt": "2026-10-15",
+      "symptoms": "malos",
+      "diagnosis": "Fiebre",
+      "severity": "low",
+      "healthStatus": "healthy",
+      "notes": "dasdas",
+      "id": "PQZ9gKFwObA"
+    },
+    {
+      "appointmentId": "pTd40fFPXP0",
+      "animalId": "anm-044",
+      "veterinarianId": "usr-003",
+      "recordedAt": "2026-10-06",
+      "symptoms": "vomito",
+      "diagnosis": "presenta falta de apetito porquee",
+      "severity": "low",
+      "healthStatus": "healthy",
+      "notes": "se hallo que el animl no come",
+      "id": "ibfiCmhDJcY"
+    },
+    {
+      "appointmentId": "app-001",
+      "animalId": "anm-047",
+      "veterinarianId": "usr-003",
+      "recordedAt": "2026-10-06",
+      "symptoms": "pus heridas",
+      "diagnosis": "tiene cancer",
+      "severity": "high",
+      "healthStatus": "healthy",
+      "notes": "se hallo heridas",
+      "id": "j25Z7Sexx9w"
     }
   ],
   "medications": [
@@ -673,6 +764,57 @@
       "status": "completed",
       "instructions": "se administra cada 8 horas",
       "id": "eM5Z5IcpiQQ"
+    },
+    {
+      "medicalRecordId": "mr-001",
+      "animalId": "anm-047",
+      "medicationId": "med-002",
+      "treatmentType": "Curativo",
+      "dose": "5 mg",
+      "doseUnit": "mg",
+      "route": "Subcutánea",
+      "frequencyHours": "12",
+      "durationDays": 12,
+      "scheduledAt": "2026-10-05",
+      "administeredAt": "2026-10-05",
+      "nextDate": "2026-10-05",
+      "status": "completed",
+      "instructions": "adminstrar ",
+      "id": "xmjwS3lKcME"
+    },
+    {
+      "medicalRecordId": "mr-001",
+      "animalId": "anm-044",
+      "medicationId": "med-002",
+      "treatmentType": "Curativo",
+      "dose": "5 mg",
+      "doseUnit": "mg",
+      "route": "Intramuscular",
+      "frequencyHours": "24",
+      "durationDays": 12,
+      "scheduledAt": "2026-10-06",
+      "administeredAt": "2026-10-06",
+      "nextDate": "2026-10-06",
+      "status": "completed",
+      "instructions": "se debe inyectar cada 12 horas despues del almuerzo",
+      "id": "dI02YFr7fN8"
+    },
+    {
+      "medicalRecordId": "mr-001",
+      "animalId": "anm-047",
+      "medicationId": "med-001",
+      "treatmentType": "Preventivo",
+      "dose": "5 mL",
+      "doseUnit": "mL",
+      "route": "Intramuscular",
+      "frequencyHours": "12",
+      "durationDays": 7,
+      "scheduledAt": "2026-10-06",
+      "administeredAt": "2026-10-06",
+      "nextDate": "2026-10-06",
+      "status": "completed",
+      "instructions": "aplicar cada 12 horas via ",
+      "id": "CK47PEJy6gA"
     }
   ],
   "vaccines": [
@@ -723,6 +865,38 @@
       "applicationSite": "Cuello",
       "status": "completed",
       "observations": "Vacuna anual aplicada."
+    },
+    {
+      "animalId": "anm-044",
+      "veterinarianId": "usr-003",
+      "name": "Fiebre Aftosa",
+      "dose": "2 mL",
+      "doseUnit": "mL",
+      "laboratory": "Laboratorio Veterinario Nacional",
+      "lotNumber": "L2026-017",
+      "appliedAt": "2026-10-06",
+      "nextDoseAt": "2027-03-07",
+      "route": "Subcutánea",
+      "applicationSite": "Cuello",
+      "status": "completed",
+      "observations": "Verificada cadena de frío antes de la aplicación.",
+      "id": "ghsf-IzpmOk"
+    },
+    {
+      "animalId": "anm-047",
+      "veterinarianId": "usr-003",
+      "name": "Fiebre Aftosa",
+      "dose": "2 mL",
+      "doseUnit": "mL",
+      "laboratory": "Laboratorio Veterinario Nacional",
+      "lotNumber": "L2026-017",
+      "appliedAt": "2026-10-06",
+      "nextDoseAt": "2027-03-07",
+      "route": "Subcutánea",
+      "applicationSite": "Cuello",
+      "status": "completed",
+      "observations": "Verificada cadena de frío antes de la aplicación.",
+      "id": "WS_iDaZZa08"
     }
   ],
   "pregnancies": [
