@@ -343,9 +343,6 @@ export class ReportsAssembler {
 
       }
 
-
-      // Plan asociado a todo un lote
-
       animals
         .filter(
           animal =>
