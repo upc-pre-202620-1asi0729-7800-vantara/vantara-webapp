@@ -1472,6 +1472,18 @@
       "confirmedAt": "2026-10-07",
       "cancelledAt": null,
       "id": "2R3w-ju"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción Básico",
+      "amount": "29.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-07",
+      "confirmedAt": "2026-10-07",
+      "cancelledAt": null,
+      "id": "zPm2Yx0"
     }
   ],
   "transactions": [
