@@ -1,0 +1,650 @@
+﻿@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+
+/* =========================================================
+   REPORTS DASHBOARD
+========================================================= */
+
+.reports-dashboard {
+  padding: 24px;
+
+  min-height: 100%;
+
+  background: #f7faf7;
+
+  box-sizing: border-box;
+
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+
+/* =========================================================
+   TIPOGRAFÍA
+========================================================= */
+
+.reports-dashboard,
+.reports-dashboard input,
+.reports-dashboard select,
+.reports-dashboard button {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+
+/* =========================================================
+   MATERIAL ICONS
+========================================================= */
+
+.reports-dashboard mat-icon {
+  font-family: 'Material Icons' !important;
+
+  font-weight: normal;
+  font-style: normal;
+
+  font-size: 20px;
+
+  line-height: 1;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  letter-spacing: normal;
+
+  text-transform: none;
+
+  white-space: nowrap;
+
+  word-wrap: normal;
+
+  direction: ltr;
+
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+
+  font-feature-settings: 'liga';
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.page-header {
+  margin-bottom: 28px;
+}
+
+.page-header h1 {
+  margin: 0 0 6px;
+
+  color: #123c2f;
+
+  font-size: 28px;
+
+  font-weight: 700;
+
+  line-height: 1.2;
+}
+
+.page-header p {
+  margin: 0;
+
+  color: #70827a;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.report-section {
+  max-width: 1100px;
+}
+
+.section-header {
+  margin-bottom: 18px;
+}
+
+.section-header h2 {
+  margin: 0 0 5px;
+
+  color: #163d31;
+
+  font-size: 20px;
+
+  font-weight: 700;
+}
+
+.section-header p {
+  margin: 0;
+
+  color: #71837b;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   REPORT TYPES
+========================================================= */
+
+.report-types {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 16px;
+
+  margin-bottom: 24px;
+}
+
+
+/* =========================================================
+   REPORT TYPE CARD
+========================================================= */
+
+.report-type-card {
+  position: relative;
+
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 16px;
+
+  width: 100%;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+
+  text-align: left;
+
+  background: #ffffff;
+
+  border: 1px solid #e1e9e4;
+
+  border-radius: 14px;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.report-type-card:hover {
+  border-color: #b8d5c7;
+
+  box-shadow:
+    0 6px 20px rgba(28, 77, 58, 0.08);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   ACTIVE CARD
+========================================================= */
+
+.report-type-card.active {
+  border-color: #176b51;
+
+  box-shadow:
+    0 0 0 1px #176b51,
+    0 6px 20px rgba(23, 107, 81, 0.08);
+}
+
+
+/* =========================================================
+   REPORT ICON
+========================================================= */
+
+.report-icon {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  min-width: 46px;
+
+  width: 46px;
+
+  height: 46px;
+
+  border-radius: 12px;
+
+  background: #e8f4ed;
+
+  color: #176b51;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.report-icon mat-icon {
+  width: 22px;
+
+  height: 22px;
+
+  font-size: 22px;
+
+  color: inherit;
+}
+
+.report-type-card.active .report-icon {
+  background: #d5ecdf;
+
+  color: #12583f;
+}
+
+
+/* =========================================================
+   REPORT CONTENT
+========================================================= */
+
+.report-type-content {
+  padding-right: 24px;
+}
+
+.report-type-content h3 {
+  margin: 2px 0 6px;
+
+  color: #173d31;
+
+  font-size: 16px;
+
+  font-weight: 700;
+}
+
+.report-type-content p {
+  margin: 0;
+
+  color: #71827b;
+
+  font-size: 12px;
+
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   SELECTED ICON
+========================================================= */
+
+.selected-icon {
+  position: absolute;
+
+  top: 18px;
+
+  right: 18px;
+
+  width: 20px;
+
+  height: 20px;
+
+  color: #176b51;
+
+  font-size: 20px;
+}
+
+
+/* =========================================================
+   FILTERS CARD
+========================================================= */
+
+.filters-card {
+  padding: 24px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border: 1px solid #e1e9e4;
+
+  border-radius: 16px;
+
+  box-shadow:
+    0 3px 14px rgba(24, 65, 48, 0.045);
+}
+
+
+/* =========================================================
+   FILTER HEADER
+========================================================= */
+
+.filters-header {
+  margin-bottom: 22px;
+}
+
+.filters-header h3 {
+  margin: 0 0 5px;
+
+  color: #163d31;
+
+  font-size: 17px;
+
+  font-weight: 700;
+}
+
+.filters-header p {
+  margin: 0;
+
+  color: #71827b;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   FILTER GRID
+========================================================= */
+
+.filters-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 18px;
+}
+
+
+/* =========================================================
+   FORM FIELD
+========================================================= */
+
+.form-field {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.form-field label {
+  color: #456257;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   INPUT WITH ICON
+========================================================= */
+
+.input-with-icon {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  width: 100%;
+}
+
+
+/* ICONO DEL CAMPO */
+
+.input-with-icon mat-icon {
+  position: absolute;
+
+  left: 12px;
+
+  z-index: 2;
+
+  width: 18px;
+
+  height: 18px;
+
+  color: #789087;
+
+  font-size: 18px;
+
+  line-height: 18px;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   INPUTS / SELECTS
+========================================================= */
+
+.form-field input,
+.form-field select {
+  width: 100%;
+
+  height: 42px;
+
+  padding: 0 12px 0 40px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #d5e1da;
+
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: #263f35;
+
+  font-family: 'Plus Jakarta Sans', sans-serif;
+
+  font-size: 13px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.form-field input:hover,
+.form-field select:hover {
+  border-color: #b8cec2;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  border-color: #176b51;
+
+  box-shadow:
+    0 0 0 3px rgba(23, 107, 81, 0.09);
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+========================================================= */
+
+.form-field input::placeholder {
+  color: #a0afa8;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.filters-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 24px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid #edf2ef;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.secondary-button,
+.primary-button {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  height: 40px;
+
+  padding: 0 18px;
+
+  border-radius: 9px;
+
+  font-family: 'Plus Jakarta Sans', sans-serif;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+/* =========================================================
+   BUTTON ICONS
+========================================================= */
+
+.secondary-button mat-icon,
+.primary-button mat-icon {
+  width: 18px;
+
+  height: 18px;
+
+  font-size: 18px;
+}
+
+
+/* =========================================================
+   SECONDARY BUTTON
+========================================================= */
+
+.secondary-button {
+  background: #ffffff;
+
+  border: 1px solid #d1ddd6;
+
+  color: #456257;
+}
+
+.secondary-button:hover {
+  background: #f5f9f6;
+
+  border-color: #b8cec2;
+
+  color: #315b4a;
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON
+========================================================= */
+
+.primary-button {
+  background: #086b4f;
+
+  border: 1px solid #086b4f;
+
+  color: #ffffff;
+
+  box-shadow:
+    0 3px 8px rgba(8, 107, 79, 0.15);
+}
+
+.primary-button:hover {
+  background: #075b44;
+
+  border-color: #075b44;
+
+  box-shadow:
+    0 5px 12px rgba(8, 107, 79, 0.20);
+}
+
+
+/* =========================================================
+   ACTIVE BUTTON
+========================================================= */
+
+.primary-button:active,
+.secondary-button:active {
+  transform: scale(0.98);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  .filters-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 800px) {
+
+  .report-types {
+    grid-template-columns: 1fr;
+  }
+
+  .filters-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 550px) {
+
+  .reports-dashboard {
+    padding: 16px;
+  }
+
+  .page-header h1 {
+    font-size: 24px;
+  }
+
+  .filters-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filters-actions {
+    flex-direction: column-reverse;
+  }
+
+  .secondary-button,
+  .primary-button {
+    width: 100%;
+  }
+
+}

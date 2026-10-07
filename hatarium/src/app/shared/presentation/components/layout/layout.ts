@@ -48,7 +48,7 @@ export class Layout {
     { labelKey: 'sidebar.health', icon: 'health_and_safety' },
     { labelKey: 'sidebar.reproductive', icon: 'favorite', link: '/reproductive' },
     { labelKey: 'sidebar.feeding', icon: 'restaurant', link: '/livestock/feeding' },
-    { labelKey: 'sidebar.reports', icon: 'bar_chart' },
+    { labelKey: 'sidebar.reports', icon: 'bar_chart', link: '/reports' },
     { labelKey: 'sidebar.appointments', icon: 'event', link: '/veterinary/appointments' },
     { labelKey: 'sidebar.alerts', icon: 'notifications', link: '/notifications' }
   ];

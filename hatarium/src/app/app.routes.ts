@@ -16,6 +16,8 @@ import { TreatmentListComponent } from './veterinary-and-health/presentation/com
 import { AppointmentDetailComponent } from './veterinary-and-health/presentation/components/appointment-detail/appointment-detail';
 import { VaccineRecordComponent } from './veterinary-and-health/presentation/components/vaccine-record/vaccine-record';
 import { AppointmentFormComponent } from './veterinary-and-health/presentation/components/appointment-form/appointment-form';
+import {ReportsDashboard} from './reports/presentation/components/reports-dashboard/reports-dashboard';
+import {ReportsResults} from './reports/presentation/components/reports-results/reports-results';
 
 export const routes: Routes = [
   {
@@ -47,6 +49,8 @@ export const routes: Routes = [
       { path: 'veterinary/history/new', component: ClinicalHistoryComponent },
       { path: 'veterinary/treatments/new', component: TreatmentListComponent },
       { path: 'veterinary/vaccines/new', component: VaccineRecordComponent },
+      { path: 'reports', component: ReportsDashboard },
+      { path: 'reports/results',  component: ReportsResults },
       {
         path: 'config/payments',
         loadChildren: () =>
