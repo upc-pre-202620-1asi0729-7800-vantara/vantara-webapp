@@ -1,0 +1,54 @@
+.citas-page { background-color: #f3f6f3; padding: 2rem; min-height: 100vh; font-family: system-ui, -apple-system, sans-serif; }
+.top-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+.page-title { font-size: 1.75rem; font-weight: 700; color: #0c1c17; margin: 0; }
+.page-subtitle { color: #6b7280; font-size: 0.9rem; margin-top: 0.2rem; }
+
+.btn-primary-solid { background-color: #07583f !important; color: white !important; border-radius: 8px !important; font-weight: 600 !important; }
+
+.kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+.kpi-card { background: white; border-radius: 12px; border: 1px solid #e5e7eb; padding: 1.25rem; display: flex; align-items: center; gap: 1rem; }
+.kpi-icon-wrapper { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+.kpi-icon-wrapper.accent-light { background: #e4f4e8; color: #219a75; }
+.kpi-icon-wrapper.blue-light { background: #e5f9f3; color: #15614a; }
+.kpi-icon-wrapper.orange-light { background: #ffedd5; color: #c2410c; }
+
+.kpi-title { font-size: 0.75rem; font-weight: 700; color: #64748b; }
+.kpi-number { font-size: 1.75rem; font-weight: 800; color: #1e293b; }
+.kpi-sub { font-size: 0.75rem; color: #94a3b8; }
+
+.tabs-nav-bar { display: flex; gap: 0.5rem; border-bottom: 1px solid #e5e7eb; margin-bottom: 1.25rem; }
+.tab-btn { background: transparent; border: none; padding: 0.75rem 1.25rem; font-size: 0.9rem; font-weight: 600; color: #64748b; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; border-bottom: 3px solid transparent; }
+.tab-btn.active { color: #07583f; border-bottom-color: #07583f; background: white; border-radius: 8px 8px 0 0; }
+
+.filters-bar { display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem; }
+.search-input-wrapper { flex: 1; background: white; border: 1px solid #d1d5db; border-radius: 8px; padding: 0.5rem 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+.search-input-wrapper input { border: none; outline: none; width: 100%; }
+
+.origin-pills-filter { display: flex; gap: 0.5rem; }
+.pill-filter { border: 1px solid #d1d5db; background: white; padding: 0.5rem 0.85rem; border-radius: 8px; font-size: 0.82rem; font-weight: 600; color: #475569; cursor: pointer; }
+.pill-filter.active { background: #07583f; color: white; border-color: #07583f; }
+.pill-filter.blue.active { background: #19775b; color: white; border-color: #19775b; }
+.pill-filter.accent.active { background: #07583f; color: white; border-color: #07583f; }
+
+.section-block { background: white; border-radius: 12px; border: 1px solid #e5e7eb; padding: 1.25rem; }
+.cards-list { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.appointment-card-item { display: grid; grid-template-columns: 90px 45px 2.5fr 1.5fr 110px 100px; align-items: center; gap: 1rem; background: white; border: 1px solid #f1f9f7; border-radius: 10px; padding: 1rem; }
+.day-number { font-size: 1.4rem; font-weight: 800; color: #07583f; }
+.month-year { font-size: 0.75rem; font-weight: 600; color: #64748b; }
+.animal-avatar { font-size: 2rem; }
+
+.origin-badge { padding: 0.2rem 0.55rem; border-radius: 6px; font-size: 0.72rem; font-weight: 700; margin-left: 0.5rem; }
+.origin-badge.blue { background: #e5f9f3; color: #15614a; }
+.origin-badge.accent { background: #e4f4e8; color: #219a75; }
+
+.sub-text { margin: 0.2rem 0 0 0; font-size: 0.85rem; color: #64748b; }
+.vet-col { display: flex; align-items: center; gap: 0.4rem; color: #475569; font-size: 0.85rem; }
+.vet-col small { display: block; color: #94a3b8; font-size: 0.75rem; }
+
+.status-pill { padding: 0.25rem 0.65rem; border-radius: 12px; font-size: 0.75rem; font-weight: 700; }
+.status-pill.scheduled { background: #fef3c7; color: #d97706; }
+.status-pill.completed { background: #e4f4e8; color: #219a75; }
+
+.btn-link-action { color: #07583f; font-weight: 700; border: none; background: transparent; cursor: pointer; }
+.empty-msg { text-align: center; color: #94a3b8; font-size: 0.85rem; padding: 2rem 0; }

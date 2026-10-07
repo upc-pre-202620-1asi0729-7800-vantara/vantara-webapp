@@ -1,0 +1,16 @@
+<div class="notification-list">
+
+  @for (notification of notifications; track notification.id) {
+
+    <app-notification-item
+      [notification]="notification"
+      (read)="select($event)">
+    </app-notification-item>
+
+  } @empty {
+
+    <div class="empty-state"><mat-icon>notifications_none</mat-icon><p>{{ 'notifications.empty' | translate }}</p></div>
+
+  }
+
+</div>

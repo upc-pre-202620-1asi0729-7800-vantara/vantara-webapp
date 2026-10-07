@@ -1,0 +1,122 @@
+:host {
+  display: block;
+}
+
+.form-overlay {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+  padding: clamp(16px, 4vh, 36px);
+  box-sizing: border-box;
+  background: rgba(16, 34, 25, 0.62);
+  backdrop-filter: blur(2px);
+}
+
+.event-dialog {
+  display: flex;
+  width: min(640px, 100%);
+  max-height: calc(100dvh - clamp(32px, 8vh, 72px));
+  margin: auto;
+  overflow: hidden;
+  border-radius: 18px;
+  flex-direction: column;
+  box-shadow: 0 22px 60px rgba(8, 28, 17, 0.3);
+}
+
+mat-card-header {
+  position: relative;
+  flex: 0 0 auto;
+  padding: 22px 64px 14px 24px;
+}
+
+mat-card-title {
+  color: #17271f;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.dialog-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  color: #53635a;
+}
+
+mat-card-content {
+  min-height: 0;
+  padding: 0 24px 20px !important;
+  overflow-y: auto;
+}
+
+form {
+  display: grid;
+  width: 100%;
+  gap: 12px;
+}
+
+.form-section {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid #dce5df;
+  border-radius: 12px;
+  background: #fbfcfb;
+}
+
+.form-section h3 {
+  margin: 0 0 2px;
+  color: #134435;
+  font-size: 0.95rem;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.actions {
+  position: sticky;
+  z-index: 2;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 2px;
+  padding: 14px 0 4px;
+  border-top: 1px solid #e3e9e5;
+  background: #ffffff;
+}
+
+@media (max-width: 600px) {
+  .form-overlay {
+    padding: 10px;
+  }
+
+  .event-dialog {
+    max-height: calc(100dvh - 20px);
+    border-radius: 14px;
+  }
+
+  mat-card-header {
+    padding: 18px 54px 12px 16px;
+  }
+
+  mat-card-title {
+    font-size: 1.15rem;
+  }
+
+  mat-card-content {
+    padding: 0 16px 14px !important;
+  }
+
+  .form-section {
+    padding: 12px;
+  }
+
+  .actions {
+    flex-wrap: wrap;
+  }
+}

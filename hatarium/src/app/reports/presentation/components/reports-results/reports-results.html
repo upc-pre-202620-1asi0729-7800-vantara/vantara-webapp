@@ -1,0 +1,1070 @@
+﻿<div class="reports-results">
+
+  <!-- =====================================================
+       REPORTE DE GANADO
+  ====================================================== -->
+
+  <ng-container *ngIf="isLivestockReport">
+
+    <!-- HEADER -->
+
+    <div class="page-header">
+
+      <div class="header-left">
+
+        <button
+          type="button"
+          class="back-button"
+          (click)="goBack()"
+        >
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+
+
+        <div>
+
+          <h1>
+            Reporte de ganado
+          </h1>
+
+          <p>
+            Resumen del estado actual del ganado registrado.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="header-actions">
+
+        <button
+          type="button"
+          class="export-button"
+        >
+          <mat-icon>picture_as_pdf</mat-icon>
+
+          Exportar PDF
+        </button>
+
+
+        <button
+          type="button"
+          class="export-button"
+        >
+          <mat-icon>table_view</mat-icon>
+
+          Exportar Excel
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ESTADO -->
+
+    <div class="report-status">
+
+      <div class="status-icon">
+
+        <mat-icon>
+          check
+        </mat-icon>
+
+      </div>
+
+
+      <div>
+
+        <strong>
+          Reporte generado correctamente
+        </strong>
+
+        <span>
+          Los datos fueron calculados a partir de la información registrada.
+        </span>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         KPIs
+    ====================================================== -->
+
+    <section class="kpi-section">
+
+
+      <!-- TOTAL ANIMALES -->
+
+      <div class="kpi-card">
+
+        <div class="kpi-icon">
+
+          <mat-icon>
+            pets
+          </mat-icon>
+
+        </div>
+
+
+        <div class="kpi-content">
+
+          <span class="kpi-label">
+            Total de animales
+          </span>
+
+          <strong class="kpi-value">
+            {{ reportsStore.livestockReport()?.totalAnimals ?? 0 }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- PESO PROMEDIO -->
+
+      <div class="kpi-card">
+
+        <div class="kpi-icon">
+
+          <mat-icon>
+            monitor_weight
+          </mat-icon>
+
+        </div>
+
+
+        <div class="kpi-content">
+
+          <span class="kpi-label">
+            Peso promedio
+          </span>
+
+          <strong class="kpi-value">
+
+            {{ reportsStore.livestockReport()?.averageWeight ?? 0 | number:'1.1-1' }}
+
+            kg
+
+          </strong>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- LOTES -->
+
+      <div class="kpi-card">
+
+        <div class="kpi-icon">
+
+          <mat-icon>
+            inventory_2
+          </mat-icon>
+
+        </div>
+
+
+        <div class="kpi-content">
+
+          <span class="kpi-label">
+            Total de lotes
+          </span>
+
+          <strong class="kpi-value">
+            {{ reportsStore.livestockReport()?.totalLots ?? 0 }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- MACHOS -->
+
+      <div class="kpi-card">
+
+        <div class="kpi-icon">
+
+          <mat-icon>
+            male
+          </mat-icon>
+
+        </div>
+
+
+        <div class="kpi-content">
+
+          <span class="kpi-label">
+            Machos
+          </span>
+
+          <strong class="kpi-value">
+            {{ reportsStore.livestockReport()?.males ?? 0 }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- HEMBRAS -->
+
+      <div class="kpi-card">
+
+        <div class="kpi-icon">
+
+          <mat-icon>
+            female
+          </mat-icon>
+
+        </div>
+
+
+        <div class="kpi-content">
+
+          <span class="kpi-label">
+            Hembras
+          </span>
+
+          <strong class="kpi-value">
+            {{ reportsStore.livestockReport()?.females ?? 0 }}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         GRÁFICOS
+    ====================================================== -->
+
+    <section class="charts-section">
+
+
+      <!-- ANIMALES POR LOTE -->
+
+      <div class="chart-card">
+
+        <div class="card-header">
+
+          <h2>
+            Animales por lote
+          </h2>
+
+          <p>
+            Cantidad de animales registrados en cada lote.
+          </p>
+
+        </div>
+
+
+        <div class="bar-chart">
+
+          <div
+            class="bar-row"
+            *ngFor="
+              let lot of reportsStore.livestockReport()?.animalsByLot
+            "
+          >
+
+            <div class="bar-label">
+
+              <span>
+                {{ lot.lotName }}
+              </span>
+
+              <strong>
+                {{ lot.animalCount }}
+              </strong>
+
+            </div>
+
+
+            <div class="bar-track">
+
+              <div
+                class="bar-fill"
+                [style.width.%]="
+                  lot.animalCount /
+                  (reportsStore.livestockReport()?.totalAnimals || 1) * 100
+                "
+              ></div>
+
+            </div>
+
+          </div>
+
+
+          <div
+            *ngIf="
+              !reportsStore.livestockReport()?.animalsByLot?.length
+            "
+            class="empty-row"
+          >
+            No hay información disponible.
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- DISTRIBUCIÓN POR RAZA -->
+
+      <div class="chart-card">
+
+        <div class="card-header">
+
+          <h2>
+            Distribución por raza
+          </h2>
+
+          <p>
+            Cantidad de animales según su raza.
+          </p>
+
+        </div>
+
+
+        <div class="breed-list">
+
+          <div
+            class="breed-row"
+            *ngFor="
+              let breed of reportsStore.livestockReport()?.animalsByBreed
+            "
+          >
+
+            <div class="breed-info">
+
+              <span>
+                {{ breed.breed }}
+              </span>
+
+              <strong>
+                {{ breed.count }}
+              </strong>
+
+            </div>
+
+
+            <div class="breed-track">
+
+              <div
+                class="breed-fill"
+                [style.width.%]="
+                  breed.count /
+                  (reportsStore.livestockReport()?.totalAnimals || 1) * 100
+                "
+              ></div>
+
+            </div>
+
+          </div>
+
+
+          <div
+            *ngIf="
+              !reportsStore.livestockReport()?.animalsByBreed?.length
+            "
+            class="empty-row"
+          >
+            No hay información disponible.
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         TABLA DE GANADO
+    ====================================================== -->
+
+    <section class="table-section">
+
+      <div class="card-header">
+
+        <h2>
+          Detalle por lote
+        </h2>
+
+        <p>
+          Resumen del ganado agrupado por lote.
+        </p>
+
+      </div>
+
+
+      <div class="table-container">
+
+        <table>
+
+          <thead>
+
+          <tr>
+
+            <th>
+              Lote
+            </th>
+
+            <th>
+              Animales
+            </th>
+
+            <th>
+              Peso promedio
+            </th>
+
+            <th>
+              Machos
+            </th>
+
+            <th>
+              Hembras
+            </th>
+
+          </tr>
+
+          </thead>
+
+
+          <tbody>
+
+          <tr
+            *ngFor="
+                let lot of reportsStore.livestockReport()?.animalsByLot
+              "
+          >
+
+            <td>
+
+              <strong>
+                {{ lot.lotName }}
+              </strong>
+
+            </td>
+
+
+            <td>
+              {{ lot.animalCount }}
+            </td>
+
+
+            <td>
+              {{ lot.averageWeight | number:'1.1-1' }} kg
+            </td>
+
+
+            <td>
+              {{ lot.males }}
+            </td>
+
+
+            <td>
+              {{ lot.females }}
+            </td>
+
+          </tr>
+
+
+          <tr
+            *ngIf="
+                !reportsStore.livestockReport()?.animalsByLot?.length
+              "
+          >
+
+            <td
+              colspan="5"
+              class="empty-row"
+            >
+              No hay información disponible para los filtros seleccionados.
+            </td>
+
+          </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </ng-container>
+
+
+
+  <!-- =====================================================
+       REPORTE DE ALIMENTACIÓN
+  ====================================================== -->
+
+  <ng-container *ngIf="isFeedingReport">
+
+    <!-- HEADER -->
+
+    <div class="page-header">
+
+      <div class="header-left">
+
+        <button
+          type="button"
+          class="back-button"
+          (click)="goBack()"
+        >
+          <mat-icon>
+            arrow_back
+          </mat-icon>
+        </button>
+
+
+        <div>
+
+          <h1>
+            Reporte de alimentación
+          </h1>
+
+          <p>
+            Resumen de los planes y consumos de alimentación registrados.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="header-actions">
+
+        <button
+          type="button"
+          class="export-button"
+        >
+          <mat-icon>
+            picture_as_pdf
+          </mat-icon>
+
+          Exportar PDF
+        </button>
+
+
+        <button
+          type="button"
+          class="export-button"
+        >
+          <mat-icon>
+            table_view
+          </mat-icon>
+
+          Exportar Excel
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ESTADO -->
+
+    <div class="report-status">
+
+      <div class="status-icon">
+
+        <mat-icon>
+          check
+        </mat-icon>
+
+      </div>
+
+
+      <div>
+
+        <strong>
+          Reporte generado correctamente
+        </strong>
+
+        <span>
+          Los datos fueron calculados a partir de los registros de alimentación.
+        </span>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         KPIs
+    ====================================================== -->
+
+    <section class="kpi-section">
+
+
+      <!-- PLANES -->
+
+      <div class="kpi-card">
+
+        <div class="kpi-icon">
+
+          <mat-icon>
+            restaurant_menu
+          </mat-icon>
+
+        </div>
+
+
+        <div class="kpi-content">
+
+          <span class="kpi-label">
+            Planes de alimentación
+          </span>
+
+          <strong class="kpi-value">
+            {{ reportsStore.feedingReport()?.totalPlans ?? 0 }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ANIMALES CON PLAN -->
+
+      <div class="kpi-card">
+
+        <div class="kpi-icon">
+
+          <mat-icon>
+            pets
+          </mat-icon>
+
+        </div>
+
+
+        <div class="kpi-content">
+
+          <span class="kpi-label">
+            Animales con plan
+          </span>
+
+          <strong class="kpi-value">
+            {{ reportsStore.feedingReport()?.animalsWithPlan ?? 0 }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- CONSUMO -->
+
+      <div class="kpi-card">
+
+        <div class="kpi-icon">
+
+          <mat-icon>
+            scale
+          </mat-icon>
+
+        </div>
+
+
+        <div class="kpi-content">
+
+          <span class="kpi-label">
+            Consumo registrado
+          </span>
+
+          <strong class="kpi-value">
+
+            {{ reportsStore.feedingReport()?.totalRegisteredConsumption ?? 0 | number:'1.0-2' }}
+
+            kg
+
+          </strong>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- REGISTROS -->
+
+      <div class="kpi-card">
+
+        <div class="kpi-icon">
+
+          <mat-icon>
+            assignment
+          </mat-icon>
+
+        </div>
+
+
+        <div class="kpi-content">
+
+          <span class="kpi-label">
+            Registros de alimentación
+          </span>
+
+          <strong class="kpi-value">
+            {{ reportsStore.feedingReport()?.totalFeedingRecords ?? 0 }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- TIPOS DE ALIMENTO -->
+
+      <div class="kpi-card">
+
+        <div class="kpi-icon">
+
+          <mat-icon>
+            category
+          </mat-icon>
+
+        </div>
+
+
+        <div class="kpi-content">
+
+          <span class="kpi-label">
+            Tipos de alimento
+          </span>
+
+          <strong class="kpi-value">
+            {{ reportsStore.feedingReport()?.consumptionByFeed?.length ?? 0 }}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         GRÁFICOS
+    ====================================================== -->
+
+    <section class="charts-section">
+
+
+      <!-- CONSUMO POR LOTE -->
+
+      <div class="chart-card">
+
+        <div class="card-header">
+
+          <h2>
+            Consumo por lote
+          </h2>
+
+          <p>
+            Cantidad de alimento registrada en cada lote.
+          </p>
+
+        </div>
+
+
+        <div class="bar-chart">
+
+          <div
+            class="bar-row"
+            *ngFor="
+              let lot of reportsStore.feedingReport()?.consumptionByLot
+            "
+          >
+
+            <div class="bar-label">
+
+              <span>
+                {{ lot.lotName }}
+              </span>
+
+              <strong>
+
+                {{ lot.quantity | number:'1.0-2' }}
+
+                {{ lot.unit }}
+
+              </strong>
+
+            </div>
+
+
+            <div class="bar-track">
+
+              <div
+                class="bar-fill"
+                [style.width.%]="
+                  lot.quantity /
+                  (reportsStore.feedingReport()?.totalRegisteredConsumption || 1) * 100
+                "
+              ></div>
+
+            </div>
+
+          </div>
+
+
+          <div
+            *ngIf="
+              !reportsStore.feedingReport()?.consumptionByLot?.length
+            "
+            class="empty-row"
+          >
+            No hay información de consumo disponible.
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- CONSUMO POR ALIMENTO -->
+
+      <div class="chart-card">
+
+        <div class="card-header">
+
+          <h2>
+            Consumo por alimento
+          </h2>
+
+          <p>
+            Distribución del consumo según el tipo de alimento.
+          </p>
+
+        </div>
+
+
+        <div class="breed-list">
+
+          <div
+            class="breed-row"
+            *ngFor="
+              let feed of reportsStore.feedingReport()?.consumptionByFeed
+            "
+          >
+
+            <div class="breed-info">
+
+              <span>
+                {{ feed.feedName }}
+              </span>
+
+              <strong>
+
+                {{ feed.quantity | number:'1.0-2' }}
+
+                {{ feed.unit }}
+
+              </strong>
+
+            </div>
+
+
+            <div class="breed-track">
+
+              <div
+                class="breed-fill"
+                [style.width.%]="
+                  feed.quantity /
+                  (reportsStore.feedingReport()?.totalRegisteredConsumption || 1) * 100
+                "
+              ></div>
+
+            </div>
+
+          </div>
+
+
+          <div
+            *ngIf="
+              !reportsStore.feedingReport()?.consumptionByFeed?.length
+            "
+            class="empty-row"
+          >
+            No hay información de alimentos disponible.
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         TABLA DE ALIMENTACIÓN
+    ====================================================== -->
+
+    <section class="table-section">
+
+      <div class="card-header">
+
+        <h2>
+          Detalle del consumo por lote
+        </h2>
+
+        <p>
+          Resumen del plan y del alimento registrado para cada lote.
+        </p>
+
+      </div>
+
+
+      <div class="table-container">
+
+        <table>
+
+          <thead>
+
+          <tr>
+
+            <th>
+              Lote
+            </th>
+
+            <th>
+              Plan de alimentación
+            </th>
+
+            <th>
+              Consumo registrado
+            </th>
+
+            <th>
+              Unidad
+            </th>
+
+            <th>
+              Estado
+            </th>
+
+          </tr>
+
+          </thead>
+
+
+          <tbody>
+
+          <tr
+            *ngFor="
+                let lot of reportsStore.feedingReport()?.consumptionByLot
+              "
+          >
+
+            <td>
+
+              <strong>
+                {{ lot.lotName }}
+              </strong>
+
+            </td>
+
+
+            <td>
+              {{ lot.planName }}
+            </td>
+
+
+            <td>
+              {{ lot.quantity | number:'1.0-1' }}
+            </td>
+
+
+            <td>
+              {{ lot.unit }}
+            </td>
+
+
+            <td>
+
+                <span
+                  class="consumption-status"
+                  [class.has-consumption]="lot.quantity > 0"
+                  [class.no-consumption]="lot.quantity === 0"
+                >
+
+                  <mat-icon>
+
+                    {{
+                      lot.quantity > 0
+                        ? 'check_circle'
+                        : 'remove_circle_outline'
+                    }}
+
+                  </mat-icon>
+
+
+                  {{
+                    lot.quantity > 0
+                      ? 'Con consumo registrado'
+                      : 'Sin consumo registrado'
+                  }}
+
+                </span>
+
+            </td>
+
+          </tr>
+
+
+          <tr
+            *ngIf="
+                !reportsStore.feedingReport()?.consumptionByLot?.length
+              "
+          >
+
+            <td
+              colspan="5"
+              class="empty-row"
+            >
+              No hay información disponible para los filtros seleccionados.
+            </td>
+
+          </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </ng-container>
+
+</div>

@@ -1,0 +1,65 @@
+<div class="form-overlay">
+  <mat-card
+    class="event-dialog"
+    role="dialog"
+    aria-modal="true"
+    cdkTrapFocus
+    cdkTrapFocusAutoCapture
+    [attr.aria-label]="'forms.dryOffTitle' | translate"
+  >
+    <mat-card-header>
+      <mat-card-title>{{ 'forms.dryOffTitle' | translate }}</mat-card-title>
+      <a
+        mat-icon-button
+        class="dialog-close"
+        routerLink="/reproductive"
+        [attr.aria-label]="'forms.close' | translate"
+      >
+        <mat-icon>close</mat-icon>
+      </a>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <section class="form-section">
+          <h3>Información del animal</h3>
+          <mat-form-field appearance="outline">
+            <mat-label>Animal</mat-label>
+            <mat-select formControlName="pregnancyId" required placeholder="Selecciona un animal...">
+              @for (option of animalSelection.options(); track option.value) {
+                <mat-option [value]="option.value">{{ option.label }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          @if (animalSelection.loading()) {
+            <p role="status">Cargando animales...</p>
+          } @else if (animalSelection.error()) {
+            <p role="alert">{{ animalSelection.error() }}</p>
+          } @else if (!animalSelection.options().length) {
+            <p role="status">No hay animales con una preñez vigente para este evento.</p>
+          }
+        </section>
+        <section class="form-section">
+          <h3>Detalles del secado</h3>
+          <mat-form-field appearance="outline"
+            ><mat-label>{{ 'forms.dryOffOn' | translate }}</mat-label
+            ><input matInput type="date" formControlName="dryOffOn" [max]="today" required
+          /></mat-form-field>
+        </section>
+        <section class="form-section">
+          <h3>Información adicional</h3>
+          <mat-form-field appearance="outline">
+            <mat-label>Observaciones</mat-label>
+            <textarea matInput rows="3" disabled></textarea>
+          </mat-form-field>
+        </section>
+        <div class="actions">
+          @if (saveError()) { <p role="alert">{{ saveError() }}</p> }
+          <a mat-button routerLink="/reproductive">{{ 'forms.cancel' | translate }}</a>
+          <button mat-raised-button color="primary" type="submit" [disabled]="saving()">
+            {{ (saving() ? 'calf.saving' : 'forms.submitDryOff') | translate }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

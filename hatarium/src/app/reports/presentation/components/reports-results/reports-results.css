@@ -1,0 +1,844 @@
+﻿@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+
+/* =========================================================
+   REPORTS RESULTS
+========================================================= */
+
+.reports-results {
+  padding: 24px;
+
+  min-height: 100%;
+
+  background: #f7faf7;
+
+  box-sizing: border-box;
+
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+
+/* =========================================================
+   TIPOGRAFÍA
+========================================================= */
+
+.reports-results,
+.reports-results input,
+.reports-results select,
+.reports-results button,
+.reports-results table {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+
+/* =========================================================
+   MATERIAL ICONS
+========================================================= */
+
+.reports-results mat-icon {
+  font-family: 'Material Icons' !important;
+
+  font-weight: normal;
+  font-style: normal;
+
+  font-size: 20px;
+
+  line-height: 1;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  letter-spacing: normal;
+
+  text-transform: none;
+
+  white-space: nowrap;
+
+  word-wrap: normal;
+
+  direction: ltr;
+
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+
+  font-feature-settings: 'liga';
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.page-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 24px;
+}
+
+
+/* =========================================================
+   HEADER LEFT
+========================================================= */
+
+.header-left {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.back-button {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 40px;
+
+  height: 40px;
+
+  padding: 0;
+
+  border: 1px solid #d5e1da;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: #456257;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.back-button:hover {
+  background: #f5f9f6;
+
+  border-color: #b8cec2;
+
+  color: #176b51;
+}
+
+.back-button:active {
+  transform: scale(0.97);
+}
+
+.back-button mat-icon {
+  width: 20px;
+
+  height: 20px;
+
+  font-size: 20px;
+}
+
+
+/* =========================================================
+   HEADER TITLE
+========================================================= */
+
+.header-left h1 {
+  margin: 0 0 5px;
+
+  color: #123c2f;
+
+  font-size: 26px;
+
+  font-weight: 700;
+
+  line-height: 1.2;
+}
+
+.header-left p {
+  margin: 0;
+
+  color: #70827a;
+
+  font-size: 13px;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   HEADER ACTIONS
+========================================================= */
+
+.header-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+
+/* =========================================================
+   EXPORT BUTTONS
+========================================================= */
+
+.export-button {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  height: 40px;
+
+  padding: 0 15px;
+
+  border: 1px solid #d1ddd6;
+
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: #456257;
+
+  font-family: 'Plus Jakarta Sans', sans-serif;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.export-button:hover {
+  background: #f5f9f6;
+
+  border-color: #b8cec2;
+
+  color: #176b51;
+
+  box-shadow:
+    0 3px 8px rgba(23, 107, 81, 0.06);
+}
+
+.export-button mat-icon {
+  width: 18px;
+
+  height: 18px;
+
+  font-size: 18px;
+}
+
+
+/* =========================================================
+   REPORT STATUS
+========================================================= */
+
+.report-status {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 22px;
+
+  padding: 14px 18px;
+
+  border: 1px solid #cdebdc;
+
+  border-radius: 12px;
+
+  background: #f0faf4;
+}
+
+
+/* =========================================================
+   STATUS ICON
+========================================================= */
+
+.status-icon {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  min-width: 34px;
+
+  width: 34px;
+
+  height: 34px;
+
+  border-radius: 50%;
+
+  background: #087653;
+
+  color: #ffffff;
+}
+
+.status-icon mat-icon {
+  width: 18px;
+
+  height: 18px;
+
+  font-size: 18px;
+}
+
+
+/* =========================================================
+   STATUS TEXT
+========================================================= */
+
+.report-status strong {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #065f46;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+.report-status span {
+  display: block;
+
+  color: #087653;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   KPI SECTION
+========================================================= */
+
+.kpi-section {
+  display: grid;
+
+  grid-template-columns: repeat(5, 1fr);
+
+  gap: 14px;
+
+  margin-bottom: 22px;
+}
+
+
+/* =========================================================
+   KPI CARD
+========================================================= */
+
+.kpi-card {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  min-height: 92px;
+
+  padding: 16px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #e1e9e4;
+
+  border-radius: 14px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 3px 12px rgba(24, 65, 48, 0.045);
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.kpi-card:hover {
+  border-color: #c9ddd2;
+
+  box-shadow:
+    0 5px 16px rgba(24, 65, 48, 0.07);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   KPI ICON
+========================================================= */
+
+.kpi-icon {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  min-width: 42px;
+
+  width: 42px;
+
+  height: 42px;
+
+  border-radius: 11px;
+
+  background: #e8f4ed;
+
+  color: #176b51;
+}
+
+.kpi-icon mat-icon {
+  width: 20px;
+
+  height: 20px;
+
+  font-size: 20px;
+}
+
+
+/* =========================================================
+   KPI CONTENT
+========================================================= */
+
+.kpi-content {
+  min-width: 0;
+}
+
+.kpi-label {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #70827a;
+
+  font-size: 10px;
+
+  line-height: 1.3;
+}
+
+.kpi-value {
+  display: block;
+
+  color: #173d31;
+
+  font-size: 21px;
+
+  font-weight: 700;
+
+  line-height: 1.1;
+}
+
+
+/* =========================================================
+   CHARTS
+========================================================= */
+
+.charts-section {
+  display: grid;
+
+  grid-template-columns: 1.2fr 1fr;
+
+  gap: 18px;
+
+  margin-bottom: 22px;
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.chart-card,
+.table-section {
+  border: 1px solid #e1e9e4;
+
+  border-radius: 15px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 3px 12px rgba(24, 65, 48, 0.045);
+}
+
+.chart-card {
+  padding: 22px;
+}
+
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+.card-header {
+  margin-bottom: 20px;
+}
+
+.card-header h2 {
+  margin: 0 0 5px;
+
+  color: #163d31;
+
+  font-size: 16px;
+
+  font-weight: 700;
+}
+
+.card-header p {
+  margin: 0;
+
+  color: #71827b;
+
+  font-size: 11px;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   BAR CHART
+========================================================= */
+
+.bar-chart {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 17px;
+}
+
+.bar-row {
+  width: 100%;
+}
+
+.bar-label {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 7px;
+
+  font-size: 11px;
+}
+
+.bar-label span {
+  color: #456257;
+}
+
+.bar-label strong {
+  color: #173d31;
+
+  font-weight: 700;
+}
+
+.bar-track,
+.breed-track {
+  width: 100%;
+
+  height: 8px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: #edf2ef;
+}
+
+.bar-fill,
+.breed-fill {
+  height: 100%;
+
+  min-width: 4px;
+
+  border-radius: 999px;
+
+  background: #176b51;
+
+  transition:
+    width 0.4s ease;
+}
+
+
+/* =========================================================
+   BREEDS
+========================================================= */
+
+.breed-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 17px;
+}
+
+.breed-info {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 7px;
+
+  font-size: 11px;
+}
+
+.breed-info span {
+  color: #456257;
+}
+
+.breed-info strong {
+  color: #173d31;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   TABLE SECTION
+========================================================= */
+
+.table-section {
+  padding: 22px;
+
+  margin-bottom: 22px;
+}
+
+
+/* =========================================================
+   TABLE CONTAINER
+========================================================= */
+
+.table-container {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f5f9f6;
+}
+
+th {
+  padding: 12px 14px;
+
+  border-bottom: 1px solid #e1e9e4;
+
+  color: #61756b;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  text-align: left;
+
+  white-space: nowrap;
+}
+
+td {
+  padding: 14px;
+
+  border-bottom: 1px solid #edf2ef;
+
+  color: #456257;
+
+  font-size: 11px;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: #f9fcfa;
+}
+
+td strong {
+  color: #173d31;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   EMPTY ROW
+========================================================= */
+
+.empty-row {
+  padding: 30px 15px;
+
+  color: #8da098;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   CONSUMPTION STATUS
+========================================================= */
+
+.consumption-status {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+.consumption-status mat-icon {
+  width: 14px;
+
+  height: 14px;
+
+  font-size: 14px;
+}
+
+
+/* CONSUMPTION */
+
+.consumption-status.has-consumption {
+  background: #e8f7ef;
+
+  color: #087653;
+}
+
+
+/* NO CONSUMPTION */
+
+.consumption-status.no-consumption {
+  background: #f1f4f2;
+
+  color: #71827b;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .kpi-section {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .charts-section {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 750px) {
+
+  .reports-results {
+    padding: 16px;
+  }
+
+  .page-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .header-actions {
+    width: 100%;
+  }
+
+  .export-button {
+    flex: 1;
+  }
+
+  .kpi-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+@media (max-width: 500px) {
+
+  .header-left {
+    align-items: flex-start;
+  }
+
+  .header-left h1 {
+    font-size: 23px;
+  }
+
+  .kpi-section {
+    grid-template-columns: 1fr;
+  }
+
+  .header-actions {
+    flex-direction: column;
+  }
+
+  .export-button {
+    width: 100%;
+  }
+
+  .report-status {
+    align-items: flex-start;
+  }
+
+}

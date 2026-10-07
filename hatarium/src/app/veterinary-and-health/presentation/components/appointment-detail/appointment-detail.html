@@ -1,0 +1,182 @@
+<div class="detail-page-container">
+  <!-- Enlace Volver -->
+  <a routerLink="/veterinary/appointments" class="back-link">{{ 'DETAIL.BACK' | translate }}</a>
+
+  <!-- Encabezado -->
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">{{ 'DETAIL.TITLE' | translate }}</h1>
+      <p class="page-subtitle">{{ 'DETAIL.SUBTITLE' | translate }}</p>
+    </div>
+    <div class="header-actions">
+      <button mat-stroked-button class="btn-outline"><mat-icon>edit</mat-icon> {{ 'DETAIL.EDIT_APPOINTMENT' | translate }}</button>
+      <button mat-icon-button><mat-icon>more_horiz</mat-icon></button>
+    </div>
+  </div>
+
+  <!-- Layout Principal en 2 Columnas (Igual al Mockup 4) -->
+  <div class="detail-layout">
+    <!-- Columna Izquierda -->
+    <div class="main-content-col">
+      <!-- Tarjeta Resumen del Animal -->
+      @if (animal()) {
+        <div class="card-box animal-header-card">
+          <div class="animal-avatar">🐮</div>
+          <div>
+            <h2 class="animal-name">#{{ animal()?.earTag }} · {{ animal()?.name }}</h2>
+            <p class="animal-breed">{{ animal()?.breed }}</p>
+            <div class="pills-row">
+              <span class="pill accent-light">{{ animal()?.lotName }}</span>
+              <span class="pill">{{ animal()?.sex }}</span>
+              <span class="pill">{{ 'COMMON.AGE_VALUE' | translate }}</span>
+              <span class="pill">{{ animal()?.weight }} kg</span>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Datos Básicos de la Cita -->
+      <div class="card-box">
+        <h3 class="box-title"><mat-icon class="accent-icon">event</mat-icon> {{ 'COMMON.APPOINTMENT_INFO' | translate }}</h3>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="label">{{ 'DETAIL.DATETIME' | translate }}</span>
+            <strong>{{ appointment()?.scheduledAt | date:'dd MMM yyyy · HH:mm a' }}</strong>
+          </div>
+          <div class="info-item">
+            <span class="label">{{ 'DETAIL.VETERINARIAN' | translate }}</span>
+            <strong>Dr. Rodríguez <small>(CMPV 12345)</small></strong>
+          </div>
+          <div class="info-item">
+            <span class="label">{{ 'DETAIL.REASON' | translate }}</span>
+            <strong>{{ appointment()?.reason }}</strong>
+          </div>
+          <div class="info-item">
+            <span class="label">{{ 'DETAIL.VISIT_TYPE' | translate }}</span>
+            <strong>{{ 'COMMON.VISIT_TYPE_VALUE' | translate }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pestañas (Tabs) de Información Completa -->
+      <div class="card-box tabs-card">
+        <mat-tab-group headerPosition="above">
+          <mat-tab [label]="'DETAIL.TAB_SUMMARY' | translate">
+            <div class="tab-content">
+              <h4>{{ 'COMMON.ANIMAL_INFO' | translate }}</h4>
+              <ul class="detail-list">
+                <li><span>{{ 'COMMON.EAR_TAG' | translate }}</span> <strong>#{{ animal()?.earTag }}</strong></li>
+                <li><span>{{ 'COMMON.NAME' | translate }}</span> <strong>{{ animal()?.name }}</strong></li>
+                <li><span>{{ 'COMMON.BREED' | translate }}</span> <strong>{{ animal()?.breed }}</strong></li>
+                <li><span>{{ 'COMMON.SEX' | translate }}</span> <strong>{{ animal()?.sex }}</strong></li>
+                <li><span>{{ 'COMMON.AGE' | translate }}</span> <strong>{{ 'COMMON.AGE_VALUE' | translate }}</strong></li>
+                <li><span>{{ 'COMMON.WEIGHT' | translate }}</span> <strong>{{ animal()?.weight }} kg</strong></li>
+                <li><span>{{ 'COMMON.LOT' | translate }}</span> <strong>{{ animal()?.lotName }}</strong></li>
+              </ul>
+
+              <h4>{{ 'DETAIL.NOTES' | translate }}</h4>
+              <p class="notes-text">{{ 'DETAIL.NOTES_TEXT' | translate }}</p>
+            </div>
+          </mat-tab>
+
+          <mat-tab [label]="'DETAIL.TAB_DIAGNOSIS' | translate">
+            <div class="tab-content">
+              <p class="empty-text">{{ 'DETAIL.NO_DIAGNOSIS' | translate }}</p>
+            </div>
+          </mat-tab>
+
+          <mat-tab [label]="'DETAIL.TAB_TREATMENT' | translate">
+            <div class="tab-content">
+              <p class="empty-text">{{ 'DETAIL.NO_TREATMENT' | translate }}</p>
+            </div>
+          </mat-tab>
+
+          <mat-tab [label]="'DETAIL.TAB_VACCINATION' | translate">
+            <div class="tab-content">
+              <p class="empty-text">{{ 'DETAIL.NO_VACCINES' | translate }}</p>
+            </div>
+          </mat-tab>
+
+          <mat-tab [label]="'DETAIL.TAB_FILES' | translate">
+            <div class="tab-content">
+              <p class="empty-text">{{ 'DETAIL.NO_FILES' | translate }}</p>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+
+    <!-- Columna Derecha -->
+    <div class="sidebar-col">
+      <!-- Estado de la Cita -->
+      <div class="card-box">
+        <span class="box-label">{{ 'DETAIL.STATUS' | translate }}</span>
+        <div class="status-badge-container">
+          <span class="status-pill yellow">{{ 'DETAIL.STATUS_SCHEDULED' | translate }}</span>
+        </div>
+        <p class="status-sub">{{ 'DETAIL.STATUS_SUB' | translate }}</p>
+      </div>
+
+      <!-- Botón / Acción "Registrar diagnóstico" -->
+      <div class="card-box action-box">
+        <div class="action-box-header">
+          <mat-icon class="action-icon">stethoscope</mat-icon>
+          <div>
+            <h4>{{ 'DETAIL.REGISTER_DIAGNOSIS' | translate }}</h4>
+            <p>{{ 'DETAIL.REGISTER_DIAGNOSIS_SUB' | translate }}</p>
+          </div>
+        </div>
+        <button mat-flat-button class="btn-primary-strong full-width" (click)="goToRegisterDiagnosis()">
+          {{ 'DETAIL.REGISTER_DIAGNOSIS_BTN' | translate }}
+        </button>
+      </div>
+
+      <!-- Progreso de la Atención (Stepper del Mockup) -->
+      <div class="card-box">
+        <h4 class="section-sub"><mat-icon class="accent-icon">published_with_changes</mat-icon> {{ 'COMMON.PROGRESS' | translate }}</h4>
+        <div class="stepper-horizontal">
+          <div class="step-item active">
+            <div class="step-num">1</div>
+            <div class="step-info">
+              <strong>{{ 'COMMON.DIAGNOSIS' | translate }}</strong>
+              <small>{{ 'DETAIL.DIAGNOSIS_STATUS' | translate }}</small>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-info">
+              <strong>{{ 'COMMON.TREATMENT' | translate }}</strong>
+              <small>{{ 'COMMON.OPTIONAL' | translate }}</small>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-info">
+              <strong>{{ 'COMMON.VACCINATION' | translate }}</strong>
+              <small>{{ 'COMMON.OPTIONAL' | translate }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Historial de esta Cita -->
+      <div class="card-box">
+        <h4 class="section-sub"><mat-icon class="accent-icon">history</mat-icon> {{ 'DETAIL.HISTORY_TITLE' | translate }}</h4>
+        <div class="empty-history">
+          <mat-icon class="empty-icon">description</mat-icon>
+          <p><strong>{{ 'DETAIL.NO_RECORDS' | translate }}</strong></p>
+          <small>{{ 'DETAIL.NO_RECORDS_SUB' | translate }}</small>
+        </div>
+      </div>
+
+      <!-- Nota Importante -->
+      <div class="card-box info-blue-box">
+        <mat-icon class="info-icon">info</mat-icon>
+        <div>
+          <strong>{{ 'COMMON.IMPORTANT' | translate }}</strong>
+          <p>{{ 'COMMON.IMPORTANT_TEXT' | translate }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

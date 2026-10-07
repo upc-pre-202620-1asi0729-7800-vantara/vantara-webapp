@@ -1,0 +1,26 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ 'reproductive.registerPregnancy' | translate }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'reproductive.animalId' | translate }}</mat-label>
+        <input matInput formControlName="animalId" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'reproductive.calfIdOptional' | translate }}</mat-label>
+        <input matInput formControlName="calfId">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'reproductive.confirmedOn' | translate }}</mat-label>
+        <input matInput type="date" formControlName="confirmedOn" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'reproductive.expectedCalving' | translate }}</mat-label>
+        <input matInput type="date" formControlName="expectedCalvingOn">
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">{{ 'reproductive.confirmPregnancy' | translate }}</button>
+    </form>
+  </mat-card-content>
+</mat-card>

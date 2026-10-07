@@ -1,0 +1,23 @@
+<main class="authentication-layout">
+  <section class="form-panel">
+    <header class="brand" aria-label="Hatarium">
+      <img src="favicon.ico" alt="" width="44" height="44">
+      <span>Hatarium</span>
+    </header>
+
+    <div class="form-content">
+      <ng-content></ng-content>
+    </div>
+
+    <footer>
+      <span>Copyright © {{ currentYear }} Vantara.</span>
+      <a href="#privacy">{{ 'auth.privacyPolicy' | translate }}</a>
+    </footer>
+  </section>
+
+  <aside
+    class="hero-panel"
+    [style.background-image]="'url(&quot;' + heroImage() + '&quot;)'"
+    [attr.aria-label]="'auth.heroAria' | translate"
+  ></aside>
+</main>

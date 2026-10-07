@@ -1,0 +1,14 @@
+<article class="notification" [class.unread]="!notification.isRead()" [class.birth]="notification.type === 'CALVING_REGISTERED'">
+  <div class="event-icon" aria-hidden="true"><mat-icon>{{ icon }}</mat-icon></div>
+  <div class="notification-content">
+    <div class="item-heading"><span class="category">{{ 'notifications.' + categoryKey | translate }}</span><time>{{ notification.formattedDate() }}</time></div>
+    <h3>{{ notification.title }} @if (!notification.isRead()) { <span class="unread-dot" [attr.aria-label]="'notifications.unread' | translate"></span> }</h3>
+    <p>{{ notification.description }}</p>
+    <div class="item-actions">
+      @if (relatedLink; as link) { <a [routerLink]="link">{{ 'notifications.viewRecord' | translate }}<mat-icon>arrow_forward</mat-icon></a> }
+      @if (!notification.isRead()) {
+        <button type="button" (click)="markAsRead()"><mat-icon>done</mat-icon>{{ 'notifications.markAsRead' | translate }}</button>
+      } @else { <span class="read-status"><mat-icon>done_all</mat-icon>{{ 'notifications.read' | translate }}</span> }
+    </div>
+  </div>
+</article>

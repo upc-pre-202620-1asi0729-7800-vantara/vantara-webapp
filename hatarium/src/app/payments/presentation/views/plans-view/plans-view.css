@@ -1,0 +1,23 @@
+:host {
+  display: block;
+  padding: 24px;
+  max-width: 1024px;
+  margin: 0 auto;
+}
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #123d2a;
+}
+.plans-grid mat-card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.plans-grid mat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}

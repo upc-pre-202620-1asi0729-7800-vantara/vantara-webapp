@@ -1,0 +1,48 @@
+<app-authentication-layout heroImage="assets/auth/sign-up-reference.png">
+  <section class="verification-card">
+    <div class="mail-icon" aria-hidden="true">✉</div>
+    <header>
+      <h1>{{ 'auth.verifyEmail.title' | translate }}</h1>
+      <p>{{ 'auth.verifyEmail.subtitle' | translate }}</p>
+    </header>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="field">
+        <label for="verification-email">{{ 'auth.email' | translate }}</label>
+        <input id="verification-email" type="email" formControlName="email" autocomplete="email">
+        @if (form.controls.email.touched && form.controls.email.invalid) {
+          <small>{{ 'auth.emailInvalid' | translate }}</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="verification-code">{{ 'auth.verifyEmail.code' | translate }}</label>
+        <input
+          id="verification-code"
+          class="code-input"
+          type="text"
+          inputmode="numeric"
+          maxlength="6"
+          formControlName="code"
+          placeholder="000000"
+          autocomplete="one-time-code"
+        >
+        @if (form.controls.code.touched && form.controls.code.invalid) {
+          <small>{{ 'auth.verifyEmail.codeInvalid' | translate }}</small>
+        }
+      </div>
+
+      <p class="mock-note">{{ 'auth.verifyEmail.mockNote' | translate }}</p>
+
+      @if (store.error()) {
+        <p class="feedback" role="alert">{{ store.error() }}</p>
+      }
+
+      <button class="primary-button" type="submit" [disabled]="store.loading()">
+        {{ store.loading() ? ('auth.verifyEmail.verifying' | translate) : ('auth.verifyEmail.action' | translate) }}
+      </button>
+    </form>
+
+    <a class="back-link" routerLink="/iam/sign-in">{{ 'auth.backToSignIn' | translate }}</a>
+  </section>
+</app-authentication-layout>

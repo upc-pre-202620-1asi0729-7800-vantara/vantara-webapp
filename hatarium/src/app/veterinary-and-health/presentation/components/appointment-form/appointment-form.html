@@ -1,0 +1,94 @@
+<div class="form-page-container">
+  <a routerLink="/veterinary/appointments" class="back-link">{{ 'FORM.BACK' | translate }}</a>
+
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">{{ 'FORM.TITLE' | translate }}</h1>
+      <p class="page-subtitle">{{ 'FORM.SUBTITLE' | translate }}</p>
+    </div>
+  </div>
+
+  <div class="two-col-layout">
+    <div class="main-form-col">
+      <div class="card-box">
+        <h3 class="box-title"><mat-icon class="accent-icon">event_available</mat-icon> {{ 'FORM.SCHEDULING_DETAILS' | translate }}</h3>
+
+        <div class="form-group">
+          <label>{{ 'FORM.SELECT_ANIMAL' | translate }}</label>
+          <select [(ngModel)]="selectedAnimalId" [disabled]="saving() || !!pendingAppointmentId()" class="form-input">
+            @for (animal of availableAnimals(); track animal.id) {
+              <option [value]="animal.id">
+                #{{ animal.earTag }} · {{ animal.name }} ({{ animal.breed }} - {{ animal.lotName }})
+              </option>
+            }
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>{{ 'FORM.VISIT_TYPE' | translate }}</label>
+            <select [(ngModel)]="visitType" [disabled]="saving() || !!pendingAppointmentId()" class="form-input">
+              <option value="Control sanitario">{{ 'FORM.VISIT_CONTROL' | translate }}</option>
+              <option value="Revisión rutinaria">{{ 'FORM.VISIT_ROUTINE' | translate }}</option>
+              <option value="Vacunación preventiva">{{ 'FORM.VISIT_VACCINE' | translate }}</option>
+              <option value="Atención de emergencia">{{ 'FORM.VISIT_EMERGENCY' | translate }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>{{ 'FORM.VETERINARIAN' | translate }}</label>
+            <select [(ngModel)]="veterinarianId" [disabled]="saving() || !!pendingAppointmentId()" class="form-input">
+              <option value="usr-003">Dr. Rodríguez (CMPV 12345)</option>
+              <option value="usr-004">Dra. García (CMPV 56789)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'FORM.REASON' | translate }}</label>
+          <input type="text" [(ngModel)]="reason" [disabled]="saving() || !!pendingAppointmentId()" [placeholder]="'FORM.REASON_PLACEHOLDER' | translate" class="form-input" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>{{ 'FORM.SCHEDULED_DATE' | translate }}</label>
+            <input type="date" [(ngModel)]="scheduledDate" [disabled]="saving() || !!pendingAppointmentId()" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label>{{ 'FORM.SCHEDULED_TIME' | translate }}</label>
+            <input type="time" [(ngModel)]="scheduledTime" [disabled]="saving() || !!pendingAppointmentId()" class="form-input" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'FORM.NOTES' | translate }}</label>
+          <textarea rows="3" [(ngModel)]="notes" [disabled]="saving() || !!pendingAppointmentId()" [placeholder]="'FORM.NOTES_PLACEHOLDER' | translate" class="form-input"></textarea>
+        </div>
+
+        <div class="form-actions">
+          @if (saveError(); as errorKey) { <p role="alert">{{ errorKey | translate }}</p> }
+          <button mat-stroked-button routerLink="/veterinary/appointments">{{ 'COMMON.CANCEL' | translate }}</button>
+          <button mat-flat-button class="btn-primary-solid" [disabled]="saving()" (click)="saveAppointment()">{{ (pendingAppointmentId() ? 'animalAppointments.retry' : 'FORM.SCHEDULE_AND_NOTIFY') | translate }}</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-col">
+      <div class="card-box info-highlight-box">
+        <mat-icon class="accent-icon">check_circle</mat-icon>
+        <div>
+          <strong>{{ 'FORM.VISIT_INFO' | translate }}</strong>
+          <p>{{ 'FORM.VISIT_INFO_TEXT' | translate }}</p>
+        </div>
+      </div>
+
+      <div class="card-box">
+        <h4 class="box-title-sm"><mat-icon class="accent-icon">assignment_ind</mat-icon> {{ 'FORM.RESPONSIBLE' | translate }}</h4>
+        <ul class="info-list-sm">
+          <li><span>{{ 'FORM.REQUESTED_BY' | translate }}</span> <strong>Veterinario (Dr. Rodríguez)</strong></li>
+          <li><span>{{ 'FORM.RANCHER_TO_NOTIFY' | translate }}</span> <strong>Carlos Mendoza</strong></li>
+          <li><span>{{ 'FORM.SUGGESTED_LOT' | translate }}</span> <strong>Lote A / Pastoreo</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

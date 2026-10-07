@@ -1,0 +1,52 @@
+<div class="card">
+
+  <div class="card-header">
+
+    <div>
+      <h3>{{ 'profile.preferences' | translate }}</h3>
+      <p>{{ 'profile.preferencesSubtitle' | translate }}</p>
+    </div>
+
+  </div>
+
+
+  <div class="form-group">
+
+    <label>{{ 'profile.theme' | translate }}</label>
+
+    <select [(ngModel)]="theme">
+      <option value="light">{{ 'profile.themeLight' | translate }}</option>
+      <option value="dark">{{ 'profile.themeDark' | translate }}</option>
+    </select>
+
+  </div>
+
+
+  <div class="preferences-info">
+
+    <div class="info-item">
+      <span class="icon">◐</span>
+
+      <div>
+        <strong>{{ 'profile.currentTheme' | translate }}</strong>
+        <p>{{ (theme === 'light' ? 'profile.themeLight' : 'profile.themeDark') | translate }}</p>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="actions">
+
+    <button
+      class="primary-button"
+      [disabled]="service.store.saving"
+      (click)="apply()">
+
+      {{ 'profile.applyPreferences' | translate }}
+
+    </button>
+
+  </div>
+
+</div>

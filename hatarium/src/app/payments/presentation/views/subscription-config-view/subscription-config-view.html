@@ -1,0 +1,152 @@
+<div class="payments-dashboard">
+  <!-- 1. Encabezado de Sección -->
+  <header class="dashboard-header">
+    <div class="header-titles">
+      <h1>Suscripción y Facturación</h1>
+      <p>Administra tu plan activo de Hatarium, métodos de pago y el historial completo de comprobantes.</p>
+    </div>
+  </header>
+
+  <!-- 2. Tarjeta Destacada del Plan Activo -->
+  <section class="plan-banner">
+    <div class="plan-banner-content">
+      <div class="plan-top-row">
+        <span class="plan-status-pill">● PLAN ACTIVO</span>
+        <span class="plan-cycle-tag">Ciclo de facturación mensual</span>
+      </div>
+
+      <div class="plan-main-row">
+        <div class="plan-details">
+          <h2>Plan {{ store.currentPlanName() || 'Profesional Ganadero' }}</h2>
+          <p class="plan-meta">
+            @if (store.currentPlanSince()) {
+              <span>Activo desde el {{ store.currentPlanSince() }}</span>
+            } @else {
+              <span>Renovación automática cada mes</span>
+            }
+            · Cobertura total de hatos y telemetría
+          </p>
+        </div>
+
+        <div class="plan-pricing">
+          <div class="price-val">
+            <span class="currency">S/</span>
+            <span class="amount">{{ store.currentPlanAmount() || '49.90' }}</span>
+          </div>
+          <span class="period">/ mes</span>
+        </div>
+      </div>
+
+      <div class="plan-actions">
+        <a mat-flat-button class="btn-change-plan" routerLink="/suscripcion">
+          <mat-icon>upgrade</mat-icon>
+          Cambiar o mejorar plan
+        </a>
+        <a mat-stroked-button class="btn-payment-method" routerLink="/config/payments/method">
+          <mat-icon>credit_card</mat-icon>
+          Método de pago
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Mini Indicadores de Cuenta -->
+  <section class="billing-kpis">
+    <div class="billing-kpi-card">
+      <div class="kpi-icon-wrap emerald">
+        <mat-icon>verified</mat-icon>
+      </div>
+      <div class="kpi-info">
+        <span class="kpi-title">Estado de cuenta</span>
+        <strong>Al día (Activo)</strong>
+      </div>
+    </div>
+
+    <div class="billing-kpi-card">
+      <div class="kpi-icon-wrap blue">
+        <mat-icon>receipt_long</mat-icon>
+      </div>
+      <div class="kpi-info">
+        <span class="kpi-title">Comprobantes</span>
+        <strong>{{ store.payments().length }} registrados</strong>
+      </div>
+    </div>
+
+    <div class="billing-kpi-card">
+      <div class="kpi-icon-wrap purple">
+        <mat-icon>event_repeat</mat-icon>
+      </div>
+      <div class="kpi-info">
+        <span class="kpi-title">Próxima renovación</span>
+        <strong>05 Nov 2026</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Historial de Pagos con Diseño Mejorado -->
+  <section class="history-section">
+    <mat-card class="history-card">
+      <mat-card-content>
+        <div class="history-header">
+          <div class="history-header-left">
+            <div class="history-icon-box">
+              <mat-icon>receipt_long</mat-icon>
+            </div>
+            <div>
+              <h2>Historial de Transacciones</h2>
+              <p>Registro cronológico de pagos de suscripción y servicios veterinarios.</p>
+            </div>
+          </div>
+          <span class="records-badge">{{ store.payments().length }} pagos</span>
+        </div>
+
+        <div class="transactions-list">
+          @for (payment of store.payments(); track payment.id) {
+            <div class="transaction-item">
+              <div class="transaction-left">
+                <div class="trans-icon" [ngClass]="getStatusClass(payment.status)">
+                  <mat-icon>check_circle</mat-icon>
+                </div>
+                <div class="trans-desc">
+                  <div class="trans-concept-row">
+                    <strong>{{ payment.concept || 'Suscripción mensual Hatarium' }}</strong>
+                    <span class="trans-id">ID: #{{ payment.id }}</span>
+                  </div>
+                  <div class="trans-meta">
+                    <span class="trans-date">
+                      <mat-icon>calendar_today</mat-icon>
+                      {{ payment.createdAt }}
+                    </span>
+                    <span class="dot-separator">•</span>
+                    <span class="trans-gateway">Tarjeta de crédito / débito</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="transaction-right">
+                <div class="trans-amount-box">
+                  <span class="amount-val">{{ payment.formattedAmount() }}</span>
+                </div>
+                <div class="trans-status-badge">
+                  <span class="status-pill" [ngClass]="getStatusClass(payment.status)">
+                    {{ getStatusLabel(payment.status) }}
+                  </span>
+                </div>
+                <a mat-icon-button class="btn-receipt" title="Descargar comprobante" [routerLink]="['/config/payments/history']">
+                  <mat-icon>arrow_forward_ios</mat-icon>
+                </a>
+              </div>
+            </div>
+          } @empty {
+            <div class="empty-state">
+              <mat-icon>receipt</mat-icon>
+              <h3>No hay pagos registrados aún</h3>
+              <p>Cuando realices un pago o renueves tu plan, aparecerá listado aquí.</p>
+              <a mat-flat-button color="primary" routerLink="/suscripcion">Ver planes disponibles</a>
+            </div>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </section>
+</div>

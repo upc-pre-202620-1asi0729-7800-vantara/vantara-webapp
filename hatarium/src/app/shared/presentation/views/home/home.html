@@ -1,0 +1,336 @@
+<div class="home-container">
+  <!-- 1. Saludo y Encabezado con i18n -->
+  <header class="hero-header">
+    <div class="hero-text">
+      <h1>{{ greetingKey() | translate: { name: userName() || 'Juan Quispe' } }} 👋</h1>
+      <p>{{ 'home.subtitle' | translate }}</p>
+    </div>
+  </header>
+
+  <!-- 2. Banner de Alerta / Acción Prioritaria -->
+  <section class="banner-alert">
+    <div class="banner-icon-wrapper">
+      <mat-icon class="banner-icon">vaccines</mat-icon>
+    </div>
+    <div class="banner-content">
+      <div class="banner-header-row">
+        <strong class="banner-title">{{ 'home.banner.title' | translate }}</strong>
+        <span class="banner-deadline-pill">{{ 'home.banner.deadline' | translate }}</span>
+      </div>
+      <p class="banner-desc">{{ 'home.banner.desc' | translate }}</p>
+    </div>
+    <div class="banner-actions">
+      <a mat-button class="btn-lot" routerLink="/livestock/animals">{{ 'home.banner.viewLot' | translate }}</a>
+      <a mat-flat-button class="btn-protocol" routerLink="/veterinary/appointments">{{ 'home.banner.startProtocol' | translate }}</a>
+    </div>
+  </section>
+
+  <!-- 3. Tarjetas KPI Métricas Clave -->
+  <section class="kpi-grid">
+    <!-- Total Ganado -->
+    <mat-card class="kpi-card">
+      <mat-card-content>
+        <div class="kpi-header">
+          <span class="kpi-label">{{ 'home.kpi.totalLivestock' | translate }}</span>
+          <div class="kpi-icon-box green">
+            <mat-icon>pets</mat-icon>
+          </div>
+        </div>
+        <div class="kpi-value">{{ counts().animals || 84 }}</div>
+        <div class="kpi-subtext">{{ 'home.kpi.activeAnimals' | translate }}</div>
+        <div class="kpi-footer-badge green-badge">
+          <mat-icon>trending_up</mat-icon>
+          <span>{{ 'home.kpi.growth' | translate }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Lotes -->
+    <mat-card class="kpi-card">
+      <mat-card-content>
+        <div class="kpi-header">
+          <span class="kpi-label">{{ 'home.kpi.lots' | translate }}</span>
+          <div class="kpi-icon-box green">
+            <mat-icon>warehouse</mat-icon>
+          </div>
+        </div>
+        <div class="kpi-value">{{ counts().lots || 3 }}</div>
+        <div class="kpi-subtext">{{ 'home.kpi.activeLots' | translate }}</div>
+        <div class="kpi-footer-note">{{ 'home.kpi.totalAnimalsNote' | translate: { count: counts().animals || 84 } }}</div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Citas Hoy -->
+    <mat-card class="kpi-card">
+      <mat-card-content>
+        <div class="kpi-header">
+          <span class="kpi-label">{{ 'home.kpi.appointments' | translate }}</span>
+          <div class="kpi-icon-box green">
+            <mat-icon>calendar_today</mat-icon>
+          </div>
+        </div>
+        <div class="kpi-value">{{ counts().appointments || 2 }}</div>
+        <div class="kpi-subtext">{{ 'home.kpi.scheduledAppointments' | translate }}</div>
+        <div class="kpi-footer-note">{{ 'home.kpi.nextPrefix' | translate }} {{ nextAppointmentText() }}</div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Alertas -->
+    <mat-card class="kpi-card kpi-alert">
+      <mat-card-content>
+        <div class="kpi-header">
+          <span class="kpi-label">{{ 'home.kpi.alerts' | translate }}</span>
+          <div class="kpi-icon-box red">
+            <mat-icon>notifications</mat-icon>
+          </div>
+        </div>
+        <div class="kpi-value alert-text">{{ counts().alerts || 1 }}</div>
+        <div class="kpi-subtext alert-subtext">{{ 'home.kpi.requiresAttention' | translate }}</div>
+        <div class="kpi-footer-note">{{ 'home.kpi.generalHealth' | translate }}</div>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <!-- 4. Sección Intermedia: Resumen de Lotes (Sin gráfica sanitaria) -->
+  <section class="middle-section">
+    <mat-card class="lots-card">
+      <mat-card-content>
+        <div class="section-card-header">
+          <h2>{{ 'home.lotsSummary.title' | translate }}</h2>
+          <span class="section-counter-badge">{{ 'home.lotsSummary.activeBadge' | translate: { count: lotsList().length || 3 } }}</span>
+        </div>
+
+        <div class="lots-list">
+          @for (lot of lotsList(); track lot.id) {
+            <div class="lot-row">
+              <div class="lot-info">
+                <strong>{{ lot.name }} · {{ lot.purpose }}</strong>
+                <span>{{ 'home.lotsSummary.animalsCount' | translate: { count: lot.animalCount } }}</span>
+              </div>
+              <div class="lot-badge-container">
+                <span class="status-pill" [ngClass]="'status-' + lot.badgeType">
+                  {{ lot.badgeKey | translate }}
+                </span>
+              </div>
+            </div>
+          } @empty {
+            <div class="lot-row">
+              <div class="lot-info">
+                <strong>Lote A · Ordeño Mecánico</strong>
+                <span>44 animales</span>
+              </div>
+              <span class="status-pill status-optimal">{{ 'home.lotsSummary.statusOptimal' | translate }}</span>
+            </div>
+            <div class="lot-row">
+              <div class="lot-info">
+                <strong>Lote B · Engorde</strong>
+                <span>22 animales</span>
+              </div>
+              <span class="status-pill status-warning">{{ 'home.lotsSummary.statusWarning' | translate }}</span>
+            </div>
+            <div class="lot-row">
+              <div class="lot-info">
+                <strong>Lote C · Maternidad</strong>
+                <span>18 animales</span>
+              </div>
+              <span class="status-pill status-stable">{{ 'home.lotsSummary.statusStable' | translate }}</span>
+            </div>
+          }
+        </div>
+
+        <div class="card-footer-action">
+          <a routerLink="/livestock/animals" class="action-link">
+            {{ 'home.lotsSummary.viewAll' | translate }}
+            <mat-icon>arrow_forward</mat-icon>
+          </a>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <!-- 5. Sección Inferior: 3 Columnas (Actividad, Ficha Animal RFID, Producción) -->
+  <section class="bottom-grid">
+    <!-- Columna 1: Actividad reciente -->
+    <mat-card class="bottom-card">
+      <mat-card-content>
+        <div class="section-card-header">
+          <h2>{{ 'home.activity.title' | translate }}</h2>
+          <mat-icon class="header-icon">history</mat-icon>
+        </div>
+
+        <div class="activity-timeline">
+          @for (item of activity(); track item.id) {
+            <div class="activity-entry">
+              <div class="activity-avatar" [ngClass]="item.icon">
+                <mat-icon>{{ item.icon }}</mat-icon>
+              </div>
+              <div class="activity-text">
+                <strong class="activity-title">{{ item.title }}</strong>
+                <span class="activity-meta">{{ item.category }} · {{ item.timeAgo }}</span>
+              </div>
+            </div>
+          } @empty {
+            <div class="activity-entry">
+              <div class="activity-avatar pets">
+                <mat-icon>add</mat-icon>
+              </div>
+              <div class="activity-text">
+                <strong class="activity-title">Animal #047 registrado</strong>
+                <span class="activity-meta">Lote A · Hace 2h</span>
+              </div>
+            </div>
+            <div class="activity-entry">
+              <div class="activity-avatar grass">
+                <mat-icon>star_border</mat-icon>
+              </div>
+              <div class="activity-text">
+                <strong class="activity-title">Plan alimentario actualizado</strong>
+                <span class="activity-meta">Lote C · Ayer</span>
+              </div>
+            </div>
+            <div class="activity-entry">
+              <div class="activity-avatar medical_services">
+                <mat-icon>medical_services</mat-icon>
+              </div>
+              <div class="activity-text">
+                <strong class="activity-title">Visita veterinaria completada</strong>
+                <span class="activity-meta">Dr. Rodríguez · Ayer</span>
+              </div>
+            </div>
+            <div class="activity-entry">
+              <div class="activity-avatar vaccines">
+                <mat-icon>healing</mat-icon>
+              </div>
+              <div class="activity-text">
+                <strong class="activity-title">Tratamiento registrado</strong>
+                <span class="activity-meta">Animal #032 · Hace 1d</span>
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="card-footer-action">
+          <a routerLink="/notifications" class="action-link">
+            {{ 'home.activity.viewAll' | translate }}
+            <mat-icon>arrow_forward</mat-icon>
+          </a>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Columna 2: Información del ganado / Ficha RFID -->
+    <mat-card class="bottom-card">
+      <mat-card-content>
+        <div class="section-card-header">
+          <h2>{{ 'home.telemetry.title' | translate }}</h2>
+          <span class="telemetry-badge">{{ 'home.telemetry.badge' | translate }}</span>
+        </div>
+
+        <div class="featured-animal-box">
+          <div class="animal-headline">
+            <div class="animal-avatar-box">
+              <mat-icon>cruelty_free</mat-icon>
+            </div>
+            <div class="animal-headline-text">
+              <strong>#{{ featuredAnimal()?.earTag || '047' }} · {{ featuredAnimal()?.name || 'Mariposa' }}</strong>
+              <small>{{ featuredAnimal()?.lotName || 'Lote A' }} · {{ featuredAnimal()?.breed || 'Holstein mestiza' }}</small>
+            </div>
+          </div>
+
+          <div class="animal-telemetry-grid">
+            <div class="telemetry-cell">
+              <div class="cell-label">
+                <mat-icon>favorite_border</mat-icon>
+                <span>{{ 'home.telemetry.health' | translate }}</span>
+              </div>
+              <div class="cell-val">{{ featuredAnimal()?.healthRate || 96 }}%</div>
+            </div>
+
+            <div class="telemetry-cell">
+              <div class="cell-label">
+                <mat-icon>place</mat-icon>
+                <span>{{ 'home.telemetry.location' | translate }}</span>
+              </div>
+              <div class="cell-val">{{ featuredAnimal()?.location || 'Establo 04' }}</div>
+            </div>
+
+            <div class="telemetry-cell">
+              <div class="cell-label">
+                <mat-icon>vaccines</mat-icon>
+                <span>{{ 'home.telemetry.vaccination' | translate }}</span>
+              </div>
+              <div class="cell-val">{{ featuredAnimal()?.vaccineDoses || '3/4 dosis' }}</div>
+            </div>
+
+            <div class="telemetry-cell">
+              <div class="cell-label">
+                <mat-icon>trending_up</mat-icon>
+                <span>{{ 'home.telemetry.production' | translate }}</span>
+              </div>
+              <div class="cell-val highlight-val">{{ featuredAnimal()?.productionDelta || '+12.4%' }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer-action">
+          <a [routerLink]="['/livestock/animals', featuredAnimal()?.id || 'anm-047']" class="action-link">
+            {{ 'home.telemetry.viewProfile' | translate }}
+            <mat-icon>arrow_forward</mat-icon>
+          </a>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Columna 3: Resumen de producción -->
+    <mat-card class="bottom-card">
+      <mat-card-content>
+        <div class="section-card-header">
+          <h2>{{ 'home.production.title' | translate }}</h2>
+          <mat-icon class="header-icon">trending_up</mat-icon>
+        </div>
+
+        <div class="production-summary-box">
+          <div class="production-main-rate">28.4 L / animal / día</div>
+          <div class="production-sub-row">
+            <span class="production-label">{{ 'home.production.avgLabel' | translate }}</span>
+            <span class="production-trend-pill">{{ 'home.production.growthBadge' | translate }}</span>
+          </div>
+
+          <!-- Gráfico Sparkline SVG -->
+          <div class="production-chart-container">
+            <svg viewBox="0 0 300 80" class="sparkline-svg" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="chartGradientShared" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#19683d" stop-opacity="0.35" />
+                  <stop offset="100%" stop-color="#19683d" stop-opacity="0.0" />
+                </linearGradient>
+              </defs>
+              <!-- Área sombreada con degradado -->
+              <path
+                d="M 0,65 Q 40,68 80,60 T 160,55 T 230,40 T 300,20 L 300,80 L 0,80 Z"
+                fill="url(#chartGradientShared)"
+              />
+              <!-- Línea de curva -->
+              <path
+                d="M 0,65 Q 40,68 80,60 T 160,55 T 230,40 T 300,20"
+                fill="none"
+                stroke="#19683d"
+                stroke-width="3"
+                stroke-linecap="round"
+              />
+              <!-- Punto final -->
+              <circle cx="300" cy="20" r="4.5" fill="#19683d" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="card-footer-action">
+          <a routerLink="/livestock/feeding" class="action-link">
+            {{ 'home.production.viewReports' | translate }}
+            <mat-icon>arrow_forward</mat-icon>
+          </a>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </section>
+</div>

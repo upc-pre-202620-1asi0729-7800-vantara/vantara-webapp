@@ -1,0 +1,1175 @@
+﻿<div class="feeding-add">
+
+
+  <!-- HEADER -->
+  <div class="page-header">
+
+    <div class="header-left">
+
+      <button
+        class="back-button"
+        type="button"
+        (click)="goBack()">
+        ← {{ 'feeding.backToFeeding' | translate }}
+      </button>
+
+      <h1>{{ 'feedingPlanAdd.title' | translate }}</h1>
+
+      <p>
+        {{ 'feedingPlanAdd.subtitle' | translate }}
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- PROGRESS -->
+  <div class="step-progress">
+
+    <div
+      class="step"
+      [class.active]="currentStep === 1">
+
+      <span [class.completed]="currentStep > 1">1</span>
+
+      <div>
+        <strong>{{ 'feedingPlanAdd.generalInfo' | translate }}</strong>
+        <small>{{ 'feedingPlanAdd.planData' | translate }}</small>
+      </div>
+
+    </div>
+
+    <div
+      class="progress-line"
+      [class.completed]="currentStep >= 2">
+    </div>
+
+    <div
+      class="step"
+      [class.active]="currentStep === 2">
+
+      <span [class.completed]="currentStep > 2">2</span>
+
+      <div>
+        <strong>{{ 'feedingPlanAdd.ration' | translate }}</strong>
+        <small>{{ 'feedingPlanAdd.ingredients' | translate }}</small>
+      </div>
+
+    </div>
+
+    <div
+      class="progress-line"
+      [class.completed]="currentStep >= 3">
+    </div>
+
+    <div
+      class="step"
+      [class.active]="currentStep === 3">
+
+      <span [class.completed]="currentStep > 3">3</span>
+
+      <div>
+        <strong>{{ 'feedingPlanAdd.schedule' | translate }}</strong>
+        <small>{{ 'feedingPlanAdd.schedules' | translate }}</small>
+      </div>
+
+    </div>
+
+    <div
+      class="progress-line"
+      [class.completed]="currentStep >= 4">
+    </div>
+
+    <div
+      class="step"
+      [class.active]="currentStep === 4">
+
+      <span>4</span>
+
+      <div>
+        <strong>{{ 'feedingPlanAdd.review' | translate }}</strong>
+        <small>{{ 'feedingPlanAdd.confirm' | translate }}</small>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="feeding-content">
+
+    <div class="feeding-form">
+
+      @if (currentStep === 1) {
+
+        <section class="form-card">
+
+          <div class="section-header">
+
+            <div class="section-icon">
+              <mat-icon>description</mat-icon>
+            </div>
+
+            <div>
+              <h2>{{ 'feedingPlanAdd.generalInfo' | translate }}</h2>
+              <p>{{ 'feedingPlanAdd.generalInfoSubtitle' | translate }}</p>
+            </div>
+
+          </div>
+
+
+          <div class="form-grid">
+
+            <!-- Nombre -->
+            <div class="form-field full-width">
+
+              <label for="planName">
+                {{ 'feedingPlanAdd.planName' | translate }}
+              </label>
+
+              <input
+                id="planName"
+                type="text"
+                [(ngModel)]="planName"
+                placeholder="{{ 'feedingPlanAdd.planNameExample' | translate }}">
+
+            </div>
+
+
+            <!-- Lote -->
+            <div class="form-field">
+
+              <label for="lot">
+                {{ 'feeding.lot' | translate }}
+              </label>
+
+              <select
+                id="lot"
+                [(ngModel)]="selectedLotId"
+                (ngModelChange)="onLotChange()">
+
+                <option value="">
+                  {{ 'feedingPlanAdd.selectLot' | translate }}
+                </option>
+
+                @for (lot of lots(); track lot.id) {
+
+                  <option [value]="lot.id">
+                    {{ lot.name }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <!-- Animal -->
+            <div class="form-field">
+
+              <label for="animal">
+                {{ 'feedingPlanAdd.animal' | translate }}
+              </label>
+
+              <select
+                id="animal"
+                [(ngModel)]="selectedAnimalId"
+                [disabled]="!selectedLotId">
+
+                <option [ngValue]="null">
+                  {{ 'feeding.allLotAnimals' | translate }}
+                </option>
+
+                @for (animal of filteredAnimals; track animal.id) {
+
+                  <option [ngValue]="animal.id">
+                    {{ animal.earTag }}
+                  </option>
+
+                }
+
+              </select>
+
+            </div>
+
+
+            <!-- Fecha inicio -->
+            <div class="form-field">
+
+              <label for="startsOn">
+                {{ 'feeding.start' | translate }}
+              </label>
+
+              <input
+                id="startsOn"
+                type="date"
+                [(ngModel)]="startsOn">
+
+            </div>
+
+
+            <!-- Fecha finalización -->
+            <div class="form-field">
+
+              <label for="endsOn">
+                {{ 'feeding.end' | translate }}
+              </label>
+
+              <input
+                id="endsOn"
+                type="date"
+                [(ngModel)]="endsOn">
+
+            </div>
+
+
+            <!-- Objetivo -->
+            <div class="form-field">
+
+              <label for="objective">
+                {{ 'feeding.objective' | translate }}
+              </label>
+
+              <input
+                id="objective"
+                type="text"
+                [(ngModel)]="objective"
+                placeholder="{{ 'feedingPlanAdd.objectiveExample' | translate }}">
+
+            </div>
+
+
+            <!-- Peso actual -->
+            <div class="form-field">
+
+              <label for="currentWeight">
+                {{ 'feedingPlanAdd.currentAverageWeightLabel' | translate }}
+              </label>
+
+              <input
+                id="currentWeight"
+                type="number"
+                min="0"
+                [(ngModel)]="currentAverageWeight"
+                placeholder="{{ 'feedingPlanAdd.weightExample' | translate }}">
+
+            </div>
+
+
+            <!-- Peso objetivo -->
+            <div class="form-field">
+
+              <label for="targetWeight">
+                {{ 'feedingPlanAdd.targetWeightLabel' | translate }}
+              </label>
+
+              <input
+                id="targetWeight"
+                type="number"
+                min="0"
+                [(ngModel)]="targetWeight"
+                placeholder="{{ 'feedingPlanAdd.weightExample2' | translate }}">
+
+            </div>
+
+
+            <!-- Instrucciones -->
+            <div class="form-field full-width">
+
+              <label for="instructions">
+                {{ 'feeding.instructions' | translate }}
+              </label>
+
+              <textarea
+                id="instructions"
+                rows="4"
+                [(ngModel)]="instructions"
+                placeholder="{{ 'feedingPlanAdd.instructionsPlaceholder' | translate }}">
+          </textarea>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-actions">
+
+            <button
+              class="secondary-button"
+              type="button"
+              (click)="goBack()">
+              {{ 'payments.cancel' | translate }}
+            </button>
+
+            <button
+              class="primary-button"
+              type="button"
+              (click)="nextStep()">
+              {{ 'feedingPlanAdd.continue' | translate }}
+              <span>→</span>
+            </button>
+
+          </div>
+
+        </section>
+
+      }
+
+
+      <!-- STEP 2 -->
+      @if (currentStep === 2) {
+
+        <section class="form-card">
+
+          <div class="section-header">
+
+            <div class="section-icon">
+              <mat-icon>restaurant</mat-icon>
+            </div>
+
+            <div>
+              <h2>{{ 'feeding.rationAndIngredients' | translate }}</h2>
+
+              <p>
+                {{ 'feedingPlanAdd.rationSubtitle' | translate }}
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="ingredients-header">
+
+            <div>
+              <strong>{{ 'feedingPlanAdd.rationIngredients' | translate }}</strong>
+              <span>
+            {{ 'feedingPlanAdd.rationIngredientsHint' | translate }}
+          </span>
+            </div>
+
+            <button
+              type="button"
+              class="add-ingredient-button"
+              (click)="addIngredient()">
+
+              <mat-icon>add</mat-icon>
+              {{ 'feedingPlanAdd.addIngredient' | translate }}
+
+            </button>
+
+          </div>
+
+
+          <div class="ingredients-list">
+
+            @for (ingredient of ingredients; track $index) {
+
+              <div class="ingredient-row">
+
+                <div class="ingredient-number">
+                  {{ $index + 1 }}
+                </div>
+
+
+                <div class="form-field ingredient-name">
+
+                  <label>
+                    {{ 'feedingPlanAdd.ingredient' | translate }}
+                  </label>
+
+                  <input
+                    type="text"
+                    [(ngModel)]="ingredient.feedName"
+                    placeholder="{{ 'feedingPlanAdd.ingredientExample' | translate }}">
+
+                </div>
+
+
+                <div class="form-field ingredient-quantity">
+
+                  <label>
+                    {{ 'feeding.dailyQuantity' | translate }}
+                  </label>
+
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.1"
+                    [(ngModel)]="ingredient.dailyQuantity"
+                    placeholder="{{ 'feedingPlanAdd.quantityExample' | translate }}">
+
+                </div>
+
+
+                <div class="form-field ingredient-unit">
+
+                  <label>
+                    {{ 'feedingPlanAdd.unit' | translate }}
+                  </label>
+
+                  <select [(ngModel)]="ingredient.unit">
+
+                    <option value="kg">kg</option>
+                    <option value="g">g</option>
+                    <option value="L">L</option>
+
+                  </select>
+
+                </div>
+
+
+                <button
+                  type="button"
+                  class="remove-ingredient-button"
+                  [disabled]="ingredients.length === 1"
+                  (click)="removeIngredient($index)"
+                  title="{{ 'feedingPlanAdd.removeIngredient' | translate }}">
+
+                  <mat-icon>delete_outline</mat-icon>
+
+                </button>
+
+              </div>
+
+            }
+
+          </div>
+
+
+          <div class="ration-summary">
+
+            <div class="summary-icon">
+              <mat-icon>scale</mat-icon>
+            </div>
+
+            <div class="summary-content">
+
+          <span>
+            {{ 'feedingPlanAdd.totalDailyRation' | translate }}
+          </span>
+
+              <strong>
+                {{ totalDailyQuantity | number:'1.0-2' }} kg
+              </strong>
+
+            </div>
+
+            <span class="summary-description">
+          {{ 'feedingPlanAdd.registeredQuantities' | translate }}
+        </span>
+
+          </div>
+
+
+          <div class="form-actions">
+
+            <button
+              class="secondary-button"
+              type="button"
+              (click)="previousStep()">
+              ← {{ 'feedingPlanAdd.back' | translate }}
+            </button>
+
+            <button
+              class="primary-button"
+              type="button"
+              (click)="nextStep()">
+              {{ 'feedingPlanAdd.continue' | translate }}
+              <span>→</span>
+            </button>
+
+          </div>
+
+        </section>
+
+      }
+
+
+      <!-- STEP 3 -->
+      @if (currentStep === 3) {
+
+        <section class="form-card">
+
+          <div class="section-header">
+
+            <div class="section-icon">
+              <mat-icon>schedule</mat-icon>
+            </div>
+
+            <div>
+              <h2>{{ 'feeding.scheduleTitle' | translate }}</h2>
+              <p>
+                {{ 'feedingPlanAdd.scheduleSubtitle' | translate }}
+              </p>
+            </div>
+
+          </div>
+
+
+          <!-- FRECUENCIA -->
+          <div class="form-grid">
+
+            <div class="form-field full-width">
+
+              <label for="frequency">
+                {{ 'feedingPlanAdd.feedingFrequency' | translate }}
+              </label>
+
+              <select
+                id="frequency"
+                [(ngModel)]="frequency">
+
+                <option value="1 vez al día">
+                  {{ 'feedingPlanAdd.oncePerDay' | translate }}
+                </option>
+
+                <option value="2 veces al día">
+                  {{ 'feedingPlanAdd.twicePerDay' | translate }}
+                </option>
+
+                <option value="3 veces al día">
+                  {{ 'feedingPlanAdd.thricePerDay' | translate }}
+                </option>
+
+                <option value="4 veces al día">
+                  {{ 'feedingPlanAdd.fourTimesPerDay' | translate }}
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <!-- DÍAS -->
+          <div class="schedule-section">
+
+            <div class="schedule-section-header">
+
+              <div>
+
+                <strong>
+                  {{ 'feedingPlanAdd.feedingDays' | translate }}
+                </strong>
+
+                <span>
+              {{ 'feedingPlanAdd.feedingDaysHint' | translate }}
+            </span>
+
+              </div>
+
+            </div>
+
+
+            <div class="days-selector">
+
+              @for (
+                day of [
+                  'Lunes',
+                  'Martes',
+                  'Miércoles',
+                  'Jueves',
+                  'Viernes',
+                  'Sábado',
+                  'Domingo'
+                ];
+                track day
+                ) {
+
+                <label class="day-option">
+
+                  <input
+                    type="checkbox"
+                    [checked]="daysOfWeek.includes(day)"
+                    (change)="toggleDay(day)">
+
+                  <span>
+                {{ 'feedingPlanAdd.days.' + day | translate }}
+              </span>
+
+                </label>
+
+              }
+
+            </div>
+
+          </div>
+
+
+          <!-- HORARIOS -->
+          <div class="schedule-section">
+
+            <div class="schedule-section-header">
+
+              <div>
+
+                <strong>
+                  {{ 'feedingPlanAdd.feedingTimes' | translate }}
+                </strong>
+
+                <span>
+              {{ 'feedingPlanAdd.feedingTimesHint' | translate }}
+            </span>
+
+              </div>
+
+
+              <button
+                type="button"
+                class="add-ingredient-button"
+                (click)="addSchedule()">
+
+                <mat-icon>add</mat-icon>
+                {{ 'feedingPlanAdd.addTime' | translate }}
+
+              </button>
+
+            </div>
+
+
+            <div class="schedule-list">
+
+              @for (schedule of schedules; track $index) {
+
+                <div class="schedule-row">
+
+                  <div class="schedule-number">
+                    {{ $index + 1 }}
+                  </div>
+
+
+                  <div class="form-field">
+
+                    <label>
+                      {{ 'feeding.time' | translate }}
+                    </label>
+
+                    <input
+                      type="time"
+                      [(ngModel)]="schedule.time">
+
+                  </div>
+
+
+                  <div class="form-field">
+
+                    <label>
+                      {{ 'feedingPlanAdd.quantityPerAnimal' | translate }}
+                    </label>
+
+                    <input
+                      type="number"
+                      min="0"
+                      step="0.1"
+                      [(ngModel)]="schedule.quantityPerAnimal"
+                      placeholder="{{ 'feedingPlanAdd.quantityExample' | translate }}">
+
+                  </div>
+
+
+                  <div class="schedule-unit">
+                    {{ 'feedingPlanAdd.kgPerAnimal' | translate }}
+                  </div>
+
+
+                  <button
+                    type="button"
+                    class="remove-ingredient-button"
+                    [disabled]="schedules.length === 1"
+                    (click)="removeSchedule($index)"
+                    title="{{ 'feedingPlanAdd.removeTime' | translate }}">
+
+                    <mat-icon>delete_outline</mat-icon>
+
+                  </button>
+
+                </div>
+
+              }
+
+            </div>
+
+
+            <!-- RESUMEN DE RACIÓN -->
+            <div class="schedule-summary">
+
+              <div>
+
+            <span>
+              {{ 'feedingPlanAdd.establishedDailyRation' | translate }}
+            </span>
+
+                <strong>
+                  {{ totalDailyQuantity | number:'1.0-2' }} kg
+                </strong>
+
+              </div>
+
+
+              <div>
+
+            <span>
+              {{ 'feedingPlanAdd.scheduled' | translate }}
+            </span>
+
+                <strong>
+                  {{ totalScheduledQuantity | number:'1.0-2' }} kg
+                </strong>
+
+              </div>
+
+
+              <div
+                class="schedule-status"
+                [class.invalid]="totalScheduledQuantity > totalDailyQuantity">
+
+                <mat-icon>
+                  {{
+                    totalScheduledQuantity > totalDailyQuantity
+                      ? 'error_outline'
+                      : 'check_circle'
+                  }}
+                </mat-icon>
+
+                <span>
+              {{
+                    totalScheduledQuantity > totalDailyQuantity
+                      ? ('feedingPlanAdd.exceedsRation' | translate)
+                      : ('feedingPlanAdd.withinLimit' | translate)
+                  }}
+            </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- ACTIONS -->
+          <div class="form-actions">
+
+            <button
+              class="secondary-button"
+              type="button"
+              (click)="previousStep()">
+              ← {{ 'feedingPlanAdd.back' | translate }}
+            </button>
+
+            <button
+              class="primary-button"
+              type="button"
+              (click)="nextStep()">
+              {{ 'feedingPlanAdd.continue' | translate }}
+              <span>→</span>
+            </button>
+
+          </div>
+
+        </section>
+
+      }
+
+
+      <!-- STEP 4 -->
+      @if (currentStep === 4) {
+
+        <section class="form-card">
+
+          <div class="section-header">
+
+            <div class="section-icon">
+              <mat-icon>fact_check</mat-icon>
+            </div>
+
+            <div>
+              <h2>{{ 'feedingPlanAdd.planReview' | translate }}</h2>
+              <p>
+                {{ 'feedingPlanAdd.planReviewSubtitle' | translate }}
+              </p>
+            </div>
+
+          </div>
+
+
+          <!-- INFORMACIÓN GENERAL -->
+          <div class="review-section">
+
+            <div class="review-section-header">
+              <mat-icon>description</mat-icon>
+
+              <div>
+                <strong>{{ 'feedingPlanAdd.generalInfo' | translate }}</strong>
+                <span>{{ 'feedingPlanAdd.planData' | translate }}</span>
+              </div>
+            </div>
+
+
+            <div class="review-grid">
+
+              <div class="review-item">
+                <span>{{ 'feedingPlanAdd.planName' | translate }}</span>
+                <strong>{{ planName }}</strong>
+              </div>
+
+              <div class="review-item">
+                <span>{{ 'feeding.lot' | translate }}</span>
+                <strong>
+                  {{
+                    lots().find(lot => lot.id === selectedLotId)?.name
+                    || '—'
+                  }}
+                </strong>
+              </div>
+
+              <div class="review-item">
+                <span>Animal</span>
+                <strong>
+                  {{
+                    selectedAnimalId
+                      ? (animals().find(animal => animal.id === selectedAnimalId)?.earTag || '—')
+                      : ('feeding.allLotAnimals' | translate)
+                  }}
+                </strong>
+              </div>
+
+              <div class="review-item">
+                <span>{{ 'feedingPlanAdd.period' | translate }}</span>
+                <strong>
+                  {{ startsOn }} → {{ endsOn }}
+                </strong>
+              </div>
+
+              <div class="review-item">
+                <span>{{ 'feeding.objective' | translate }}</span>
+                <strong>{{ objective }}</strong>
+              </div>
+
+              <div class="review-item">
+                <span>{{ 'feedingPlanAdd.weight' | translate }}</span>
+                <strong>
+                  {{ currentAverageWeight }} kg → {{ targetWeight }} kg
+                </strong>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- RACIÓN -->
+          <div class="review-section">
+
+            <div class="review-section-header">
+
+              <mat-icon>restaurant</mat-icon>
+
+              <div>
+                <strong>{{ 'feeding.rationAndIngredients' | translate }}</strong>
+                <span>{{ 'feedingPlanAdd.planFeeds' | translate }}</span>
+              </div>
+
+            </div>
+
+
+            <div class="review-ingredients">
+
+              @for (ingredient of ingredients; track $index) {
+
+                <div class="review-ingredient">
+
+                  <div class="review-number">
+                    {{ $index + 1 }}
+                  </div>
+
+                  <div class="review-ingredient-name">
+                    <strong>{{ ingredient.feedName }}</strong>
+                    <span>{{ ingredient.unit }}</span>
+                  </div>
+
+                  <strong>
+                    {{ ingredient.dailyQuantity | number:'1.0-2' }}
+                    {{ ingredient.unit }}/{{ 'feedingPlanAdd.dayShort' | translate }}
+                  </strong>
+
+                </div>
+
+              }
+
+            </div>
+
+
+            <div class="review-total">
+
+        <span>
+          {{ 'feedingPlanAdd.totalDailyRation' | translate }}
+        </span>
+
+              <strong>
+                {{ totalDailyQuantity | number:'1.0-2' }} kg
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <!-- PROGRAMACIÓN -->
+          <div class="review-section">
+
+            <div class="review-section-header">
+
+              <mat-icon>schedule</mat-icon>
+
+              <div>
+                <strong>{{ 'feedingPlanAdd.schedule' | translate }}</strong>
+                <span>{{ 'feedingPlanAdd.scheduleAndTimes' | translate }}</span>
+              </div>
+
+            </div>
+
+
+            <div class="review-schedule-info">
+
+              <div class="review-item">
+                <span>{{ 'feeding.frequency' | translate }}</span>
+                <strong>{{ frequency }}</strong>
+              </div>
+
+              <div class="review-item">
+                <span>{{ 'feedingPlanAdd.days' | translate }}</span>
+                <strong>
+                  {{ daysOfWeek.join(', ') }}
+                </strong>
+              </div>
+
+            </div>
+
+
+            <div class="review-schedules">
+
+              @for (schedule of schedules; track $index) {
+
+                <div class="review-schedule">
+
+                  <mat-icon>schedule</mat-icon>
+
+                  <strong>
+                    {{ schedule.time }}
+                  </strong>
+
+                  <span>
+              {{ schedule.quantityPerAnimal | number:'1.0-2' }}
+                    {{ 'feedingPlanAdd.kgPerAnimal' | translate }}
+            </span>
+
+                </div>
+
+              }
+
+            </div>
+
+          </div>
+
+
+          <!-- INSTRUCCIONES -->
+          @if (instructions.trim()) {
+
+            <div class="review-section">
+
+              <div class="review-section-header">
+
+                <mat-icon>notes</mat-icon>
+
+                <div>
+                  <strong>{{ 'feeding.instructions' | translate }}</strong>
+                  <span>{{ 'feedingPlanAdd.additionalNotes' | translate }}</span>
+                </div>
+
+              </div>
+
+              <div class="review-instructions">
+                {{ instructions }}
+              </div>
+
+            </div>
+
+          }
+
+
+          <!-- ACTIONS -->
+          <div class="form-actions">
+
+            <button
+              class="secondary-button"
+              type="button"
+              (click)="previousStep()">
+              ← {{ 'feedingPlanAdd.back' | translate }}
+            </button>
+
+            <button
+              class="primary-button"
+              type="button"
+              (click)="createPlan()">
+              {{ 'feedingPlanAdd.createPlan' | translate }}
+              <span>✓</span>
+            </button>
+
+          </div>
+
+        </section>
+
+      }
+
+    </div>
+
+    <aside class="plan-summary">
+
+      <div class="summary-header">
+        <div class="summary-header-icon">
+          <mat-icon>assignment</mat-icon>
+        </div>
+
+        <div>
+          <h2>{{ 'feedingPlanAdd.planSummary' | translate }}</h2>
+          <span>{{ 'feedingPlanAdd.configuredInfo' | translate }}</span>
+        </div>
+      </div>
+
+      <div class="summary-divider"></div>
+
+      <div class="summary-group">
+
+        <span class="summary-label">{{ 'feedingPlanAdd.plan' | translate }}</span>
+
+        <strong>
+          {{ planName || ('feedingPlanAdd.notDefined' | translate) }}
+        </strong>
+
+      </div>
+
+      <div class="summary-group">
+
+        <span class="summary-label">{{ 'feeding.lot' | translate }}</span>
+
+        <strong>
+          {{
+            lots().find(lot => lot.id === selectedLotId)?.name
+            || ('feedingPlanAdd.notSelected' | translate)
+          }}
+        </strong>
+
+      </div>
+
+      <div class="summary-group">
+
+        <span class="summary-label">{{ 'feedingPlanAdd.animal' | translate }}</span>
+
+        <strong>
+          {{
+            selectedAnimalId
+              ? (animals().find(animal => animal.id === selectedAnimalId)?.earTag || '—')
+              : selectedLotId
+                ? ('feeding.allLotAnimals' | translate)
+                : 'Sin seleccionar'
+          }}
+        </strong>
+
+      </div>
+
+      <div class="summary-divider"></div>
+
+      <div class="summary-group">
+
+        <span class="summary-label">{{ 'feeding.objective' | translate }}</span>
+
+        <strong>
+          {{ objective || ('feedingPlanAdd.notDefined' | translate) }}
+        </strong>
+
+      </div>
+
+      <div class="summary-weight">
+
+        <div>
+          <span>{{ 'feeding.currentWeight' | translate }}</span>
+          <strong>
+            {{ currentAverageWeight ?? '—' }}
+            <small>kg</small>
+          </strong>
+        </div>
+
+        <div class="weight-arrow">
+          →
+        </div>
+
+        <div>
+          <span>{{ 'feeding.targetWeight' | translate }}</span>
+          <strong>
+            {{ targetWeight ?? '—' }}
+            <small>kg</small>
+          </strong>
+        </div>
+
+      </div>
+
+      <div class="summary-divider"></div>
+
+      <div class="summary-group">
+
+        <span class="summary-label">{{ 'feedingPlanAdd.dailyRation' | translate }}</span>
+
+        <strong class="summary-highlight">
+          {{ totalDailyQuantity | number:'1.0-2' }} kg
+        </strong>
+
+      </div>
+
+      <div class="summary-group">
+
+        <span class="summary-label">{{ 'feeding.frequency' | translate }}</span>
+
+        <strong>
+          {{ frequency || ('feedingPlanAdd.notDefined' | translate) }}
+        </strong>
+
+      </div>
+
+      <div class="summary-group">
+
+        <span class="summary-label">{{ 'feedingPlanAdd.schedules' | translate }}</span>
+
+        <div class="summary-schedules">
+
+          @for (schedule of schedules; track $index) {
+
+            <div class="summary-schedule">
+              <mat-icon>schedule</mat-icon>
+
+              <span>
+              {{ schedule.time || '--:--' }}
+            </span>
+
+              <strong>
+                {{ schedule.quantityPerAnimal ?? 0 }}
+                kg
+              </strong>
+            </div>
+
+          }
+
+        </div>
+
+      </div>
+
+    </aside>
+
+  </div>
+
+
+  <!-- STEP 1 -->
+
+
+</div>

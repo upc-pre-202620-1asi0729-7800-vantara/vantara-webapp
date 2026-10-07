@@ -1,0 +1,11 @@
+<h1>{{ 'payments.confirmPayment' | translate }}</h1>
+<mat-card>
+  <mat-card-content>
+    <p>Plan {{ plan.name }} — {{ plan.currency }} {{ plan.price }} {{ 'payments.perMonth' | translate }}</p>
+    <p>{{ 'payments.method' | translate }}: Visa •••• 4582 · {{ 'payments.total' | translate }}: S/ 49.90</p>
+    <div class="actions">
+      <a mat-button routerLink="/config/payments/method">{{ 'payments.cancel' | translate }}</a>
+      <button mat-raised-button color="primary" (click)="pay()">{{ 'payments.pay' | translate }}</button>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,9 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-name {
+  font-size: 0.875rem;
+}

@@ -1,0 +1,406 @@
+﻿<div class="feeding-detail">
+
+  @if (plan(); as currentPlan) {
+
+    <!-- HEADER -->
+    <div class="page-header">
+
+      <div class="header-left">
+
+        <button
+          class="back-button"
+          type="button"
+          (click)="goBack()">
+          ← {{ 'feeding.backToFeeding' | translate }}
+        </button>
+
+        <div class="title-row">
+
+          <h1>{{ currentPlan.name }}</h1>
+
+          <span class="status-badge">
+            <span class="status-dot"></span>
+            {{ currentPlan.status === 'active' ? ('feeding.active' | translate) : currentPlan.status }}
+          </span>
+
+        </div>
+
+        <p>
+          {{ 'feeding.planForLot' | translate: { lot: lot()?.name || currentPlan.lotId } }}
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="detail-grid">
+
+      <!-- COLUMNA IZQUIERDA -->
+      <div class="left-column">
+
+        <!-- PROGRESO -->
+        <section class="detail-card">
+
+          <div class="section-header">
+
+            <div class="section-icon">
+              <mat-icon>monitor_weight</mat-icon>
+            </div>
+
+            <div>
+              <h2>{{ 'feeding.weightProgress' | translate }}</h2>
+
+              <p>
+                {{ 'feeding.weightProgressSubtitle' | translate }}
+              </p>
+            </div>
+
+          </div>
+
+          <div class="weight-progress">
+
+            <div class="weight-values">
+
+              <div>
+                <strong>
+                  {{ currentPlan.currentAverageWeight }} kg
+                </strong>
+
+                <span>{{ 'feeding.currentWeight' | translate }}</span>
+              </div>
+
+              <div class="target-weight">
+
+                <strong>
+                  {{ currentPlan.targetWeight }} kg
+                </strong>
+
+                <span>{{ 'feeding.targetWeight' | translate }}</span>
+
+              </div>
+
+            </div>
+
+            <div class="progress-track">
+
+              <div
+                class="progress-fill"
+                [style.width.%]="getProgress(currentPlan)">
+              </div>
+
+            </div>
+
+            <div class="progress-summary">
+
+              <span>
+                <strong>{{ getProgress(currentPlan) }}%</strong>
+                {{ 'feeding.ofTarget' | translate }}
+              </span>
+
+              <span>
+                <strong>+{{ getRemainingWeight(currentPlan) }} kg</strong>
+                {{ 'feeding.toReach' | translate }}
+              </span>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- RACIÓN -->
+        <section class="detail-card">
+
+          <div class="section-header">
+
+            <div class="section-icon">
+              <mat-icon>restaurant</mat-icon>
+            </div>
+
+            <div>
+
+              <h2>{{ 'feeding.rationAndIngredients' | translate }}</h2>
+
+              <p>
+                {{ 'feeding.rationSubtitle' | translate }}
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="ingredients-table">
+
+            <div class="table-header">
+
+              <span>{{ 'animal.name' | translate }}</span>
+
+              <span>
+                {{ 'feeding.quantityPerAnimalDay' | translate }}
+              </span>
+
+            </div>
+
+            @for (item of planItems(); track item.id) {
+
+              <div class="table-row">
+
+                <span>
+                  {{ item.feedName }}
+                </span>
+
+                <span>
+                  {{ item.dailyQuantity }} {{ item.unit }}
+                </span>
+
+              </div>
+
+            }
+
+          </div>
+
+        </section>
+
+      </div>
+
+
+      <!-- COLUMNA DERECHA -->
+      <section class="detail-card plan-information">
+
+        <div class="section-header">
+
+          <div class="section-icon">
+            <mat-icon>description</mat-icon>
+          </div>
+
+          <div>
+            <h2>{{ 'feeding.planInfo' | translate }}</h2>
+          </div>
+
+        </div>
+
+        <div class="information-list">
+
+          <div class="information-row">
+
+            <span>{{ 'feeding.lot' | translate }}</span>
+
+            <strong>
+              {{ lot()?.name || currentPlan.lotId }}
+            </strong>
+
+          </div>
+
+          <div class="information-row">
+
+            <span>{{ 'feeding.animals' | translate }}</span>
+
+            <strong>
+              {{ getAnimal(currentPlan)?.earTag || ('feeding.allLotAnimals' | translate) }}
+            </strong>
+
+          </div>
+
+          <div class="information-row">
+
+            <span>{{ 'animal.status' | translate }}</span>
+
+            <strong>
+
+              <span class="inline-status">
+
+                <span class="status-dot"></span>
+
+                {{ currentPlan.status === 'active'
+                ? ('feeding.active' | translate)
+                : currentPlan.status }}
+
+              </span>
+
+            </strong>
+
+          </div>
+
+
+          <div class="information-row">
+
+            <span>{{ 'feeding.start' | translate }}</span>
+
+            <strong>
+              {{ currentPlan.startsOn | date:'dd MMM yyyy' }}
+            </strong>
+
+          </div>
+
+
+          <div class="information-row">
+
+            <span>{{ 'feeding.end' | translate }}</span>
+
+            <strong>
+              {{ currentPlan.endsOn | date:'dd MMM yyyy' }}
+            </strong>
+
+          </div>
+
+
+          <div class="information-row">
+
+            <span>{{ 'feeding.objective' | translate }}</span>
+
+            <strong>
+              {{ currentPlan.objective }}
+            </strong>
+
+          </div>
+
+
+          <div class="information-row">
+
+            <span>{{ 'feeding.currentAverageWeight' | translate }}</span>
+
+            <strong>
+              {{ currentPlan.currentAverageWeight }} kg
+            </strong>
+
+          </div>
+
+
+          <div class="information-row">
+
+            <span>{{ 'feeding.targetWeight' | translate }}</span>
+
+            <strong>
+              {{ currentPlan.targetWeight }} kg
+            </strong>
+
+          </div>
+
+
+          <div class="information-row">
+
+            <span>{{ 'feeding.frequency' | translate }}</span>
+
+            <strong>
+              {{ currentPlan.frequency }}
+            </strong>
+
+          </div>
+
+
+          <div class="information-row">
+
+            <span>{{ 'feeding.daysOfWeek' | translate }}</span>
+
+            <strong>
+              {{ currentPlan.daysOfWeek.join(', ') }}
+            </strong>
+
+          </div>
+
+
+          <div class="information-row">
+
+            <span>{{ 'feeding.instructions' | translate }}</span>
+
+            <strong>
+              {{ currentPlan.instructions }}
+            </strong>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+
+    <!-- PROGRAMACIÓN -->
+    <section class="detail-card schedule-card">
+
+      <div class="section-header">
+
+        <div class="section-icon">
+          <mat-icon>schedule</mat-icon>
+        </div>
+
+        <div>
+
+          <h2>{{ 'feeding.scheduleTitle' | translate }}</h2>
+
+          <p>
+            {{ 'feeding.scheduleSubtitle' | translate }}
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="schedule-table">
+
+        <div class="schedule-header">
+
+          <span>{{ 'feeding.time' | translate }}</span>
+
+          <span>
+            {{ 'feeding.quantityPerAnimalKg' | translate }}
+          </span>
+
+          <span>{{ 'feeding.observations' | translate }}</span>
+
+        </div>
+
+
+        @for (
+          schedule of currentPlan.schedules;
+          track schedule.time
+          ) {
+
+          <div class="schedule-row">
+
+            <span class="schedule-time">
+  <mat-icon>schedule</mat-icon>
+              {{ schedule.time }}
+</span>
+
+            <span>
+              {{ schedule.quantityPerAnimal }} kg
+            </span>
+
+            <span>
+              -
+            </span>
+
+          </div>
+
+        }
+
+      </div>
+
+    </section>
+
+  } @else {
+
+    <div class="empty-detail">
+
+      <h2>{{ 'feeding.planNotFound' | translate }}</h2>
+
+      <button
+        class="edit-button"
+        type="button"
+        (click)="goBack()">
+
+        {{ 'feeding.backToFeeding' | translate }}
+
+      </button>
+
+    </div>
+
+  }
+
+</div>

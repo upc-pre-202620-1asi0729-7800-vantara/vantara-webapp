@@ -1,0 +1,191 @@
+.vaccine-page-container {
+  background-color: #f3f6f3;
+  padding: 2rem;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.back-link {
+  color: #07583f;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #0c1c17;
+  margin: 0;
+}
+
+.page-subtitle {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-top: 0.2rem;
+}
+
+.header-tag {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.header-tag strong {
+  display: block;
+  font-size: 0.85rem;
+  color: #1e293b;
+}
+
+.tag-sub {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.accent-icon {
+  color: #07583f;
+}
+
+.pill {
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #f1f9f7;
+  color: #475569;
+}
+
+.pill.accent {
+  background: #e4f4e8;
+  color: #219a75;
+}
+
+.two-col-layout {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr;
+  gap: 1.5rem;
+}
+
+.card-box {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.animal-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.animal-avatar {
+  font-size: 2.5rem;
+}
+
+.pills-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.card-box h3, .card-box h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 1.25rem 0;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.form-input {
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  background: #ffffff;
+  color: #1e293b;
+}
+
+.form-input:focus {
+  border-color: #07583f;
+  box-shadow: 0 0 0 3px rgba(13, 62, 48, 0.1);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-row.three-col {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.btn-primary-solid {
+  background-color: #07583f !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+}
+
+.history-item {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #f1f9f7;
+  font-size: 0.85rem;
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+.history-item strong {
+  display: block;
+  color: #1e293b;
+}
+
+.history-item p {
+  margin: 0.2rem 0;
+  color: #64748b;
+}
+
+.history-item small {
+  color: #94a3b8;
+}
+

@@ -1,0 +1,64 @@
+<div class="card">
+
+  <div class="card-header">
+    <div>
+      <h3>{{ 'profile.personalInfo' | translate }}</h3>
+      <p>{{ 'profile.personalInfoSubtitle' | translate }}</p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'auth.fullName' | translate }}</label>
+
+    <input
+      type="text"
+      [(ngModel)]="draft.fullName"
+      [placeholder]="'profile.namePlaceholder' | translate">
+  </div>
+
+
+  <div class="form-group">
+    <label>{{ 'profile.phone' | translate }}</label>
+
+    <input
+      type="text"
+      [(ngModel)]="draft.phone"
+      placeholder="+51 999 999 999">
+  </div>
+
+  <div class="form-group">
+    <label>{{ 'auth.email' | translate }}</label>
+    <input type="email" [value]="profile?.email || ''" readonly>
+  </div>
+  <div class="form-group">
+    <label>{{ 'auth.organization' | translate }}</label>
+    <input type="text" [(ngModel)]="draft.organizationName">
+  </div>
+
+
+  <div class="form-group">
+    <label>{{ 'profile.photo' | translate }}</label>
+
+    <input
+      type="text"
+      [(ngModel)]="draft.photoUrl"
+      [placeholder]="'profile.imageUrl' | translate">
+
+    <span class="helper-text">
+      {{ 'profile.photoHelper' | translate }}
+    </span>
+  </div>
+
+
+  <div class="actions">
+    <button
+      class="primary-button"
+      [disabled]="service.store.saving"
+      (click)="save()">
+
+      {{ 'profile.saveChanges' | translate }}
+
+    </button>
+  </div>
+
+</div>

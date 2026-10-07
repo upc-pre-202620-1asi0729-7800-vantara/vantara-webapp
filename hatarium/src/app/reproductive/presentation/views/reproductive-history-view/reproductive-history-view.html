@@ -1,0 +1,9 @@
+<h1>{{ 'reproductive.title' | translate }}</h1>
+@if (store.loading()) {
+  <mat-spinner diameter="40"></mat-spinner>
+}
+@if (store.errorMessage()) {
+  <p class="error">{{ store.errorMessage() }}</p>
+}
+<app-pregnancy-form/>
+<app-reproductive-timeline [pregnancies]="store.pregnancies()"/>

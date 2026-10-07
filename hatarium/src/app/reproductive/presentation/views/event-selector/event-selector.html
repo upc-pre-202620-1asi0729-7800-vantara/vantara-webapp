@@ -1,0 +1,49 @@
+<div class="selector-overlay">
+  <section
+    class="selector-dialog"
+    role="dialog"
+    aria-modal="true"
+    cdkTrapFocus
+    cdkTrapFocusAutoCapture
+    [attr.aria-label]="'eventSelector.title' | translate"
+  >
+    <a
+      class="selector-close"
+      routerLink="/reproductive"
+      [attr.aria-label]="'forms.close' | translate"
+    >
+      <mat-icon>close</mat-icon>
+    </a>
+
+    <header class="selector-header">
+      <div class="selector-header__icon" aria-hidden="true">
+        <mat-icon>event_available</mat-icon>
+      </div>
+      <div>
+        <h1>{{ 'eventSelector.title' | translate }}</h1>
+        <p>{{ 'eventSelector.subtitle' | translate }}</p>
+      </div>
+    </header>
+
+    <div class="events-grid">
+      @for (event of events; track event.key) {
+        <a class="event-card" [routerLink]="event.link">
+          <mat-icon class="event-icon event-{{ event.key }}">{{ event.icon }}</mat-icon>
+          <span class="event-card__content">
+            <strong>{{ 'eventSelector.' + event.key | translate }}</strong>
+            <span>{{ 'eventSelector.' + event.key + 'Desc' | translate }}</span>
+          </span>
+          <mat-icon class="arrow">chevron_right</mat-icon>
+        </a>
+      }
+    </div>
+
+    <div class="info-box">
+      <mat-icon>info</mat-icon>
+      <div>
+        <strong>{{ 'eventSelector.whatIsEvent' | translate }}</strong>
+        <p>{{ 'eventSelector.whatIsEventDesc' | translate }}</p>
+      </div>
+    </div>
+  </section>
+</div>

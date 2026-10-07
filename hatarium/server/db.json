@@ -1,0 +1,1733 @@
+{
+  "roles": [
+    {
+      "id": "role-001",
+      "code": "ADMIN",
+      "name": "Administrador"
+    },
+    {
+      "id": "role-002",
+      "code": "RANCHER",
+      "name": "Ganadero"
+    },
+    {
+      "id": "role-003",
+      "code": "VETERINARIAN",
+      "name": "Veterinario"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "acc-001",
+      "roleId": "role-001",
+      "email": "juan.quispe@hatarium.com",
+      "status": "active",
+      "emailVerified": true,
+      "createdAt": "2026-01-10"
+    },
+    {
+      "id": "acc-002",
+      "roleId": "role-002",
+      "email": "carlos.mendoza@hatarium.com",
+      "status": "active",
+      "emailVerified": true,
+      "createdAt": "2026-01-12"
+    },
+    {
+      "id": "acc-003",
+      "roleId": "role-003",
+      "email": "garcia.lopez@hatarium.com",
+      "status": "active",
+      "emailVerified": true,
+      "createdAt": "2026-01-15"
+    },
+    {
+      "id": "acc-e4347cc0-e6ae-455a-92aa-78b1bda57925",
+      "roleId": "role-002",
+      "email": "eduardotaza@gmail.com",
+      "status": "inactive",
+      "emailVerified": false,
+      "createdAt": "2026-10-06"
+    },
+    {
+      "id": "acc-f5f67860-99c9-4f0e-9263-41e50ecdead1",
+      "roleId": "role-002",
+      "email": "francolinares06@gmail.com",
+      "status": "active",
+      "emailVerified": true,
+      "createdAt": "2026-10-06"
+    }
+  ],
+  "accountCredentials": [
+    {
+      "id": "cred-62b82f62-f3e6-4941-8178-1778ea470eb0",
+      "accountId": "acc-e4347cc0-e6ae-455a-92aa-78b1bda57925",
+      "passwordHash": "b5055e92bd4a09fe86a00d60d3efa9058065c2e8b3d1425f50beca3cbf71c57a"
+    },
+    {
+      "id": "cred-5fc5525d-ec9b-48ea-84ff-6bf3be482d55",
+      "accountId": "acc-f5f67860-99c9-4f0e-9263-41e50ecdead1",
+      "passwordHash": "f86c1ddf94e894ca5a2cd95bedad86d79aee1300102dd3f9b64d776a64d5302f"
+    }
+  ],
+  "emailVerifications": [
+    {
+      "id": "ver-37fc269b-b327-4f68-8028-5f4d1e1ffb42",
+      "accountId": "acc-e4347cc0-e6ae-455a-92aa-78b1bda57925",
+      "code": "444721",
+      "expiresAt": "2026-10-06T07:08:21.477Z",
+      "verifiedAt": null
+    },
+    {
+      "id": "ver-275a0966-929e-45b9-9e2c-c470de5d8609",
+      "accountId": "acc-f5f67860-99c9-4f0e-9263-41e50ecdead1",
+      "code": "959174",
+      "expiresAt": "2026-10-06T18:14:18.860Z",
+      "verifiedAt": "2026-10-06T18:00:24.451Z"
+    }
+  ],
+  "users": [
+    {
+      "id": "usr-001",
+      "accountId": "acc-001",
+      "fullName": "Juan Quispe",
+      "phone": "+51 999 111 222",
+      "photoUrl": "",
+      "theme": "light",
+      "locale": "es"
+    },
+    {
+      "id": "usr-002",
+      "accountId": "acc-002",
+      "fullName": "Fabricio Diaz",
+      "phone": "+51 999 333 444",
+      "photoUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9k0exYqt_JEN4mH0gkddtxqv-bt-P2DrjXg1pGVlDCA&s=10",
+      "theme": "dark",
+      "locale": "es"
+    },
+    {
+      "id": "usr-003",
+      "accountId": "acc-003",
+      "fullName": "Dr. García López",
+      "phone": "+51 999 555 666",
+      "photoUrl": "",
+      "theme": "light",
+      "locale": "es"
+    },
+    {
+      "id": "usr-acc-f5f67860-99c9-4f0e-9263-41e50ecdead1",
+      "accountId": "acc-f5f67860-99c9-4f0e-9263-41e50ecdead1",
+      "fullName": "Franco Linares",
+      "organizationName": "Upc",
+      "phone": "",
+      "photoUrl": "https://i.redd.it/4j0md2pk8bvg1.jpg",
+      "theme": "light",
+      "locale": "es"
+    }
+  ],
+  "animals": [
+    {
+      "id": "anm-047",
+      "rancherId": "usr-002",
+      "lotId": "lot-001",
+      "earTag": "047",
+      "name": "María",
+      "species": "Bovino",
+      "breed": "Holstein mestiza",
+      "sex": "Hembra",
+      "birthDate": "2023-06-10",
+      "motherId": null,
+      "fatherId": null,
+      "weight": 420,
+      "status": "active",
+      "registeredAt": "2026-01-08",
+      "photoUrl": ""
+    },
+    {
+      "id": "anm-031",
+      "rancherId": "usr-002",
+      "lotId": "lot-001",
+      "earTag": "031",
+      "name": "Luna",
+      "species": "Bovino",
+      "breed": "Holstein",
+      "sex": "Hembra",
+      "birthDate": "2023-08-21",
+      "motherId": null,
+      "fatherId": null,
+      "weight": 380,
+      "status": "active",
+      "registeredAt": "2026-01-09",
+      "photoUrl": ""
+    },
+    {
+      "id": "anm-062",
+      "rancherId": "usr-002",
+      "lotId": "lot-002",
+      "earTag": "062",
+      "name": "Bruno",
+      "species": "Bovino",
+      "breed": "Angus",
+      "sex": "Macho",
+      "birthDate": "2025-01-12",
+      "motherId": null,
+      "fatherId": null,
+      "weight": 120,
+      "status": "active",
+      "registeredAt": "2026-01-11",
+      "photoUrl": ""
+    },
+    {
+      "id": "anm-018",
+      "rancherId": "usr-002",
+      "lotId": "lot-002",
+      "earTag": "018",
+      "name": "Estrella",
+      "species": "Bovino",
+      "breed": "Brahman",
+      "sex": "Hembra",
+      "birthDate": "2022-11-03",
+      "motherId": null,
+      "fatherId": null,
+      "weight": 350,
+      "status": "active",
+      "registeredAt": "2026-01-12",
+      "photoUrl": ""
+    },
+    {
+      "id": "anm-073",
+      "rancherId": "usr-002",
+      "lotId": "lot-003",
+      "earTag": "073",
+      "name": "Toro",
+      "species": "Bovino",
+      "breed": "Charolais",
+      "sex": "Macho",
+      "birthDate": "2022-03-18",
+      "motherId": null,
+      "fatherId": null,
+      "weight": 510,
+      "status": "active",
+      "registeredAt": "2026-01-13",
+      "photoUrl": ""
+    },
+    {
+      "id": "anm-024",
+      "rancherId": "usr-002",
+      "lotId": "lot-003",
+      "earTag": "024",
+      "name": "Jersey",
+      "species": "Bovino",
+      "breed": "Jersey",
+      "sex": "Hembra",
+      "birthDate": "2024-02-14",
+      "motherId": null,
+      "fatherId": null,
+      "weight": 340,
+      "status": "active",
+      "registeredAt": "2026-01-14",
+      "photoUrl": ""
+    },
+    {
+      "id": "anm-011",
+      "rancherId": "usr-002",
+      "lotId": "lot-001",
+      "earTag": "011",
+      "name": "Nube",
+      "species": "Bovino",
+      "breed": "Holstein",
+      "sex": "Hembra",
+      "birthDate": "2024-05-19",
+      "motherId": "anm-031",
+      "fatherId": "anm-073",
+      "weight": 315,
+      "status": "active",
+      "registeredAt": "2026-02-02",
+      "photoUrl": ""
+    },
+    {
+      "id": "anm-035",
+      "rancherId": "usr-002",
+      "lotId": "lot-001",
+      "earTag": "035",
+      "name": "Mora",
+      "species": "Bovino",
+      "breed": "Brown Swiss",
+      "sex": "Hembra",
+      "birthDate": "2023-09-01",
+      "motherId": null,
+      "fatherId": null,
+      "weight": 395,
+      "status": "active",
+      "registeredAt": "2026-02-10",
+      "photoUrl": ""
+    },
+    {
+      "id": "anm-044",
+      "rancherId": "usr-002",
+      "lotId": "lot-002",
+      "earTag": "044",
+      "name": "Max",
+      "species": "Bovino",
+      "breed": "Angus",
+      "sex": "Macho",
+      "birthDate": "2024-07-12",
+      "motherId": null,
+      "fatherId": null,
+      "weight": 280,
+      "status": "active",
+      "registeredAt": "2026-02-12",
+      "photoUrl": ""
+    },
+    {
+      "id": "anm-051",
+      "rancherId": "usr-002",
+      "lotId": "lot-002",
+      "earTag": "051",
+      "name": "Canela",
+      "species": "Bovino",
+      "breed": "Brahman",
+      "sex": "Hembra",
+      "birthDate": "2023-12-05",
+      "motherId": null,
+      "fatherId": null,
+      "weight": 360,
+      "status": "active",
+      "registeredAt": "2026-02-15",
+      "photoUrl": ""
+    },
+    {
+      "id": "anm-068",
+      "rancherId": "usr-002",
+      "lotId": "lot-003",
+      "earTag": "068",
+      "name": "Rayo",
+      "species": "Bovino",
+      "breed": "Charolais",
+      "sex": "Macho",
+      "birthDate": "2023-01-25",
+      "motherId": null,
+      "fatherId": null,
+      "weight": 470,
+      "status": "active",
+      "registeredAt": "2026-03-01",
+      "photoUrl": ""
+    },
+    {
+      "id": "anm-082",
+      "rancherId": "usr-002",
+      "lotId": "lot-003",
+      "earTag": "082",
+      "name": "Perla",
+      "species": "Bovino",
+      "breed": "Jersey",
+      "sex": "Hembra",
+      "birthDate": "2024-08-09",
+      "motherId": null,
+      "fatherId": null,
+      "weight": 295,
+      "status": "active",
+      "registeredAt": "2026-03-05",
+      "photoUrl": ""
+    },
+    {
+      "id": "anm-22",
+      "rancherId": "usr-002",
+      "lotId": "lot-001",
+      "earTag": "22",
+      "name": "David",
+      "species": "Bovino",
+      "breed": "Brahman",
+      "sex": "Hembra",
+      "birthDate": "2003-09-08",
+      "motherId": "anm-018",
+      "fatherId": "anm-068",
+      "weight": 300,
+      "status": "active",
+      "registeredAt": "2026-10-06",
+      "photoUrl": ""
+    },
+    {
+      "id": "anm-birth-O0fIBIm",
+      "rancherId": "usr-002",
+      "lotId": "lot-003",
+      "earTag": "67",
+      "name": "DavidApellido",
+      "species": "Bovino",
+      "breed": "Jersey",
+      "sex": "Hembra",
+      "birthDate": "2026-10-06",
+      "motherId": "anm-024",
+      "fatherId": null,
+      "weight": 20,
+      "status": "active",
+      "registeredAt": "2026-10-06",
+      "photoUrl": ""
+    },
+    {
+      "id": "anm-demo-aurora",
+      "rancherId": "usr-002",
+      "lotId": "lot-001",
+      "earTag": "D101",
+      "name": "Aurora",
+      "species": "Bovino",
+      "breed": "Holstein",
+      "sex": "Hembra",
+      "birthDate": "2022-03-12",
+      "motherId": null,
+      "fatherId": null,
+      "weight": 430,
+      "status": "active",
+      "registeredAt": "2026-10-06",
+      "photoUrl": "",
+      "weanedOn": null
+    },
+    {
+      "id": "anm-demo-lucero",
+      "rancherId": "usr-002",
+      "lotId": "lot-001",
+      "earTag": "D201",
+      "name": "Lucero",
+      "species": "Bovino",
+      "breed": "Holstein",
+      "sex": "Hembra",
+      "birthDate": "2026-06-28",
+      "motherId": "anm-demo-aurora",
+      "fatherId": null,
+      "weight": 80,
+      "status": "active",
+      "registeredAt": "2026-10-06",
+      "photoUrl": "",
+      "weanedOn": null
+    },
+    {
+      "id": "anm-demo-paloma",
+      "rancherId": "usr-002",
+      "lotId": "lot-002",
+      "earTag": "D102",
+      "name": "Paloma",
+      "species": "Bovino",
+      "breed": "Holstein",
+      "sex": "Hembra",
+      "birthDate": "2021-09-20",
+      "motherId": null,
+      "fatherId": null,
+      "weight": 450,
+      "status": "active",
+      "registeredAt": "2026-10-06",
+      "photoUrl": "",
+      "weanedOn": null
+    },
+    {
+      "id": "anm-demo-sol",
+      "rancherId": "usr-002",
+      "lotId": "lot-002",
+      "earTag": "D202",
+      "name": "Sol",
+      "species": "Bovino",
+      "breed": "Holstein",
+      "sex": "Macho",
+      "birthDate": "2026-07-28",
+      "motherId": "anm-demo-paloma",
+      "fatherId": null,
+      "weight": 65,
+      "status": "active",
+      "registeredAt": "2026-10-06",
+      "photoUrl": "",
+      "weanedOn": null
+    },
+    {
+      "id": "anm-demo-violeta",
+      "rancherId": "usr-002",
+      "lotId": "lot-003",
+      "earTag": "D103",
+      "name": "Violeta",
+      "species": "Bovino",
+      "breed": "Holstein",
+      "sex": "Hembra",
+      "birthDate": "2020-02-15",
+      "motherId": null,
+      "fatherId": null,
+      "weight": 440,
+      "status": "active",
+      "registeredAt": "2026-10-06",
+      "photoUrl": "",
+      "weanedOn": null
+    },
+    {
+      "id": "anm-demo-nieve",
+      "rancherId": "usr-002",
+      "lotId": "lot-003",
+      "earTag": "D203",
+      "name": "Nieve",
+      "species": "Bovino",
+      "breed": "Holstein",
+      "sex": "Hembra",
+      "birthDate": "2026-02-18",
+      "motherId": "anm-demo-violeta",
+      "fatherId": null,
+      "weight": 180,
+      "status": "active",
+      "registeredAt": "2026-10-06",
+      "photoUrl": "",
+      "weanedOn": "2026-06-18"
+    },
+    {
+      "id": "anm-88",
+      "rancherId": "usr-002",
+      "lotId": "lot-001",
+      "earTag": "88",
+      "name": "David2",
+      "species": "Bovino",
+      "breed": "Charolais",
+      "sex": "Macho",
+      "birthDate": "2014-03-09",
+      "motherId": "anm-082",
+      "fatherId": "anm-044",
+      "weight": 282,
+      "status": "active",
+      "registeredAt": "2026-10-06",
+      "photoUrl": "",
+      "weanedOn": null
+    },
+    {
+      "id": "anm-013",
+      "rancherId": "usr-002",
+      "lotId": "lot-002",
+      "earTag": "013",
+      "name": "Gyarados",
+      "species": "Bovino",
+      "breed": "Charolais",
+      "sex": "Macho",
+      "birthDate": "0005-12-21",
+      "motherId": null,
+      "fatherId": null,
+      "weight": 305,
+      "status": "active",
+      "registeredAt": "2026-10-07",
+      "photoUrl": "data:image/jpeg;base64,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",
+      "weanedOn": null
+    }
+  ],
+  "lots": [
+    {
+      "id": "lot-001",
+      "rancherId": "usr-002",
+      "name": "Lote A",
+      "purpose": "Pastoreo y engorde",
+      "status": "active"
+    },
+    {
+      "id": "lot-002",
+      "rancherId": "usr-002",
+      "name": "Lote B",
+      "purpose": "Crecimiento",
+      "status": "active"
+    },
+    {
+      "id": "lot-003",
+      "rancherId": "usr-002",
+      "name": "Lote C",
+      "purpose": "Producción",
+      "status": "active"
+    }
+  ],
+  "movements": [
+    {
+      "id": "mov-001",
+      "animalId": "anm-047",
+      "movementType": "ASSIGNMENT",
+      "originLotId": null,
+      "destinationLotId": "lot-001",
+      "occurredAt": "2026-01-08",
+      "reason": "Registro inicial",
+      "recordedBy": "usr-002"
+    },
+    {
+      "id": "mov-002",
+      "animalId": "anm-031",
+      "movementType": "ASSIGNMENT",
+      "originLotId": null,
+      "destinationLotId": "lot-001",
+      "occurredAt": "2026-01-09",
+      "reason": "Registro inicial",
+      "recordedBy": "usr-002"
+    },
+    {
+      "id": "mov-003",
+      "animalId": "anm-062",
+      "movementType": "ASSIGNMENT",
+      "originLotId": null,
+      "destinationLotId": "lot-002",
+      "occurredAt": "2026-01-11",
+      "reason": "Registro inicial",
+      "recordedBy": "usr-002"
+    },
+    {
+      "id": "mov-004",
+      "animalId": "anm-018",
+      "movementType": "ASSIGNMENT",
+      "originLotId": null,
+      "destinationLotId": "lot-002",
+      "occurredAt": "2026-01-12",
+      "reason": "Registro inicial",
+      "recordedBy": "usr-002"
+    },
+    {
+      "id": "mov-005",
+      "animalId": "anm-024",
+      "movementType": "TRANSFER",
+      "originLotId": "lot-001",
+      "destinationLotId": "lot-003",
+      "occurredAt": "2026-08-20",
+      "reason": "Cambio de lote por etapa productiva",
+      "recordedBy": "usr-002"
+    }
+  ],
+  "feedingPlans": [
+    {
+      "id": "fp-001",
+      "lotId": "lot-001",
+      "animalId": null,
+      "name": "Plan de engorde - Lote A",
+      "startsOn": "2026-09-01",
+      "endsOn": "2026-12-01",
+      "objective": "Aumentar peso",
+      "currentAverageWeight": 420,
+      "targetWeight": 500,
+      "frequency": "2 veces al día",
+      "daysOfWeek": [
+        "Lunes",
+        "Martes",
+        "Miércoles",
+        "Jueves",
+        "Viernes",
+        "Sábado",
+        "Domingo"
+      ],
+      "schedules": [
+        {
+          "time": "07:00",
+          "quantityPerAnimal": 6
+        },
+        {
+          "time": "17:00",
+          "quantityPerAnimal": 6.5
+        }
+      ],
+      "instructions": "Forraje verde, heno y suplemento energético.",
+      "status": "active"
+    },
+    {
+      "id": "fp-002",
+      "lotId": "lot-002",
+      "animalId": null,
+      "name": "Plan de crecimiento - Lote B",
+      "startsOn": "2026-09-01",
+      "endsOn": "2026-11-30",
+      "objective": "Desarrollo y crecimiento",
+      "currentAverageWeight": 300,
+      "targetWeight": 400,
+      "frequency": "2 veces al día",
+      "daysOfWeek": [
+        "Lunes",
+        "Martes",
+        "Miércoles",
+        "Jueves",
+        "Viernes",
+        "Sábado",
+        "Domingo"
+      ],
+      "schedules": [
+        {
+          "time": "08:00",
+          "quantityPerAnimal": 5
+        },
+        {
+          "time": "17:00",
+          "quantityPerAnimal": 4.5
+        }
+      ],
+      "instructions": "Heno, pastoreo controlado y suplemento proteico.",
+      "status": "active"
+    },
+    {
+      "id": "fp-003",
+      "lotId": "lot-003",
+      "animalId": "anm-024",
+      "name": "Plan individual Jersey",
+      "startsOn": "2026-09-05",
+      "endsOn": "2026-12-05",
+      "objective": "Mejorar condición corporal",
+      "currentAverageWeight": 340,
+      "targetWeight": 380,
+      "frequency": "2 veces al día",
+      "daysOfWeek": [
+        "Lunes",
+        "Martes",
+        "Miércoles",
+        "Jueves",
+        "Viernes",
+        "Sábado",
+        "Domingo"
+      ],
+      "schedules": [
+        {
+          "time": "07:30",
+          "quantityPerAnimal": 4
+        },
+        {
+          "time": "17:30",
+          "quantityPerAnimal": 4
+        }
+      ],
+      "instructions": "Ración individual según peso y etapa productiva.",
+      "status": "active"
+    },
+    {
+      "id": "UrEMi-Ur2qY",
+      "lotId": "lot-001",
+      "animalId": null,
+      "name": "Plan de Engorde",
+      "startsOn": "2026-10-05",
+      "endsOn": "2026-10-07",
+      "objective": "Amentar peso",
+      "currentAverageWeight": 300,
+      "targetWeight": 400,
+      "frequency": "2 veces al día",
+      "daysOfWeek": [
+        "Lunes",
+        "Miércoles",
+        "Sábado",
+        "Domingo"
+      ],
+      "schedules": [
+        {
+          "time": "07:00",
+          "quantityPerAnimal": 6
+        },
+        {
+          "time": "17:00",
+          "quantityPerAnimal": 6
+        }
+      ],
+      "instructions": "",
+      "status": "active"
+    },
+    {
+      "id": "rHse1Fey2D8",
+      "lotId": "lot-001",
+      "animalId": null,
+      "name": "Plan de Adelgazamiento",
+      "startsOn": "2026-10-05",
+      "endsOn": "2026-10-09",
+      "objective": "Amentar peso",
+      "currentAverageWeight": 300,
+      "targetWeight": 350,
+      "frequency": "4 veces al día",
+      "daysOfWeek": [
+        "Lunes",
+        "Miércoles",
+        "Viernes",
+        "Sábado"
+      ],
+      "schedules": [
+        {
+          "time": "07:00",
+          "quantityPerAnimal": 10
+        },
+        {
+          "time": "17:00",
+          "quantityPerAnimal": 5
+        }
+      ],
+      "instructions": "",
+      "status": "active"
+    },
+    {
+      "id": "fp-1791335901004",
+      "lotId": "lot-002",
+      "animalId": "anm-013",
+      "name": "Plan de Alimentación - Gyarados",
+      "startsOn": "2026-10-06",
+      "endsOn": "2026-10-12",
+      "objective": "Aumentar de Peso",
+      "currentAverageWeight": 305,
+      "targetWeight": 350,
+      "frequency": "2 veces al día",
+      "daysOfWeek": [
+        "Lunes",
+        "Miércoles",
+        "Viernes",
+        "Domingo"
+      ],
+      "schedules": [
+        {
+          "time": "05:00",
+          "quantityPerAnimal": 6
+        },
+        {
+          "time": "14:00",
+          "quantityPerAnimal": 6
+        }
+      ],
+      "instructions": "",
+      "status": "active"
+    }
+  ],
+  "feedingPlanItems": [
+    {
+      "id": "fpi-001",
+      "feedingPlanId": "fp-001",
+      "feedName": "Pasto elefante",
+      "dailyQuantity": "7",
+      "unit": "kg"
+    },
+    {
+      "id": "fpi-002",
+      "feedingPlanId": "fp-001",
+      "feedName": "Concentrado proteico",
+      "dailyQuantity": "3",
+      "unit": "kg"
+    },
+    {
+      "id": "fpi-003",
+      "feedingPlanId": "fp-001",
+      "feedName": "Sales minerales",
+      "dailyQuantity": "0.5",
+      "unit": "kg"
+    },
+    {
+      "id": "fpi-004",
+      "feedingPlanId": "fp-001",
+      "feedName": "Ensilaje de maíz",
+      "dailyQuantity": "2",
+      "unit": "kg"
+    },
+    {
+      "id": "fpi-005",
+      "feedingPlanId": "fp-002",
+      "feedName": "Heno",
+      "dailyQuantity": "6",
+      "unit": "kg"
+    },
+    {
+      "id": "fpi-006",
+      "feedingPlanId": "fp-002",
+      "feedName": "Suplemento proteico",
+      "dailyQuantity": "1.5",
+      "unit": "kg"
+    },
+    {
+      "id": "fpi-007",
+      "feedingPlanId": "fp-003",
+      "feedName": "Ración balanceada",
+      "dailyQuantity": "8",
+      "unit": "kg"
+    },
+    {
+      "id": "St5e6UOG5Qo",
+      "feedingPlanId": "UrEMi-Ur2qY",
+      "feedName": "Pasto Elefante",
+      "dailyQuantity": 12,
+      "unit": "kg"
+    },
+    {
+      "id": "rvGgWLceoQY",
+      "feedingPlanId": "rHse1Fey2D8",
+      "feedName": "Pasto",
+      "dailyQuantity": 10,
+      "unit": "kg"
+    },
+    {
+      "id": "zG4cOq_H7B8",
+      "feedingPlanId": "rHse1Fey2D8",
+      "feedName": "Hierba",
+      "dailyQuantity": 5,
+      "unit": "kg"
+    },
+    {
+      "id": "fpi-1791335901004-0",
+      "feedingPlanId": "fp-1791335901004",
+      "feedName": "Pasto",
+      "dailyQuantity": 5,
+      "unit": "kg"
+    },
+    {
+      "id": "fpi-1791335901004-1",
+      "feedingPlanId": "fp-1791335901004",
+      "feedName": "Zanahoria",
+      "dailyQuantity": 7,
+      "unit": "kg"
+    }
+  ],
+  "feedingLogs": [
+    {
+      "id": "fl-001",
+      "planItemId": "fpi-001",
+      "animalId": null,
+      "lotId": "lot-001",
+      "feedName": "Pasto elefante",
+      "feedAt": "2026-10-04T07:00:00",
+      "quantity": "196",
+      "unit": "kg",
+      "recordedBy": "usr-002",
+      "notes": "Entrega correspondiente a la ración de la mañana."
+    },
+    {
+      "id": "fl-002",
+      "planItemId": "fpi-002",
+      "animalId": null,
+      "lotId": "lot-001",
+      "feedName": "Concentrado proteico",
+      "feedAt": "2026-10-04T07:00:00",
+      "quantity": "84",
+      "unit": "kg",
+      "recordedBy": "usr-002",
+      "notes": "Distribución completada para el lote."
+    },
+    {
+      "id": "fl-003",
+      "planItemId": "fpi-007",
+      "animalId": null,
+      "lotId": "lot-003",
+      "feedName": "Ración balanceada",
+      "feedAt": "2026-10-03T17:30:00",
+      "quantity": "272",
+      "unit": "kg",
+      "recordedBy": "usr-002",
+      "notes": "Ración completada."
+    }
+  ],
+  "appointments": [
+    {
+      "id": "app-001",
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-002",
+      "scheduledAt": "2026-12-08T10:00:00",
+      "reason": "Control veterinario",
+      "status": "scheduled",
+      "cancellationReason": null,
+      "createdAt": "2026-09-08"
+    },
+    {
+      "id": "app-002",
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-002",
+      "scheduledAt": "2026-09-20T09:30:00",
+      "reason": "Revisión rutinaria",
+      "status": "completed",
+      "cancellationReason": null,
+      "createdAt": "2026-09-01"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-10-06T10:30:00",
+      "reason": "Franco dejo la escuela",
+      "status": "scheduled",
+      "createdAt": "2026-10-06",
+      "id": "fmeqMr0"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-10-06T10:30:00",
+      "reason": "estuvo en un accidente",
+      "status": "scheduled",
+      "createdAt": "2026-10-06",
+      "id": "HtsBSSY"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-004",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-10-06T10:30:00",
+      "reason": "Revisión periódica de salud y control de peso",
+      "status": "scheduled",
+      "createdAt": "2026-10-06",
+      "id": "PLWW4TC"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-10-06T11:20:00",
+      "reason": "Martin falto a clase",
+      "status": "scheduled",
+      "createdAt": "2026-10-06",
+      "id": "2Nk9IXn"
+    }
+  ],
+  "appointmentAnimals": [
+    {
+      "id": "appa-001",
+      "appointmentId": "app-001",
+      "animalId": "anm-047"
+    },
+    {
+      "id": "appa-002",
+      "appointmentId": "app-002",
+      "animalId": "anm-047"
+    },
+    {
+      "appointmentId": "fmeqMr0",
+      "animalId": "anm-073",
+      "id": "WdxpTOH"
+    },
+    {
+      "appointmentId": "HtsBSSY",
+      "animalId": "anm-031",
+      "id": "XCLHvm9"
+    },
+    {
+      "appointmentId": "PLWW4TC",
+      "animalId": "anm-birth-O0fIBIm",
+      "id": "PtZJ_8f"
+    },
+    {
+      "appointmentId": "2Nk9IXn",
+      "animalId": "anm-birth-O0fIBIm",
+      "id": "9gAoMK5"
+    }
+  ],
+  "medicalRecords": [
+    {
+      "id": "mr-001",
+      "appointmentId": "app-002",
+      "animalId": "anm-047",
+      "veterinarianId": "usr-003",
+      "recordedAt": "2026-09-20",
+      "symptoms": "Sin síntomas",
+      "diagnosis": "Estado general óptimo",
+      "severity": "low",
+      "healthStatus": "healthy",
+      "notes": "Peso dentro del rango esperado."
+    },
+    {
+      "id": "mr-002",
+      "appointmentId": null,
+      "animalId": "anm-047",
+      "veterinarianId": "usr-003",
+      "recordedAt": "2026-09-07",
+      "symptoms": "Sin síntomas",
+      "diagnosis": "Aplicación preventiva",
+      "severity": "low",
+      "healthStatus": "healthy",
+      "notes": "Vacunación aplicada correctamente."
+    },
+    {
+      "id": "mr-003",
+      "appointmentId": null,
+      "animalId": "anm-018",
+      "veterinarianId": "usr-003",
+      "recordedAt": "2026-09-06",
+      "symptoms": "Inflamación leve",
+      "diagnosis": "Inflamación localizada",
+      "severity": "medium",
+      "healthStatus": "follow_up",
+      "notes": "Animal en seguimiento."
+    }
+  ],
+  "medications": [
+    {
+      "id": "med-001",
+      "name": "Antibiótico preventivo",
+      "category": "antibiotic",
+      "activeIngredient": "Oxitetraciclina",
+      "presentation": "Inyectable"
+    },
+    {
+      "id": "med-002",
+      "name": "Antiinflamatorio",
+      "category": "anti-inflammatory",
+      "activeIngredient": "Meloxicam",
+      "presentation": "Inyectable"
+    }
+  ],
+  "treatments": [
+    {
+      "id": "trt-001",
+      "medicalRecordId": "mr-003",
+      "animalId": "anm-018",
+      "medicationId": "med-001",
+      "treatmentType": "Preventivo",
+      "dose": "10 ml",
+      "doseUnit": "ml",
+      "route": "Intramuscular",
+      "frequencyHours": "24",
+      "durationDays": 5,
+      "scheduledAt": "2026-08-15",
+      "administeredAt": "2026-08-20",
+      "nextDate": "2026-08-21",
+      "status": "completed",
+      "instructions": "Completar esquema indicado."
+    }
+  ],
+  "vaccines": [
+    {
+      "id": "vac-001",
+      "animalId": "anm-047",
+      "veterinarianId": "usr-003",
+      "name": "Fiebre Aftosa",
+      "dose": "2 ml",
+      "doseUnit": "ml",
+      "laboratory": "Biogénesis Bag",
+      "lotNumber": "FA-2026-001",
+      "appliedAt": "2026-09-07",
+      "nextDoseAt": "2027-03-07",
+      "route": "Subcutánea",
+      "applicationSite": "Cuello (lado izquierdo)",
+      "status": "completed",
+      "observations": "Primera dosis del ciclo anual. Aplicada sin complicaciones."
+    },
+    {
+      "id": "vac-002",
+      "animalId": "anm-047",
+      "veterinarianId": "usr-003",
+      "name": "Brucelosis",
+      "dose": "2 ml",
+      "doseUnit": "ml",
+      "laboratory": "Laboratorio Veterinario Nacional",
+      "lotNumber": "BR-2026-015",
+      "appliedAt": "2026-03-12",
+      "nextDoseAt": "2027-03-12",
+      "route": "Subcutánea",
+      "applicationSite": "Cuello",
+      "status": "completed",
+      "observations": "Vacuna aplicada correctamente."
+    },
+    {
+      "id": "vac-003",
+      "animalId": "anm-047",
+      "veterinarianId": "usr-003",
+      "name": "Carbunco",
+      "dose": "2 ml",
+      "doseUnit": "ml",
+      "laboratory": "Laboratorio Veterinario Nacional",
+      "lotNumber": "CA-2026-008",
+      "appliedAt": "2026-01-10",
+      "nextDoseAt": "2027-01-10",
+      "route": "Subcutánea",
+      "applicationSite": "Cuello",
+      "status": "completed",
+      "observations": "Vacuna anual aplicada."
+    }
+  ],
+  "pregnancies": [
+    {
+      "id": "preg-001",
+      "animalId": "anm-031",
+      "calfId": "anm-011",
+      "confirmedOn": "2026-05-10",
+      "expectedCalvingOn": "2026-10-15",
+      "endedOn": "2004-03-04",
+      "outcome": "saludable",
+      "birthWeightKg": null,
+      "dryOffOn": "2026-08-15",
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "ended",
+      "notes": "Gestación confirmada en control reproductivo."
+    },
+    {
+      "id": "preg-002",
+      "animalId": "anm-018",
+      "calfId": "anm-062",
+      "confirmedOn": "2025-11-03",
+      "expectedCalvingOn": "2026-08-10",
+      "endedOn": "2026-08-09",
+      "outcome": "healthy",
+      "birthWeightKg": "35",
+      "dryOffOn": "2026-06-10",
+      "weanedOn": "2026-09-09",
+      "weaningWeightKg": "85",
+      "status": "weaned",
+      "notes": "Parto sin complicaciones. Cría en buen estado."
+    },
+    {
+      "animalId": "013",
+      "calfId": "ternero002",
+      "confirmedOn": "2003-01-15",
+      "expectedCalvingOn": "2004-02-15",
+      "endedOn": null,
+      "outcome": null,
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "confirmed",
+      "notes": null,
+      "id": "aRrxMG9eErs"
+    },
+    {
+      "animalId": "animal4",
+      "calfId": "2",
+      "confirmedOn": "2025-02-15",
+      "expectedCalvingOn": "2026-06-16",
+      "endedOn": null,
+      "outcome": null,
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "confirmed",
+      "notes": null,
+      "id": "ZC-g3wyu8-I"
+    },
+    {
+      "animalId": "123",
+      "calfId": "123123",
+      "confirmedOn": "2000-10-01",
+      "expectedCalvingOn": "2001-06-15",
+      "endedOn": null,
+      "outcome": null,
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "confirmed",
+      "notes": null,
+      "id": "bvT6SU37GMA"
+    },
+    {
+      "animalId": "123",
+      "calfId": "123",
+      "confirmedOn": "2000-04-05",
+      "expectedCalvingOn": "2006-05-02",
+      "endedOn": null,
+      "outcome": null,
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "confirmed",
+      "notes": null,
+      "id": "OorTMU0O6Kw"
+    },
+    {
+      "animalId": "anm-047",
+      "calfId": "12312",
+      "confirmedOn": "2000-12-01",
+      "expectedCalvingOn": "2001-03-12",
+      "endedOn": null,
+      "outcome": null,
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "confirmed",
+      "notes": null,
+      "id": "p3Q88lo"
+    },
+    {
+      "animalId": "anm-22",
+      "calfId": "1234",
+      "confirmedOn": "2024-04-06",
+      "expectedCalvingOn": "2025-04-06",
+      "endedOn": "2026-10-08",
+      "outcome": "noeml+++",
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "ended",
+      "notes": null,
+      "id": "cq6ey2H"
+    },
+    {
+      "animalId": "anm-011",
+      "calfId": "2311",
+      "confirmedOn": "2001-03-15",
+      "expectedCalvingOn": "2002-04-15",
+      "endedOn": null,
+      "outcome": null,
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "confirmed",
+      "notes": null,
+      "id": "8GiUaFp"
+    },
+    {
+      "animalId": "anm-024",
+      "calfId": "anm-birth-O0fIBIm",
+      "confirmedOn": "2025-04-04",
+      "expectedCalvingOn": "2026-10-07",
+      "endedOn": "2026-10-06",
+      "outcome": "health",
+      "birthWeightKg": "20",
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "ended",
+      "notes": null,
+      "id": "O0fIBIm"
+    },
+    {
+      "id": "preg-demo-aurora",
+      "animalId": "anm-demo-aurora",
+      "calfId": "anm-demo-lucero",
+      "confirmedOn": "2025-09-21",
+      "expectedCalvingOn": "2026-06-28",
+      "endedOn": "2026-06-28",
+      "outcome": "healthy",
+      "birthWeightKg": "35",
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "ended",
+      "notes": "Datos de demostración para probar destete o secado."
+    },
+    {
+      "id": "preg-demo-paloma",
+      "animalId": "anm-demo-paloma",
+      "calfId": "anm-demo-sol",
+      "confirmedOn": "2025-10-21",
+      "expectedCalvingOn": "2026-07-28",
+      "endedOn": "2026-07-28",
+      "outcome": "healthy",
+      "birthWeightKg": "35",
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "ended",
+      "notes": "Datos de demostración para probar destete o secado."
+    },
+    {
+      "id": "preg-demo-violeta-old",
+      "animalId": "anm-demo-violeta",
+      "calfId": "anm-demo-nieve",
+      "confirmedOn": "2025-05-14",
+      "expectedCalvingOn": "2026-02-18",
+      "endedOn": "2026-02-18",
+      "outcome": "healthy",
+      "birthWeightKg": "35",
+      "dryOffOn": null,
+      "weanedOn": "2026-06-18",
+      "weaningWeightKg": "90",
+      "status": "weaned",
+      "notes": "Datos de demostración para probar destete o secado."
+    },
+    {
+      "id": "preg-demo-violeta",
+      "animalId": "anm-demo-violeta",
+      "calfId": null,
+      "confirmedOn": "2026-03-10",
+      "expectedCalvingOn": "2026-12-15",
+      "endedOn": null,
+      "outcome": null,
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "confirmed",
+      "notes": "Datos de demostración para probar destete o secado."
+    },
+    {
+      "animalId": "anm-018",
+      "calfId": "019",
+      "confirmedOn": "2026-10-06",
+      "expectedCalvingOn": "2026-10-08",
+      "endedOn": null,
+      "outcome": null,
+      "birthWeightKg": null,
+      "dryOffOn": null,
+      "weanedOn": null,
+      "weaningWeightKg": null,
+      "status": "confirmed",
+      "notes": null,
+      "id": "FfLr6nl"
+    }
+  ],
+  "payments": [
+    {
+      "id": "pay-001",
+      "rancherId": "usr-002",
+      "appointmentId": "app-001",
+      "concept": "Control veterinario",
+      "amount": "150.00",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-09-08",
+      "confirmedAt": "2026-09-08",
+      "cancelledAt": null
+    },
+    {
+      "id": "pay-002",
+      "rancherId": "usr-002",
+      "appointmentId": "app-002",
+      "concept": "Revisión rutinaria",
+      "amount": "120.00",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-09-01",
+      "confirmedAt": "2026-09-01",
+      "cancelledAt": null
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción mensual",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "5nfvVr8FkS4"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción mensual",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "7Zf_SryOPVk"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción mensual",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "o7Q4q09WW6s"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción Profesional",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "bnrFd0go7WU"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción Básico",
+      "amount": "29.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "O9PN82xq72Q"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción mensual",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "WrgGuvuyTMg"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción mensual",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-05",
+      "confirmedAt": "2026-10-05",
+      "cancelledAt": null,
+      "id": "KKxYA3_bb5E"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción Profesional",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-06",
+      "confirmedAt": "2026-10-06",
+      "cancelledAt": null,
+      "id": "bwDGwki"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción Premium",
+      "amount": "89.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-06",
+      "confirmedAt": "2026-10-06",
+      "cancelledAt": null,
+      "id": "TQHpDp8"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción Premium",
+      "amount": "89.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-06",
+      "confirmedAt": "2026-10-06",
+      "cancelledAt": null,
+      "id": "i8uF7XH"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción Premium",
+      "amount": "89.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-07",
+      "confirmedAt": "2026-10-07",
+      "cancelledAt": null,
+      "id": "h2NJDEA"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción Premium",
+      "amount": "89.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-07",
+      "confirmedAt": "2026-10-07",
+      "cancelledAt": null,
+      "id": "5p4A97g"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "txn-001",
+      "paymentId": "pay-001",
+      "provider": "FakePay",
+      "providerReference": "FP-20260908-001",
+      "status": "approved",
+      "attemptedAt": "2026-09-08T10:05:00",
+      "failureReason": null
+    },
+    {
+      "id": "txn-002",
+      "paymentId": "pay-002",
+      "provider": "FakePay",
+      "providerReference": "FP-20260901-002",
+      "status": "approved",
+      "attemptedAt": "2026-09-01T09:15:00",
+      "failureReason": null
+    }
+  ],
+  "receipts": [
+    {
+      "id": "rec-001",
+      "paymentId": "pay-001",
+      "receiptNumber": "B001-000001",
+      "issuedAt": "2026-09-08",
+      "documentUrl": "/documents/receipt-pay-001.pdf"
+    },
+    {
+      "id": "rec-002",
+      "paymentId": "pay-002",
+      "receiptNumber": "B001-000002",
+      "issuedAt": "2026-09-01",
+      "documentUrl": "/documents/receipt-pay-002.pdf"
+    }
+  ],
+  "reports": [
+    {
+      "id": "rep-001",
+      "requestedBy": "usr-002",
+      "rancherId": "usr-002",
+      "animalId": null,
+      "reportType": "LivestockSummary",
+      "periodStart": "2026-09-01",
+      "periodEnd": "2026-09-30",
+      "status": "generated",
+      "requestedAt": "2026-09-30",
+      "generatedAt": "2026-09-30",
+      "fileUrl": "/reports/livestock-summary-sep-2026.pdf"
+    },
+    {
+      "id": "rep-002",
+      "requestedBy": "usr-002",
+      "rancherId": "usr-002",
+      "animalId": "anm-047",
+      "reportType": "AnimalHealth",
+      "periodStart": "2026-01-01",
+      "periodEnd": "2026-09-30",
+      "status": "generated",
+      "requestedAt": "2026-09-30",
+      "generatedAt": "2026-09-30",
+      "fileUrl": "/reports/animal-047-health.pdf"
+    }
+  ],
+  "reportShares": [
+    {
+      "id": "share-001",
+      "reportId": "rep-002",
+      "recipientAccountId": "acc-003",
+      "sharedAt": "2026-09-30",
+      "revokedAt": null
+    }
+  ],
+  "notifications": [
+    {
+      "id": "not-001",
+      "recipientUserId": "usr-002",
+      "type": "HEALTH_ALERT",
+      "title": "Animal requiere seguimiento",
+      "description": "El animal #018 presenta una alerta sanitaria y requiere seguimiento.",
+      "channel": "in_app",
+      "status": "read",
+      "scheduledAt": null,
+      "sentAt": "2026-09-06T11:00:00",
+      "readAt": "2026-10-06T06:35:49.717Z",
+      "relatedEntityType": "Animal",
+      "relatedEntityId": "anm-018",
+      "createdAt": "2026-09-06"
+    },
+    {
+      "id": "not-002",
+      "recipientUserId": "usr-002",
+      "type": "APPOINTMENT_REMINDER",
+      "title": "Próximo control veterinario",
+      "description": "El control veterinario del animal #047 está programado para el 08 Dic 2026.",
+      "channel": "in_app",
+      "status": "read",
+      "scheduledAt": "2026-12-07T10:00:00",
+      "sentAt": null,
+      "readAt": "2026-10-06T06:35:52.034Z",
+      "relatedEntityType": "Appointment",
+      "relatedEntityId": "app-001",
+      "createdAt": "2026-09-08"
+    },
+    {
+      "id": "not-003",
+      "recipientUserId": "usr-002",
+      "type": "VACCINE_REMINDER",
+      "title": "Próxima dosis de vacuna",
+      "description": "La próxima dosis de Fiebre Aftosa para el animal #047 está programada para el 07 Mar 2027.",
+      "channel": "in_app",
+      "status": "read",
+      "scheduledAt": "2027-03-06T09:00:00",
+      "sentAt": null,
+      "readAt": "2026-09-08T12:00:00",
+      "relatedEntityType": "Vaccine",
+      "relatedEntityId": "vac-001",
+      "createdAt": "2026-09-07"
+    },
+    {
+      "id": "not-demo-calving",
+      "recipientUserId": "usr-002",
+      "type": "CALVING_REGISTERED",
+      "title": "Parto registrado: Aurora",
+      "description": "Aurora y su cría Lucero están disponibles para probar el registro de destete.",
+      "channel": "in_app",
+      "status": "unread",
+      "scheduledAt": null,
+      "sentAt": "2026-10-06T17:10:45.282Z",
+      "readAt": null,
+      "relatedEntityType": "Pregnancy",
+      "relatedEntityId": "preg-demo-aurora",
+      "createdAt": "2026-10-06"
+    },
+    {
+      "id": "not-demo-animal",
+      "recipientUserId": "usr-002",
+      "type": "ANIMAL_REGISTERED",
+      "title": "Cría registrada: Sol",
+      "description": "Sol, cría de Paloma, está registrada en el Lote B y pendiente de destete.",
+      "channel": "in_app",
+      "status": "read",
+      "scheduledAt": null,
+      "sentAt": "2026-10-06T17:10:45.284Z",
+      "readAt": "2026-10-06T17:22:52.552Z",
+      "relatedEntityType": "Animal",
+      "relatedEntityId": "anm-demo-sol",
+      "createdAt": "2026-10-06"
+    },
+    {
+      "id": "not-demo-feeding",
+      "recipientUserId": "usr-002",
+      "type": "FEEDING_REGISTERED",
+      "title": "Plan de alimentación disponible",
+      "description": "Puedes revisar el plan de engorde del Lote A.",
+      "channel": "in_app",
+      "status": "unread",
+      "scheduledAt": null,
+      "sentAt": "2026-10-06T17:10:45.284Z",
+      "readAt": null,
+      "relatedEntityType": "FeedingPlan",
+      "relatedEntityId": "fp-001",
+      "createdAt": "2026-10-06"
+    },
+    {
+      "recipientUserId": "usr-002",
+      "type": "ANIMAL_REGISTERED",
+      "title": "Nuevo animal registrado",
+      "description": "David2 (#88) se agregó al ganado.",
+      "relatedEntityType": "Animal",
+      "relatedEntityId": "anm-88",
+      "id": "not-animal_registered-anm-88",
+      "channel": "in_app",
+      "status": "read",
+      "scheduledAt": null,
+      "sentAt": "2026-10-06T17:22:21.932Z",
+      "readAt": "2026-10-06T17:22:49.527Z",
+      "createdAt": "2026-10-06T17:22:21.932Z"
+    },
+    {
+      "recipientUserId": "usr-002",
+      "type": "ANIMAL_REGISTERED",
+      "title": "Nuevo animal registrado",
+      "description": "Gyarados (#013) se agregó al ganado.",
+      "relatedEntityType": "Animal",
+      "relatedEntityId": "anm-013",
+      "id": "not-animal_registered-anm-013",
+      "channel": "in_app",
+      "status": "read",
+      "scheduledAt": null,
+      "sentAt": "2026-10-07T00:13:13.837Z",
+      "readAt": "2026-10-07T00:13:55.004Z",
+      "createdAt": "2026-10-07T00:13:13.837Z"
+    },
+    {
+      "recipientUserId": "usr-002",
+      "type": "FEEDING_REGISTERED",
+      "title": "Plan de alimentación registrado",
+      "description": "Se registró el plan Plan de Alimentación - Gyarados, desde 2026-10-06 hasta 2026-10-12.",
+      "relatedEntityType": "FeedingPlan",
+      "relatedEntityId": "fp-1791335901004",
+      "id": "not-feeding_registered-fp-1791335901004",
+      "channel": "in_app",
+      "status": "read",
+      "scheduledAt": null,
+      "sentAt": "2026-10-07T01:18:21.056Z",
+      "readAt": "2026-10-07T01:18:34.174Z",
+      "createdAt": "2026-10-07T01:18:21.056Z"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

@@ -1,0 +1,60 @@
+<div class="history-page">
+  <div class="top-nav-bar">
+    <a mat-button class="btn-back" routerLink="/config/payments">
+      <mat-icon>arrow_back</mat-icon>
+      Volver a configuración
+    </a>
+  </div>
+
+  <header class="page-header">
+    <div class="page-title-group">
+      <h1>{{ 'payments.history' | translate }}</h1>
+      <p>Historial completo de todas las transacciones, recibos y suscripciones de tu cuenta.</p>
+    </div>
+    <div class="counter-pill">
+      {{ store.payments().length }} comprobantes emitidos
+    </div>
+  </header>
+
+  <mat-card class="history-table-card">
+    <mat-card-content>
+      <div class="transactions-container">
+        @for (payment of store.payments(); track payment.id) {
+          <div class="history-row">
+            <div class="row-left">
+              <div class="icon-circle" [ngClass]="getStatusClass(payment.status)">
+                <mat-icon>receipt</mat-icon>
+              </div>
+              <div class="info-block">
+                <div class="concept-line">
+                  <strong>{{ payment.concept || 'Pago de suscripción Hatarium' }}</strong>
+                  <span class="ref-badge">#{{ payment.id }}</span>
+                </div>
+                <div class="meta-line">
+                  <span class="date-tag">
+                    <mat-icon>event</mat-icon>
+                    {{ payment.createdAt }}
+                  </span>
+                  <span class="sep">•</span>
+                  <span>Pasarela autorizada</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row-right">
+              <div class="amount-tag">{{ payment.formattedAmount() }}</div>
+              <span class="status-pill" [ngClass]="getStatusClass(payment.status)">
+                {{ getStatusLabel(payment.status) }}
+              </span>
+            </div>
+          </div>
+        } @empty {
+          <div class="empty-view">
+            <mat-icon>receipt_long</mat-icon>
+            <p>{{ 'payments.noPayments' | translate }}</p>
+          </div>
+        }
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,76 @@
+<section class="profile-page">
+
+  <div class="page-header">
+    <div>
+      <h1>{{ 'profile.title' | translate }}</h1>
+      <p>{{ 'profile.subtitle' | translate }}</p>
+    </div>
+  </div>
+
+  @if (store.loading) {
+
+    <div class="status-card">
+      <p>{{ 'profile.loading' | translate }}</p>
+    </div>
+
+  } @else {
+
+    @if (store.errorMessage) {
+      <div class="error-card">
+        {{ store.errorMessage }}
+      </div>
+    }
+
+    @if (store.profile) {
+
+      <div class="profile-summary">
+
+        <div class="avatar">
+          @if (store.profile.hasPhoto()) {
+            <img
+              [src]="store.profile.photoUrl"
+              alt="Foto de perfil">
+          } @else {
+            <span>
+              {{ store.profile.fullName.charAt(0) }}
+            </span>
+          }
+        </div>
+
+        <div class="profile-info">
+          <span class="profile-label">{{ 'profile.account' | translate }}</span>
+
+          <h2>{{ store.profile.displayName() }}</h2>
+          <p>{{ store.profile.email }}</p>
+          @if (store.profile.organizationName) { <p>{{ store.profile.organizationName }}</p> }
+
+          <p>{{ store.profile.phone || ('profile.noPhone' | translate) }}</p>
+
+          <div class="profile-meta">
+            <span>{{ store.profile.theme }}</span>
+            <span>{{ store.profile.locale }}</span>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="profile-grid">
+
+        <app-profile-form
+          [profile]="store.profile"
+          [service]="service">
+        </app-profile-form>
+
+        <app-preferences
+          [profile]="store.profile"
+          [service]="service">
+        </app-preferences>
+
+      </div>
+
+    }
+
+  }
+
+</section>

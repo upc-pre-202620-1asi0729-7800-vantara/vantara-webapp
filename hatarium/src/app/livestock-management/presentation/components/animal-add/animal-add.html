@@ -1,0 +1,552 @@
+﻿<div class="animal-add-page">
+
+  <!-- HEADER -->
+  <section class="page-header">
+
+    <button mat-button class="back-button" (click)="volverGanado()">
+      <mat-icon>arrow_back</mat-icon>
+      {{ 'animal.backToLivestock' | translate }}
+    </button>
+
+    <div class="title-section">
+      <h1>{{ 'animalAdd.title' | translate }}</h1>
+      <p>
+        {{ 'animalAdd.subtitle' | translate }}
+      </p>
+    </div>
+
+  </section>
+
+
+  <div class="content-layout">
+
+    <!-- COLUMNA IZQUIERDA -->
+    <main class="form-column">
+
+
+      <!-- INFORMACIÓN GENERAL -->
+      <mat-card class="form-card">
+
+        <div class="section-header">
+
+          <div class="section-number">
+            1
+          </div>
+
+          <div>
+            <h2>{{ 'animalAdd.generalInfo' | translate }}</h2>
+            <p>{{ 'animalAdd.generalInfoSubtitle' | translate }}</p>
+          </div>
+
+        </div>
+
+
+        <div class="form-grid three-columns">
+
+          <div class="field-group">
+            <label>{{ 'animalAdd.lotRequired' | translate }}</label>
+
+            <mat-form-field appearance="outline">
+              <mat-select
+                [value]="selectedLot()"
+                (selectionChange)="setLot($event.value)"
+              >
+                <mat-option value="">
+                  {{ 'animalAdd.selectLot' | translate }}
+                </mat-option>
+
+                @for (lot of lots(); track lot.id) {
+                  <mat-option [value]="lot.id">
+                    {{ lot.name }}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+
+          <div class="field-group">
+            <label>{{ 'animalAdd.earTagRequired' | translate }}</label>
+
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                [value]="earTag()"
+                (input)="setEarTag($any($event.target).value)"
+                placeholder="{{ 'animalAdd.earTagExample' | translate }}"
+              >
+
+              <mat-hint>
+                {{ 'animalAdd.autoIdHint' | translate }}
+              </mat-hint>
+            </mat-form-field>
+          </div>
+
+
+          <div class="field-group">
+            <label>{{ 'animalAdd.nameRequired' | translate }}</label>
+
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                [value]="name()"
+                (input)="setName($any($event.target).value)"
+                placeholder="{{ 'animalAdd.nameExample' | translate }}"
+              >
+            </mat-form-field>
+          </div>
+
+
+          <div class="field-group">
+            <label>{{ 'animalAdd.speciesRequired' | translate }}</label>
+
+            <mat-form-field appearance="outline">
+              <mat-select
+                [value]="species()"
+                (selectionChange)="setSpecies($event.value)"
+              >
+                <mat-option value="Bovino">
+                  Bovino
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+
+          <div class="field-group">
+            <label>{{ 'animalAdd.breedRequired' | translate }}</label>
+
+            <mat-form-field appearance="outline">
+              <mat-select
+                [value]="breed()"
+                (selectionChange)="setBreed($event.value)"
+              >
+                <mat-option value="Holstein">
+                  Holstein
+                </mat-option>
+
+                <mat-option value="Holstein mestiza">
+                  Holstein mestiza
+                </mat-option>
+
+                <mat-option value="Angus">
+                  Angus
+                </mat-option>
+
+                <mat-option value="Brahman">
+                  Brahman
+                </mat-option>
+
+                <mat-option value="Charolais">
+                  Charolais
+                </mat-option>
+
+                <mat-option value="Jersey">
+                  Jersey
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </mat-card>
+
+
+      <!-- CARACTERÍSTICAS -->
+      <mat-card class="form-card">
+
+        <div class="section-header">
+
+          <div class="section-number">
+            2
+          </div>
+
+          <div>
+            <h2>{{ 'animalAdd.characteristics' | translate }}</h2>
+            <p>{{ 'animalAdd.characteristicsSubtitle' | translate }}</p>
+          </div>
+
+        </div>
+
+
+        <div class="characteristics-grid">
+
+          <div class="field-group">
+
+            <label>{{ 'animalAdd.sexRequired' | translate }}</label>
+
+            <div class="sex-buttons">
+
+              <button
+                type="button"
+                class="sex-button"
+                [class.selected]="sex() === 'Hembra'"
+                (click)="setSex('Hembra')">
+                <mat-icon>female</mat-icon>
+                {{ 'livestock.female' | translate }}
+              </button>
+
+              <button
+                type="button"
+                class="sex-button"
+                [class.selected]="sex() === 'Macho'"
+                (click)="setSex('Macho')">
+                <mat-icon>male</mat-icon>
+                {{ 'livestock.male' | translate }}
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="field-group">
+            <label>{{ 'animalAdd.birthDateRequired' | translate }}</label>
+
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                type="date"
+                [max]="today"
+                [value]="birthDate()"
+                (input)="setBirthDate($any($event.target).value)"
+              >
+            </mat-form-field>
+          </div>
+
+
+
+          <div class="field-group">
+            <label>{{ 'animalAdd.weightRequired' | translate }}</label>
+
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                type="number"
+                [value]="weight() ?? ''"
+                (input)="setWeight($any($event.target).value)"
+                placeholder="420"
+              >
+
+              <span matTextSuffix>kg</span>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+      </mat-card>
+
+
+      <!-- GENEALOGÍA -->
+      <mat-card class="form-card">
+
+        <div class="section-header">
+
+          <div class="section-number">
+            3
+          </div>
+
+          <div>
+            <h2>
+              {{ 'animalAdd.genealogyInfo' | translate }}
+              <span>{{ 'animalAdd.optional' | translate }}</span>
+            </h2>
+
+            <p>
+              {{ 'animalAdd.genealogySubtitle' | translate }}
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="form-grid two-columns">
+
+          <div class="field-group">
+            <label>{{ 'animalAdd.mother' | translate }}</label>
+
+            <mat-form-field appearance="outline">
+              <mat-select
+                [value]="motherId()"
+                (selectionChange)="setMother($event.value)"
+              >
+                <mat-option value="">
+                  {{ 'animalAdd.selectMother' | translate }}
+                </mat-option>
+
+                @for (animal of mothers(); track animal.id) {
+                  <mat-option [value]="animal.id">
+                    #{{ animal.earTag }} - {{ animal.name }}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+
+          <div class="field-group">
+            <label>{{ 'animalAdd.father' | translate }}</label>
+
+            <mat-form-field appearance="outline">
+              <mat-select
+                [value]="fatherId()"
+                (selectionChange)="setFather($event.value)"
+              >
+                <mat-option value="">
+                  {{ 'animalAdd.selectFather' | translate }}
+                </mat-option>
+
+                @for (animal of fathers(); track animal.id) {
+                  <mat-option [value]="animal.id">
+                    #{{ animal.earTag }} - {{ animal.name }}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </mat-card>
+
+
+      <!-- FOTO -->
+      <mat-card class="form-card">
+
+        <div class="section-header">
+
+          <div class="section-number">
+            4
+          </div>
+
+          <div>
+            <h2>
+              {{ 'animalAdd.photo' | translate }}
+              <span>{{ 'animalAdd.optional' | translate }}</span>
+            </h2>
+
+            <p>
+              {{ 'animalAdd.photoSubtitle' | translate }}
+            </p>
+          </div>
+
+        </div>
+
+
+        <input
+          id="animal-photo"
+          type="file"
+          accept="image/*"
+          hidden
+          (change)="onPhotoSelected($event)"
+        >
+
+        <label for="animal-photo" class="photo-upload">
+          <mat-icon>photo_camera</mat-icon>
+          <span>{{ photoUrl() ? ('animalAdd.changePhoto' | translate) : ('animalAdd.uploadPhoto' | translate) }}</span>
+        </label>
+
+        @if (photoUrl()) {
+          <div class="photo-preview">
+            <img
+              [src]="photoUrl()"
+              [alt]="name() || 'Foto del animal'"
+            >
+          </div>
+        }
+      </mat-card>
+      <div class="form-actions">
+        @if (saveError()) {
+          <p role="alert">{{ saveError() }}</p>
+        }
+        <button
+          mat-button
+          type="button"
+              (click)="cancel()">
+          {{ 'payments.cancel' | translate }}
+        </button>
+
+        <button
+          mat-flat-button
+          class="save-button"
+          [disabled]="saving()"
+          (click)="registerAnimal()">
+          <mat-icon>check</mat-icon>
+          {{ 'animalAdd.register' | translate }}
+        </button>
+
+      </div>
+
+    </main>
+
+
+    <!-- RESUMEN -->
+    <aside>
+
+      <mat-card class="summary-card">
+
+        <div class="summary-header">
+
+          <div class="summary-icon">
+            <mat-icon>receipt_long</mat-icon>
+          </div>
+
+          <div>
+            <h2>{{ 'animalAdd.summaryTitle' | translate }}</h2>
+            <p>{{ 'animalAdd.summarySubtitle' | translate }}</p>
+          </div>
+
+        </div>
+
+
+        <div class="summary-preview">
+
+          <div class="preview-image">
+            <mat-icon>pets</mat-icon>
+          </div>
+
+          <div>
+
+            <h3>
+              {{ name() || ('animalAdd.animalNamePlaceholder' | translate) }}
+            </h3>
+
+            <p>
+              {{ species() || 'Bovino' }}
+              ·
+              {{ breed() || ('animalAdd.breedPlaceholder' | translate) }}
+            </p>
+
+            <span class="sex-badge">
+              <mat-icon>
+                {{ sex() === 'Macho' ? 'male' : 'female' }}
+              </mat-icon>
+
+              {{ sex() || ('animalAdd.sexPlaceholder' | translate) }}
+            </span>
+            @if (registeringCalf()) {
+              <p class="calf-badge">{{ 'calf.label' | translate }}</p>
+              <small>{{ 'calf.ageHint' | translate }}</small>
+            }
+
+          </div>
+
+        </div>
+
+
+        <div class="summary-details">
+
+          <div>
+            <mat-icon>inventory_2</mat-icon>
+            <span>{{ 'feeding.lot' | translate }}</span>
+            <strong>
+              {{ lots().find(lot => lot.id === selectedLot())?.name || ('animalAdd.notSpecified' | translate) }}
+            </strong>
+          </div>
+
+
+          <div>
+            <mat-icon>tag</mat-icon>
+            <span>{{ 'animal.earTag' | translate }}</span>
+            <strong>
+              {{ earTag() || ('animalAdd.notSpecified' | translate) }}
+            </strong>
+          </div>
+
+
+          <div>
+            <mat-icon>pets</mat-icon>
+            <span>{{ 'animal.name' | translate }}</span>
+            <strong>
+              {{ name() || ('animalAdd.notSpecified' | translate) }}
+            </strong>
+          </div>
+
+
+          <div>
+            <mat-icon>category</mat-icon>
+            <span>{{ 'animal.species' | translate }}</span>
+            <strong>
+              {{ species() || ('animalAdd.notSpecified' | translate) }}
+            </strong>
+          </div>
+
+
+          <div>
+            <mat-icon>grass</mat-icon>
+            <span>{{ 'animal.breed' | translate }}</span>
+            <strong>
+              {{ breed() || ('animalAdd.notSpecified' | translate) }}
+            </strong>
+          </div>
+
+
+          <div>
+            <mat-icon>person</mat-icon>
+            <span>{{ 'animal.sex' | translate }}</span>
+            <strong>
+              {{ sex() || ('animalAdd.notSpecified' | translate) }}
+            </strong>
+          </div>
+
+
+          <div>
+            <mat-icon>calendar_today</mat-icon>
+            <span>{{ 'animal.birthDate' | translate }}</span>
+            <strong>
+              {{ birthDate() || ('animalAdd.notSpecified' | translate) }}
+            </strong>
+          </div>
+
+
+          <div>
+            <mat-icon>monitor_weight</mat-icon>
+            <span>{{ 'animalAdd.weight' | translate }}</span>
+            <strong>
+              {{ weight() ? weight() + ' kg' : 'No especificado' }}
+            </strong>
+          </div>
+
+
+          <div>
+            <mat-icon>female</mat-icon>
+            <span>{{ 'animal.mother' | translate }}</span>
+            <strong>
+              {{ selectedMotherName }}
+            </strong>
+          </div>
+
+
+          <div>
+            <mat-icon>male</mat-icon>
+            <span>{{ 'animal.father' | translate }}</span>
+            <strong>
+              {{ selectedFatherName }}
+            </strong>
+          </div>
+
+        </div>
+
+
+        <div class="initial-status">
+
+          <mat-icon>info</mat-icon>
+
+          <div>
+            <strong>{{ 'animalAdd.initialStatus' | translate }}: <span>{{ 'livestock.healthyStatus' | translate }}</span></strong>
+
+            <p>
+              {{ 'animalAdd.autoIdFooter' | translate }}
+            </p>
+          </div>
+
+        </div>
+
+      </mat-card>
+
+    </aside>
+
+  </div>
+
+</div>

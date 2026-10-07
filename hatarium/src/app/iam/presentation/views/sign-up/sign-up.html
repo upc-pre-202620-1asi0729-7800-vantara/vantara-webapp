@@ -1,0 +1,94 @@
+<app-authentication-layout heroImage="assets/auth/sign-up-reference.png">
+  <section class="auth-card">
+    <header class="title-block">
+      <h1>{{ 'auth.signUp.title' | translate }}</h1>
+      <p>{{ 'auth.signUp.subtitle' | translate }}</p>
+    </header>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="field">
+        <label for="full-name">{{ 'auth.fullName' | translate }}</label>
+        <input id="full-name" type="text" formControlName="fullName" placeholder="Carlos Mendoza" autocomplete="name">
+        @if (form.controls.fullName.touched && form.controls.fullName.invalid) {
+          <small>{{ 'auth.fullNameRequired' | translate }}</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="organization-name">{{ 'auth.organization' | translate }}</label>
+        <input id="organization-name" type="text" formControlName="organizationName" placeholder="Hacienda San Rafael" autocomplete="organization">
+        @if (form.controls.organizationName.touched && form.controls.organizationName.invalid) {
+          <small>{{ 'auth.organizationRequired' | translate }}</small>
+        }
+      </div>
+
+      <fieldset class="role-selector">
+        <legend>{{ 'auth.accountType' | translate }}</legend>
+        <label>
+          <input type="radio" formControlName="role" [value]="roles.Rancher">
+          <span>{{ 'auth.roleRancher' | translate }}</span>
+        </label>
+        <label>
+          <input type="radio" formControlName="role" [value]="roles.Veterinarian">
+          <span>{{ 'auth.roleVeterinarian' | translate }}</span>
+        </label>
+      </fieldset>
+
+      <div class="field">
+        <label for="sign-up-email">{{ 'auth.email' | translate }}</label>
+        <input id="sign-up-email" type="email" formControlName="email" placeholder="contacto@haciendasanrafael.com" autocomplete="email">
+        @if (form.controls.email.touched && form.controls.email.invalid) {
+          <small>{{ 'auth.emailInvalid' | translate }}</small>
+        }
+      </div>
+
+      <div class="field">
+        <label for="sign-up-password">{{ 'auth.password' | translate }}</label>
+        <div class="password-field">
+          <input
+            id="sign-up-password"
+            [type]="passwordVisible() ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="{{ 'auth.minLength' | translate }}"
+            autocomplete="new-password"
+          >
+          <button
+            class="visibility-button"
+            type="button"
+            (click)="togglePasswordVisibility()"
+            [attr.aria-label]="passwordVisible() ? ('auth.hidePassword' | translate) : ('auth.showPassword' | translate)"
+          >{{ passwordVisible() ? ('auth.hide' | translate) : ('auth.show' | translate) }}</button>
+        </div>
+        <span class="password-help">{{ 'auth.passwordHelp' | translate }}</span>
+        @if (form.controls.password.touched && form.controls.password.invalid) {
+          <small>{{ 'auth.passwordRules' | translate }}</small>
+        }
+      </div>
+
+      <label class="terms-option">
+        <input type="checkbox" formControlName="acceptsTerms">
+        <span>{{ 'auth.acceptTerms' | translate }}</span>
+      </label>
+      @if (form.controls.acceptsTerms.touched && form.controls.acceptsTerms.invalid) {
+        <small>{{ 'auth.termsRequired' | translate }}</small>
+      }
+
+      @if (store.error()) {
+        <p class="feedback" role="alert">{{ store.error() }}</p>
+      }
+
+      <button class="primary-button" type="submit" [disabled]="store.loading()">
+        {{ store.loading() ? ('auth.creatingAccount' | translate) : ('auth.signUpAction' | translate) }}
+      </button>
+    </form>
+
+    <div class="separator"><span>{{ 'auth.orSignUpWith' | translate }}</span></div>
+
+    <div class="social-actions" [attr.aria-label]="'auth.socialAria' | translate">
+      <button type="button"><strong class="google">G</strong> Google</button>
+      <button type="button"><strong class="apple">●</strong> Apple</button>
+    </div>
+
+    <p class="switch-flow">{{ 'auth.haveAccount' | translate }} <a routerLink="/iam/sign-in">{{ 'auth.signInAction' | translate }}</a></p>
+  </section>
+</app-authentication-layout>

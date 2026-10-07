@@ -1,0 +1,6 @@
+@if (store.isAuthenticated()) {
+  <span class="user-name">{{ store.currentAccount()?.email }}</span>
+  <button mat-button type="button" (click)="signOut()">{{ 'auth.signOut' | translate }}</button>
+} @else {
+  <a mat-button routerLink="/iam/sign-in">{{ 'auth.signInAction' | translate }}</a>
+}

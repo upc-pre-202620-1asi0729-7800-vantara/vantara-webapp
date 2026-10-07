@@ -1,0 +1,72 @@
+<div class="form-overlay">
+  <mat-card
+    class="event-dialog"
+    role="dialog"
+    aria-modal="true"
+    cdkTrapFocus
+    cdkTrapFocusAutoCapture
+    [attr.aria-label]="'forms.pregnancyTitle' | translate"
+  >
+    <mat-card-header>
+      <mat-card-title>{{ 'forms.pregnancyTitle' | translate }}</mat-card-title>
+      <a
+        mat-icon-button
+        class="dialog-close"
+        routerLink="/reproductive"
+        [attr.aria-label]="'forms.close' | translate"
+      >
+        <mat-icon>close</mat-icon>
+      </a>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <section class="form-section">
+          <h3>Información del animal</h3>
+          <mat-form-field appearance="outline">
+            <mat-label>Animal</mat-label>
+            <mat-select formControlName="animalId" required placeholder="Selecciona un animal...">
+              @for (option of animalSelection.options(); track option.value) {
+                <mat-option [value]="option.value">{{ option.label }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          @if (animalSelection.loading()) {
+            <p role="status">Cargando animales...</p>
+          } @else if (animalSelection.error()) {
+            <p role="alert">{{ animalSelection.error() }}</p>
+          } @else if (!animalSelection.options().length) {
+            <p role="status">No hay hembras activas disponibles.</p>
+          }
+        </section>
+        <section class="form-section">
+          <h3>Detalles de la preñez</h3>
+          <mat-form-field appearance="outline"
+            ><mat-label>{{ 'forms.calfId' | translate }}</mat-label
+            ><input matInput formControlName="calfId"
+          /></mat-form-field>
+          <mat-form-field appearance="outline"
+            ><mat-label>{{ 'forms.confirmedOn' | translate }}</mat-label
+            ><input matInput type="date" formControlName="confirmedOn" required
+          /></mat-form-field>
+          <mat-form-field appearance="outline"
+            ><mat-label>{{ 'forms.expectedCalvingOn' | translate }}</mat-label
+            ><input matInput type="date" formControlName="expectedCalvingOn"
+          /></mat-form-field>
+        </section>
+        <section class="form-section">
+          <h3>Información adicional</h3>
+          <mat-form-field appearance="outline">
+            <mat-label>Observaciones</mat-label>
+            <textarea matInput rows="3" disabled></textarea>
+          </mat-form-field>
+        </section>
+        <div class="actions">
+          <a mat-button routerLink="/reproductive">{{ 'forms.cancel' | translate }}</a>
+          <button mat-raised-button color="primary" type="submit">
+            {{ 'forms.submitPregnancy' | translate }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

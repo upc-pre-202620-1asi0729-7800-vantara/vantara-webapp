@@ -1,0 +1,279 @@
+﻿<div class="animal-page">
+
+  <!-- HEADER -->
+  <section class="page-header">
+    <div class="page-title">
+      <h1>{{ 'livestock.title' | translate }}</h1>
+      <p>{{ 'livestock.subtitle' | translate }}</p>
+    </div>
+
+    <button
+      mat-flat-button
+      class="register-button"
+      (click)="goToAddAnimal()">
+      <mat-icon>add</mat-icon>
+      {{ 'livestock.registerAnimal' | translate }}
+    </button>
+  </section>
+
+
+  <!-- ESTADÍSTICAS -->
+  <section class="statistics-grid">
+
+    <mat-card class="stat-card">
+      <div class="stat-header">
+        <span>{{ 'livestock.totalAnimals' | translate }}</span>
+
+        <div class="stat-icon">
+          <mat-icon>pets</mat-icon>
+        </div>
+      </div>
+
+      <strong>{{ totalAnimals() }}</strong>
+      <small>{{ 'livestock.registeredAnimals' | translate }} · {{ 'calf.count' | translate: { count: totalCalves() } }}</small>
+    </mat-card>
+
+
+    <mat-card class="stat-card">
+      <div class="stat-header">
+        <span>{{ 'livestock.activeLots' | translate }}</span>
+
+        <div class="stat-icon">
+          <mat-icon>inventory_2</mat-icon>
+        </div>
+      </div>
+
+      <strong>{{ activeLots() }}</strong>
+      <small>{{ 'livestock.grazingAndFattening' | translate }}</small>
+    </mat-card>
+
+
+    <mat-card class="stat-card">
+      <div class="stat-header">
+        <span>{{ 'livestock.healthy' | translate }}</span>
+
+        <div class="stat-icon">
+          <mat-icon>verified</mat-icon>
+        </div>
+      </div>
+
+      <strong>—</strong>
+      <small>{{ 'livestock.healthData' | translate }}</small>
+    </mat-card>
+
+
+    <mat-card class="stat-card">
+      <div class="stat-header">
+        <span>{{ 'livestock.needsAttention' | translate }}</span>
+
+        <div class="stat-icon warning">
+          <mat-icon>warning_amber</mat-icon>
+        </div>
+      </div>
+
+      <strong>—</strong>
+      <small>{{ 'livestock.healthData' | translate }}</small>
+    </mat-card>
+
+  </section>
+
+  <mat-card class="filters-card">
+    <div class="filters-row">
+      <div class="search-box">
+        <mat-icon>search</mat-icon>
+        <input
+          type="text"
+          placeholder="{{ 'livestock.searchPlaceholder' | translate }}"
+          [value]="searchTerm()"
+          (input)="setSearchTerm($any($event.target).value)">
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-select
+          [value]="selectedLot()"
+          (selectionChange)="setLot($event.value)">
+          <mat-option value="">{{ 'livestock.lot' | translate }}</mat-option>
+          @for (lot of lots(); track lot.id) {
+            <mat-option [value]="lot.id">
+              {{ lot.name }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-select
+          [value]="selectedSex()"
+          (selectionChange)="setSex($event.value)">
+          <mat-option value="">{{ 'livestock.sex' | translate }}</mat-option>
+          <mat-option value="Hembra">{{ 'livestock.female' | translate }}</mat-option>
+          <mat-option value="Macho">{{ 'livestock.male' | translate }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-select
+          [value]="selectedBreed()"
+          (selectionChange)="setBreed($event.value)">
+          <mat-option value="">{{ 'livestock.breed' | translate }}</mat-option>
+          @for (breed of breeds(); track breed) {
+            <mat-option [value]="breed">
+              {{ breed }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="lot-tabs">
+      <button
+        class="lot-tab"
+        [class.active]="selectedLot() === ''"
+        (click)="setLot('')">
+        {{ 'livestock.all' | translate }} ({{ totalAnimals() }})
+      </button>
+      @for (lot of lots(); track lot.id) {
+        <button
+          class="lot-tab"
+          [class.active]="selectedLot() === lot.id"
+          (click)="setLot(lot.id)">
+          {{ lot.name }}
+          ({{ animals().filter(a => a.lotId === lot.id).length }})
+        </button>
+      }
+    </div>
+  </mat-card>
+
+  <mat-card class="animals-card">
+    <div class="table-title">
+      <h2>{{ 'livestock.registeredAnimals' | translate }}</h2>
+      <span class="animal-count">
+        {{ filteredAnimals().length }} {{ 'livestock.animals' | translate }}
+      </span>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+        <tr>
+          <th>{{ 'livestock.colAnimal' | translate }}</th>
+          <th>{{ 'livestock.colLot' | translate }}</th>
+          <th>{{ 'livestock.colSex' | translate }}</th>
+          <th>{{ 'livestock.colBreed' | translate }}</th>
+          <th>{{ 'livestock.colWeight' | translate }}</th>
+          <th>{{ 'livestock.colStatus' | translate }}</th>
+          <th>{{ 'livestock.colLastCheck' | translate }}</th>
+          <th>{{ 'livestock.colAction' | translate }}</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (animal of paginatedAnimals(); track animal.id) {
+            <tr>
+              <td>
+                <div class="animal-cell">
+                  <div class="animal-avatar">
+                    <mat-icon>pets</mat-icon>
+                  </div>
+                  <div class="animal-info">
+                    <strong>#{{ animal.earTag }}</strong>
+                    <small>{{ animal.name }}</small>
+                    @if (animal.isCalf()) {
+                      <small class="calf-badge">{{ 'calf.label' | translate }}</small>
+                    }
+                    @if (animal.weanedOn) {
+                      <small class="calf-badge">{{ 'calf.weaned' | translate }}</small>
+                    }
+                  </div>
+                </div>
+              </td>
+              <td>
+                {{ getLotName(animal.lotId) }}
+              </td>
+              <td>
+                {{ animal.sex }}
+              </td>
+              <td>
+                {{ animal.breed }}
+              </td>
+              <td>
+                {{ animal.weight }} kg
+              </td>
+              <td>
+                <span class="status-badge status-healthy">
+                  <span class="status-dot"></span>
+                  {{ 'livestock.healthyStatus' | translate }}
+                </span>
+              </td>
+              <td>
+                —
+              </td>
+              <td>
+                <button
+                  mat-button
+                  class="view-button"
+                  (click)="goToAnimalDetail(animal.id)">
+                  {{ 'livestock.view' | translate }} →
+                </button>
+              </td>
+            </tr>
+          }
+          @if (filteredAnimals().length === 0) {
+            <tr>
+              <td colspan="8" class="empty-state">
+                <mat-icon>search_off</mat-icon>
+                <p>{{ 'livestock.noResults' | translate }}</p>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination">
+      <span>
+        {{ 'livestock.showing' | translate: {
+        shown: paginatedAnimals().length,
+        total: filteredAnimals().length
+      } }}
+      </span>
+      <div class="pagination-buttons">
+
+        <button
+          mat-button
+          [disabled]="currentPage() === 1"
+          (click)="previousPage()">
+          ← {{ 'livestock.previous' | translate }}
+        </button>
+
+        <!-- NÚMEROS DE PÁGINA -->
+        @for (page of pages(); track page) {
+
+          @if (page === currentPage()) {
+
+            <button
+              mat-flat-button
+              class="current-page">
+              {{ page }}
+            </button>
+
+          } @else {
+
+            <button
+              mat-button
+              (click)="goToPage(page)">
+              {{ page }}
+            </button>
+
+          }
+
+        }
+        <button
+          mat-button
+          [disabled]="currentPage() === totalPages()"
+          (click)="nextPage()">
+          {{ 'livestock.next' | translate }} →
+        </button>
+
+      </div>    </div>
+  </mat-card>
+</div>

@@ -1,0 +1,523 @@
+﻿<div class="reports-dashboard">
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
+  <header class="page-header">
+
+    <h1>
+      Reportes y Analíticas
+    </h1>
+
+    <p>
+      Genera reportes sobre el estado del ganado y la alimentación.
+    </p>
+
+  </header>
+
+
+  <!-- =====================================================
+       GENERAR REPORTE
+  ====================================================== -->
+
+  <section class="report-section">
+
+    <div class="section-header">
+
+      <h2>
+        Generar reporte
+      </h2>
+
+      <p>
+        Selecciona el tipo de información que deseas analizar.
+      </p>
+
+    </div>
+
+
+    <!-- =================================================
+         TIPOS DE REPORTE
+    ================================================== -->
+
+    <div class="report-types">
+
+
+      <!-- REPORTE DE GANADO -->
+
+      <button
+        type="button"
+        class="report-type-card"
+        [class.active]="reportType === 'livestock'"
+        (click)="reportType = 'livestock'"
+      >
+
+        <div class="report-icon">
+
+          <mat-icon>
+            analytics
+          </mat-icon>
+
+        </div>
+
+
+        <div class="report-type-content">
+
+          <h3>
+            Reporte de ganado
+          </h3>
+
+          <p>
+            Analiza cantidad de animales, peso promedio, lotes,
+            razas y distribución por sexo.
+          </p>
+
+        </div>
+
+
+        <mat-icon
+          *ngIf="reportType === 'livestock'"
+          class="selected-icon"
+        >
+          check_circle
+        </mat-icon>
+
+      </button>
+
+
+
+      <!-- REPORTE DE ALIMENTACIÓN -->
+
+      <button
+        type="button"
+        class="report-type-card"
+        [class.active]="reportType === 'feeding'"
+        (click)="reportType = 'feeding'"
+      >
+
+        <div class="report-icon">
+
+          <mat-icon>
+            restaurant
+          </mat-icon>
+
+        </div>
+
+
+        <div class="report-type-content">
+
+          <h3>
+            Reporte de alimentación
+          </h3>
+
+          <p>
+            Analiza planes de alimentación, consumo registrado
+            y distribución por lote.
+          </p>
+
+        </div>
+
+
+        <mat-icon
+          *ngIf="reportType === 'feeding'"
+          class="selected-icon"
+        >
+          check_circle
+        </mat-icon>
+
+      </button>
+
+    </div>
+
+
+
+    <!-- =================================================
+         FILTROS
+    ================================================== -->
+
+    <div class="filters-card">
+
+
+      <!-- HEADER -->
+
+      <div class="filters-header">
+
+        <h3>
+          Filtros del reporte
+        </h3>
+
+        <p>
+          Define el periodo y los datos que deseas analizar.
+        </p>
+
+      </div>
+
+
+
+      <!-- =================================================
+           FILTROS DE GANADO
+      ================================================== -->
+
+      <div
+        class="filters-grid"
+        *ngIf="reportType === 'livestock'"
+      >
+
+
+        <!-- FECHA INICIAL -->
+
+        <div class="form-field">
+
+          <label for="startsOn">
+            Fecha inicial
+          </label>
+
+          <div class="input-with-icon">
+
+            <mat-icon>
+              calendar_today
+            </mat-icon>
+
+            <input
+              id="startsOn"
+              type="date"
+              [(ngModel)]="filter.startsOn"
+            />
+
+          </div>
+
+        </div>
+
+
+
+        <!-- FECHA FINAL -->
+
+        <div class="form-field">
+
+          <label for="endsOn">
+            Fecha final
+          </label>
+
+          <div class="input-with-icon">
+
+            <mat-icon>
+              calendar_today
+            </mat-icon>
+
+            <input
+              id="endsOn"
+              type="date"
+              [(ngModel)]="filter.endsOn"
+            />
+
+          </div>
+
+        </div>
+
+
+
+        <!-- LOTE -->
+
+        <div class="form-field">
+
+          <label for="lot">
+            Lote
+          </label>
+
+          <div class="input-with-icon">
+
+            <mat-icon>
+              inventory_2
+            </mat-icon>
+
+            <select
+              id="lot"
+              [(ngModel)]="filter.lotId"
+            >
+
+              <option [ngValue]="null">
+                Todos los lotes
+              </option>
+
+              <option
+                *ngFor="let lot of lots"
+                [ngValue]="lot.id"
+              >
+                {{ lot.name }}
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- RAZA -->
+
+        <div class="form-field">
+
+          <label for="breed">
+            Raza
+          </label>
+
+          <div class="input-with-icon">
+
+            <mat-icon>
+              pets
+            </mat-icon>
+
+            <select
+              id="breed"
+              [(ngModel)]="filter.breed"
+            >
+
+              <option [ngValue]="null">
+                Todas las razas
+              </option>
+
+              <option
+                *ngFor="let breed of breeds"
+                [ngValue]="breed"
+              >
+                {{ breed }}
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- SEXO -->
+
+        <div class="form-field">
+
+          <label for="sex">
+            Sexo
+          </label>
+
+          <div class="input-with-icon">
+
+            <mat-icon>
+              wc
+            </mat-icon>
+
+            <select
+              id="sex"
+              [(ngModel)]="filter.sex"
+            >
+
+              <option [ngValue]="null">
+                Ambos
+              </option>
+
+              <option value="Macho">
+                Macho
+              </option>
+
+              <option value="Hembra">
+                Hembra
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- ESTADO -->
+
+        <div class="form-field">
+
+          <label for="status">
+            Estado
+          </label>
+
+          <div class="input-with-icon">
+
+            <mat-icon>
+              check_circle
+            </mat-icon>
+
+            <select
+              id="status"
+              [(ngModel)]="filter.status"
+            >
+
+              <option [ngValue]="null">
+                Todos los estados
+              </option>
+
+              <option
+                *ngFor="let status of statuses"
+                [ngValue]="status"
+              >
+                {{ status }}
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- =================================================
+           FILTROS DE ALIMENTACIÓN
+      ================================================== -->
+
+      <div
+        class="filters-grid feeding-filters"
+        *ngIf="reportType === 'feeding'"
+      >
+
+
+        <!-- FECHA INICIAL -->
+
+        <div class="form-field">
+
+          <label for="feedingStartsOn">
+            Fecha inicial
+          </label>
+
+          <div class="input-with-icon">
+
+            <mat-icon>
+              calendar_today
+            </mat-icon>
+
+            <input
+              id="feedingStartsOn"
+              type="date"
+              [(ngModel)]="filter.startsOn"
+            />
+
+          </div>
+
+        </div>
+
+
+
+        <!-- FECHA FINAL -->
+
+        <div class="form-field">
+
+          <label for="feedingEndsOn">
+            Fecha final
+          </label>
+
+          <div class="input-with-icon">
+
+            <mat-icon>
+              calendar_today
+            </mat-icon>
+
+            <input
+              id="feedingEndsOn"
+              type="date"
+              [(ngModel)]="filter.endsOn"
+            />
+
+          </div>
+
+        </div>
+
+
+
+        <!-- LOTE -->
+
+        <div class="form-field">
+
+          <label for="feedingLot">
+            Lote
+          </label>
+
+          <div class="input-with-icon">
+
+            <mat-icon>
+              inventory_2
+            </mat-icon>
+
+            <select
+              id="feedingLot"
+              [(ngModel)]="filter.lotId"
+            >
+
+              <option [ngValue]="null">
+                Todos los lotes
+              </option>
+
+              <option
+                *ngFor="let lot of lots"
+                [ngValue]="lot.id"
+              >
+                {{ lot.name }}
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- =================================================
+           ACCIONES
+      ================================================== -->
+
+      <div class="filters-actions">
+
+
+        <!-- LIMPIAR -->
+
+        <button
+          type="button"
+          class="secondary-button"
+          (click)="clearReport()"
+        >
+
+          <mat-icon>
+            refresh
+          </mat-icon>
+
+          Limpiar
+
+        </button>
+
+
+
+        <!-- GENERAR -->
+
+        <button
+          type="button"
+          class="primary-button"
+          (click)="generateReport()"
+        >
+
+          <mat-icon>
+            analytics
+          </mat-icon>
+
+          Generar reporte
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
