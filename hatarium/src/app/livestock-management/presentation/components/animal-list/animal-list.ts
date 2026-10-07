@@ -86,6 +86,44 @@ export class AnimalList {
     });
   });
 
+  // PAGINACIÓN
+  pageSize = 10;
+  currentPage = signal(1);
+
+  totalPages = computed(() =>
+    Math.ceil(this.filteredAnimals().length / this.pageSize)
+  );
+
+  paginatedAnimals = computed(() => {
+    const start = (this.currentPage() - 1) * this.pageSize;
+    const end = start + this.pageSize;
+
+    return this.filteredAnimals().slice(start, end);
+  });
+
+  pages = computed(() =>
+    Array.from(
+      { length: this.totalPages() },
+      (_, index) => index + 1
+    )
+  );
+
+  goToPage(page: number) {
+    if (page < 1 || page > this.totalPages()) {
+      return;
+    }
+
+    this.currentPage.set(page);
+  }
+
+  previousPage() {
+    this.goToPage(this.currentPage() - 1);
+  }
+
+  nextPage() {
+    this.goToPage(this.currentPage() + 1);
+  }
+
   getLotName(lotId: string): string {
     const lot = this.lots().find(lot => lot.id === lotId);
 
@@ -94,18 +132,22 @@ export class AnimalList {
 
   setSearchTerm(value: string) {
     this.searchTerm.set(value);
+    this.currentPage.set(1);
   }
 
   setLot(value: string) {
     this.selectedLot.set(value);
+    this.currentPage.set(1);
   }
 
   setSex(value: string) {
     this.selectedSex.set(value);
+    this.currentPage.set(1);
   }
 
   setBreed(value: string) {
     this.selectedBreed.set(value);
+    this.currentPage.set(1);
   }
 
   goToAddAnimal() {

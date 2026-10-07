@@ -167,7 +167,7 @@
         </tr>
         </thead>
         <tbody>
-          @for (animal of filteredAnimals(); track animal.id) {
+          @for (animal of paginatedAnimals(); track animal.id) {
             <tr>
               <td>
                 <div class="animal-cell">
@@ -231,28 +231,49 @@
 
     <div class="pagination">
       <span>
-        {{ 'livestock.showing' | translate: { shown: filteredAnimals().length, total: totalAnimals() } }}
+        {{ 'livestock.showing' | translate: {
+        shown: paginatedAnimals().length,
+        total: filteredAnimals().length
+      } }}
       </span>
       <div class="pagination-buttons">
-        <button mat-button disabled>
+
+        <button
+          mat-button
+          [disabled]="currentPage() === 1"
+          (click)="previousPage()">
           ← {{ 'livestock.previous' | translate }}
         </button>
+
+        <!-- NÚMEROS DE PÁGINA -->
+        @for (page of pages(); track page) {
+
+          @if (page === currentPage()) {
+
+            <button
+              mat-flat-button
+              class="current-page">
+              {{ page }}
+            </button>
+
+          } @else {
+
+            <button
+              mat-button
+              (click)="goToPage(page)">
+              {{ page }}
+            </button>
+
+          }
+
+        }
         <button
-          mat-flat-button
-          class="current-page">
-          1
-        </button>
-        <button mat-button>
-          2
-        </button>
-        <button mat-button>
-          3
-        </button>
-        <span>...</span>
-        <button mat-button>
+          mat-button
+          [disabled]="currentPage() === totalPages()"
+          (click)="nextPage()">
           {{ 'livestock.next' | translate }} →
         </button>
-      </div>
-    </div>
+
+      </div>    </div>
   </mat-card>
 </div>
