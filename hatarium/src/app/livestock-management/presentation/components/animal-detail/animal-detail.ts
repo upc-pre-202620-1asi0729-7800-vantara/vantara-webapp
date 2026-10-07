@@ -1,4 +1,5 @@
 ﻿import {
+
   ChangeDetectionStrategy,
   Component,
   computed,
@@ -13,11 +14,14 @@ import { LivestockStore } from '../../../application/livestock-store';
 import {MatButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {TranslatePipe} from '@ngx-translate/core';
+import {FeedingPlan} from '../../../domain/model/feeding-plan.entity';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-animal-detail',
   imports: [
+    CommonModule,
     MatButton,
     MatIcon,
     TranslatePipe,
@@ -37,15 +41,94 @@ export class AnimalDetail {
 
   private readonly routeParams = toSignal(this.route.paramMap, { initialValue: this.route.snapshot.paramMap });
   readonly animalId = computed(() => this.routeParams().get('id') ?? '');
-  readonly selectedTab = signal<'general' | 'appointments'>('general');
+  readonly selectedTab =
+    signal<'general' | 'feeding' | 'appointments'>('general');
 
   animal = computed(() =>
     this.animals().find(animal => animal.id === this.animalId())
   );
 
+  readonly feedingPlans = this.livestockStore.feedingPlans;
+  readonly feedingPlanItems = this.livestockStore.feedingPlanItems;
+  readonly feedingLogs = this.livestockStore.feedingLogs;
+
+  readonly feedingPlan = computed<FeedingPlan | undefined>(() => {
+    const currentAnimal = this.animal();
+
+    if (!currentAnimal) return undefined;
+
+    // Primero: buscar un plan específico para este animal
+    const individualPlan = this.feedingPlans().find(
+      plan => plan.animalId === currentAnimal.id
+    );
+
+    if (individualPlan) {
+      return individualPlan;
+    }
+
+    // Segundo: si no tiene uno individual,
+    // buscar el plan correspondiente a su lote
+    return this.feedingPlans().find(
+      plan =>
+        plan.animalId === null &&
+        plan.lotId === currentAnimal.lotId
+    );
+  });
+
+  readonly feedingPlanItemsForAnimal = computed(() => {
+    const plan = this.feedingPlan();
+
+    if (!plan) return [];
+
+    return this.livestockStore.feedingPlanItems().filter(
+      item => item.feedingPlanId === plan.id
+    );
+  });
+
+  readonly feedingLogsForAnimal = computed(() => {
+    const currentAnimal = this.animal();
+
+    if (!currentAnimal) return [];
+
+    return this.feedingLogs()
+      .filter(log => {
+        // Si el registro es específico del animal
+        if (log.animalId) {
+          return log.animalId === currentAnimal.id;
+        }
+
+        // Si pertenece al lote, aplica al animal
+        return log.lotId === currentAnimal.lotId;
+      })
+      .sort(
+        (a, b) =>
+          new Date(b.feedAt).getTime() -
+          new Date(a.feedAt).getTime()
+      );
+  });
+
+  getWeightProgress(plan: FeedingPlan): number {
+    if (plan.targetWeight <= 0) return 0;
+
+    return Math.min(
+      Math.round((plan.currentAverageWeight / plan.targetWeight) * 100),
+      100
+    );
+  }
+
+  getRemainingWeight(plan: FeedingPlan): number {
+    return Math.max(
+      plan.targetWeight - plan.currentAverageWeight,
+      0
+    );
+  }
+
   constructor() {
     this.livestockStore.loadAnimals();
     this.livestockStore.loadLots();
+    this.livestockStore.loadFeedingPlans();
+    this.livestockStore.loadFeedingPlanItems();
+    this.livestockStore.loadFeedingLogs();
   }
 
   getLotName(lotId: string): string {

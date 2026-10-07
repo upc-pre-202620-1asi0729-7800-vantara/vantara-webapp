@@ -1,11 +1,13 @@
 ﻿<div class="animal-detail-page">
 
-  <!-- VOLVER / EDITAR -->
+  <!-- VOLVER -->
   <section class="detail-header">
 
     <button
       mat-button
-      class="back-button" (click)="goBackToAnimals()">
+      class="back-button"
+      (click)="goBackToAnimals()"
+    >
       <mat-icon>arrow_back</mat-icon>
       {{ 'animal.backToLivestock' | translate }}
     </button>
@@ -15,7 +17,9 @@
 
   @if (animal(); as animal) {
 
-    <!-- CABECERA DEL ANIMAL -->
+    <!-- =========================
+         CABECERA DEL ANIMAL
+         ========================= -->
     <section class="animal-summary">
 
       <div class="animal-main-info">
@@ -33,11 +37,17 @@
             </span>
 
             <h1>{{ animal.name }}</h1>
+
             @if (animal.isCalf()) {
-              <span class="calf-badge">{{ 'calf.label' | translate }}</span>
+              <span class="calf-badge">
+                {{ 'calf.label' | translate }}
+              </span>
             }
+
             @if (animal.weanedOn) {
-              <span class="calf-badge">{{ 'calf.weaned' | translate }} · {{ animal.weanedOn }}</span>
+              <span class="calf-badge">
+                {{ 'calf.weaned' | translate }} · {{ animal.weanedOn }}
+              </span>
             }
 
             <span class="animal-breed">
@@ -99,25 +109,55 @@
     </section>
 
 
-    <!-- PESTAÑAS -->
+    <!-- =========================
+         PESTAÑAS
+         ========================= -->
     <nav class="detail-tabs">
 
-      <button type="button" class="detail-tab" [class.active]="selectedTab() === 'general'" [attr.aria-pressed]="selectedTab() === 'general'" (click)="selectedTab.set('general')">
+      <!-- GENERAL -->
+      <button
+        type="button"
+        class="detail-tab"
+        [class.active]="selectedTab() === 'general'"
+        [attr.aria-pressed]="selectedTab() === 'general'"
+        (click)="selectedTab.set('general')"
+      >
         <mat-icon>person</mat-icon>
         {{ 'animal.tabGeneral' | translate }}
       </button>
 
-      <button class="detail-tab">
+
+      <!-- SALUD -->
+      <button
+        type="button"
+        class="detail-tab"
+      >
         <mat-icon>favorite</mat-icon>
         {{ 'animal.tabHealth' | translate }}
       </button>
 
-      <button class="detail-tab">
+
+      <!-- ALIMENTACIÓN -->
+      <button
+        type="button"
+        class="detail-tab"
+        [class.active]="selectedTab() === 'feeding'"
+        [attr.aria-pressed]="selectedTab() === 'feeding'"
+        (click)="selectedTab.set('feeding')"
+      >
         <mat-icon>eco</mat-icon>
         {{ 'animal.tabFeeding' | translate }}
       </button>
 
-      <button type="button" class="detail-tab" [class.active]="selectedTab() === 'appointments'" [attr.aria-pressed]="selectedTab() === 'appointments'" (click)="selectedTab.set('appointments')">
+
+      <!-- CITAS -->
+      <button
+        type="button"
+        class="detail-tab"
+        [class.active]="selectedTab() === 'appointments'"
+        [attr.aria-pressed]="selectedTab() === 'appointments'"
+        (click)="selectedTab.set('appointments')"
+      >
         <mat-icon>calendar_month</mat-icon>
         {{ 'animal.tabAppointments' | translate }}
       </button>
@@ -125,314 +165,894 @@
     </nav>
 
 
-    <!-- GRID DE INFORMACIÓN -->
+    <!-- =========================
+         CITAS
+         ========================= -->
     @if (selectedTab() === 'appointments') {
-      <app-animal-appointments [animalId]="animalId()" />
+
+      <app-animal-appointments
+        [animalId]="animalId()"
+      />
+
     }
-    <section class="detail-grid" [style.display]="selectedTab() === 'general' ? null : 'none'">
 
-      <!-- COLUMNA IZQUIERDA -->
-      <div class="left-column">
 
-        <section class="basic-info-card">
+    <!-- =========================
+         ALIMENTACIÓN
+         ========================= -->
+    @if (selectedTab() === 'feeding') {
 
-          <div class="card-header">
+      <div class="feeding-detail">
 
-            <div class="card-title">
-              <div class="card-icon">
-                <mat-icon>description</mat-icon>
+        @if (feedingPlan(); as plan) {
+
+          <!-- =========================
+               PLAN DE ALIMENTACIÓN
+               ========================= -->
+          <section class="feeding-plan-card">
+
+            <div class="card-header">
+
+              <div class="card-title">
+
+                <div class="card-icon">
+                  <mat-icon>restaurant</mat-icon>
+                </div>
+
+                <div>
+                  <h2>Plan de alimentación</h2>
+                  <span>{{ plan.name }}</span>
+                </div>
+
               </div>
 
-              <h2>{{ 'animal.basicInfo' | translate }}</h2>
-            </div>
 
-            <button
-              mat-stroked-button
-              class="small-edit-button"
-            >
-              <mat-icon>edit</mat-icon>
-              {{ 'profile.save' | translate }}
-            </button>
-
-          </div>
-
-          <div class="basic-info-list">
-
-            <div class="info-row">
-              <span>{{ 'animal.earTag' | translate }}</span>
-              <strong>{{ animal.earTag }}</strong>
-            </div>
-
-            <div class="info-row">
-              <span>{{ 'animal.name' | translate }}</span>
-              <strong>{{ animal.name }}</strong>
-            </div>
-
-            <div class="info-row">
-              <span>{{ 'animal.lot' | translate }}</span>
-              <strong>{{ getLotName(animal.lotId) }}</strong>
-            </div>
-
-            <div class="info-row">
-              <span>{{ 'animal.species' | translate }}</span>
-              <strong>{{ animal.species }}</strong>
-            </div>
-
-            <div class="info-row">
-              <span>{{ 'animal.breed' | translate }}</span>
-              <strong>{{ animal.breed }}</strong>
-            </div>
-
-            <div class="info-row">
-              <span>{{ 'animal.sex' | translate }}</span>
-              <strong>
-                <mat-icon>
-                  {{ animal.sex === 'Macho' ? 'male' : 'female' }}
-                </mat-icon>
-                {{ animal.sex }}
-              </strong>
-            </div>
-
-            <div class="info-row">
-              <span>{{ 'animal.birthDate' | translate }}</span>
-              <strong>{{ animal.birthDate }}</strong>
-            </div>
-
-            <div class="info-row">
-              <span>{{ 'animal.age' | translate }}</span>
-              <strong>{{ getAge(animal.birthDate) }}</strong>
-            </div>
-
-            <div class="info-row">
-              <span>{{ 'animal.currentWeight' | translate }}</span>
-              <strong>{{ animal.weight }} kg</strong>
-            </div>
-
-            <div class="info-row">
-              <span>{{ 'animal.status' | translate }}</span>
-              <strong class="healthy-status">
+              <span class="feeding-status">
                 <span class="status-dot"></span>
-                {{ 'livestock.healthyStatus' | translate }}
-              </strong>
+                {{ plan.status }}
+              </span>
+
             </div>
 
-            <div class="info-row">
-              <span>{{ 'animal.registeredAt' | translate }}</span>
-              <strong>{{ animal.registeredAt }}</strong>
+
+            <div class="feeding-plan-info">
+
+              <div class="info-row">
+                <span>Objetivo</span>
+                <strong>{{ plan.objective }}</strong>
+              </div>
+
+
+              <div class="info-row">
+                <span>Frecuencia</span>
+                <strong>{{ plan.frequency }}</strong>
+              </div>
+
+
+              <div class="info-row">
+                <span>Inicio</span>
+                <strong>{{ plan.startsOn }}</strong>
+              </div>
+
+
+              <div class="info-row">
+                <span>Fin</span>
+                <strong>{{ plan.endsOn }}</strong>
+              </div>
+
+
+              @if (plan.instructions) {
+
+                <div class="info-row">
+                  <span>Instrucciones</span>
+                  <strong>{{ plan.instructions }}</strong>
+                </div>
+
+              }
+
             </div>
+
+          </section>
+
+
+          <!-- =========================
+               PESO + RACIÓN
+               ========================= -->
+          <div class="feeding-two-columns">
+
+
+            <!-- PROGRESO DE PESO -->
+            <section class="feeding-card">
+
+              <div class="card-header">
+
+                <div class="card-title">
+
+                  <div class="card-icon">
+                    <mat-icon>monitor_weight</mat-icon>
+                  </div>
+
+                  <h2>Progreso de peso</h2>
+
+                </div>
+
+              </div>
+
+
+              <div class="weight-summary">
+
+                <div>
+                  <span>Peso actual</span>
+
+                  <strong>
+                    {{ plan.currentAverageWeight }} kg
+                  </strong>
+                </div>
+
+
+                <div>
+                  <span>Peso objetivo</span>
+
+                  <strong>
+                    {{ plan.targetWeight }} kg
+                  </strong>
+                </div>
+
+              </div>
+
+
+              <div class="weight-progress">
+
+                <div class="progress-label">
+
+                  <span>Progreso</span>
+
+                  <strong>
+                    {{ getWeightProgress(plan) }}%
+                  </strong>
+
+                </div>
+
+
+                <div class="progress-bar">
+
+                  <div
+                    class="progress-fill"
+                    [style.width.%]="getWeightProgress(plan)"
+                  ></div>
+
+                </div>
+
+
+                <small>
+                  Faltan
+                  {{ getRemainingWeight(plan) }}
+                  kg para alcanzar el objetivo
+                </small>
+
+              </div>
+
+            </section>
+
+
+            <!-- RACIÓN DIARIA -->
+            <section class="feeding-card">
+
+              <div class="card-header">
+
+                <div class="card-title">
+
+                  <div class="card-icon">
+                    <mat-icon>eco</mat-icon>
+                  </div>
+
+                  <h2>Ración diaria</h2>
+
+                </div>
+
+              </div>
+
+
+              <div class="feeding-items">
+
+                @for (
+                  item of feedingPlanItemsForAnimal();
+                  track item.id
+                  ) {
+
+                  <div class="feeding-item">
+
+                    <div>
+                      <strong>
+                        {{ item.feedName }}
+                      </strong>
+                    </div>
+
+                    <strong>
+                      {{ item.dailyQuantity }}
+                      {{ item.unit }}
+                    </strong>
+
+                  </div>
+
+                } @empty {
+
+                  <div class="empty-small">
+
+                    <span>
+                      No hay alimentos registrados.
+                    </span>
+
+                  </div>
+
+                }
+
+              </div>
+
+            </section>
 
           </div>
 
-        </section>
 
+          <!-- =========================
+               HORARIOS
+               ========================= -->
+          <section class="feeding-card">
 
-        <!-- ESTADO SANITARIO -->
+            <div class="card-header">
 
-        <section class="health-status-card">
+              <div class="card-title">
 
-          <div class="card-header">
+                <div class="card-icon">
+                  <mat-icon>schedule</mat-icon>
+                </div>
 
-            <div class="card-title">
-              <div class="card-icon">
-                <mat-icon>verified_user</mat-icon>
-              </div>
+                <h2>Horarios de alimentación</h2>
 
-              <h2>{{ 'animal.currentHealthStatus' | translate }}</h2>
-            </div>
-
-          </div>
-
-          <div class="health-status-content">
-
-            <div class="health-status-main">
-
-              <div class="health-status-icon">
-                <span></span>
-              </div>
-
-              <div>
-                <strong>{{ 'livestock.healthyStatus' | translate }}</strong>
-                <small>{{ 'animal.optimalHealth' | translate }}</small>
               </div>
 
             </div>
 
-            <div class="health-controls">
 
-              <div>
-                <span>{{ 'animal.lastCheck' | translate }}</span>
-                <strong>{{ 'animal.noData' | translate }}</strong>
-              </div>
+            <div class="feeding-schedules">
 
-              <div>
-                <span>{{ 'animal.nextCheck' | translate }}</span>
-                <strong>{{ 'animal.noData' | translate }}</strong>
+              @for (
+                schedule of plan.schedules;
+                track schedule.time
+                ) {
+
+                <div class="schedule-item">
+
+                  <mat-icon>schedule</mat-icon>
+
+                  <div>
+
+                    <strong>
+                      {{ schedule.time }}
+                    </strong>
+
+                    <span>
+                      {{ schedule.quantityPerAnimal }}
+                      kg por animal
+                    </span>
+
+                  </div>
+
+                </div>
+
+              } @empty {
+
+                <div class="empty-small">
+
+                  <span>
+                    No hay horarios registrados.
+                  </span>
+
+                </div>
+
+              }
+
+            </div>
+
+          </section>
+
+
+          <!-- =========================
+               HISTORIAL
+               ========================= -->
+          <section class="feeding-card">
+
+            <div class="card-header">
+
+              <div class="card-title">
+
+                <div class="card-icon">
+                  <mat-icon>history</mat-icon>
+                </div>
+
+                <h2>Historial de alimentación</h2>
+
               </div>
 
             </div>
 
-          </div>
 
-        </section>
+            <div class="feeding-history">
 
-      </div>
+              @for (
+                log of feedingLogsForAnimal().slice(0, 8);
+                track log.id
+                ) {
+
+                <div class="history-item">
+
+                  <div class="history-icon">
+                    <mat-icon>restaurant</mat-icon>
+                  </div>
 
 
-      <!-- COLUMNA DERECHA -->
-      <div class="right-column">
+                  <div class="history-info">
 
-        <!-- FOTO -->
+                    <strong>
+                      {{ log.feedName }}
+                    </strong>
 
-        <section class="animal-photo-card">
+                    <span>
+                      {{ log.quantity }}
+                      {{ log.unit }}
+                    </span>
 
-          <div class="card-header">
+                  </div>
 
-            <div class="card-title">
-              <div class="card-icon">
-                <mat-icon>photo_camera</mat-icon>
-              </div>
 
-              <h2>{{ 'animal.photo' | translate }}</h2>
+                  <div class="history-date">
+
+                    <strong>
+                      {{ log.feedAt | date:'dd/MM/yyyy' }}
+                    </strong>
+
+                    <span>
+                      {{ log.feedAt | date:'HH:mm' }}
+                    </span>
+
+                  </div>
+
+                </div>
+
+              } @empty {
+
+                <div class="empty-feeding">
+
+                  <mat-icon>history</mat-icon>
+
+                  <strong>
+                    Sin registros de alimentación
+                  </strong>
+
+                  <span>
+                    Todavía no existen registros para este animal.
+                  </span>
+
+                </div>
+
+              }
+
             </div>
 
-            <button
-              mat-stroked-button
-              class="small-edit-button"
-            >
-              <mat-icon>photo_camera</mat-icon>
-              {{ 'animal.changePhoto' | translate }}
-            </button>
+          </section>
 
-          </div>
 
-          <div class="photo-container">
+        } @else {
 
-            @if (animal.photoUrl) {
+          <!-- =========================
+               SIN PLAN
+               ========================= -->
+          <section class="feeding-card empty-feeding">
 
-              <img
-                [src]="animal.photoUrl"
-                [alt]="animal.name"
-              >
+            <mat-icon>restaurant</mat-icon>
 
-            } @else {
+            <strong>
+              Sin plan de alimentación
+            </strong>
 
-              <div class="photo-placeholder">
-
-                <mat-icon>pets</mat-icon>
-
-                <span>
-              {{ 'animal.noPhoto' | translate }}
+            <span>
+              Este animal no tiene un plan individual
+              ni uno asignado a su lote.
             </span>
 
-              </div>
+          </section>
 
-            }
-
-          </div>
-
-        </section>
-
-
-        <!-- GENEALOGÍA -->
-
-        <section class="genealogy-card">
-
-          <div class="card-header">
-
-            <div class="card-title">
-              <div class="card-icon">
-                <mat-icon>groups</mat-icon>
-              </div>
-
-              <h2>{{ 'animal.genealogy' | translate }}</h2>
-            </div>
-
-            <button
-              mat-stroked-button
-              class="small-edit-button"
-            >
-              <mat-icon>edit</mat-icon>
-              {{ 'profile.save' | translate }}
-            </button>
-
-          </div>
-
-          <div class="genealogy-list">
-
-            <div class="info-row">
-              <span>{{ 'animal.mother' | translate }}</span>
-
-              <strong>
-                {{ getMotherName(animal.motherId) }}
-              </strong>
-            </div>
-
-            <div class="info-row">
-              <span>{{ 'animal.father' | translate }}</span>
-
-              <strong>
-                {{ getFatherName(animal.fatherId) }}
-              </strong>
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <!-- RESUMEN SANITARIO -->
-
-        <section class="health-summary-card">
-
-          <div class="card-header">
-
-            <div class="card-title">
-              <div class="card-icon">
-                <mat-icon>favorite</mat-icon>
-              </div>
-
-              <h2>{{ 'animal.healthSummary' | translate }}</h2>
-            </div>
-
-            <button
-              mat-stroked-button
-              class="small-edit-button"
-            >
-              {{ 'animal.viewHistory' | translate }}
-              <mat-icon>arrow_forward</mat-icon>
-            </button>
-
-          </div>
-
-          <div class="health-summary-stats">
-
-            <div class="health-stat">
-              <strong>—</strong>
-              <span>{{ 'animal.totalEvents' | translate }}</span>
-            </div>
-
-            <div class="health-stat">
-              <strong>—</strong>
-              <span>{{ 'animal.vaccinesApplied' | translate }}</span>
-            </div>
-
-            <div class="health-stat">
-              <strong>—</strong>
-              <span>{{ 'animal.treatments' | translate }}</span>
-            </div>
-
-            <div class="health-stat">
-              <strong>—</strong>
-              <span>{{ 'animal.vetChecks' | translate }}</span>
-            </div>
-
-          </div>
-
-        </section>
+        }
 
       </div>
 
-    </section>
+    }
+
+
+    <!-- =========================
+         INFORMACIÓN GENERAL
+         ========================= -->
+    @if (selectedTab() === 'general') {
+
+      <section class="detail-grid">
+
+        <!-- =========================
+             COLUMNA IZQUIERDA
+             ========================= -->
+        <div class="left-column">
+
+
+          <!-- INFORMACIÓN BÁSICA -->
+          <section class="basic-info-card">
+
+            <div class="card-header">
+
+              <div class="card-title">
+
+                <div class="card-icon">
+                  <mat-icon>description</mat-icon>
+                </div>
+
+                <h2>
+                  {{ 'animal.basicInfo' | translate }}
+                </h2>
+
+              </div>
+
+
+              <button
+                mat-stroked-button
+                class="small-edit-button"
+              >
+                <mat-icon>edit</mat-icon>
+                {{ 'profile.save' | translate }}
+              </button>
+
+            </div>
+
+
+            <div class="basic-info-list">
+
+              <div class="info-row">
+                <span>
+                  {{ 'animal.earTag' | translate }}
+                </span>
+
+                <strong>
+                  {{ animal.earTag }}
+                </strong>
+              </div>
+
+
+              <div class="info-row">
+                <span>
+                  {{ 'animal.name' | translate }}
+                </span>
+
+                <strong>
+                  {{ animal.name }}
+                </strong>
+              </div>
+
+
+              <div class="info-row">
+                <span>
+                  {{ 'animal.lot' | translate }}
+                </span>
+
+                <strong>
+                  {{ getLotName(animal.lotId) }}
+                </strong>
+              </div>
+
+
+              <div class="info-row">
+                <span>
+                  {{ 'animal.species' | translate }}
+                </span>
+
+                <strong>
+                  {{ animal.species }}
+                </strong>
+              </div>
+
+
+              <div class="info-row">
+                <span>
+                  {{ 'animal.breed' | translate }}
+                </span>
+
+                <strong>
+                  {{ animal.breed }}
+                </strong>
+              </div>
+
+
+              <div class="info-row">
+
+                <span>
+                  {{ 'animal.sex' | translate }}
+                </span>
+
+                <strong>
+
+                  <mat-icon>
+                    {{ animal.sex === 'Macho' ? 'male' : 'female' }}
+                  </mat-icon>
+
+                  {{ animal.sex }}
+
+                </strong>
+
+              </div>
+
+
+              <div class="info-row">
+
+                <span>
+                  {{ 'animal.birthDate' | translate }}
+                </span>
+
+                <strong>
+                  {{ animal.birthDate }}
+                </strong>
+
+              </div>
+
+
+              <div class="info-row">
+
+                <span>
+                  {{ 'animal.age' | translate }}
+                </span>
+
+                <strong>
+                  {{ getAge(animal.birthDate) }}
+                </strong>
+
+              </div>
+
+
+              <div class="info-row">
+
+                <span>
+                  {{ 'animal.currentWeight' | translate }}
+                </span>
+
+                <strong>
+                  {{ animal.weight }} kg
+                </strong>
+
+              </div>
+
+
+              <div class="info-row">
+
+                <span>
+                  {{ 'animal.status' | translate }}
+                </span>
+
+                <strong class="healthy-status">
+
+                  <span class="status-dot"></span>
+
+                  {{ 'livestock.healthyStatus' | translate }}
+
+                </strong>
+
+              </div>
+
+
+              <div class="info-row">
+
+                <span>
+                  {{ 'animal.registeredAt' | translate }}
+                </span>
+
+                <strong>
+                  {{ animal.registeredAt }}
+                </strong>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- ESTADO SANITARIO -->
+          <section class="health-status-card">
+
+            <div class="card-header">
+
+              <div class="card-title">
+
+                <div class="card-icon">
+                  <mat-icon>verified_user</mat-icon>
+                </div>
+
+                <h2>
+                  {{ 'animal.currentHealthStatus' | translate }}
+                </h2>
+
+              </div>
+
+            </div>
+
+
+            <div class="health-status-content">
+
+              <div class="health-status-main">
+
+                <div class="health-status-icon">
+                  <span></span>
+                </div>
+
+                <div>
+
+                  <strong>
+                    {{ 'livestock.healthyStatus' | translate }}
+                  </strong>
+
+                  <small>
+                    {{ 'animal.optimalHealth' | translate }}
+                  </small>
+
+                </div>
+
+              </div>
+
+
+              <div class="health-controls">
+
+                <div>
+
+                  <span>
+                    {{ 'animal.lastCheck' | translate }}
+                  </span>
+
+                  <strong>
+                    {{ 'animal.noData' | translate }}
+                  </strong>
+
+                </div>
+
+
+                <div>
+
+                  <span>
+                    {{ 'animal.nextCheck' | translate }}
+                  </span>
+
+                  <strong>
+                    {{ 'animal.noData' | translate }}
+                  </strong>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </section>
+
+        </div>
+
+
+        <!-- =========================
+             COLUMNA DERECHA
+             ========================= -->
+        <div class="right-column">
+
+
+          <!-- FOTO -->
+          <section class="animal-photo-card">
+
+            <div class="card-header">
+
+              <div class="card-title">
+
+                <div class="card-icon">
+                  <mat-icon>photo_camera</mat-icon>
+                </div>
+
+                <h2>
+                  {{ 'animal.photo' | translate }}
+                </h2>
+
+              </div>
+
+
+              <button
+                mat-stroked-button
+                class="small-edit-button"
+              >
+                <mat-icon>photo_camera</mat-icon>
+
+                {{ 'animal.changePhoto' | translate }}
+
+              </button>
+
+            </div>
+
+
+            <div class="photo-container">
+
+              @if (animal.photoUrl) {
+
+                <img
+                  [src]="animal.photoUrl"
+                  [alt]="animal.name"
+                >
+
+              } @else {
+
+                <div class="photo-placeholder">
+
+                  <mat-icon>pets</mat-icon>
+
+                  <span>
+                    {{ 'animal.noPhoto' | translate }}
+                  </span>
+
+                </div>
+
+              }
+
+            </div>
+
+          </section>
+
+
+          <!-- GENEALOGÍA -->
+          <section class="genealogy-card">
+
+            <div class="card-header">
+
+              <div class="card-title">
+
+                <div class="card-icon">
+                  <mat-icon>groups</mat-icon>
+                </div>
+
+                <h2>
+                  {{ 'animal.genealogy' | translate }}
+                </h2>
+
+              </div>
+
+
+              <button
+                mat-stroked-button
+                class="small-edit-button"
+              >
+                <mat-icon>edit</mat-icon>
+                {{ 'profile.save' | translate }}
+              </button>
+
+            </div>
+
+
+            <div class="genealogy-list">
+
+              <div class="info-row">
+
+                <span>
+                  {{ 'animal.mother' | translate }}
+                </span>
+
+                <strong>
+                  {{ getMotherName(animal.motherId) }}
+                </strong>
+
+              </div>
+
+
+              <div class="info-row">
+
+                <span>
+                  {{ 'animal.father' | translate }}
+                </span>
+
+                <strong>
+                  {{ getFatherName(animal.fatherId) }}
+                </strong>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- RESUMEN SANITARIO -->
+          <section class="health-summary-card">
+
+            <div class="card-header">
+
+              <div class="card-title">
+
+                <div class="card-icon">
+                  <mat-icon>favorite</mat-icon>
+                </div>
+
+                <h2>
+                  {{ 'animal.healthSummary' | translate }}
+                </h2>
+
+              </div>
+
+
+              <button
+                mat-stroked-button
+                class="small-edit-button"
+              >
+
+                {{ 'animal.viewHistory' | translate }}
+
+                <mat-icon>
+                  arrow_forward
+                </mat-icon>
+
+              </button>
+
+            </div>
+
+
+            <div class="health-summary-stats">
+
+              <div class="health-stat">
+
+                <strong>—</strong>
+
+                <span>
+                  {{ 'animal.totalEvents' | translate }}
+                </span>
+
+              </div>
+
+
+              <div class="health-stat">
+
+                <strong>—</strong>
+
+                <span>
+                  {{ 'animal.vaccinesApplied' | translate }}
+                </span>
+
+              </div>
+
+
+              <div class="health-stat">
+
+                <strong>—</strong>
+
+                <span>
+                  {{ 'animal.treatments' | translate }}
+                </span>
+
+              </div>
+
+
+              <div class="health-stat">
+
+                <strong>—</strong>
+
+                <span>
+                  {{ 'animal.vetChecks' | translate }}
+                </span>
+
+              </div>
+
+            </div>
+
+          </section>
+
+        </div>
+
+      </section>
+
+    }
 
   }
 

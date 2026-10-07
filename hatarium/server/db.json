@@ -743,6 +743,36 @@
       ],
       "instructions": "",
       "status": "active"
+    },
+    {
+      "id": "fp-1791335901004",
+      "lotId": "lot-002",
+      "animalId": "anm-013",
+      "name": "Plan de Alimentación - Gyarados",
+      "startsOn": "2026-10-06",
+      "endsOn": "2026-10-12",
+      "objective": "Aumentar de Peso",
+      "currentAverageWeight": 305,
+      "targetWeight": 350,
+      "frequency": "2 veces al día",
+      "daysOfWeek": [
+        "Lunes",
+        "Miércoles",
+        "Viernes",
+        "Domingo"
+      ],
+      "schedules": [
+        {
+          "time": "05:00",
+          "quantityPerAnimal": 6
+        },
+        {
+          "time": "14:00",
+          "quantityPerAnimal": 6
+        }
+      ],
+      "instructions": "",
+      "status": "active"
     }
   ],
   "feedingPlanItems": [
@@ -814,6 +844,20 @@
       "feedingPlanId": "rHse1Fey2D8",
       "feedName": "Hierba",
       "dailyQuantity": 5,
+      "unit": "kg"
+    },
+    {
+      "id": "fpi-1791335901004-0",
+      "feedingPlanId": "fp-1791335901004",
+      "feedName": "Pasto",
+      "dailyQuantity": 5,
+      "unit": "kg"
+    },
+    {
+      "id": "fpi-1791335901004-1",
+      "feedingPlanId": "fp-1791335901004",
+      "feedName": "Zanahoria",
+      "dailyQuantity": 7,
       "unit": "kg"
     }
   ],
@@ -1644,6 +1688,21 @@
       "sentAt": "2026-10-07T00:13:13.837Z",
       "readAt": "2026-10-07T00:13:55.004Z",
       "createdAt": "2026-10-07T00:13:13.837Z"
+    },
+    {
+      "recipientUserId": "usr-002",
+      "type": "FEEDING_REGISTERED",
+      "title": "Plan de alimentación registrado",
+      "description": "Se registró el plan Plan de Alimentación - Gyarados, desde 2026-10-06 hasta 2026-10-12.",
+      "relatedEntityType": "FeedingPlan",
+      "relatedEntityId": "fp-1791335901004",
+      "id": "not-feeding_registered-fp-1791335901004",
+      "channel": "in_app",
+      "status": "read",
+      "scheduledAt": null,
+      "sentAt": "2026-10-07T01:18:21.056Z",
+      "readAt": "2026-10-07T01:18:34.174Z",
+      "createdAt": "2026-10-07T01:18:21.056Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
