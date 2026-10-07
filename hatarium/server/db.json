@@ -1493,6 +1493,18 @@
       "confirmedAt": "2026-10-06",
       "cancelledAt": null,
       "id": "i8uF7XH"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción Premium",
+      "amount": "89.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-07",
+      "confirmedAt": "2026-10-07",
+      "cancelledAt": null,
+      "id": "h2NJDEA"
     }
   ],
   "transactions": [

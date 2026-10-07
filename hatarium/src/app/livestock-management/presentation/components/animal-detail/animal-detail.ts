@@ -57,7 +57,6 @@ export class AnimalDetail {
 
     if (!currentAnimal) return undefined;
 
-    // Primero: buscar un plan específico para este animal
     const individualPlan = this.feedingPlans().find(
       plan => plan.animalId === currentAnimal.id
     );
