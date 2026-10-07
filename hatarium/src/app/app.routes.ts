@@ -7,7 +7,7 @@ import { AnimalDetail } from './livestock-management/presentation/components/ani
 import { FeedingDashboard } from './livestock-management/presentation/components/feeding-dashboard/feeding-dashboard';
 import { FeedingPlanDetail } from './livestock-management/presentation/components/feeding-plan-detail/feeding-plan-detail';
 import { FeedingPlanCreate } from './livestock-management/presentation/components/feeding-plan-add/feeding-plan-add';
-import { HomeView } from './home/presentation/home-view/home-view';
+import { Home } from './shared/presentation/views/home/home';
 import { ProfileView } from './profile/presentation/profile-view/profile-view';
 import { NotificationCenterView } from './notifications/presentation/notification-center-view/notification-center-view';
 import { AppointmentCalendarComponent } from './veterinary-and-health/presentation/components/appointment-calendar/appointment-calendar';
@@ -27,7 +27,7 @@ export const routes: Routes = [
     path: '',
     component: Layout,
     children: [
-      { path: 'home', component: HomeView },
+      { path: 'home', component: Home },
       {
         path: 'reproductive',
         loadChildren: () =>

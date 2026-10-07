@@ -351,26 +351,60 @@
   "home": {
     "greeting": "Buenos días, {{name}}",
     "subtitle": "Aquí tienes un resumen del estado de tu ganadería.",
-    "totalLivestock": "Total ganado",
-    "lots": "Lotes",
-    "appointments": "Citas",
-    "alerts": "Alertas",
-    "viewAnimals": "Ver animales",
-    "activeLots": "lotes activos",
-    "viewAppointments": "Ver citas",
-    "notifications": "Notificaciones",
-    "viewAlerts": "Ver alertas",
-    "recentActivity": "Actividad reciente",
-    "noActivity": "No hay actividad reciente.",
-    "healthBanner": {
-      "title": "{{count}} alerta sanitaria pendiente",
-      "action": "Revisar alertas"
-    },
     "title": "Inicio",
     "content": "Panel principal de Hatarium.",
     "greetingMorning": "Buenos días, {{name}}",
     "greetingAfternoon": "Buenas tardes, {{name}}",
-    "greetingEvening": "Buenas noches, {{name}}"
+    "greetingEvening": "Buenas noches, {{name}}",
+    "banner": {
+      "title": "Vacuna pendiente: Lote B (22 animales)",
+      "deadline": "Vence mañana · 18:00 hrs",
+      "desc": "Campaña de refuerzo clostridial y control de brucelosis bovina.",
+      "viewLot": "Ver lote",
+      "startProtocol": "Iniciar protocolo"
+    },
+    "kpi": {
+      "totalLivestock": "TOTAL GANADO",
+      "activeAnimals": "Animales activos",
+      "growth": "+4 este mes",
+      "lots": "LOTES",
+      "activeLots": "Lotes activos",
+      "totalAnimalsNote": "{{count}} animales en total",
+      "appointments": "CITAS HOY",
+      "scheduledAppointments": "Citas programadas",
+      "nextPrefix": "Próxima:",
+      "alerts": "ALERTAS",
+      "requiresAttention": "Requiere atención",
+      "generalHealth": "96% estado sanitario general"
+    },
+    "lotsSummary": {
+      "title": "Resumen de lotes",
+      "activeBadge": "{{count}} activos",
+      "animalsCount": "{{count}} animales",
+      "statusOptimal": "● Estado óptimo",
+      "statusWarning": "● Vacuna pendiente",
+      "statusStable": "● Estado estable",
+      "viewAll": "Ver todos los lotes"
+    },
+    "activity": {
+      "title": "Actividad reciente",
+      "viewAll": "Ver toda la actividad"
+    },
+    "telemetry": {
+      "title": "Información del ganado",
+      "badge": "Telemetría RFID",
+      "health": "Salud",
+      "location": "Ubicación",
+      "vaccination": "Vacunación",
+      "production": "Producción",
+      "viewProfile": "Ver ficha del animal"
+    },
+    "production": {
+      "title": "Resumen de producción",
+      "avgLabel": "Producción promedio",
+      "growthBadge": "+1.8% vs. sem. anterior",
+      "viewReports": "Ver reportes"
+    }
   },
   "payments": {
     "chooseSubscription": "Elige tu suscripción",

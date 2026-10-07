@@ -351,26 +351,60 @@
   "home": {
     "greeting": "Good day, {{name}}",
     "subtitle": "Here is a summary of your livestock status.",
-    "totalLivestock": "Total livestock",
-    "lots": "Lots",
-    "appointments": "Appointments",
-    "alerts": "Alerts",
-    "viewAnimals": "View animals",
-    "activeLots": "active lots",
-    "viewAppointments": "View appointments",
-    "notifications": "Notifications",
-    "viewAlerts": "View alerts",
-    "recentActivity": "Recent activity",
-    "noActivity": "No recent activity.",
-    "healthBanner": {
-      "title": "{{count}} pending health alert",
-      "action": "Review alerts"
-    },
     "title": "Home",
     "content": "Hatarium main dashboard.",
     "greetingMorning": "Good morning, {{name}}",
     "greetingAfternoon": "Good afternoon, {{name}}",
-    "greetingEvening": "Good evening, {{name}}"
+    "greetingEvening": "Good evening, {{name}}",
+    "banner": {
+      "title": "Pending vaccination: Lot B (22 animals)",
+      "deadline": "Due tomorrow · 18:00 hrs",
+      "desc": "Clostridial booster campaign and bovine brucellosis control.",
+      "viewLot": "View lot",
+      "startProtocol": "Start protocol"
+    },
+    "kpi": {
+      "totalLivestock": "TOTAL LIVESTOCK",
+      "activeAnimals": "Active animals",
+      "growth": "+4 this month",
+      "lots": "LOTS",
+      "activeLots": "Active lots",
+      "totalAnimalsNote": "{{count}} animals in total",
+      "appointments": "APPOINTMENTS TODAY",
+      "scheduledAppointments": "Scheduled appointments",
+      "nextPrefix": "Next:",
+      "alerts": "ALERTS",
+      "requiresAttention": "Requires attention",
+      "generalHealth": "96% general health score"
+    },
+    "lotsSummary": {
+      "title": "Lots summary",
+      "activeBadge": "{{count}} active",
+      "animalsCount": "{{count}} animals",
+      "statusOptimal": "● Optimal status",
+      "statusWarning": "● Pending vaccination",
+      "statusStable": "● Stable status",
+      "viewAll": "View all lots"
+    },
+    "activity": {
+      "title": "Recent activity",
+      "viewAll": "View all activity"
+    },
+    "telemetry": {
+      "title": "Livestock details",
+      "badge": "RFID Telemetry",
+      "health": "Health",
+      "location": "Location",
+      "vaccination": "Vaccination",
+      "production": "Production",
+      "viewProfile": "View animal profile"
+    },
+    "production": {
+      "title": "Production summary",
+      "avgLabel": "Average production",
+      "growthBadge": "+1.8% vs. prev. week",
+      "viewReports": "View reports"
+    }
   },
   "payments": {
     "chooseSubscription": "Choose your subscription",

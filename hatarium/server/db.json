@@ -94,7 +94,8 @@
       "phone": "+51 999 111 222",
       "photoUrl": "",
       "theme": "light",
-      "locale": "es"
+      "locale": "es",
+      "organizationName": "GANADERO BRO"
     },
     {
       "id": "usr-002",
@@ -903,6 +904,17 @@
       "status": "scheduled",
       "createdAt": "2026-10-06",
       "id": "2Nk9IXn"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-10-07T10:30:00",
+      "reason": "Revisión periódica de salud y control de peso",
+      "status": "scheduled",
+      "createdAt": "2026-10-07",
+      "id": "RKgcp90"
     }
   ],
   "appointmentAnimals": [
@@ -935,6 +947,11 @@
       "appointmentId": "2Nk9IXn",
       "animalId": "anm-birth-O0fIBIm",
       "id": "9gAoMK5"
+    },
+    {
+      "appointmentId": "RKgcp90",
+      "animalId": "anm-047",
+      "id": "KYgjZPb"
     }
   ],
   "medicalRecords": [
@@ -1419,6 +1436,42 @@
       "confirmedAt": "2026-10-06",
       "cancelledAt": null,
       "id": "TQHpDp8"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción Profesional",
+      "amount": "49.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-07",
+      "confirmedAt": "2026-10-07",
+      "cancelledAt": null,
+      "id": "zn82Vj7"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción Básico",
+      "amount": "29.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-07",
+      "confirmedAt": "2026-10-07",
+      "cancelledAt": null,
+      "id": "ZHJav0z"
+    },
+    {
+      "rancherId": "usr-002",
+      "appointmentId": null,
+      "concept": "Suscripción Básico",
+      "amount": "29.90",
+      "currency": "PEN",
+      "status": "paid",
+      "createdAt": "2026-10-07",
+      "confirmedAt": "2026-10-07",
+      "cancelledAt": null,
+      "id": "2R3w-ju"
     }
   ],
   "transactions": [

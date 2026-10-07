@@ -120,6 +120,10 @@
   margin-bottom: 22px;
 }
 
+.mat-mdc-card{
+  background: #ffffff;
+}
+
 .filters-row mat-form-field {
   width: 100%;
   margin: 0;
@@ -274,6 +278,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 22px;
+  background: #ffffff;
 }
 
 .table-title h2 {

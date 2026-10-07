@@ -1,47 +1,315 @@
-<div class="pay-page">
-  <h1>{{ 'payments.chooseSubscription' | translate }}</h1>
-  <p class="subtitle">{{ 'payments.chooseSubtitle' | translate }}</p>
+<div class="checkout-wrapper">
+  <!-- 1. BARRA SUPERIOR DE NAVEGACIÓN -->
+  <header class="checkout-topbar">
+    <div class="brand-link" routerLink="/home">
+      <div class="brand-icon">
+        <mat-icon>agriculture</mat-icon>
+      </div>
+      <div class="brand-text">
+        <strong>Hatarium</strong>
+        <span>Gestión Ganadera</span>
+      </div>
+    </div>
 
-  <h2>{{ 'payments.selectPlan' | translate }}</h2>
-  <div class="plans-grid">
-    @for (plan of plans; track plan.id) {
-      <mat-card
-        [class.selected]="selectedPlan.id === plan.id"
-        (click)="selectPlan(plan)"
-      >
-        <mat-card-header>
-          <mat-card-title>{{ plan.name }}</mat-card-title>
-          @if (plan.popular) {
-            <span class="popular-badge">{{ 'payments.mostPopular' | translate }}</span>
-          }
-        </mat-card-header>
-        <mat-card-content>
-          <p class="price">S/ {{ plan.price }} / mes</p>
-          <p class="desc">{{ plan.desc }}</p>
-          <ul class="features">
-            @for (f of plan.features; track f) {
-              <li>{{ f }}</li>
+    <a mat-button class="btn-return" routerLink="/home">
+      <mat-icon>arrow_back</mat-icon>
+      Volver al panel principal
+    </a>
+  </header>
+
+  <main class="checkout-container">
+    <!-- 2. ENCABEZADO Y PASOS -->
+    <section class="checkout-hero">
+      <span class="hero-badge">Suscripciones Hatarium Cloud</span>
+      <h1>Elige tu suscripción ganadera</h1>
+      <p class="hero-subtitle">Selecciona el plan adecuado para el tamaño de tu hato y activa el control total en tiempo real.</p>
+
+      <!-- Stepper Visual -->
+      <div class="stepper-bar">
+        <div class="step-item completed">
+          <div class="step-circle"><mat-icon>check</mat-icon></div>
+          <span>1. Plan seleccionado</span>
+        </div>
+        <div class="step-divider active"></div>
+        <div class="step-item active">
+          <div class="step-circle">2</div>
+          <span>2. Datos de pago</span>
+        </div>
+        <div class="step-divider"></div>
+        <div class="step-item">
+          <div class="step-circle">3</div>
+          <span>3. Activación instantánea</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. SELECTOR DE PLANES (3 COLUMNAS) -->
+    <section class="plans-section">
+      <div class="plans-grid">
+        @for (plan of plans; track plan.id) {
+          <div
+            class="plan-card"
+            [class.selected]="selectedPlan.id === plan.id"
+            [class.popular]="plan.popular"
+            (click)="selectPlan(plan)"
+          >
+            @if (plan.badge) {
+              <div class="plan-popular-ribbon">
+                <mat-icon>star</mat-icon>
+                <span>{{ plan.badge }}</span>
+              </div>
             }
-          </ul>
-        </mat-card-content>
-      </mat-card>
-    }
-  </div>
 
-  <h2>{{ 'payments.makePayment' | translate }}</h2>
-  <p class="total">Plan {{ selectedPlan.name }}: S/ {{ selectedPlan.price }} {{ 'payments.perMonth' | translate }}</p>
+            <div class="plan-card-header">
+              <div class="plan-icon-box" [ngClass]="plan.id">
+                <mat-icon>{{ plan.icon }}</mat-icon>
+              </div>
+              <h3 class="plan-name">{{ plan.name }}</h3>
+              <p class="plan-desc">{{ plan.desc }}</p>
+            </div>
 
-  <mat-card class="form-card">
-    <mat-card-header><mat-card-title>{{ 'payments.cardData' | translate }}</mat-card-title></mat-card-header>
-    <mat-card-content>
-      <button mat-stroked-button type="button" (click)="generateRandomData()">{{ 'payments.randomData' | translate }}</button>
-      <form [formGroup]="form">
-        <mat-form-field appearance="outline"><mat-label>{{ 'payments.cardNumber' | translate }}</mat-label><input matInput formControlName="cardNumber" required></mat-form-field>
-        <mat-form-field appearance="outline"><mat-label>{{ 'payments.cardHolder' | translate }}</mat-label><input matInput formControlName="cardHolder" required></mat-form-field>
-        <mat-form-field appearance="outline"><mat-label>{{ 'payments.expiry' | translate }}</mat-label><input matInput formControlName="expiry" placeholder="MM/AA" required></mat-form-field>
-        <mat-form-field appearance="outline"><mat-label>CVV</mat-label><input matInput formControlName="cvv" required></mat-form-field>
-      </form>
-      <button mat-raised-button color="primary" (click)="pay()">{{ 'payments.pay' | translate }} S/ {{ selectedPlan.price }}</button>
-    </mat-card-content>
-  </mat-card>
+            <div class="plan-price-box">
+              <span class="currency">S/</span>
+              <span class="price-number">{{ plan.price }}</span>
+              <span class="period">/ mes</span>
+            </div>
+
+            <div class="plan-selection-btn">
+              <button mat-flat-button class="btn-select-plan" [class.active-btn]="selectedPlan.id === plan.id">
+                @if (selectedPlan.id === plan.id) {
+                  <span class="btn-content-flex">
+                    <mat-icon>check_circle</mat-icon>
+                    <span>Plan Seleccionado</span>
+                  </span>
+                } @else {
+                  <span>Seleccionar este plan</span>
+                }
+              </button>
+            </div>
+
+            <div class="plan-features-divider"></div>
+
+            <ul class="plan-features-list">
+              @for (feat of plan.features; track feat) {
+                <li>
+                  <div class="feat-check">
+                    <mat-icon>check</mat-icon>
+                  </div>
+                  <span>{{ feat }}</span>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- 4. CHECKOUT EN 2 COLUMNAS (FORMULARIO + RESUMEN) -->
+    <section class="checkout-layout">
+      <!-- COLUMNA IZQUIERDA: FORMULARIO Y TARJETA VISUAL -->
+      <div class="checkout-form-column">
+        <mat-card class="checkout-card">
+          <mat-card-content>
+            <div class="form-header-bar">
+              <div class="form-title-group">
+                <mat-icon class="card-icon">payment</mat-icon>
+                <div>
+                  <h2>Método de pago con tarjeta</h2>
+                  <p>Aceptamos todas las tarjetas de crédito y débito</p>
+                </div>
+              </div>
+
+              <button mat-stroked-button type="button" class="btn-demo-data" (click)="generateRandomData()">
+                <mat-icon>bolt</mat-icon>
+                Autocompletar Demo
+              </button>
+            </div>
+
+            <!-- MOCKUP VISUAL DE TARJETA BANCARIA -->
+            <div class="credit-card-preview">
+              <div class="card-chip-row">
+                <div class="card-emv-chip"></div>
+                <div class="card-brand-label">Hatarium Pay</div>
+              </div>
+
+              <div class="card-number-display">
+                {{ formattedCardNumber }}
+              </div>
+
+              <div class="card-footer-display">
+                <div class="card-holder-block">
+                  <span class="card-sub-label">TITULAR DE LA CUENTA</span>
+                  <span class="card-holder-val">{{ cardHolderName }}</span>
+                </div>
+                <div class="card-expiry-block">
+                  <span class="card-sub-label">EXPIRA</span>
+                  <span class="card-expiry-val">{{ cardExpiry }}</span>
+                </div>
+                <div class="card-network-logo">
+                  <mat-icon>contactless</mat-icon>
+                </div>
+              </div>
+            </div>
+
+            <!-- FORMULARIO REACTIVO -->
+            <form [formGroup]="form" class="checkout-form" (ngSubmit)="pay()">
+              <div class="form-field-full">
+                <label class="custom-label">Número de tarjeta</label>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-icon matPrefix class="field-icon">credit_card</mat-icon>
+                  <input matInput formControlName="cardNumber" placeholder="1234 5678 9012 3456" required>
+                  @if (form.get('cardNumber')?.invalid && form.get('cardNumber')?.touched) {
+                    <mat-error>Ingresa un número de tarjeta válido</mat-error>
+                  }
+                </mat-form-field>
+              </div>
+
+              <div class="form-field-full">
+                <label class="custom-label">Nombre del titular (como figura en la tarjeta)</label>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-icon matPrefix class="field-icon">person</mat-icon>
+                  <input matInput formControlName="cardHolder" placeholder="Ej. Juan Quispe" required>
+                  @if (form.get('cardHolder')?.invalid && form.get('cardHolder')?.touched) {
+                    <mat-error>El nombre del titular es requerido</mat-error>
+                  }
+                </mat-form-field>
+              </div>
+
+              <div class="form-fields-row">
+                <div class="form-field-half">
+                  <label class="custom-label">Fecha de vencimiento</label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-icon matPrefix class="field-icon">calendar_month</mat-icon>
+                    <input matInput formControlName="expiry" placeholder="MM/AA" required>
+                    @if (form.get('expiry')?.invalid && form.get('expiry')?.touched) {
+                      <mat-error>Requerido (MM/AA)</mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+
+                <div class="form-field-half">
+                  <label class="custom-label">Código CVV / CVC</label>
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-icon matPrefix class="field-icon">lock</mat-icon>
+                    <input matInput formControlName="cvv" placeholder="123" maxlength="4" required>
+                    @if (form.get('cvv')?.invalid && form.get('cvv')?.touched) {
+                      <mat-error>3 o 4 dígitos</mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <!-- BOTÓN DE PAGO DESTACADO -->
+              <div class="form-action-box">
+                <button mat-flat-button class="btn-submit-pay" type="submit">
+                  <mat-icon>lock</mat-icon>
+                  <span>Pagar S/ {{ selectedPlan.price }} y activar cuenta</span>
+                </button>
+              </div>
+
+              <!-- SELLOS DE CONFIANZA -->
+              <div class="security-badges-row">
+                <div class="sec-item">
+                  <mat-icon>verified_user</mat-icon>
+                  <span>Encriptación SSL 256 bits</span>
+                </div>
+                <div class="sec-item">
+                  <mat-icon>restart_alt</mat-icon>
+                  <span>Cancela cuando quieras</span>
+                </div>
+                <div class="sec-item">
+                  <mat-icon>receipt</mat-icon>
+                  <span>Comprobante electrónico</span>
+                </div>
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- COLUMNA DERECHA: RESUMEN DE LA ORDEN Y GARANTÍAS -->
+      <div class="checkout-summary-column">
+        <!-- Tarjeta de Resumen -->
+        <mat-card class="summary-card">
+          <mat-card-content>
+            <h3 class="summary-title">Resumen de la orden</h3>
+
+            <div class="selected-plan-highlight">
+              <div class="highlight-icon">
+                <mat-icon>{{ selectedPlan.icon }}</mat-icon>
+              </div>
+              <div class="highlight-info">
+                <strong>Plan {{ selectedPlan.name }}</strong>
+                <span>Facturación mensual</span>
+              </div>
+              <div class="highlight-price">
+                S/ {{ selectedPlan.price }}
+              </div>
+            </div>
+
+            <div class="pricing-breakdown">
+              <div class="breakdown-row">
+                <span>Subtotal suscripción</span>
+                <span>S/ {{ selectedPlan.price }}</span>
+              </div>
+              <div class="breakdown-row">
+                <span>Impuestos (IGV 18%)</span>
+                <span class="included-tag">Incluido</span>
+              </div>
+              <div class="breakdown-row">
+                <span>Costo de activación</span>
+                <span class="free-tag">S/ 0.00 (Gratis)</span>
+              </div>
+              <div class="breakdown-divider"></div>
+              <div class="breakdown-total-row">
+                <div>
+                  <strong>Total a pagar hoy</strong>
+                  <small>Renovación recurrente mensual</small>
+                </div>
+                <div class="total-amount">
+                  S/ {{ selectedPlan.price }}
+                </div>
+              </div>
+            </div>
+
+            <!-- Beneficios Inmediatos -->
+            <div class="summary-guarantees">
+              <h4>Beneficios incluidos hoy:</h4>
+              <ul class="guarantee-list">
+                <li>
+                  <mat-icon>check_circle</mat-icon>
+                  <span>Acceso instantáneo a todos los módulos</span>
+                </li>
+                <li>
+                  <mat-icon>check_circle</mat-icon>
+                  <span>Respaldo seguro en la nube 24/7</span>
+                </li>
+                <li>
+                  <mat-icon>check_circle</mat-icon>
+                  <span>Exportación de datos pecuarios en Excel</span>
+                </li>
+                <li>
+                  <mat-icon>check_circle</mat-icon>
+                  <span>Garantía de satisfacción de 30 días</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Testimonio Social Proof -->
+            <div class="testimonial-box">
+              <div class="stars-row">
+                <mat-icon>star</mat-icon>
+                <mat-icon>star</mat-icon>
+                <mat-icon>star</mat-icon>
+                <mat-icon>star</mat-icon>
+                <mat-icon>star</mat-icon>
+              </div>
+              <p class="quote">"Hatarium transformó el control de nuestro hato ganadero y la trazabilidad de vacunas desde la primera semana."</p>
+              <span class="author">Hacienda San José · Ganadería Tecnificada</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </section>
+  </main>
 </div>
