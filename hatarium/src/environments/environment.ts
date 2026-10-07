@@ -1,6 +1,6 @@
 ﻿export const environment = {
   production: true,
-  hatariumApiBaseUrl: 'http://localhost:4000',
+  hatariumApiBaseUrl: 'https://vantara-fake-api.onrender.com/',
   hatariumRolesEndpointPath: '/roles',
   hatariumAccountsEndpointPath: '/accounts',
   hatariumAccountCredentialsEndpointPath: '/accountCredentials',
