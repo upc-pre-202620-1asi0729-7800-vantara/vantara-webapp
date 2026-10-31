@@ -4,11 +4,6 @@
       <h1 class="page-title">{{ greetingKey() | translate }} {{ vetName() }} 🩺</h1>
       <p class="page-subtitle">{{ 'DASHBOARD.SUBTITLE' | translate }}</p>
     </div>
-    <div class="header-actions">
-      <button mat-flat-button class="btn-primary-solid" (click)="goToAppointments()">
-        <mat-icon>add</mat-icon> {{ 'CALENDAR.NEW_APPOINTMENT' | translate }}
-      </button>
-    </div>
   </div>
 
   @if (loading()) {

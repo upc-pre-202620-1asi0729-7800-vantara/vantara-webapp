@@ -2,7 +2,7 @@ import {Notification} from '../domain/model/notification.entity';
 
 
 export interface NotificationGateway {
-  getNotifications(): Promise<Notification[]>;
+  getNotifications(recipientUserId?: string): Promise<Notification[]>;
   markAsRead(id:string): Promise<Notification>;
 
 }

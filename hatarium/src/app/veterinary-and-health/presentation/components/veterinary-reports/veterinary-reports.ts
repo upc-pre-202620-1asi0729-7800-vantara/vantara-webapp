@@ -78,6 +78,32 @@ export class VeterinaryReportsComponent implements OnInit {
     Math.max(1, ...this.vaccineBuckets().map(bucket => bucket.count))
   );
 
+  public readonly appointmentStatusSlices = computed(() => [
+    { label: 'REPORTS.STATUS_COMPLETED', value: this.completedAppointments(), color: '#219a75' },
+    { label: 'REPORTS.STATUS_PENDING', value: this.pendingAppointments(), color: '#d97706' },
+    { label: 'REPORTS.STATUS_CANCELLED', value: this.store.appointments().filter(appointment => appointment.status === 'cancelled').length, color: '#b91c1c' }
+  ]);
+
+  public readonly severitySlices = computed(() => [
+    { label: 'DETAIL.SEVERITY_LOW', value: this.store.records().filter(record => record.severity === 'low').length, color: '#219a75' },
+    { label: 'DETAIL.SEVERITY_MEDIUM', value: this.store.records().filter(record => record.severity === 'medium').length, color: '#d97706' },
+    { label: 'DETAIL.SEVERITY_HIGH', value: this.store.records().filter(record => record.severity === 'high').length, color: '#b91c1c' }
+  ]);
+
+  public readonly appointmentDonutStyle = computed(() => this.buildDonut(this.appointmentStatusSlices()));
+  public readonly severityDonutStyle = computed(() => this.buildDonut(this.severitySlices()));
+
+  private buildDonut(slices: { value: number; color: string }[]): string {
+    const total = slices.reduce((sum, slice) => sum + slice.value, 0) || 1;
+    let acc = 0;
+    const parts = slices.map(slice => {
+      const start = acc;
+      acc += (slice.value / total) * 360;
+      return `${slice.color} ${start}deg ${acc}deg`;
+    });
+    return `conic-gradient(${parts.join(', ')})`;
+  }
+
   ngOnInit(): void {
     this.store.loadAppointments();
     this.store.loadMedicalRecords();

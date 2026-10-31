@@ -53,6 +53,7 @@ export class TreatmentListComponent implements OnInit {
   public frequencyHours = '24';
   public durationDays = 7;
   public instructions = 'Completar esquema indicado cada 24 horas.';
+  public needsVaccine = false;
   public notes = 'Monitorear la respuesta del animal.';
 
   constructor() {
@@ -134,9 +135,13 @@ export class TreatmentListComponent implements OnInit {
       next: () => {
         this.saving.set(false);
         alert(this.translate.instant('TREATMENT.ALERT_SUCCESS'));
-        void this.router.navigate(['/veterinary/vaccines/new'], {
-          queryParams: { animalId: this.currentAnimalId() }
-        });
+        if (this.needsVaccine) {
+          void this.router.navigate(['/veterinary/vaccines/new'], {
+            queryParams: { animalId: this.currentAnimalId() }
+          });
+        } else {
+          void this.router.navigate(['/veterinary/appointments']);
+        }
       },
       error: () => {
         this.saving.set(false);

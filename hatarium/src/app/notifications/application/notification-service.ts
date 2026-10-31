@@ -10,11 +10,11 @@ export class NotificationService {
     this.api = api;
   }
 
-  async load(): Promise<void> {
+  async load(recipientUserId?: string): Promise<void> {
     this.store.setLoading(true);
     this.store.setError();
     try {
-      this.store.setNotifications(await this.api.getNotifications());
+      this.store.setNotifications(await this.api.getNotifications(recipientUserId));
     } finally {
       this.store.setLoading(false);
     }

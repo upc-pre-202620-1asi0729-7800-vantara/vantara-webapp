@@ -976,7 +976,7 @@
       "origin": "TECHNICAL_VISIT",
       "scheduledAt": "2026-11-02T10:30:00",
       "reason": "Revisión periódica de salud fgdgy control de peso",
-      "status": "scheduled",
+      "status": "completed",
       "createdAt": "2026-10-31",
       "id": "fCV7eMo"
     },
@@ -990,6 +990,17 @@
       "status": "scheduled",
       "createdAt": "2026-10-31",
       "id": "8BlbyYW"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-10-31T22:30:00",
+      "reason": "Revisión periódica de salud y control de peso",
+      "status": "scheduled",
+      "createdAt": "2026-10-31",
+      "id": "NxNL9qZ"
     }
   ],
   "appointmentAnimals": [
@@ -1032,6 +1043,11 @@
       "appointmentId": "8BlbyYW",
       "animalId": "anm-22",
       "id": "DZjhstk"
+    },
+    {
+      "appointmentId": "NxNL9qZ",
+      "animalId": "anm-demo-paloma",
+      "id": "TNZ7e2g"
     }
   ],
   "medicalRecords": [
@@ -1070,6 +1086,18 @@
       "severity": "medium",
       "healthStatus": "follow_up",
       "notes": "Animal en seguimiento."
+    },
+    {
+      "appointmentId": "fCV7eMo",
+      "animalId": "anm-birth-O0fIBIm",
+      "veterinarianId": "usr-003",
+      "recordedAt": "2026-11-02T13:33:00",
+      "symptoms": "desidratacion, fiebre y dolor",
+      "diagnosis": "presenta fiebre",
+      "severity": "low",
+      "healthStatus": "healthy",
+      "notes": "se realizo evaluacion y presenta un infeccion · Causa probable: cancer · Tipo: Clinico",
+      "id": "yi5wURy"
     }
   ],
   "medications": [
@@ -1105,6 +1133,23 @@
       "nextDate": "2026-08-21",
       "status": "completed",
       "instructions": "Completar esquema indicado."
+    },
+    {
+      "medicalRecordId": "yi5wURy",
+      "animalId": "anm-birth-O0fIBIm",
+      "medicationId": "med-002",
+      "treatmentType": "Curativo",
+      "dose": "5",
+      "doseUnit": "mL",
+      "route": "Intramuscular",
+      "frequencyHours": "24",
+      "durationDays": 7,
+      "scheduledAt": "2026-10-31T23:28:18.524Z",
+      "administeredAt": "2026-10-31T23:28:18.524Z",
+      "nextDate": "2026-11-07",
+      "status": "active",
+      "instructions": "inyectar meidante via intramuscular por el encargado · niguna",
+      "id": "WP5bqb-"
     }
   ],
   "vaccines": [
@@ -1155,6 +1200,22 @@
       "applicationSite": "Cuello",
       "status": "completed",
       "observations": "Vacuna anual aplicada."
+    },
+    {
+      "animalId": "anm-birth-O0fIBIm",
+      "veterinarianId": "usr-003",
+      "name": "Fiebre Aftosa",
+      "dose": "2",
+      "doseUnit": "mL",
+      "laboratory": "Laboratorio Veterinario Nacional",
+      "lotNumber": "L2026-017",
+      "appliedAt": "2026-10-31",
+      "nextDoseAt": "2027-03-07",
+      "route": "Subcutánea",
+      "applicationSite": "Cuello (lado izquierdo)",
+      "status": "completed",
+      "observations": "Verificada cadena de frío antes de la aplicación.",
+      "id": "EsgKHLd"
     }
   ],
   "pregnancies": [
@@ -1762,6 +1823,51 @@
       "sentAt": "2026-10-07T01:18:21.056Z",
       "readAt": "2026-10-07T01:18:34.174Z",
       "createdAt": "2026-10-07T01:18:21.056Z"
+    },
+    {
+      "id": "not-vet-001",
+      "recipientUserId": "usr-003",
+      "type": "HEALTH_ALERT",
+      "title": "Animal requiere seguimiento",
+      "description": "El animal #018 presenta inflamación localizada y requiere seguimiento.",
+      "channel": "in_app",
+      "status": "unread",
+      "scheduledAt": null,
+      "sentAt": "2026-10-31T08:00:00",
+      "readAt": null,
+      "relatedEntityType": "Animal",
+      "relatedEntityId": "anm-018",
+      "createdAt": "2026-10-31"
+    },
+    {
+      "id": "not-vet-002",
+      "recipientUserId": "usr-003",
+      "type": "APPOINTMENT_REMINDER",
+      "title": "Cita programada",
+      "description": "Control veterinario del animal #047 programado para el 08 Dic 2026.",
+      "channel": "in_app",
+      "status": "unread",
+      "scheduledAt": "2026-12-07T10:00:00",
+      "sentAt": null,
+      "readAt": null,
+      "relatedEntityType": "Appointment",
+      "relatedEntityId": "app-001",
+      "createdAt": "2026-09-08"
+    },
+    {
+      "id": "not-vet-003",
+      "recipientUserId": "usr-003",
+      "type": "VACCINE_REMINDER",
+      "title": "Próxima dosis de vacuna",
+      "description": "La próxima dosis de Fiebre Aftosa para el animal #047 está programada para el 07 Mar 2027.",
+      "channel": "in_app",
+      "status": "read",
+      "scheduledAt": "2027-03-06T09:00:00",
+      "sentAt": null,
+      "readAt": "2026-10-31T09:00:00",
+      "relatedEntityType": "Vaccine",
+      "relatedEntityId": "vac-001",
+      "createdAt": "2026-09-07"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

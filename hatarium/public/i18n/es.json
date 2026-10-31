@@ -53,7 +53,7 @@
     "vetVaccinationCard": "Carnet de Vacunación",
     "vetProfile": "Mi Perfil",
     "myPayments": "Pagos",
-    "vetDashboard": "Inicio / Dashboard",
+    "vetDashboard": "Home",
     "vetRecords": "Historial Sanitario",
     "vetVaccines": "Vacunas",
     "vetReports": "Reportes sanitarios"
@@ -197,7 +197,9 @@
     "LOADING": "Cargando...",
     "ERROR": "Ocurrió un error.",
     "RETRY": "Reintentar",
-    "NONE": "Sin información"
+    "NONE": "Sin información",
+    "SAVE": "Guardar",
+    "SAVING": "Guardando..."
   },
   "CALENDAR": {
     "TITLE": "Citas y visitas técnicas de campo",
@@ -390,7 +392,9 @@
     "ALERT_ERROR": "No se pudo guardar el tratamiento. Intenta nuevamente.",
     "DIAGNOSIS_NONE": "Sin diagnóstico asociado.",
     "SAVING": "Guardando...",
-    "ALERT_FILL": "Selecciona un medicamento, una dosis y un diagnóstico asociado."
+    "ALERT_FILL": "Selecciona un medicamento, una dosis y un diagnóstico asociado.",
+    "NEEDS_VACCINE": "¿Es necesario aplicar una vacuna?",
+    "NEEDS_VACCINE_HINT": "Si se marca, se abrirá el registro de vacunas para este animal."
   },
   "VACCINE": {
     "BACK": "← Volver a vacunaciones",
@@ -972,6 +976,11 @@
     "APPOINTMENTS_BY_MONTH": "Citas por mes",
     "VACCINES_BY_MONTH": "Vacunas por mes",
     "TOP_VACCINES": "Vacunas más aplicadas",
-    "NO_DATA": "Sin datos suficientes."
+    "NO_DATA": "Sin datos suficientes.",
+    "APPOINTMENT_STATUS": "Estado de citas",
+    "SEVERITY_DISTRIBUTION": "Gravedad de diagnósticos",
+    "STATUS_COMPLETED": "Completadas",
+    "STATUS_PENDING": "Pendientes",
+    "STATUS_CANCELLED": "Canceladas"
   }
 }

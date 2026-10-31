@@ -7,7 +7,9 @@
       <p class="page-subtitle">{{ 'DETAIL.SUBTITLE' | translate }}</p>
     </div>
     <div class="header-actions">
-      <button mat-stroked-button class="btn-outline"><mat-icon>edit</mat-icon> {{ 'DETAIL.EDIT_APPOINTMENT' | translate }}</button>
+      @if (appointment()?.origin === 'TECHNICAL_VISIT') {
+        <button mat-stroked-button class="btn-outline" (click)="startEdit()"><mat-icon>edit</mat-icon> {{ 'DETAIL.EDIT_APPOINTMENT' | translate }}</button>
+      }
       <button mat-icon-button><mat-icon>more_horiz</mat-icon></button>
     </div>
   </div>
@@ -55,6 +57,39 @@
               <strong>{{ originKey(apt.origin) | translate }}</strong>
             </div>
           </div>
+
+          @if (editing()) {
+            <div class="edit-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>{{ 'FORM.SCHEDULED_DATE' | translate }}</label>
+                  <input type="date" [(ngModel)]="editDate" class="form-input" />
+                </div>
+                <div class="form-group">
+                  <label>{{ 'FORM.SCHEDULED_TIME' | translate }}</label>
+                  <input type="time" [(ngModel)]="editTime" class="form-input" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>{{ 'DETAIL.REASON' | translate }}</label>
+                <input type="text" [(ngModel)]="editText" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label>{{ 'DETAIL.STATUS' | translate }}</label>
+                <select [(ngModel)]="editStatus" class="form-input">
+                  <option value="scheduled">{{ 'DETAIL.STATUS_SCHEDULED' | translate }}</option>
+                  <option value="completed">{{ 'DETAIL.STATUS_COMPLETED' | translate }}</option>
+                  <option value="cancelled">{{ 'DETAIL.STATUS_CANCELLED' | translate }}</option>
+                </select>
+              </div>
+              <div class="form-actions">
+                <button mat-stroked-button (click)="cancelEdit()">{{ 'COMMON.CANCEL' | translate }}</button>
+                <button mat-flat-button class="btn-primary-solid" [disabled]="savingEdit()" (click)="saveEdit()">
+                  {{ (savingEdit() ? 'COMMON.SAVING' : 'COMMON.SAVE') | translate }}
+                </button>
+              </div>
+            </div>
+          }
         </div>
 
         <div class="card-box tabs-card">

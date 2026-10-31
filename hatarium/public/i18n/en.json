@@ -53,7 +53,7 @@
     "vetVaccinationCard": "Vaccination Card",
     "vetProfile": "My Profile",
     "myPayments": "Payments",
-    "vetDashboard": "Home / Dashboard",
+    "vetDashboard": "Home",
     "vetRecords": "Health History",
     "vetVaccines": "Vaccines",
     "vetReports": "Sanitary reports"
@@ -197,7 +197,9 @@
     "LOADING": "Loading...",
     "ERROR": "An error occurred.",
     "RETRY": "Retry",
-    "NONE": "No information"
+    "NONE": "No information",
+    "SAVE": "Save",
+    "SAVING": "Saving..."
   },
   "CALENDAR": {
     "TITLE": "Appointments and field technical visits",
@@ -390,7 +392,9 @@
     "ALERT_ERROR": "The treatment could not be saved. Please try again.",
     "DIAGNOSIS_NONE": "No associated diagnosis.",
     "SAVING": "Saving...",
-    "ALERT_FILL": "Select a medication, a dose and an associated diagnosis."
+    "ALERT_FILL": "Select a medication, a dose and an associated diagnosis.",
+    "NEEDS_VACCINE": "Is a vaccine required?",
+    "NEEDS_VACCINE_HINT": "If checked, the vaccine registration will open for this animal."
   },
   "VACCINE": {
     "BACK": "← Back to vaccinations",
@@ -972,6 +976,11 @@
     "APPOINTMENTS_BY_MONTH": "Appointments by month",
     "VACCINES_BY_MONTH": "Vaccines by month",
     "TOP_VACCINES": "Most applied vaccines",
-    "NO_DATA": "Not enough data."
+    "NO_DATA": "Not enough data.",
+    "APPOINTMENT_STATUS": "Appointment status",
+    "SEVERITY_DISTRIBUTION": "Diagnosis severity",
+    "STATUS_COMPLETED": "Completed",
+    "STATUS_PENDING": "Pending",
+    "STATUS_CANCELLED": "Cancelled"
   }
 }

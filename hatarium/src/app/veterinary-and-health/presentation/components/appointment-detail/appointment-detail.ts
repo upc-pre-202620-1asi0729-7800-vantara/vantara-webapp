@@ -1,5 +1,6 @@
 import { Component, OnInit, computed, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { VeterinaryStore } from '../../../application/veterinary.store';
@@ -22,6 +23,7 @@ import {
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     RouterLink,
     MatCardModule,
     MatIconModule,
@@ -48,6 +50,12 @@ export class AppointmentDetailComponent implements OnInit {
   public medicationMap = signal<Record<string, string>>({});
   public loading = signal<boolean>(true);
   public errorMessage = signal<string>('');
+  public editing = signal<boolean>(false);
+  public editDate = signal<string>('');
+  public editTime = signal<string>('');
+  public editText = signal<string>('');
+  public editStatus = signal<string>('scheduled');
+  public savingEdit = signal<boolean>(false);
 
   readonly animalRecords = computed(() =>
     this.store.records().filter(record => record.animalId === this.animalId())
@@ -145,6 +153,39 @@ export class AppointmentDetailComponent implements OnInit {
 
   public medicationName(medicationId: string): string {
     return this.medicationMap()[medicationId] ?? medicationId;
+  }
+
+  public startEdit(): void {
+    const appointment = this.appointment();
+    if (!appointment) return;
+    this.editDate.set(appointment.scheduledAt.split('T')[0]);
+    this.editTime.set(appointment.scheduledAt.split('T')[1]?.slice(0, 5) || '10:00');
+    this.editText.set(appointment.reason);
+    this.editStatus.set(appointment.status);
+    this.editing.set(true);
+  }
+
+  public cancelEdit(): void {
+    this.editing.set(false);
+  }
+
+  public saveEdit(): void {
+    const appointment = this.appointment();
+    if (!appointment || this.savingEdit()) return;
+    this.savingEdit.set(true);
+    const scheduledAt = `${this.editDate()}T${this.editTime()}:00`;
+    this.store.updateAppointment(appointment.id, {
+      scheduledAt,
+      reason: this.editText(),
+      status: this.editStatus()
+    }).subscribe({
+      next: updated => {
+        this.appointment.set(updated);
+        this.editing.set(false);
+        this.savingEdit.set(false);
+      },
+      error: () => this.savingEdit.set(false)
+    });
   }
 
   private loadAppointment(id: string): void {

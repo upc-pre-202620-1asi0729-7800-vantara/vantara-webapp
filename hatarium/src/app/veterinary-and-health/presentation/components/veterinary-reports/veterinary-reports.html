@@ -41,7 +41,35 @@
     </div>
   </div>
 
-  <div class="report-columns">
+  <div class="donut-grid">
+    <div class="card-box donut-card">
+      <h3 class="box-title"><mat-icon class="accent-icon">pie_chart</mat-icon> {{ 'REPORTS.APPOINTMENT_STATUS' | translate }}</h3>
+      <div class="donut" [style.background]="appointmentDonutStyle()"></div>
+      <div class="donut-legend">
+        @for (slice of appointmentStatusSlices(); track slice.label) {
+          <div class="legend-item">
+            <span class="legend-dot" [style.background]="slice.color"></span>
+            <span>{{ slice.label | translate }}</span>
+            <strong>{{ slice.value }}</strong>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="card-box donut-card">
+      <h3 class="box-title"><mat-icon class="accent-icon">pie_chart</mat-icon> {{ 'REPORTS.SEVERITY_DISTRIBUTION' | translate }}</h3>
+      <div class="donut" [style.background]="severityDonutStyle()"></div>
+      <div class="donut-legend">
+        @for (slice of severitySlices(); track slice.label) {
+          <div class="legend-item">
+            <span class="legend-dot" [style.background]="slice.color"></span>
+            <span>{{ slice.label | translate }}</span>
+            <strong>{{ slice.value }}</strong>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
     <div class="card-box">
       <h3 class="box-title"><mat-icon class="accent-icon">bar_chart</mat-icon> {{ 'REPORTS.APPOINTMENTS_BY_MONTH' | translate }}</h3>
       <div class="bar-chart">
@@ -57,6 +85,7 @@
       </div>
     </div>
 
+  <div class="report-columns">
     <div class="card-box">
       <h3 class="box-title"><mat-icon class="accent-icon">vaccines</mat-icon> {{ 'REPORTS.VACCINES_BY_MONTH' | translate }}</h3>
       <div class="bar-chart">

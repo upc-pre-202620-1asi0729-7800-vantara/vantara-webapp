@@ -29,4 +29,11 @@
 .top-name { font-size: 0.88rem; color: #1e293b; }
 .top-count { font-size: 0.88rem; font-weight: 700; color: #219a75; }
 .empty-text { color: #94a3b8; font-size: 0.85rem; text-align: center; padding: 1rem 0; }
-@media (max-width: 960px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } .report-columns { grid-template-columns: 1fr; } }
+.donut-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem; }
+.donut-card { display: flex; flex-direction: column; align-items: center; }
+.donut { width: 140px; height: 140px; border-radius: 50%; margin: 0.75rem 0; }
+.donut-legend { display: flex; flex-direction: column; gap: 0.4rem; width: 100%; }
+.legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: #475569; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+.legend-item strong { margin-left: auto; color: #1e293b; }
+@media (max-width: 960px) { .donut-grid { grid-template-columns: 1fr; } }
