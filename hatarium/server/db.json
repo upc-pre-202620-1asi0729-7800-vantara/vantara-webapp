@@ -909,7 +909,8 @@
       "reason": "Control veterinario",
       "status": "scheduled",
       "cancellationReason": null,
-      "createdAt": "2026-09-08"
+      "createdAt": "2026-09-08",
+      "origin": "RANCHER_REQUEST"
     },
     {
       "id": "app-002",
@@ -920,7 +921,8 @@
       "reason": "Revisión rutinaria",
       "status": "completed",
       "cancellationReason": null,
-      "createdAt": "2026-09-01"
+      "createdAt": "2026-09-01",
+      "origin": "RANCHER_REQUEST"
     },
     {
       "rancherId": "usr-002",

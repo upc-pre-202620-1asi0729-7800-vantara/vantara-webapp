@@ -10,7 +10,7 @@
       <mat-icon class="accent-icon">event</mat-icon>
       <div>
         <strong>{{ 'VACCINE.TAG' | translate }}</strong>
-        <p class="tag-sub">12 Sep 2026 · 09:00 a.m. <span class="pill accent">{{ 'VACCINE.PILL' | translate }}</span></p>
+        <p class="tag-sub">{{ appliedAt | date:'dd MMM yyyy' }} <span class="pill accent">{{ 'VACCINE.PILL' | translate }}</span></p>
       </div>
     </div>
   </div>
@@ -66,7 +66,24 @@
           </div>
           <div class="form-group">
             <label>{{ 'VACCINE.DOSE' | translate }}</label>
-            <input type="text" [(ngModel)]="dose" class="form-input" [placeholder]="'VACCINE.DOSE_PLACEHOLDER' | translate" />
+            <div class="inline-inputs">
+              <input type="text" [(ngModel)]="dose" class="form-input" [placeholder]="'VACCINE.DOSE_PLACEHOLDER' | translate" />
+              <select [(ngModel)]="doseUnit" class="form-input unit-select">
+                <option value="mL">mL</option>
+                <option value="mg">mg</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>{{ 'VACCINE.LABORATORY' | translate }}</label>
+            <input type="text" [(ngModel)]="laboratory" class="form-input" [placeholder]="'VACCINE.LABORATORY_PLACEHOLDER' | translate" />
+          </div>
+          <div class="form-group">
+            <label>{{ 'VACCINE.APPLICATION_SITE' | translate }}</label>
+            <input type="text" [(ngModel)]="applicationSite" class="form-input" [placeholder]="'VACCINE.APPLICATION_SITE_PLACEHOLDER' | translate" />
           </div>
         </div>
 
@@ -81,8 +98,11 @@
         </div>
 
         <div class="form-actions">
+          @if (saveError(); as errorKey) { <p class="form-error" role="alert">{{ errorKey | translate }}</p> }
           <button mat-stroked-button routerLink="/veterinary/appointments">{{ 'COMMON.CANCEL' | translate }}</button>
-          <button mat-flat-button class="btn-primary-solid" (click)="saveVaccine()">{{ 'VACCINE.SAVE_VACCINE' | translate }}</button>
+          <button mat-flat-button class="btn-primary-solid" [disabled]="saving()" (click)="saveVaccine()">
+            {{ (saving() ? 'VACCINE.SAVING' : 'VACCINE.SAVE_VACCINE') | translate }}
+          </button>
         </div>
       </div>
     </div>

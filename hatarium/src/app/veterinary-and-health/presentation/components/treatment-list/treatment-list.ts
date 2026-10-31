@@ -1,13 +1,21 @@
-import {Component, OnInit, inject, signal, computed} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {Router, ActivatedRoute, RouterLink} from '@angular/router';
-import {TranslatePipe, TranslateService} from '@ngx-translate/core';
-import {VeterinaryStore} from '../../../application/veterinary.store';
-import {MatCardModule} from '@angular/material/card';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {AnimalDTO, ExternalDataService} from '../../../infrastructure/services/external-data';
+import { Component, OnInit, effect, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { VeterinaryStore } from '../../../application/veterinary.store';
+import { VeterinaryApiClient } from '../../../infrastructure/veterinary-api-client';
+import { Appointment } from '../../../domain/model/appointment.entity';
+import { MedicalRecord } from '../../../domain/model/medical-record.entity';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import {
+  AnimalDTO,
+  ExternalDataService,
+  MedicationDTO
+} from '../../../infrastructure/services/external-data';
+import { SessionProfile } from '../../../../shared/application/session-profile';
 
 @Component({
   selector: 'app-treatment-list',
@@ -18,71 +26,148 @@ import {AnimalDTO, ExternalDataService} from '../../../infrastructure/services/e
 })
 export class TreatmentListComponent implements OnInit {
   public store = inject(VeterinaryStore);
+  private api = inject(VeterinaryApiClient);
   private externalData = inject(ExternalDataService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private translate = inject(TranslateService);
+  public session = inject(SessionProfile);
 
   public animal = signal<AnimalDTO | null>(null);
-  public medicationsList = signal<any[]>([]);
+  public appointment = signal<Appointment | null>(null);
+  public diagnosisRecord = signal<MedicalRecord | null>(null);
+  public medicationsList = signal<MedicationDTO[]>([]);
   public currentAnimalId = signal<string>('anm-047');
-  public currentRecordId = signal<string>('mr-001');
+  public currentRecordId = signal<string>('');
+  public currentAppointmentId = signal<string>('');
+  public saving = signal<boolean>(false);
+  public saveError = signal<string>('');
 
-  // Campos del Formulario (Mockup 8/13)
-  public treatmentType: string = 'Preventivo';
-  public purpose: string = 'Tratamiento rutinario';
-  public selectedMedicationId: string = 'med-001';
-  public dose: string = '5';
-  public doseUnit: string = 'mL';
-  public routeAdmin: string = 'Intramuscular';
-  public frequencyHours: string = '24';
-  public durationDays: number = 7;
-  public instructions: string = 'Completar esquema indicado cada 24 horas.';
-  public notes: string = 'Monitorear la respuesta del animal.';
+  // US029 form fields.
+  public treatmentType = 'Preventivo';
+  public purpose = 'Tratamiento rutinario';
+  public selectedMedicationId = '';
+  public dose = '5';
+  public doseUnit = 'mL';
+  public routeAdmin = 'Intramuscular';
+  public frequencyHours = '24';
+  public durationDays = 7;
+  public instructions = 'Completar esquema indicado cada 24 horas.';
+  public notes = 'Monitorear la respuesta del animal.';
+
+  constructor() {
+    effect(() => {
+      const appointmentId = this.currentAppointmentId();
+      if (!appointmentId) return;
+      const found = this.store.appointments().find(item => item.id === appointmentId);
+      if (found) this.appointment.set(found);
+    });
+  }
 
   ngOnInit(): void {
+    this.store.loadMedicalRecords();
     this.store.loadTreatments();
+    this.store.loadAppointments();
 
     this.route.queryParams.subscribe(params => {
-      const animId = params['animalId'] || 'anm-047';
-      const recId = params['recordId'] || 'mr-001';
+      const animalId = params['animalId'] || 'anm-047';
+      const recordId = params['recordId'] || '';
+      const appointmentId = params['appointmentId'] || '';
 
-      this.currentAnimalId.set(animId);
-      this.currentRecordId.set(recId);
+      this.currentAnimalId.set(animalId);
+      this.currentRecordId.set(recordId);
+      this.currentAppointmentId.set(appointmentId);
 
-      this.externalData.getAnimalDetail(animId).subscribe(data => {
-        this.animal.set(data);
-      });
+      this.externalData.getAnimalDetail(animalId).subscribe(data => this.animal.set(data));
+
+      if (appointmentId) {
+        this.api.getAppointmentById(appointmentId).subscribe({
+          next: appointment => this.appointment.set(appointment),
+          error: () => this.appointment.set(null)
+        });
+      }
+
+      this.resolveDiagnosis(animalId, recordId);
     });
 
-    this.externalData.getMedications().subscribe(meds => {
-      this.medicationsList.set(meds);
+    this.externalData.getMedications().subscribe(medications => {
+      this.medicationsList.set(medications);
+      if (!this.selectedMedicationId && medications.length > 0) {
+        this.selectedMedicationId = medications[0].id;
+      }
     });
   }
 
   public saveTreatment(): void {
-    const newTreatment = {
+    if (this.saving()) return;
+
+    if (!this.selectedMedicationId || !this.dose || !this.currentRecordId()) {
+      alert(this.translate.instant('TREATMENT.ALERT_FILL'));
+      return;
+    }
+
+    const scheduledAt = new Date();
+    const nextDate = new Date(scheduledAt);
+    nextDate.setDate(nextDate.getDate() + Number(this.durationDays));
+
+    const instructions = [this.instructions.trim(), this.notes.trim()].filter(Boolean).join(' · ');
+
+    this.saving.set(true);
+    this.saveError.set('');
+
+    this.store.createTreatment({
       medicalRecordId: this.currentRecordId(),
       animalId: this.currentAnimalId(),
       medicationId: this.selectedMedicationId,
       treatmentType: this.treatmentType,
-      dose: `${this.dose} ${this.doseUnit}`,
+      dose: this.dose,
       doseUnit: this.doseUnit,
       route: this.routeAdmin,
       frequencyHours: this.frequencyHours,
-      durationDays: this.durationDays,
-      scheduledAt: new Date().toISOString().split('T')[0],
-      administeredAt: new Date().toISOString().split('T')[0],
-      nextDate: new Date().toISOString().split('T')[0],
-      status: 'completed',
-      instructions: this.instructions
-    };
+      durationDays: Number(this.durationDays),
+      scheduledAt: scheduledAt.toISOString(),
+      administeredAt: scheduledAt.toISOString(),
+      nextDate: nextDate.toISOString().split('T')[0],
+      status: 'active',
+      instructions
+    }).subscribe({
+      next: () => {
+        this.saving.set(false);
+        alert(this.translate.instant('TREATMENT.ALERT_SUCCESS'));
+        void this.router.navigate(['/veterinary/vaccines/new'], {
+          queryParams: { animalId: this.currentAnimalId() }
+        });
+      },
+      error: () => {
+        this.saving.set(false);
+        this.saveError.set('TREATMENT.ALERT_ERROR');
+      }
+    });
+  }
 
-    this.store.createTreatment(newTreatment);
-    alert(this.translate.instant('TREATMENT.ALERT_SUCCESS'));
+  private resolveDiagnosis(animalId: string, recordId: string): void {
+    if (recordId) {
+      const record = this.store.records().find(item => item.id === recordId);
+      if (record) this.diagnosisRecord.set(record);
+    }
 
-    this.router.navigate(['/veterinary/vaccines/new'], {
-      queryParams: { animalId: this.currentAnimalId() }
+    this.api.getMedicalRecordsByAnimal(animalId).subscribe(records => {
+      if (recordId) {
+        const record = records.find(item => item.id === recordId);
+        if (record) {
+          this.diagnosisRecord.set(record);
+          return;
+        }
+      }
+
+      const latest = [...records].sort((first, second) =>
+        new Date(second.recordedAt).getTime() - new Date(first.recordedAt).getTime()
+      )[0];
+
+      if (latest) {
+        this.diagnosisRecord.set(latest);
+        if (!this.currentRecordId()) this.currentRecordId.set(latest.id);
+      }
     });
   }
 }

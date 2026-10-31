@@ -1,8 +1,6 @@
 <div class="detail-page-container">
-  <!-- Enlace Volver -->
   <a routerLink="/veterinary/appointments" class="back-link">{{ 'DETAIL.BACK' | translate }}</a>
 
-  <!-- Encabezado -->
   <div class="page-header">
     <div>
       <h1 class="page-title">{{ 'DETAIL.TITLE' | translate }}</h1>
@@ -14,169 +12,222 @@
     </div>
   </div>
 
-  <!-- Layout Principal en 2 Columnas (Igual al Mockup 4) -->
-  <div class="detail-layout">
-    <!-- Columna Izquierda -->
-    <div class="main-content-col">
-      <!-- Tarjeta Resumen del Animal -->
-      @if (animal()) {
-        <div class="card-box animal-header-card">
-          <div class="animal-avatar">🐮</div>
-          <div>
-            <h2 class="animal-name">#{{ animal()?.earTag }} · {{ animal()?.name }}</h2>
-            <p class="animal-breed">{{ animal()?.breed }}</p>
-            <div class="pills-row">
-              <span class="pill accent-light">{{ animal()?.lotName }}</span>
-              <span class="pill">{{ animal()?.sex }}</span>
-              <span class="pill">{{ 'COMMON.AGE_VALUE' | translate }}</span>
-              <span class="pill">{{ animal()?.weight }} kg</span>
-            </div>
-          </div>
-        </div>
-      }
+  @if (loading() && !appointment()) {
+    <p class="empty-text">{{ 'COMMON.LOADING' | translate }}</p>
+  }
 
-      <!-- Datos Básicos de la Cita -->
-      <div class="card-box">
-        <h3 class="box-title"><mat-icon class="accent-icon">event</mat-icon> {{ 'COMMON.APPOINTMENT_INFO' | translate }}</h3>
-        <div class="info-grid">
-          <div class="info-item">
-            <span class="label">{{ 'DETAIL.DATETIME' | translate }}</span>
-            <strong>{{ appointment()?.scheduledAt | date:'dd MMM yyyy · HH:mm a' }}</strong>
-          </div>
-          <div class="info-item">
-            <span class="label">{{ 'DETAIL.VETERINARIAN' | translate }}</span>
-            <strong>Dr. Rodríguez <small>(CMPV 12345)</small></strong>
-          </div>
-          <div class="info-item">
-            <span class="label">{{ 'DETAIL.REASON' | translate }}</span>
-            <strong>{{ appointment()?.reason }}</strong>
-          </div>
-          <div class="info-item">
-            <span class="label">{{ 'DETAIL.VISIT_TYPE' | translate }}</span>
-            <strong>{{ 'COMMON.VISIT_TYPE_VALUE' | translate }}</strong>
-          </div>
-        </div>
-      </div>
-
-      <!-- Pestañas (Tabs) de Información Completa -->
-      <div class="card-box tabs-card">
-        <mat-tab-group headerPosition="above">
-          <mat-tab [label]="'DETAIL.TAB_SUMMARY' | translate">
-            <div class="tab-content">
-              <h4>{{ 'COMMON.ANIMAL_INFO' | translate }}</h4>
-              <ul class="detail-list">
-                <li><span>{{ 'COMMON.EAR_TAG' | translate }}</span> <strong>#{{ animal()?.earTag }}</strong></li>
-                <li><span>{{ 'COMMON.NAME' | translate }}</span> <strong>{{ animal()?.name }}</strong></li>
-                <li><span>{{ 'COMMON.BREED' | translate }}</span> <strong>{{ animal()?.breed }}</strong></li>
-                <li><span>{{ 'COMMON.SEX' | translate }}</span> <strong>{{ animal()?.sex }}</strong></li>
-                <li><span>{{ 'COMMON.AGE' | translate }}</span> <strong>{{ 'COMMON.AGE_VALUE' | translate }}</strong></li>
-                <li><span>{{ 'COMMON.WEIGHT' | translate }}</span> <strong>{{ animal()?.weight }} kg</strong></li>
-                <li><span>{{ 'COMMON.LOT' | translate }}</span> <strong>{{ animal()?.lotName }}</strong></li>
-              </ul>
-
-              <h4>{{ 'DETAIL.NOTES' | translate }}</h4>
-              <p class="notes-text">{{ 'DETAIL.NOTES_TEXT' | translate }}</p>
-            </div>
-          </mat-tab>
-
-          <mat-tab [label]="'DETAIL.TAB_DIAGNOSIS' | translate">
-            <div class="tab-content">
-              <p class="empty-text">{{ 'DETAIL.NO_DIAGNOSIS' | translate }}</p>
-            </div>
-          </mat-tab>
-
-          <mat-tab [label]="'DETAIL.TAB_TREATMENT' | translate">
-            <div class="tab-content">
-              <p class="empty-text">{{ 'DETAIL.NO_TREATMENT' | translate }}</p>
-            </div>
-          </mat-tab>
-
-          <mat-tab [label]="'DETAIL.TAB_VACCINATION' | translate">
-            <div class="tab-content">
-              <p class="empty-text">{{ 'DETAIL.NO_VACCINES' | translate }}</p>
-            </div>
-          </mat-tab>
-
-          <mat-tab [label]="'DETAIL.TAB_FILES' | translate">
-            <div class="tab-content">
-              <p class="empty-text">{{ 'DETAIL.NO_FILES' | translate }}</p>
-            </div>
-          </mat-tab>
-        </mat-tab-group>
-      </div>
-    </div>
-
-    <!-- Columna Derecha -->
-    <div class="sidebar-col">
-      <!-- Estado de la Cita -->
-      <div class="card-box">
-        <span class="box-label">{{ 'DETAIL.STATUS' | translate }}</span>
-        <div class="status-badge-container">
-          <span class="status-pill yellow">{{ 'DETAIL.STATUS_SCHEDULED' | translate }}</span>
-        </div>
-        <p class="status-sub">{{ 'DETAIL.STATUS_SUB' | translate }}</p>
-      </div>
-
-      <!-- Botón / Acción "Registrar diagnóstico" -->
-      <div class="card-box action-box">
-        <div class="action-box-header">
-          <mat-icon class="action-icon">stethoscope</mat-icon>
-          <div>
-            <h4>{{ 'DETAIL.REGISTER_DIAGNOSIS' | translate }}</h4>
-            <p>{{ 'DETAIL.REGISTER_DIAGNOSIS_SUB' | translate }}</p>
-          </div>
-        </div>
-        <button mat-flat-button class="btn-primary-strong full-width" (click)="goToRegisterDiagnosis()">
-          {{ 'DETAIL.REGISTER_DIAGNOSIS_BTN' | translate }}
-        </button>
-      </div>
-
-      <!-- Progreso de la Atención (Stepper del Mockup) -->
-      <div class="card-box">
-        <h4 class="section-sub"><mat-icon class="accent-icon">published_with_changes</mat-icon> {{ 'COMMON.PROGRESS' | translate }}</h4>
-        <div class="stepper-horizontal">
-          <div class="step-item active">
-            <div class="step-num">1</div>
-            <div class="step-info">
-              <strong>{{ 'COMMON.DIAGNOSIS' | translate }}</strong>
-              <small>{{ 'DETAIL.DIAGNOSIS_STATUS' | translate }}</small>
-            </div>
-          </div>
-          <div class="step-item">
-            <div class="step-num">2</div>
-            <div class="step-info">
-              <strong>{{ 'COMMON.TREATMENT' | translate }}</strong>
-              <small>{{ 'COMMON.OPTIONAL' | translate }}</small>
-            </div>
-          </div>
-          <div class="step-item">
-            <div class="step-num">3</div>
-            <div class="step-info">
-              <strong>{{ 'COMMON.VACCINATION' | translate }}</strong>
-              <small>{{ 'COMMON.OPTIONAL' | translate }}</small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Historial de esta Cita -->
-      <div class="card-box">
-        <h4 class="section-sub"><mat-icon class="accent-icon">history</mat-icon> {{ 'DETAIL.HISTORY_TITLE' | translate }}</h4>
-        <div class="empty-history">
-          <mat-icon class="empty-icon">description</mat-icon>
-          <p><strong>{{ 'DETAIL.NO_RECORDS' | translate }}</strong></p>
-          <small>{{ 'DETAIL.NO_RECORDS_SUB' | translate }}</small>
-        </div>
-      </div>
-
-      <!-- Nota Importante -->
-      <div class="card-box info-blue-box">
-        <mat-icon class="info-icon">info</mat-icon>
+  @if (appointment(); as apt) {
+    @if (animal()) {
+      <div class="card-box animal-header-card">
+        <div class="animal-avatar">🐮</div>
         <div>
-          <strong>{{ 'COMMON.IMPORTANT' | translate }}</strong>
-          <p>{{ 'COMMON.IMPORTANT_TEXT' | translate }}</p>
+          <h2 class="animal-name">#{{ animal()?.earTag }} · {{ animal()?.name }}</h2>
+          <p class="animal-breed">{{ animal()?.breed }}</p>
+          <div class="pills-row">
+            <span class="pill accent-light">{{ animal()?.lotName }}</span>
+            <span class="pill">{{ animal()?.sex }}</span>
+            <span class="pill">{{ animal()?.weight }} kg</span>
+            <span class="pill">{{ originKey(apt.origin) | translate }}</span>
+          </div>
+        </div>
+      </div>
+    }
+
+    <div class="detail-layout">
+      <div class="main-content-col">
+        <div class="card-box">
+          <h3 class="box-title"><mat-icon class="accent-icon">event</mat-icon> {{ 'COMMON.APPOINTMENT_INFO' | translate }}</h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">{{ 'DETAIL.DATETIME' | translate }}</span>
+              <strong>{{ apt.scheduledAt | date:'dd MMM yyyy · HH:mm a' }}</strong>
+            </div>
+            <div class="info-item">
+              <span class="label">{{ 'DETAIL.VETERINARIAN' | translate }}</span>
+              <strong>{{ veterinarianName() }}</strong>
+            </div>
+            <div class="info-item">
+              <span class="label">{{ 'DETAIL.REASON' | translate }}</span>
+              <strong>{{ apt.reason }}</strong>
+            </div>
+            <div class="info-item">
+              <span class="label">{{ 'DETAIL.ORIGIN' | translate }}</span>
+              <strong>{{ originKey(apt.origin) | translate }}</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-box tabs-card">
+          <mat-tab-group headerPosition="above">
+            <mat-tab [label]="'DETAIL.TAB_SUMMARY' | translate">
+              <div class="tab-content">
+                <h4>{{ 'COMMON.ANIMAL_INFO' | translate }}</h4>
+                <ul class="detail-list">
+                  <li><span>{{ 'COMMON.EAR_TAG' | translate }}</span> <strong>#{{ animal()?.earTag }}</strong></li>
+                  <li><span>{{ 'COMMON.NAME' | translate }}</span> <strong>{{ animal()?.name }}</strong></li>
+                  <li><span>{{ 'COMMON.BREED' | translate }}</span> <strong>{{ animal()?.breed }}</strong></li>
+                  <li><span>{{ 'COMMON.SEX' | translate }}</span> <strong>{{ animal()?.sex }}</strong></li>
+                  <li><span>{{ 'COMMON.WEIGHT' | translate }}</span> <strong>{{ animal()?.weight }} kg</strong></li>
+                  <li><span>{{ 'COMMON.LOT' | translate }}</span> <strong>{{ animal()?.lotName }}</strong></li>
+                </ul>
+
+                <h4>{{ 'DETAIL.NOTES' | translate }}</h4>
+                <p class="notes-text">{{ 'DETAIL.NOTES_TEXT' | translate }}</p>
+              </div>
+            </mat-tab>
+
+            <mat-tab [label]="'DETAIL.TAB_DIAGNOSIS' | translate">
+              <div class="tab-content">
+                @for (record of animalRecords(); track record.id) {
+                  <div class="record-item">
+                    <div class="record-header">
+                      <strong>{{ record.diagnosis }}</strong>
+                      <span class="severity-pill" [ngClass]="record.severity">{{ severityKey(record.severity) | translate }}</span>
+                    </div>
+                    <small>{{ record.recordedAt | date:'dd MMM yyyy' }}</small>
+                    <p><b>{{ 'DETAIL.RECORD_SYMPTOMS' | translate }}:</b> {{ record.symptoms }}</p>
+                    @if (record.notes) { <p class="record-notes">{{ record.notes }}</p> }
+                  </div>
+                } @empty {
+                  <p class="empty-text">{{ 'DETAIL.NO_DIAGNOSIS' | translate }}</p>
+                }
+              </div>
+            </mat-tab>
+
+            <mat-tab [label]="'DETAIL.TAB_TREATMENT' | translate">
+              <div class="tab-content">
+                @for (treatment of animalTreatments(); track treatment.id) {
+                  <div class="record-item">
+                    <div class="record-header">
+                      <strong>{{ medicationName(treatment.medicationId) }}</strong>
+                      <span class="severity-pill low">{{ treatment.status }}</span>
+                    </div>
+                    <p>
+                      <b>{{ 'DETAIL.TREATMENT_DOSE' | translate }}:</b> {{ treatment.dose }} {{ treatment.doseUnit }} ·
+                      <b>{{ 'DETAIL.TREATMENT_FREQUENCY' | translate }}:</b> {{ treatment.frequencyHours }} h
+                    </p>
+                    <small>{{ treatment.scheduledAt | date:'dd MMM yyyy' }}</small>
+                  </div>
+                } @empty {
+                  <p class="empty-text">{{ 'DETAIL.NO_TREATMENT' | translate }}</p>
+                }
+              </div>
+            </mat-tab>
+
+            <mat-tab [label]="'DETAIL.TAB_VACCINATION' | translate">
+              <div class="tab-content">
+                @for (vaccine of vaccines(); track vaccine.id) {
+                  <div class="record-item">
+                    <div class="record-header">
+                      <strong>{{ vaccine.name }}</strong>
+                      <span class="severity-pill low">{{ vaccine.status }}</span>
+                    </div>
+                    <p>
+                      <b>{{ 'DETAIL.VACCINE_LOT' | translate }}:</b> {{ vaccine.lotNumber }} ·
+                      <b>{{ 'DETAIL.VACCINE_APPLIED' | translate }}:</b> {{ vaccine.appliedAt | date:'dd MMM yyyy' }}
+                    </p>
+                    <small>{{ 'DETAIL.VACCINE_NEXT' | translate }}: {{ vaccine.nextDoseAt | date:'dd MMM yyyy' }}</small>
+                  </div>
+                } @empty {
+                  <p class="empty-text">{{ 'DETAIL.NO_VACCINES' | translate }}</p>
+                }
+              </div>
+            </mat-tab>
+
+            <mat-tab [label]="'DETAIL.TAB_FILES' | translate">
+              <div class="tab-content">
+                <p class="empty-text">{{ 'DETAIL.NO_FILES' | translate }}</p>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+
+      <div class="sidebar-col">
+        <div class="card-box">
+          <span class="box-label">{{ 'DETAIL.STATUS' | translate }}</span>
+          <div class="status-badge-container">
+            <span class="status-pill" [ngClass]="apt.status">{{ statusKey(apt.status) | translate }}</span>
+          </div>
+          <p class="status-sub">{{ (apt.status === 'completed' ? 'DETAIL.STATUS_SUB_COMPLETED' : 'DETAIL.STATUS_SUB') | translate }}</p>
+        </div>
+
+        <div class="card-box action-box">
+          <div class="action-box-header">
+            <mat-icon class="action-icon">stethoscope</mat-icon>
+            <div>
+              <h4>{{ 'DETAIL.REGISTER_DIAGNOSIS' | translate }}</h4>
+              <p>{{ 'DETAIL.REGISTER_DIAGNOSIS_SUB' | translate }}</p>
+            </div>
+          </div>
+          <button mat-flat-button class="btn-primary-strong full-width" (click)="goToRegisterDiagnosis()">
+            {{ 'DETAIL.REGISTER_DIAGNOSIS_BTN' | translate }}
+          </button>
+        </div>
+
+        <div class="card-box">
+          <h4 class="section-sub"><mat-icon class="accent-icon">published_with_changes</mat-icon> {{ 'COMMON.PROGRESS' | translate }}</h4>
+          <div class="stepper-horizontal">
+            <div class="step-item" [class.active]="hasDiagnosis()">
+              <div class="step-num">{{ hasDiagnosis() ? '✓' : '1' }}</div>
+              <div class="step-info">
+                <strong>{{ 'COMMON.DIAGNOSIS' | translate }}</strong>
+                <small>{{ hasDiagnosis() ? ('COMMON.COMPLETED' | translate) : ('DETAIL.DIAGNOSIS_STATUS' | translate) }}</small>
+              </div>
+            </div>
+            <div class="step-item" [class.active]="hasTreatment()">
+              <div class="step-num">{{ hasTreatment() ? '✓' : '2' }}</div>
+              <div class="step-info">
+                <strong>{{ 'COMMON.TREATMENT' | translate }}</strong>
+                <small>{{ hasTreatment() ? ('COMMON.COMPLETED' | translate) : ('COMMON.OPTIONAL' | translate) }}</small>
+              </div>
+            </div>
+            <div class="step-item" [class.active]="hasVaccines()">
+              <div class="step-num">{{ hasVaccines() ? '✓' : '3' }}</div>
+              <div class="step-info">
+                <strong>{{ 'COMMON.VACCINATION' | translate }}</strong>
+                <small>{{ hasVaccines() ? ('COMMON.COMPLETED' | translate) : ('COMMON.OPTIONAL' | translate) }}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-box">
+          <h4 class="section-sub"><mat-icon class="accent-icon">history</mat-icon> {{ 'DETAIL.HISTORY_TITLE' | translate }}</h4>
+          @if (hasDiagnosis() || hasTreatment() || hasVaccines()) {
+            <ul class="history-summary">
+              @if (hasDiagnosis()) {
+                <li><mat-icon>assignment</mat-icon> {{ animalRecords().length }} {{ 'DETAIL.TAB_DIAGNOSIS' | translate }}</li>
+              }
+              @if (hasTreatment()) {
+                <li><mat-icon>medication</mat-icon> {{ animalTreatments().length }} {{ 'DETAIL.TAB_TREATMENT' | translate }}</li>
+              }
+              @if (hasVaccines()) {
+                <li><mat-icon>vaccines</mat-icon> {{ vaccines().length }} {{ 'DETAIL.TAB_VACCINATION' | translate }}</li>
+              }
+            </ul>
+            <button mat-stroked-button class="btn-outline full-width" (click)="goToPrescribeTreatment()">
+              {{ 'TREATMENT.TITLE' | translate }}
+            </button>
+          } @else {
+            <div class="empty-history">
+              <mat-icon class="empty-icon">description</mat-icon>
+              <p><strong>{{ 'DETAIL.NO_RECORDS' | translate }}</strong></p>
+              <small>{{ 'DETAIL.NO_RECORDS_SUB' | translate }}</small>
+            </div>
+          }
+        </div>
+
+        <div class="card-box info-blue-box">
+          <mat-icon class="info-icon">info</mat-icon>
+          <div>
+            <strong>{{ 'COMMON.IMPORTANT' | translate }}</strong>
+            <p>{{ 'COMMON.IMPORTANT_TEXT' | translate }}</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  } @else if (!loading()) {
+    <p class="empty-text">{{ 'DETAIL.NOT_FOUND' | translate }}</p>
+  }
 </div>

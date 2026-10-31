@@ -344,3 +344,21 @@
   color: #1a7a5d;
   line-height: 1.3;
 }
+
+/* Dynamic status + clinical records */
+.status-pill.scheduled { background: #fef3c7; color: #d97706; padding: 0.25rem 0.75rem; border-radius: 12px; font-weight: 700; font-size: 0.75rem; }
+.status-pill.completed { background: #e4f4e8; color: #219a75; padding: 0.25rem 0.75rem; border-radius: 12px; font-weight: 700; font-size: 0.75rem; }
+.status-pill.cancelled { background: #fee2e2; color: #b91c1c; padding: 0.25rem 0.75rem; border-radius: 12px; font-weight: 700; font-size: 0.75rem; }
+.record-item { border: 1px solid #eef2f0; border-radius: 10px; padding: 0.85rem 1rem; margin-bottom: 0.75rem; background: #fbfdfc; }
+.record-header { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+.record-header strong { color: #1e293b; font-size: 0.92rem; }
+.record-item p { margin: 0.35rem 0 0; font-size: 0.83rem; color: #475569; }
+.record-item small { color: #94a3b8; font-size: 0.75rem; }
+.record-notes { color: #64748b !important; font-style: italic; }
+.severity-pill { padding: 0.15rem 0.55rem; border-radius: 10px; font-size: 0.72rem; font-weight: 700; }
+.severity-pill.low { background: #e4f4e8; color: #219a75; }
+.severity-pill.medium { background: #fef3c7; color: #d97706; }
+.severity-pill.high { background: #fee2e2; color: #b91c1c; }
+.history-summary { list-style: none; padding: 0; margin: 0 0 1rem; }
+.history-summary li { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #475569; padding: 0.35rem 0; }
+.history-summary mat-icon { font-size: 1.1rem; width: 1.1rem; height: 1.1rem; color: #219a75; }

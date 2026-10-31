@@ -1,14 +1,21 @@
-import {Component, OnInit, inject, signal, computed} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {RouterLink, Router} from '@angular/router';
-import {TranslatePipe} from '@ngx-translate/core';
-import {MatCardModule} from '@angular/material/card';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatTableModule} from '@angular/material/table';
-import {VeterinaryStore} from '../../../application/veterinary.store';
-import {AnimalDTO, ExternalDataService} from '../../../infrastructure/services/external-data';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { VeterinaryStore } from '../../../application/veterinary.store';
+import {
+  AnimalDTO,
+  ExternalDataService,
+  VeterinarianDTO
+} from '../../../infrastructure/services/external-data';
+
+type AppointmentTab = 'proximas' | 'historial';
+type OriginFilter = 'ALL' | 'RANCHER_REQUEST' | 'TECHNICAL_VISIT';
 
 @Component({
   selector: 'app-appointment-calendar',
@@ -16,7 +23,6 @@ import {AnimalDTO, ExternalDataService} from '../../../infrastructure/services/e
   imports: [
     CommonModule,
     FormsModule,
-    RouterLink,
     MatCardModule,
     MatIconModule,
     MatButtonModule,
@@ -31,57 +37,89 @@ export class AppointmentCalendarComponent implements OnInit {
   private externalData = inject(ExternalDataService);
   private router = inject(Router);
 
-  public availableAnimals = signal<AnimalDTO[]>([]);
   public animalMap = signal<Record<string, AnimalDTO>>({});
   public appointmentAnimalMap = signal<Record<string, string>>({});
+  public veterinarianMap = signal<Record<string, VeterinarianDTO>>({});
 
-  // Filtros de navegación
-  public activeTab = signal<'proximas' | 'historial'>('proximas');
-  public originFilter = signal<'ALL' | 'RANCHER_REQUEST' | 'TECHNICAL_VISIT'>('ALL');
+  public activeTab = signal<AppointmentTab>('proximas');
+  public originFilter = signal<OriginFilter>('ALL');
   public searchTerm = signal('');
 
-  // Proyección computada con filtro por Origen y Buscador
-  public filteredAppointments = computed(() => {
-    const term = this.searchTerm().toLowerCase();
-    const origin = this.originFilter();
+  readonly scheduledCount = computed(() =>
+    this.store.appointments().filter(appointment => appointment.status === 'scheduled').length
+  );
+  readonly rancherRequestCount = computed(() =>
+    this.store.appointments().filter(appointment => appointment.origin === 'RANCHER_REQUEST').length
+  );
+  readonly technicalVisitCount = computed(() =>
+    this.store.appointments().filter(appointment => appointment.origin === 'TECHNICAL_VISIT').length
+  );
 
-    return this.store.appointments().filter(apt => {
-      const matchesSearch = apt.reason.toLowerCase().includes(term) || apt.status.toLowerCase().includes(term);
-      const matchesOrigin = origin === 'ALL' || apt.origin === origin;
-      return matchesSearch && matchesOrigin;
-    });
+  /** Upcoming vs. history projection with search and origin filters applied. */
+  public filteredAppointments = computed(() => {
+    const term = this.searchTerm().trim().toLowerCase();
+    const origin = this.originFilter();
+    const showHistory = this.activeTab() === 'historial';
+
+    return this.store.appointments()
+      .filter(appointment => {
+        const matchesTab = showHistory
+          ? appointment.status !== 'scheduled'
+          : appointment.status === 'scheduled';
+        const matchesSearch = !term
+          || appointment.reason.toLowerCase().includes(term)
+          || appointment.status.toLowerCase().includes(term);
+        const matchesOrigin = origin === 'ALL' || appointment.origin === origin;
+        return matchesTab && matchesSearch && matchesOrigin;
+      })
+      .sort((first, second) => {
+        const firstDate = new Date(first.scheduledAt).getTime() || 0;
+        const secondDate = new Date(second.scheduledAt).getTime() || 0;
+        return showHistory ? secondDate - firstDate : firstDate - secondDate;
+      });
   });
 
   ngOnInit(): void {
     this.store.loadAppointments();
 
     this.externalData.getAnimals().subscribe(animals => {
-      this.availableAnimals.set(animals);
       const map: Record<string, AnimalDTO> = {};
-      animals.forEach(a => { map[a.id] = a; });
+      animals.forEach(animal => { map[animal.id] = animal; });
       this.animalMap.set(map);
     });
 
     this.externalData.getAppointmentAnimals().subscribe(relations => {
       const map: Record<string, string> = {};
-      relations.forEach(r => { map[r.appointmentId] = r.animalId; });
+      relations.forEach(relation => { map[relation.appointmentId] = relation.animalId; });
       this.appointmentAnimalMap.set(map);
+    });
+
+    this.externalData.getVeterinarians().subscribe(veterinarians => {
+      const map: Record<string, VeterinarianDTO> = {};
+      veterinarians.forEach(veterinarian => { map[veterinarian.id] = veterinarian; });
+      this.veterinarianMap.set(map);
     });
   }
 
-  public setTab(tab: 'proximas' | 'historial'): void {
+  public setTab(tab: AppointmentTab): void {
     this.activeTab.set(tab);
   }
 
-  public setOriginFilter(filter: 'ALL' | 'RANCHER_REQUEST' | 'TECHNICAL_VISIT'): void {
+  public setOriginFilter(filter: OriginFilter): void {
     this.originFilter.set(filter);
   }
 
   public goToNewAppointment(): void {
-    this.router.navigate(['/veterinary/appointments/new']);
+    void this.router.navigate(['/veterinary/appointments/new']);
   }
 
   public goToDetail(appointmentId: string): void {
-    this.router.navigate([`/veterinary/appointments/${appointmentId}`]);
+    void this.router.navigate([`/veterinary/appointments/${appointmentId}`]);
+  }
+
+  public statusLabelKey(status: string): string {
+    if (status === 'completed') return 'CALENDAR.STATUS_COMPLETED';
+    if (status === 'cancelled') return 'CALENDAR.STATUS_CANCELLED';
+    return 'CALENDAR.STATUS_SCHEDULED';
   }
 }

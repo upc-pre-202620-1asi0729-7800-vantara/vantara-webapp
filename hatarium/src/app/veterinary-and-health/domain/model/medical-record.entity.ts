@@ -1,3 +1,9 @@
+/** Severity levels accepted by the clinical history aggregate. */
+export type MedicalRecordSeverity = 'low' | 'medium' | 'high';
+
+/** Health outcome derived from the clinical diagnosis. */
+export type AnimalHealthStatus = 'healthy' | 'follow_up' | 'critical';
+
 export class MedicalRecord {
   /** Identificador único de la historia clínica. */
   id: string;
@@ -13,10 +19,10 @@ export class MedicalRecord {
   symptoms: string;
   /** Diagnóstico emitido. */
   diagnosis: string;
-  /** Nivel de severidad (p. ej. low, medium, high). */
-  severity: string;
+  /** Nivel de severidad (low, medium, high). */
+  severity: MedicalRecordSeverity;
   /** Estado de salud resultante. */
-  healthStatus: string;
+  healthStatus: AnimalHealthStatus;
   /** Notas u observaciones adicionales. */
   notes: string;
 
@@ -28,10 +34,8 @@ export class MedicalRecord {
     this.recordedAt = '';
     this.symptoms = '';
     this.diagnosis = '';
-    this.severity = '';
-    this.healthStatus = '';
+    this.severity = 'low';
+    this.healthStatus = 'healthy';
     this.notes = '';
   }
-
-
 }

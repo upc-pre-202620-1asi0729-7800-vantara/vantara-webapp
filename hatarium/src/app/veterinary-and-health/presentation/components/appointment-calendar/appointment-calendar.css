@@ -52,3 +52,13 @@
 
 .btn-link-action { color: #07583f; font-weight: 700; border: none; background: transparent; cursor: pointer; }
 .empty-msg { text-align: center; color: #94a3b8; font-size: 0.85rem; padding: 2rem 0; }
+
+.error-banner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; border-radius: 10px; padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.85rem; font-weight: 600; }
+.status-pill.cancelled { background: #fee2e2; color: #b91c1c; }
+.status-pill.active { background: #e4f4e8; color: #219a75; }
+@media (max-width: 960px) {
+  .appointment-card-item { grid-template-columns: 70px 35px 1.8fr 1.2fr; }
+  .status-col, .action-col { grid-column: span 2; }
+  .filters-bar { flex-direction: column; align-items: stretch; }
+  .origin-pills-filter { flex-wrap: wrap; }
+}

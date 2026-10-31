@@ -150,6 +150,6 @@ export class SubscriptionPaymentView {
       amount: this.selectedPlan.price,
       currency: 'PEN'
     });
-    this.router.navigateByUrl('/config/payments/success');
+    this.router.navigateByUrl('/home');
   }
 }

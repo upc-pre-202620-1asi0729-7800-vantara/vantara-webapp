@@ -42,7 +42,19 @@
     "alerts": "Alertas",
     "profile": "Perfil",
     "payments": "Configuración",
-    "tagline": "Gestión Ganadera"
+    "tagline": "Gestión Ganadera",
+    "myCattle": "Mi Ganado",
+    "myAppointmentsHealth": "Mis Citas y Salud",
+    "vetTagline": "Gestión Veterinaria",
+    "vetAppointments": "Citas y Visitas Técnicas",
+    "vetScheduleVisit": "Agendar Visita Técnica",
+    "vetDiagnoses": "Diagnósticos Clínicos",
+    "vetPrescribe": "Prescribir Tratamiento",
+    "vetVaccinationCard": "Carnet de Vacunación",
+    "vetProfile": "Mi Perfil",
+    "myPayments": "Pagos",
+    "vetDashboard": "Inicio / Dashboard",
+    "vetRecords": "Historial Sanitario"
   },
   "dashboard": {
     "title": "Reproducción",
@@ -179,7 +191,11 @@
     "IMPORTANT": "Importante",
     "IMPORTANT_TEXT": "Una vez registrado el diagnóstico, podrás prescribir un tratamiento y, si corresponde, registrar una vacuna.",
     "DRAG_DROP": "Arrastra archivos aquí o selecciona",
-    "DR_RODRIGUEZ": "Dr. Rodríguez (CMPV 12345)"
+    "DR_RODRIGUEZ": "Dr. Rodríguez (CMPV 12345)",
+    "LOADING": "Cargando...",
+    "ERROR": "Ocurrió un error.",
+    "RETRY": "Reintentar",
+    "NONE": "Sin información"
   },
   "CALENDAR": {
     "TITLE": "Citas y visitas técnicas de campo",
@@ -202,7 +218,17 @@
     "STATUS_SCHEDULED": "● Programada",
     "STATUS_COMPLETED": "● Completada",
     "VIEW_APPOINTMENT": "Ver cita →",
-    "EMPTY": "No hay atenciones que coincidan con el filtro seleccionado."
+    "EMPTY": "No hay atenciones que coincidan con el filtro seleccionado.",
+    "NEW_APPOINTMENT": "Nueva cita",
+    "NO_VET": "Veterinario no asignado",
+    "KPI_SCHEDULED_HINT": "Atenciones programadas",
+    "KPI_RANCHER_HINT": "Solicitudes recibidas",
+    "KPI_TECHNICAL_HINT": "Visitas del veterinario",
+    "LOADING": "Cargando citas...",
+    "ERROR": "No se pudieron cargar las citas.",
+    "RETRY": "Reintentar",
+    "HISTORY_EMPTY": "Todavía no hay atenciones completadas.",
+    "STATUS_CANCELLED": "● Cancelada"
   },
   "DETAIL": {
     "BACK": "← Volver a citas",
@@ -233,7 +259,34 @@
     "DIAGNOSIS_STATUS": "Pendiente",
     "HISTORY_TITLE": "Historial de esta cita",
     "NO_RECORDS": "Aún no hay registros",
-    "NO_RECORDS_SUB": "Registra el diagnóstico para ver el historial de esta cita."
+    "NO_RECORDS_SUB": "Registra el diagnóstico para ver el historial de esta cita.",
+    "ORIGIN": "Origen",
+    "ORIGIN_RANCHER": "Solicitud del ganadero",
+    "ORIGIN_TECHNICAL": "Visita técnica",
+    "STATUS_COMPLETED": "Completada",
+    "STATUS_CANCELLED": "Cancelada",
+    "STATUS_SUB_COMPLETED": "La atención de esta cita ya fue registrada.",
+    "NOT_FOUND": "No se encontró la cita solicitada.",
+    "RECORD_DATE": "Fecha del registro",
+    "RECORD_DIAGNOSIS": "Diagnóstico",
+    "RECORD_SEVERITY": "Gravedad",
+    "RECORD_SYMPTOMS": "Síntomas",
+    "RECORD_NOTES": "Notas",
+    "RECORD_VET": "Veterinario",
+    "TREATMENT_MEDICATION": "Medicamento",
+    "TREATMENT_DOSE": "Dosis",
+    "TREATMENT_FREQUENCY": "Frecuencia",
+    "TREATMENT_STATUS": "Estado",
+    "VACCINE_NAME": "Vacuna",
+    "VACCINE_LOT": "Lote",
+    "VACCINE_APPLIED": "Aplicada",
+    "VACCINE_NEXT": "Próxima dosis",
+    "SEVERITY_LOW": "Leve",
+    "SEVERITY_MEDIUM": "Moderada",
+    "SEVERITY_HIGH": "Grave",
+    "RECORDS_TITLE": "Historial clínico del animal",
+    "TREATMENTS_TITLE": "Tratamientos prescritos",
+    "VACCINES_TITLE": "Vacunas aplicadas"
   },
   "FORM": {
     "BACK": "← Volver a citas veterinarias",
@@ -262,7 +315,12 @@
     "SUGGESTED_LOT": "Lote sugerido:",
     "ALERT_FILL": "Por favor ingrese el motivo, fecha y hora de la visita técnica.",
     "ALERT_SUCCESS": "Visita técnica / Cita médica agendada exitosamente (US027).",
-    "ALERT_ERROR": "Ocurrió un error al agendar la visita técnica."
+    "ALERT_ERROR": "Ocurrió un error al agendar la visita técnica.",
+    "ALERT_LINK_ERROR": "La cita se guardó, pero no se pudo vincular al animal. Reintenta para completar el registro.",
+    "NO_VETS": "No hay veterinarios registrados.",
+    "RESPONSIBLE_VET": "Veterinario responsable:",
+    "RANCHER_NAME": "Ganadero:",
+    "ANIMAL_LOT": "Lote del animal:"
   },
   "CLINICAL": {
     "BACK": "← Volver al detalle de la cita",
@@ -290,7 +348,11 @@
     "UPLOAD_HINT": "Puedes subir fotos, resultados de análisis, etc. (Máx. 10 MB)",
     "SAVE_DIAGNOSIS": "✓ Guardar diagnóstico",
     "ALERT_FILL": "Por favor complete el diagnóstico y los síntomas/signos observados.",
-    "ALERT_SUCCESS": "Diagnóstico guardado exitosamente (US028). Pasando a prescripción de tratamiento."
+    "ALERT_SUCCESS": "Diagnóstico guardado exitosamente (US028). Pasando a prescripción de tratamiento.",
+    "ALERT_ERROR": "No se pudo guardar el diagnóstico. Intenta nuevamente.",
+    "APPOINTMENT_DEFAULT": "Cita veterinaria",
+    "CAUSE_LABEL": "Causa probable",
+    "SAVING": "Guardando..."
   },
   "TREATMENT": {
     "BACK": "← Volver al detalle de la cita",
@@ -322,7 +384,11 @@
     "SAVE_TREATMENT": "✓ Guardar tratamiento",
     "ASSOCIATED_DIAGNOSIS": "Diagnóstico asociado",
     "DIAGNOSIS_DESC": "Revisión general de estado y control de peso.",
-    "ALERT_SUCCESS": "Tratamiento prescrito correctamente (US029). Redirigiendo a registro de vacunas opcional."
+    "ALERT_SUCCESS": "Tratamiento prescrito correctamente (US029). Redirigiendo a registro de vacunas opcional.",
+    "ALERT_ERROR": "No se pudo guardar el tratamiento. Intenta nuevamente.",
+    "DIAGNOSIS_NONE": "Sin diagnóstico asociado.",
+    "SAVING": "Guardando...",
+    "ALERT_FILL": "Selecciona un medicamento, una dosis y un diagnóstico asociado."
   },
   "VACCINE": {
     "BACK": "← Volver a vacunaciones",
@@ -346,7 +412,14 @@
     "LOT_LABEL": "Lote:",
     "ROUTE_LABEL": "Vía:",
     "NO_VACCINES": "No hay vacunas registradas previas para este animal.",
-    "ALERT_SUCCESS": "Vacuna registrada exitosamente en hatarium-db.json"
+    "ALERT_SUCCESS": "Vacuna registrada exitosamente en hatarium-db.json",
+    "LABORATORY": "Laboratorio *",
+    "LABORATORY_PLACEHOLDER": "Ej. Biogénesis Bag",
+    "APPLICATION_SITE": "Sitio de aplicación *",
+    "APPLICATION_SITE_PLACEHOLDER": "Ej. Cuello (lado izquierdo)",
+    "ALERT_ERROR": "No se pudo registrar la vacuna. Intenta nuevamente.",
+    "SAVING": "Guardando...",
+    "ALERT_FILL": "Completa la vacuna, el lote y la fecha de aplicación."
   },
   "home": {
     "greeting": "Buenos días, {{name}}",
@@ -822,5 +895,27 @@
   "footer": {
     "rights": "Todos los derechos reservados.",
     "and": "y"
+  },
+  "DASHBOARD": {
+    "TITLE": "Dashboard clínico",
+    "SUBTITLE": "Resumen de la actividad sanitaria del establo.",
+    "GREETING_MORNING": "Buenos días,",
+    "GREETING_AFTERNOON": "Buenas tardes,",
+    "GREETING_EVENING": "Buenas noches,",
+    "KPI_APPOINTMENTS_TODAY": "Total citas hoy",
+    "KPI_APPOINTMENTS_TODAY_SUB": "Atenciones programadas para hoy",
+    "KPI_PENDING_VACCINES": "Vacunas pendientes este mes",
+    "KPI_PENDING_VACCINES_SUB": "Próximas dosis por aplicar",
+    "KPI_CRITICAL_ANIMALS": "Animales en tratamiento crítico",
+    "KPI_CRITICAL_ANIMALS_SUB": "Casos que requieren seguimiento",
+    "KPI_ACTIVE_ALERTS": "Alertas sanitarias activas",
+    "KPI_ACTIVE_ALERTS_SUB": "Eventos que requieren atención",
+    "UPCOMING_APPOINTMENTS": "Próximas citas del día",
+    "VIEW_ALL_APPOINTMENTS": "Ver todas las citas →",
+    "NO_APPOINTMENTS_TODAY": "No hay citas programadas para hoy.",
+    "RECENT_VACCINES": "Vacunas aplicadas recientemente",
+    "NO_RECENT_VACCINES": "Sin vacunas registradas.",
+    "ACTIVE_TREATMENTS": "Tratamientos vigentes en el establo",
+    "NO_ACTIVE_TREATMENTS": "Sin tratamientos activos."
   }
 }

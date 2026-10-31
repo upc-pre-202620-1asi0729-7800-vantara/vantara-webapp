@@ -24,7 +24,7 @@ export class Treatment {
   /** Fecha de administración. */
   administeredAt: string;
   /** Próxima fecha programada. */
-  nextDueAt: string;
+  nextDate: string;
   /** Estado del tratamiento. */
   status: string;
   /** Instrucciones adicionales. */
@@ -43,7 +43,7 @@ export class Treatment {
     this.durationDays = 0;
     this.scheduledAt = '';
     this.administeredAt = '';
-    this.nextDueAt = '';
+    this.nextDate = '';
     this.status = '';
     this.instructions = '';
   }
