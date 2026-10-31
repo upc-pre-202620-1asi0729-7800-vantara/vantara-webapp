@@ -54,7 +54,9 @@
     "vetProfile": "My Profile",
     "myPayments": "Payments",
     "vetDashboard": "Home / Dashboard",
-    "vetRecords": "Health History"
+    "vetRecords": "Health History",
+    "vetVaccines": "Vaccines",
+    "vetReports": "Sanitary reports"
   },
   "dashboard": {
     "title": "Reproduction",
@@ -917,5 +919,59 @@
     "NO_RECENT_VACCINES": "No vaccines registered.",
     "ACTIVE_TREATMENTS": "Active treatments in the herd",
     "NO_ACTIVE_TREATMENTS": "No active treatments."
+  },
+  "SANITARY_HISTORY": {
+    "TITLE": "Sanitary history by animal",
+    "SUBTITLE": "Review clinical history, treatments, vaccines and appointments for each animal.",
+    "SEARCH": "Search animal, tag or lot",
+    "RECORDS": "records",
+    "TREATMENTS": "treatments",
+    "VACCINES": "vaccines",
+    "NO_ANIMALS": "No animals with sanitary history.",
+    "SELECT_ANIMAL": "Select an animal to view its history.",
+    "TAB_RECORDS": "Diagnoses",
+    "TAB_TREATMENTS": "Treatments",
+    "TAB_VACCINES": "Vaccines",
+    "TAB_APPOINTMENTS": "Appointments",
+    "NO_RECORDS": "No diagnoses registered.",
+    "NO_TREATMENTS": "No treatments registered.",
+    "NO_VACCINES": "No vaccines registered.",
+    "NO_APPOINTMENTS": "No appointments registered."
+  },
+  "VACCINE_CENTER": {
+    "TITLE": "Vaccination center",
+    "SUBTITLE": "History and control of herd vaccines.",
+    "REGISTER": "Register vaccine",
+    "KPI_TOTAL": "Registered vaccines",
+    "KPI_TOTAL_SUB": "Total in the herd",
+    "KPI_PENDING": "Pending vaccines",
+    "KPI_PENDING_SUB": "To apply or follow up",
+    "KPI_THIS_MONTH": "Applied this month",
+    "KPI_THIS_MONTH_SUB": "Vaccines this month",
+    "SEARCH": "Search vaccine, animal or lot",
+    "FILTER_APPLIED": "Applied",
+    "FILTER_PENDING": "Pending",
+    "PENDING_TITLE": "Pending vaccines",
+    "HISTORY_TITLE": "Vaccination history",
+    "STATUS_APPLIED": "Applied",
+    "STATUS_PENDING": "Pending",
+    "OVERDUE": "Overdue",
+    "NO_VACCINES": "No vaccines registered."
+  },
+  "REPORTS": {
+    "TITLE": "Sanitary reports",
+    "SUBTITLE": "Indicators and trends of veterinary activity.",
+    "KPI_COMPLETED_APPOINTMENTS": "Completed appointments",
+    "KPI_COMPLETED_APPOINTMENTS_SUB": "Finished visits",
+    "KPI_PENDING_APPOINTMENTS": "Pending appointments",
+    "KPI_PENDING_APPOINTMENTS_SUB": "To attend",
+    "KPI_CRITICAL_ANIMALS": "Critical animals",
+    "KPI_CRITICAL_ANIMALS_SUB": "Follow-up cases",
+    "KPI_ACTIVE_TREATMENTS": "Active treatments",
+    "KPI_ACTIVE_TREATMENTS_SUB": "In progress",
+    "APPOINTMENTS_BY_MONTH": "Appointments by month",
+    "VACCINES_BY_MONTH": "Vaccines by month",
+    "TOP_VACCINES": "Most applied vaccines",
+    "NO_DATA": "Not enough data."
   }
 }

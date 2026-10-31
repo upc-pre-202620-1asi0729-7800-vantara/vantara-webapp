@@ -57,6 +57,12 @@ export class VeterinaryApiClient {
     }));
   }
 
+  updateAppointment(appointmentId: string, appointment: Partial<Appointment>): Observable<Appointment> {
+    return this.http
+      .patch<AppointmentResource>(`${this.baseUrl}/appointments/${appointmentId}`, appointment)
+      .pipe(map(VeterinaryApiMapper.toAppointmentEntity));
+  }
+
   createAppointment(appointment: Partial<Appointment>): Observable<Appointment> {
     return this.http
       .post<AppointmentResource>(`${this.baseUrl}/appointments`, appointment)

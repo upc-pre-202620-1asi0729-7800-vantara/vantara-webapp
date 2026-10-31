@@ -54,7 +54,9 @@
     "vetProfile": "Mi Perfil",
     "myPayments": "Pagos",
     "vetDashboard": "Inicio / Dashboard",
-    "vetRecords": "Historial Sanitario"
+    "vetRecords": "Historial Sanitario",
+    "vetVaccines": "Vacunas",
+    "vetReports": "Reportes sanitarios"
   },
   "dashboard": {
     "title": "Reproducción",
@@ -917,5 +919,59 @@
     "NO_RECENT_VACCINES": "Sin vacunas registradas.",
     "ACTIVE_TREATMENTS": "Tratamientos vigentes en el establo",
     "NO_ACTIVE_TREATMENTS": "Sin tratamientos activos."
+  },
+  "SANITARY_HISTORY": {
+    "TITLE": "Historial sanitario por animal",
+    "SUBTITLE": "Consulta el historial clínico, tratamientos, vacunas y citas de cada animal.",
+    "SEARCH": "Buscar animal, arete o lote",
+    "RECORDS": "registros",
+    "TREATMENTS": "tratamientos",
+    "VACCINES": "vacunas",
+    "NO_ANIMALS": "No hay animales con historial sanitario.",
+    "SELECT_ANIMAL": "Selecciona un animal para ver su historial.",
+    "TAB_RECORDS": "Diagnósticos",
+    "TAB_TREATMENTS": "Tratamientos",
+    "TAB_VACCINES": "Vacunas",
+    "TAB_APPOINTMENTS": "Citas",
+    "NO_RECORDS": "Sin diagnósticos registrados.",
+    "NO_TREATMENTS": "Sin tratamientos registrados.",
+    "NO_VACCINES": "Sin vacunas registradas.",
+    "NO_APPOINTMENTS": "Sin citas registradas."
+  },
+  "VACCINE_CENTER": {
+    "TITLE": "Centro de vacunación",
+    "SUBTITLE": "Historial y control de vacunas del establo.",
+    "REGISTER": "Registrar vacuna",
+    "KPI_TOTAL": "Vacunas registradas",
+    "KPI_TOTAL_SUB": "Total en el establo",
+    "KPI_PENDING": "Vacunas pendientes",
+    "KPI_PENDING_SUB": "Por aplicar o en seguimiento",
+    "KPI_THIS_MONTH": "Aplicadas este mes",
+    "KPI_THIS_MONTH_SUB": "Vacunas del mes actual",
+    "SEARCH": "Buscar vacuna, animal o lote",
+    "FILTER_APPLIED": "Aplicadas",
+    "FILTER_PENDING": "Pendientes",
+    "PENDING_TITLE": "Vacunas pendientes",
+    "HISTORY_TITLE": "Historial de vacunación",
+    "STATUS_APPLIED": "Aplicada",
+    "STATUS_PENDING": "Pendiente",
+    "OVERDUE": "Vencida",
+    "NO_VACCINES": "No hay vacunas registradas."
+  },
+  "REPORTS": {
+    "TITLE": "Reportes sanitarios",
+    "SUBTITLE": "Indicadores y tendencias de la actividad veterinaria.",
+    "KPI_COMPLETED_APPOINTMENTS": "Citas completadas",
+    "KPI_COMPLETED_APPOINTMENTS_SUB": "Atenciones finalizadas",
+    "KPI_PENDING_APPOINTMENTS": "Citas pendientes",
+    "KPI_PENDING_APPOINTMENTS_SUB": "Por atender",
+    "KPI_CRITICAL_ANIMALS": "Animales críticos",
+    "KPI_CRITICAL_ANIMALS_SUB": "Casos de seguimiento",
+    "KPI_ACTIVE_TREATMENTS": "Tratamientos activos",
+    "KPI_ACTIVE_TREATMENTS_SUB": "En curso",
+    "APPOINTMENTS_BY_MONTH": "Citas por mes",
+    "VACCINES_BY_MONTH": "Vacunas por mes",
+    "TOP_VACCINES": "Vacunas más aplicadas",
+    "NO_DATA": "Sin datos suficientes."
   }
 }

@@ -112,7 +112,8 @@
       "phone": "+51 999 555 666",
       "photoUrl": "",
       "theme": "light",
-      "locale": "es"
+      "locale": "es",
+      "organizationName": ""
     },
     {
       "id": "usr-acc-f5f67860-99c9-4f0e-9263-41e50ecdead1",
@@ -967,6 +968,28 @@
       "status": "scheduled",
       "createdAt": "2026-10-06",
       "id": "2Nk9IXn"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-11-02T10:30:00",
+      "reason": "Revisión periódica de salud fgdgy control de peso",
+      "status": "scheduled",
+      "createdAt": "2026-10-31",
+      "id": "fCV7eMo"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-11-05T10:30:00",
+      "reason": "chequeo diario",
+      "status": "scheduled",
+      "createdAt": "2026-10-31",
+      "id": "8BlbyYW"
     }
   ],
   "appointmentAnimals": [
@@ -999,6 +1022,16 @@
       "appointmentId": "2Nk9IXn",
       "animalId": "anm-birth-O0fIBIm",
       "id": "9gAoMK5"
+    },
+    {
+      "appointmentId": "fCV7eMo",
+      "animalId": "anm-birth-O0fIBIm",
+      "id": "3W_pOXa"
+    },
+    {
+      "appointmentId": "8BlbyYW",
+      "animalId": "anm-22",
+      "id": "DZjhstk"
     }
   ],
   "medicalRecords": [

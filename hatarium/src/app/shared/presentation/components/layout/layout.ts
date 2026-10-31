@@ -44,6 +44,8 @@ export class Layout {
     { labelKey: 'sidebar.vetDashboard', icon: 'home', link: '/veterinary/dashboard' },
     { labelKey: 'sidebar.vetAppointments', icon: 'event', link: '/veterinary/appointments' },
     { labelKey: 'sidebar.vetRecords', icon: 'assignment', link: '/veterinary/records' },
+    { labelKey: 'sidebar.vetVaccines', icon: 'vaccines', link: '/veterinary/vaccines' },
+    { labelKey: 'sidebar.vetReports', icon: 'bar_chart', link: '/veterinary/reports' },
     { labelKey: 'sidebar.vetProfile', icon: 'person', link: '/profile' }
   ];
 

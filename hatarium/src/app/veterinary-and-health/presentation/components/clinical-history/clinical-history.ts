@@ -110,6 +110,11 @@ export class ClinicalHistoryComponent implements OnInit {
       notes
     }).subscribe({
       next: record => {
+        if (this.currentAppointmentId()) {
+          this.store.updateAppointment(this.currentAppointmentId(), { status: 'completed' }).subscribe({
+            error: () => { /* best effort; the UI already moved on */ }
+          });
+        }
         this.saving.set(false);
         alert(this.translate.instant('CLINICAL.ALERT_SUCCESS'));
         void this.router.navigate(['/veterinary/treatments/new'], {

@@ -1,0 +1,121 @@
+<div class="history-page">
+  <div class="top-header">
+    <div>
+      <h1 class="page-title">{{ 'SANITARY_HISTORY.TITLE' | translate }}</h1>
+      <p class="page-subtitle">{{ 'SANITARY_HISTORY.SUBTITLE' | translate }}</p>
+    </div>
+  </div>
+
+  <div class="history-layout">
+    <div class="animal-list-col">
+      <div class="search-box">
+        <mat-icon>search</mat-icon>
+        <input type="text" [(ngModel)]="searchTerm" [placeholder]="'SANITARY_HISTORY.SEARCH' | translate" />
+      </div>
+
+      <div class="animal-cards">
+        @for (animal of filteredAnimals(); track animal.id) {
+          <button class="animal-card" [class.active]="selectedAnimalId() === animal.id" (click)="selectAnimal(animal.id)">
+            <div class="animal-avatar">🐮</div>
+            <div class="animal-info">
+              <strong>#{{ animal.earTag }} · {{ animal.name }}</strong>
+              <small>{{ animal.breed }} · {{ animal.lotName }}</small>
+              <div class="counts">
+                <span>{{ store.records().filter(r => r.animalId === animal.id).length }} {{ 'SANITARY_HISTORY.RECORDS' | translate }}</span>
+                <span>{{ store.treatments().filter(t => t.animalId === animal.id).length }} {{ 'SANITARY_HISTORY.TREATMENTS' | translate }}</span>
+                <span>{{ vaccines().filter(v => v.animalId === animal.id).length }} {{ 'SANITARY_HISTORY.VACCINES' | translate }}</span>
+              </div>
+            </div>
+          </button>
+        } @empty {
+          <p class="empty-text">{{ 'SANITARY_HISTORY.NO_ANIMALS' | translate }}</p>
+        }
+      </div>
+    </div>
+
+    <div class="detail-col">
+      @if (selectedAnimal(); as animal) {
+        <div class="card-box animal-summary">
+          <div class="animal-avatar">🐮</div>
+          <div>
+            <h2>#{{ animal.earTag }} · {{ animal.name }}</h2>
+            <p>{{ animal.breed }} · {{ animal.sex }} · {{ animal.weight }} kg · {{ animal.lotName }}</p>
+          </div>
+        </div>
+
+        <mat-tab-group>
+          <mat-tab [label]="'SANITARY_HISTORY.TAB_RECORDS' | translate">
+            <div class="tab-content">
+              @for (record of animalRecords(); track record.id) {
+                <div class="record-item">
+                  <div class="record-header">
+                    <strong>{{ record.diagnosis }}</strong>
+                    <span class="severity-pill" [ngClass]="record.severity">{{ severityKey(record.severity) | translate }}</span>
+                  </div>
+                  <small>{{ record.recordedAt | date:'dd MMM yyyy' }} · {{ record.veterinarianId }}</small>
+                  <p><b>{{ 'DETAIL.RECORD_SYMPTOMS' | translate }}:</b> {{ record.symptoms }}</p>
+                  @if (record.notes) { <p class="record-notes">{{ record.notes }}</p> }
+                </div>
+              } @empty {
+                <p class="empty-text">{{ 'SANITARY_HISTORY.NO_RECORDS' | translate }}</p>
+              }
+            </div>
+          </mat-tab>
+
+          <mat-tab [label]="'SANITARY_HISTORY.TAB_TREATMENTS' | translate">
+            <div class="tab-content">
+              @for (treatment of animalTreatments(); track treatment.id) {
+                <div class="record-item">
+                  <div class="record-header">
+                    <strong>{{ treatment.treatmentType }}</strong>
+                    <span class="severity-pill low">{{ treatment.status }}</span>
+                  </div>
+                  <p>{{ treatment.dose }} {{ treatment.doseUnit }} · {{ treatment.route }} · {{ treatment.frequencyHours }} h</p>
+                  <small>{{ treatment.scheduledAt | date:'dd MMM yyyy' }}</small>
+                  @if (treatment.instructions) { <p class="record-notes">{{ treatment.instructions }}</p> }
+                </div>
+              } @empty {
+                <p class="empty-text">{{ 'SANITARY_HISTORY.NO_TREATMENTS' | translate }}</p>
+              }
+            </div>
+          </mat-tab>
+
+          <mat-tab [label]="'SANITARY_HISTORY.TAB_VACCINES' | translate">
+            <div class="tab-content">
+              @for (vaccine of animalVaccines(); track vaccine.id) {
+                <div class="record-item">
+                  <div class="record-header">
+                    <strong>{{ vaccine.name }}</strong>
+                    <span class="severity-pill low">{{ vaccine.status }}</span>
+                  </div>
+                  <p>{{ 'DETAIL.VACCINE_LOT' | translate }}: {{ vaccine.lotNumber }} · {{ 'DETAIL.VACCINE_APPLIED' | translate }}: {{ vaccine.appliedAt | date:'dd MMM yyyy' }}</p>
+                  <small>{{ 'DETAIL.VACCINE_NEXT' | translate }}: {{ vaccine.nextDoseAt | date:'dd MMM yyyy' }}</small>
+                </div>
+              } @empty {
+                <p class="empty-text">{{ 'SANITARY_HISTORY.NO_VACCINES' | translate }}</p>
+              }
+            </div>
+          </mat-tab>
+
+          <mat-tab [label]="'SANITARY_HISTORY.TAB_APPOINTMENTS' | translate">
+            <div class="tab-content">
+              @for (appointment of animalAppointments(); track appointment.id) {
+                <div class="record-item">
+                  <div class="record-header">
+                    <strong>{{ appointment.reason }}</strong>
+                    <span class="severity-pill" [ngClass]="appointment.status === 'completed' ? 'low' : 'medium'">{{ appointment.status }}</span>
+                  </div>
+                  <small>{{ appointment.scheduledAt | date:'dd MMM yyyy · HH:mm' }}</small>
+                </div>
+              } @empty {
+                <p class="empty-text">{{ 'SANITARY_HISTORY.NO_APPOINTMENTS' | translate }}</p>
+              }
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      } @else {
+        <p class="empty-text">{{ 'SANITARY_HISTORY.SELECT_ANIMAL' | translate }}</p>
+      }
+    </div>
+  </div>
+</div>

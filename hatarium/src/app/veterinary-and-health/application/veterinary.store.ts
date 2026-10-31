@@ -99,6 +99,22 @@ export class VeterinaryStore {
     );
   }
 
+  /** Updates an appointment (e.g. marks it as completed after a diagnosis). */
+  updateAppointment(appointmentId: string, appointment: Partial<Appointment>): Observable<Appointment> {
+    this.loadingSignal.set(true);
+    this.errorMessageSignal.set('');
+    return this.api.updateAppointment(appointmentId, appointment).pipe(
+      tap(updated => this.appointmentsSignal.update(list =>
+        list.map(item => item.id === appointmentId ? updated : item)
+      )),
+      catchError(error => {
+        this.errorMessageSignal.set('No se pudo actualizar la cita médica.');
+        return throwError(() => error);
+      }),
+      finalize(() => this.loadingSignal.set(false))
+    );
+  }
+
   /** US028 - Registers a clinical diagnosis. */
   createMedicalRecord(record: Partial<MedicalRecord>): Observable<MedicalRecord> {
     this.loadingSignal.set(true);

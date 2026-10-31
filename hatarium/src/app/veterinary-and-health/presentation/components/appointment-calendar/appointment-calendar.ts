@@ -64,8 +64,8 @@ export class AppointmentCalendarComponent implements OnInit {
     return this.store.appointments()
       .filter(appointment => {
         const matchesTab = showHistory
-          ? appointment.status !== 'scheduled'
-          : appointment.status === 'scheduled';
+          ? appointment.status !== 'scheduled' || new Date(appointment.scheduledAt).getTime() < Date.now()
+          : appointment.status === 'scheduled' && new Date(appointment.scheduledAt).getTime() >= Date.now();
         const matchesSearch = !term
           || appointment.reason.toLowerCase().includes(term)
           || appointment.status.toLowerCase().includes(term);
