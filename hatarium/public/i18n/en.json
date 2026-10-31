@@ -425,7 +425,11 @@
     "APPLICATION_SITE_PLACEHOLDER": "e.g. Neck (left side)",
     "ALERT_ERROR": "The vaccine could not be registered. Please try again.",
     "SAVING": "Saving...",
-    "ALERT_FILL": "Complete the vaccine, batch and application date."
+    "ALERT_FILL": "Complete the vaccine, batch and application date.",
+    "SELECT_ANIMAL": "Select animal *",
+    "VACCINE_TYPE": "Vaccine type *",
+    "CUSTOM_NAME": "Vaccine name",
+    "OTHER": "Other"
   },
   "home": {
     "greeting": "Good day, {{name}}",
@@ -960,7 +964,9 @@
     "STATUS_APPLIED": "Applied",
     "STATUS_PENDING": "Pending",
     "OVERDUE": "Overdue",
-    "NO_VACCINES": "No vaccines registered."
+    "NO_VACCINES": "No vaccines registered.",
+    "ANIMALS_TITLE": "Herd animals",
+    "VACCINATE": "Vaccinate"
   },
   "REPORTS": {
     "TITLE": "Sanitary reports",

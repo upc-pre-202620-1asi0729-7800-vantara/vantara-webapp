@@ -28,13 +28,15 @@ export class VaccineRecordComponent implements OnInit {
   private translate = inject(TranslateService);
 
   public animal = signal<AnimalDTO | null>(null);
+  public availableAnimals = signal<AnimalDTO[]>([]);
   public recentVaccines = signal<VaccineDTO[]>([]);
   public currentAnimalId = signal<string>('anm-047');
   public saving = signal<boolean>(false);
   public saveError = signal<string>('');
 
   // US030 form fields.
-  public vaccineName = 'Fiebre Aftosa';
+  public vaccineNameOption = 'Fiebre Aftosa';
+  public customVaccineName = '';
   public lotNumber = 'L2026-017';
   public appliedAt = new Date().toISOString().split('T')[0];
   public routeAdmin = 'Subcutánea';
@@ -45,14 +47,23 @@ export class VaccineRecordComponent implements OnInit {
   public applicationSite = 'Cuello (lado izquierdo)';
   public observations = 'Verificada cadena de frío antes de la aplicación.';
 
-  ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      const animalId = params['animalId'] || 'anm-047';
-      this.currentAnimalId.set(animalId);
+  public get vaccineName(): string {
+    return this.vaccineNameOption === 'Otra' ? this.customVaccineName : this.vaccineNameOption;
+  }
 
-      this.externalData.getAnimalDetail(animalId).subscribe(data => this.animal.set(data));
-      this.externalData.getVaccinesByAnimal(animalId).subscribe(list => this.recentVaccines.set(list));
+  ngOnInit(): void {
+    this.externalData.getAnimals().subscribe(animals => {
+      this.availableAnimals.set(animals);
+      const queryAnimal = this.route.snapshot.queryParamMap.get('animalId');
+      const initial = queryAnimal || animals[0]?.id || 'anm-047';
+      this.selectAnimal(initial);
     });
+  }
+
+  public selectAnimal(animalId: string): void {
+    this.currentAnimalId.set(animalId);
+    this.externalData.getAnimalDetail(animalId).subscribe(data => this.animal.set(data));
+    this.externalData.getVaccinesByAnimal(animalId).subscribe(list => this.recentVaccines.set(list));
   }
 
   public saveVaccine(): void {

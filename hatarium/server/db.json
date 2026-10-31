@@ -987,7 +987,7 @@
       "origin": "TECHNICAL_VISIT",
       "scheduledAt": "2026-11-05T10:30:00",
       "reason": "chequeo diario",
-      "status": "scheduled",
+      "status": "completed",
       "createdAt": "2026-10-31",
       "id": "8BlbyYW"
     },
@@ -998,7 +998,7 @@
       "origin": "TECHNICAL_VISIT",
       "scheduledAt": "2026-10-31T22:30:00",
       "reason": "Revisión periódica de salud y control de peso",
-      "status": "scheduled",
+      "status": "completed",
       "createdAt": "2026-10-31",
       "id": "NxNL9qZ"
     }
@@ -1098,6 +1098,30 @@
       "healthStatus": "healthy",
       "notes": "se realizo evaluacion y presenta un infeccion · Causa probable: cancer · Tipo: Clinico",
       "id": "yi5wURy"
+    },
+    {
+      "appointmentId": "NxNL9qZ",
+      "animalId": "anm-demo-paloma",
+      "veterinarianId": "usr-003",
+      "recordedAt": "2026-10-31T10:30:00",
+      "symptoms": "da",
+      "diagnosis": "da",
+      "severity": "low",
+      "healthStatus": "healthy",
+      "notes": "da · Causa probable: da · Tipo: Complementario",
+      "id": "Zt7JMhk"
+    },
+    {
+      "appointmentId": "8BlbyYW",
+      "animalId": "anm-22",
+      "veterinarianId": "usr-003",
+      "recordedAt": "2026-11-03T10:30:00",
+      "symptoms": "d",
+      "diagnosis": "d",
+      "severity": "low",
+      "healthStatus": "healthy",
+      "notes": "d · Causa probable: d · Tipo: Clinico",
+      "id": "UbhfToY"
     }
   ],
   "medications": [
@@ -1150,6 +1174,40 @@
       "status": "active",
       "instructions": "inyectar meidante via intramuscular por el encargado · niguna",
       "id": "WP5bqb-"
+    },
+    {
+      "medicalRecordId": "Zt7JMhk",
+      "animalId": "anm-demo-paloma",
+      "medicationId": "med-001",
+      "treatmentType": "Preventivo",
+      "dose": "5",
+      "doseUnit": "mL",
+      "route": "Intramuscular",
+      "frequencyHours": "24",
+      "durationDays": 7,
+      "scheduledAt": "2026-10-31T23:51:33.161Z",
+      "administeredAt": "2026-10-31T23:51:33.161Z",
+      "nextDate": "2026-11-07",
+      "status": "active",
+      "instructions": "Completar esquema indicado cada 24 horas. · Monitorear la respuesta del animal.",
+      "id": "ts_rqTi"
+    },
+    {
+      "medicalRecordId": "UbhfToY",
+      "animalId": "anm-22",
+      "medicationId": "med-001",
+      "treatmentType": "Preventivo",
+      "dose": "5",
+      "doseUnit": "mL",
+      "route": "Intramuscular",
+      "frequencyHours": "24",
+      "durationDays": 7,
+      "scheduledAt": "2026-10-31T23:53:45.290Z",
+      "administeredAt": "2026-10-31T23:53:45.290Z",
+      "nextDate": "2026-11-07",
+      "status": "active",
+      "instructions": "Completar esquema indicado cada 24 horas. · Monitorear la respuesta del animal.",
+      "id": "kDYwuuh"
     }
   ],
   "vaccines": [

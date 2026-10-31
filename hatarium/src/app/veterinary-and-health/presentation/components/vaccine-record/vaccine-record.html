@@ -36,15 +36,33 @@
       <div class="card-box">
         <h3><mat-icon class="accent-icon">vaccines</mat-icon> {{ 'VACCINE.VACCINE_INFO' | translate }}</h3>
 
+        <div class="form-group">
+          <label>{{ 'VACCINE.SELECT_ANIMAL' | translate }}</label>
+          <select [(ngModel)]="currentAnimalId" (ngModelChange)="selectAnimal($event)" class="form-input">
+            @for (animal of availableAnimals(); track animal.id) {
+              <option [value]="animal.id">#{{ animal.earTag }} · {{ animal.name }} ({{ animal.lotName }})</option>
+            }
+          </select>
+        </div>
+
         <div class="form-row">
           <div class="form-group">
-            <label>{{ 'VACCINE.VACCINE' | translate }}</label>
-            <select [(ngModel)]="vaccineName" class="form-input">
+            <label>{{ 'VACCINE.VACCINE_TYPE' | translate }}</label>
+            <select [(ngModel)]="vaccineNameOption" class="form-input">
               <option value="Fiebre Aftosa">Fiebre Aftosa</option>
               <option value="Brucelosis">Brucelosis</option>
               <option value="Carbunco">Carbunco</option>
+              <option value="Rabia">Rabia</option>
+              <option value="Clostridiosis">Clostridiosis</option>
+              <option value="Otra">{{ 'VACCINE.OTHER' | translate }}</option>
             </select>
           </div>
+          @if (vaccineNameOption === 'Otra') {
+            <div class="form-group">
+              <label>{{ 'VACCINE.CUSTOM_NAME' | translate }}</label>
+              <input type="text" [(ngModel)]="customVaccineName" class="form-input" />
+            </div>
+          }
           <div class="form-group">
             <label>{{ 'VACCINE.LOT' | translate }}</label>
             <input type="text" [(ngModel)]="lotNumber" class="form-input" [placeholder]="'VACCINE.LOT_PLACEHOLDER' | translate" />

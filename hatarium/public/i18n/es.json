@@ -425,7 +425,11 @@
     "APPLICATION_SITE_PLACEHOLDER": "Ej. Cuello (lado izquierdo)",
     "ALERT_ERROR": "No se pudo registrar la vacuna. Intenta nuevamente.",
     "SAVING": "Guardando...",
-    "ALERT_FILL": "Completa la vacuna, el lote y la fecha de aplicación."
+    "ALERT_FILL": "Completa la vacuna, el lote y la fecha de aplicación.",
+    "SELECT_ANIMAL": "Seleccionar animal *",
+    "VACCINE_TYPE": "Tipo de vacuna *",
+    "CUSTOM_NAME": "Nombre de la vacuna",
+    "OTHER": "Otra"
   },
   "home": {
     "greeting": "Buenos días, {{name}}",
@@ -960,7 +964,9 @@
     "STATUS_APPLIED": "Aplicada",
     "STATUS_PENDING": "Pendiente",
     "OVERDUE": "Vencida",
-    "NO_VACCINES": "No hay vacunas registradas."
+    "NO_VACCINES": "No hay vacunas registradas.",
+    "ANIMALS_TITLE": "Animales del establo",
+    "VACCINATE": "Vacunar"
   },
   "REPORTS": {
     "TITLE": "Reportes sanitarios",
