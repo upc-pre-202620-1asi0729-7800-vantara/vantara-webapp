@@ -36,6 +36,7 @@ export class VaccineRecordComponent implements OnInit {
 
   // US030 form fields.
   public vaccineNameOption = 'Fiebre Aftosa';
+  public vaccineType = 'Preventiva';
   public customVaccineName = '';
   public lotNumber = 'L2026-017';
   public appliedAt = new Date().toISOString().split('T')[0];
@@ -80,6 +81,7 @@ export class VaccineRecordComponent implements OnInit {
     const newVaccine: VaccineDTO = {
       animalId: this.currentAnimalId(),
       veterinarianId: this.session.user()?.id ?? 'usr-003',
+      vaccineType: this.vaccineType,
       name: this.vaccineName,
       dose: this.dose,
       doseUnit: this.doseUnit,

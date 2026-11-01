@@ -1,0 +1,15 @@
+.select-page { background-color: #f3f6f3; padding: 2rem; min-height: 100vh; font-family: system-ui, -apple-system, sans-serif; }
+.top-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+.page-title { font-size: 1.75rem; font-weight: 700; color: #0c1c17; margin: 0; }
+.page-subtitle { color: #6b7280; font-size: 0.9rem; margin-top: 0.2rem; }
+.btn-primary-solid { background-color: #07583f !important; color: #ffffff !important; border-radius: 8px !important; font-weight: 600 !important; }
+.btn-outline { border-color: #d1d5db !important; color: #374151 !important; font-weight: 600 !important; border-radius: 8px !important; }
+.search-box { display: flex; align-items: center; gap: 0.5rem; background: #ffffff; border: 1px solid #eef2f0; border-radius: 10px; padding: 0.5rem 0.75rem; margin-bottom: 1.25rem; max-width: 420px; }
+.search-box input { border: none; outline: none; flex: 1; font-size: 0.88rem; }
+.animal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+.animal-card { background: #ffffff; border: 1px solid #eef2f0; border-radius: 12px; padding: 1rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.animal-avatar { font-size: 2rem; }
+.animal-info { display: flex; flex-direction: column; gap: 0.2rem; }
+.animal-info strong { font-size: 0.95rem; color: #1e293b; }
+.animal-info small { font-size: 0.78rem; color: #64748b; }
+.empty-text { color: #94a3b8; font-size: 0.85rem; text-align: center; padding: 1rem 0; }

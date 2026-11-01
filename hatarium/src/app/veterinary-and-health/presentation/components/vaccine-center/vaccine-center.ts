@@ -73,7 +73,7 @@ export class VaccineCenterComponent implements OnInit {
   }
 
   public goToRegister(): void {
-    void this.router.navigate(['/veterinary/vaccines/new']);
+    void this.router.navigate(['/veterinary/vaccines/select']);
   }
 
   public goToRegisterFor(animalId: string): void {

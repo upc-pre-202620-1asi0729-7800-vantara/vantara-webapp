@@ -429,7 +429,11 @@
     "SELECT_ANIMAL": "Seleccionar animal *",
     "VACCINE_TYPE": "Tipo de vacuna *",
     "CUSTOM_NAME": "Nombre de la vacuna",
-    "OTHER": "Otra"
+    "OTHER": "Otra",
+    "VACCINE_TYPE_NAME": "Nombre de la vacuna *",
+    "TYPE_PREVENTIVE": "Preventiva",
+    "TYPE_THERAPEUTIC": "Terapéutica",
+    "TYPE_BOOSTER": "Refuerzo"
   },
   "home": {
     "greeting": "Buenos días, {{name}}",

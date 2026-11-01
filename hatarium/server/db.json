@@ -1001,6 +1001,28 @@
       "status": "completed",
       "createdAt": "2026-10-31",
       "id": "NxNL9qZ"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-10-31T10:30:00",
+      "reason": "Revisión periódica de salud y control de peso",
+      "status": "scheduled",
+      "createdAt": "2026-10-31",
+      "id": "UsDjXr2"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-11-01T10:30:00",
+      "reason": "Revisión periódica de salud y control de peso",
+      "status": "scheduled",
+      "createdAt": "2026-10-31",
+      "id": "c-V6eh2"
     }
   ],
   "appointmentAnimals": [
@@ -1048,6 +1070,16 @@
       "appointmentId": "NxNL9qZ",
       "animalId": "anm-demo-paloma",
       "id": "TNZ7e2g"
+    },
+    {
+      "appointmentId": "UsDjXr2",
+      "animalId": "anm-011",
+      "id": "Y85-fRi"
+    },
+    {
+      "appointmentId": "c-V6eh2",
+      "animalId": "anm-22",
+      "id": "MVyX166"
     }
   ],
   "medicalRecords": [

@@ -19,7 +19,7 @@ describe('app routes', () => {
     const layoutRoute = routes.find(route => route.component && route.children?.length);
     const veterinaryRoutes = layoutRoute?.children?.filter(route => route.path?.startsWith('veterinary/')) ?? [];
 
-    expect(veterinaryRoutes.length).toBe(10);
+    expect(veterinaryRoutes.length).toBe(11);
     for (const route of veterinaryRoutes) {
       expect(route.canActivate?.length).toBeGreaterThan(0);
     }

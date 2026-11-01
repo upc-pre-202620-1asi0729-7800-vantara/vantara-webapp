@@ -48,6 +48,14 @@
         <div class="form-row">
           <div class="form-group">
             <label>{{ 'VACCINE.VACCINE_TYPE' | translate }}</label>
+            <select [(ngModel)]="vaccineType" class="form-input">
+              <option value="Preventiva">{{ 'VACCINE.TYPE_PREVENTIVE' | translate }}</option>
+              <option value="Terapéutica">{{ 'VACCINE.TYPE_THERAPEUTIC' | translate }}</option>
+              <option value="Refuerzo">{{ 'VACCINE.TYPE_BOOSTER' | translate }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>{{ 'VACCINE.VACCINE_TYPE_NAME' | translate }}</label>
             <select [(ngModel)]="vaccineNameOption" class="form-input">
               <option value="Fiebre Aftosa">Fiebre Aftosa</option>
               <option value="Brucelosis">Brucelosis</option>
@@ -63,10 +71,11 @@
               <input type="text" [(ngModel)]="customVaccineName" class="form-input" />
             </div>
           }
-          <div class="form-group">
-            <label>{{ 'VACCINE.LOT' | translate }}</label>
-            <input type="text" [(ngModel)]="lotNumber" class="form-input" [placeholder]="'VACCINE.LOT_PLACEHOLDER' | translate" />
-          </div>
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'VACCINE.LOT' | translate }}</label>
+          <input type="text" [(ngModel)]="lotNumber" class="form-input" [placeholder]="'VACCINE.LOT_PLACEHOLDER' | translate" />
         </div>
 
         <div class="form-row three-col">

@@ -14,6 +14,7 @@ import { AppointmentCalendarComponent } from './veterinary-and-health/presentati
 import { VeterinaryDashboardComponent } from './veterinary-and-health/presentation/components/veterinary-dashboard/veterinary-dashboard';
 import { SanitaryHistoryComponent } from './veterinary-and-health/presentation/components/sanitary-history/sanitary-history';
 import { VaccineCenterComponent } from './veterinary-and-health/presentation/components/vaccine-center/vaccine-center';
+import { VaccineAnimalSelectComponent } from './veterinary-and-health/presentation/components/vaccine-animal-select/vaccine-animal-select';
 import { VeterinaryReportsComponent } from './veterinary-and-health/presentation/components/veterinary-reports/veterinary-reports';
 import { ClinicalHistoryComponent } from './veterinary-and-health/presentation/components/clinical-history/clinical-history';
 import { TreatmentListComponent } from './veterinary-and-health/presentation/components/treatment-list/treatment-list';
@@ -58,6 +59,7 @@ export const routes: Routes = [
       { path: 'veterinary/history/new', component: ClinicalHistoryComponent, canActivate: [veterinarianGuard] },
       { path: 'veterinary/treatments/new', component: TreatmentListComponent, canActivate: [veterinarianGuard] },
       { path: 'veterinary/vaccines', component: VaccineCenterComponent, canActivate: [veterinarianGuard] },
+      { path: 'veterinary/vaccines/select', component: VaccineAnimalSelectComponent, canActivate: [veterinarianGuard] },
       { path: 'veterinary/vaccines/new', component: VaccineRecordComponent, canActivate: [veterinarianGuard] },
       { path: 'veterinary/records', component: SanitaryHistoryComponent, canActivate: [veterinarianGuard] },
       { path: 'veterinary/reports', component: VeterinaryReportsComponent, canActivate: [veterinarianGuard] },
