@@ -992,5 +992,18 @@
     "STATUS_COMPLETED": "Completadas",
     "STATUS_PENDING": "Pendientes",
     "STATUS_CANCELLED": "Canceladas"
+  },
+  "RANCHER_APPOINTMENTS": {
+    "TITLE": "Mis citas y salud",
+    "SUBTITLE": "Seguimiento de las atenciones veterinarias de tu ganado.",
+    "KPI_TOTAL": "Citas registradas",
+    "KPI_UPCOMING": "Próximas citas",
+    "KPI_COMPLETED": "Citas completadas",
+    "TAB_APPOINTMENTS": "Citas",
+    "TAB_HEALTH": "Salud del ganado",
+    "NO_APPOINTMENTS": "No tienes citas registradas.",
+    "NO_HEALTH": "Sin historial sanitario registrado.",
+    "VIEW_ANIMAL": "Ver animal",
+    "RECORDS": "registros"
   }
 }

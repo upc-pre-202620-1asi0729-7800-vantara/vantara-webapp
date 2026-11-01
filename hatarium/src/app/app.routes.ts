@@ -10,13 +10,14 @@ import { FeedingPlanCreate } from './livestock-management/presentation/component
 import { Home } from './shared/presentation/views/home/home';
 import { ProfileView } from './profile/presentation/profile-view/profile-view';
 import { NotificationCenterView } from './notifications/presentation/notification-center-view/notification-center-view';
-import { AppointmentCalendarComponent } from './veterinary-and-health/presentation/components/appointment-calendar/appointment-calendar';
+import { RancherAppointmentsComponent } from './veterinary-and-health/presentation/components/rancher-appointments/rancher-appointments';
 import { VeterinaryDashboardComponent } from './veterinary-and-health/presentation/components/veterinary-dashboard/veterinary-dashboard';
 import { SanitaryHistoryComponent } from './veterinary-and-health/presentation/components/sanitary-history/sanitary-history';
 import { VaccineCenterComponent } from './veterinary-and-health/presentation/components/vaccine-center/vaccine-center';
 import { VeterinaryReportsComponent } from './veterinary-and-health/presentation/components/veterinary-reports/veterinary-reports';
 import { ClinicalHistoryComponent } from './veterinary-and-health/presentation/components/clinical-history/clinical-history';
 import { TreatmentListComponent } from './veterinary-and-health/presentation/components/treatment-list/treatment-list';
+import { AppointmentCalendarComponent } from './veterinary-and-health/presentation/components/appointment-calendar/appointment-calendar';
 import { AppointmentDetailComponent } from './veterinary-and-health/presentation/components/appointment-detail/appointment-detail';
 import { VaccineRecordComponent } from './veterinary-and-health/presentation/components/vaccine-record/vaccine-record';
 import { AppointmentFormComponent } from './veterinary-and-health/presentation/components/appointment-form/appointment-form';
@@ -49,6 +50,7 @@ export const routes: Routes = [
       { path: 'livestock/feeding', component: FeedingDashboard },
       { path: 'livestock/feeding/add', component: FeedingPlanCreate },
       { path: 'livestock/feeding/:id', component: FeedingPlanDetail },
+      { path: 'rancher/appointments', component: RancherAppointmentsComponent },
       { path: 'profile', component: ProfileView },
       { path: 'notifications', component: NotificationCenterView },
       { path: 'veterinary/dashboard', component: VeterinaryDashboardComponent, canActivate: [veterinarianGuard] },

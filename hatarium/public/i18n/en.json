@@ -992,5 +992,18 @@
     "STATUS_COMPLETED": "Completed",
     "STATUS_PENDING": "Pending",
     "STATUS_CANCELLED": "Cancelled"
+  },
+  "RANCHER_APPOINTMENTS": {
+    "TITLE": "My appointments and health",
+    "SUBTITLE": "Tracking of veterinary visits for your herd.",
+    "KPI_TOTAL": "Registered appointments",
+    "KPI_UPCOMING": "Upcoming appointments",
+    "KPI_COMPLETED": "Completed appointments",
+    "TAB_APPOINTMENTS": "Appointments",
+    "TAB_HEALTH": "Herd health",
+    "NO_APPOINTMENTS": "No appointments registered.",
+    "NO_HEALTH": "No sanitary history registered.",
+    "VIEW_ANIMAL": "View animal",
+    "RECORDS": "records"
   }
 }
