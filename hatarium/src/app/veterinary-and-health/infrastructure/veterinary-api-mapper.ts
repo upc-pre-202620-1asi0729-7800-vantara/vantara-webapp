@@ -10,6 +10,7 @@ export class VeterinaryApiMapper {
     entity.rancherId = resource.rancherId;
     entity.veterinarianId = resource.veterinarianId;
     entity.requestedBy = resource.requestedBy;
+    entity.origin = resource.origin ?? 'RANCHER_REQUEST';
     entity.scheduledAt = resource.scheduledAt;
     entity.reason = resource.reason;
     entity.status = resource.status;
@@ -47,7 +48,7 @@ export class VeterinaryApiMapper {
     entity.durationDays = resource.durationDays;
     entity.scheduledAt = resource.scheduledAt;
     entity.administeredAt = resource.administeredAt || '';
-    entity.nextDueAt = resource.nextDueAt || '';
+    entity.nextDate = resource.nextDate || resource.nextDueAt || '';
     entity.status = resource.status;
     entity.instructions = resource.instructions || '';
     return entity;

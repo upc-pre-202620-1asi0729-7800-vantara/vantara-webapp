@@ -6,10 +6,17 @@
     </div>
     <div class="header-actions">
       <button mat-flat-button class="btn-primary-solid" (click)="goToNewAppointment()">
-        <mat-icon>add</mat-icon> {{ 'CALENDAR.SCHEDULE_TECHNICAL' | translate }}
+        <mat-icon>add</mat-icon> {{ 'CALENDAR.NEW_APPOINTMENT' | translate }}
       </button>
     </div>
   </div>
+
+  @if (store.errorMessage(); as error) {
+    <div class="error-banner" role="alert">
+      <span>{{ error }}</span>
+      <button class="btn-link-action" (click)="store.loadAppointments()">{{ 'CALENDAR.RETRY' | translate }}</button>
+    </div>
+  }
 
   <!-- KPIs Resumen de Citas -->
   <div class="kpi-grid">
@@ -17,24 +24,24 @@
       <div class="kpi-icon-wrapper accent-light"><mat-icon>event_available</mat-icon></div>
       <div class="kpi-content">
         <span class="kpi-title">{{ 'CALENDAR.KPI_SCHEDULED' | translate }}</span>
-        <div class="kpi-number">{{ store.appointments().length }}</div>
-        <span class="kpi-sub">{{ 'CALENDAR.KPI_TOTAL_SYSTEM' | translate }}</span>
+        <div class="kpi-number">{{ scheduledCount() }}</div>
+        <span class="kpi-sub">{{ 'CALENDAR.KPI_SCHEDULED_HINT' | translate }}</span>
       </div>
     </div>
     <div class="kpi-card">
       <div class="kpi-icon-wrapper blue-light"><mat-icon>person</mat-icon></div>
       <div class="kpi-content">
         <span class="kpi-title">{{ 'CALENDAR.KPI_RANCHER' | translate }}</span>
-        <div class="kpi-number">2</div>
-        <span class="kpi-sub">{{ 'CALENDAR.KPI_ATTENTIONS_REQUIRED' | translate }}</span>
+        <div class="kpi-number">{{ rancherRequestCount() }}</div>
+        <span class="kpi-sub">{{ 'CALENDAR.KPI_RANCHER_HINT' | translate }}</span>
       </div>
     </div>
     <div class="kpi-card">
       <div class="kpi-icon-wrapper orange-light"><mat-icon>handyman</mat-icon></div>
       <div class="kpi-content">
         <span class="kpi-title">{{ 'CALENDAR.KPI_TECHNICAL' | translate }}</span>
-        <div class="kpi-number">2</div>
-        <span class="kpi-sub">{{ 'CALENDAR.KPI_SANITARY_CONTROLS' | translate }}</span>
+        <div class="kpi-number">{{ technicalVisitCount() }}</div>
+        <span class="kpi-sub">{{ 'CALENDAR.KPI_TECHNICAL_HINT' | translate }}</span>
       </div>
     </div>
   </div>
@@ -70,57 +77,57 @@
   </div>
 
   <!-- Listado de Tarjetas -->
-  @if (activeTab() === 'proximas') {
-    <div class="section-block">
-      <div class="cards-list">
-        @for (apt of filteredAppointments(); track apt.id) {
-          @let animId = appointmentAnimalMap()[apt.id] || 'anm-047';
-          @let anim = animalMap()[animId];
+  <div class="section-block">
+    <div class="cards-list">
+      @for (apt of filteredAppointments(); track apt.id) {
+        @let animId = appointmentAnimalMap()[apt.id];
+        @let anim = animId ? animalMap()[animId] : null;
 
-          <div class="appointment-card-item">
-            <div class="date-column">
-              <span class="day-number">{{ apt.scheduledAt | date:'dd' }}</span>
-              <span class="month-year">{{ apt.scheduledAt | date:'MMM yyyy' }}</span>
+        <div class="appointment-card-item">
+          <div class="date-column">
+            <span class="day-number">{{ apt.scheduledAt | date:'dd' }}</span>
+            <span class="month-year">{{ apt.scheduledAt | date:'MMM yyyy' }}</span>
+          </div>
+
+          <div class="animal-avatar">🐮</div>
+
+          <div class="animal-info-col">
+            <div class="title-line">
+              <strong>#{{ anim?.earTag || '—' }} · {{ anim?.name || ('COMMON.NONE' | translate) }}</strong>
+              @if (apt.origin === 'TECHNICAL_VISIT') {
+                <span class="origin-badge accent">{{ 'CALENDAR.BADGE_TECHNICAL' | translate }}</span>
+              } @else {
+                <span class="origin-badge blue">{{ 'CALENDAR.BADGE_RANCHER' | translate }}</span>
+              }
             </div>
+            <p class="sub-text">{{ apt.reason }} · {{ 'COMMON.LOT' | translate }} {{ anim?.lotName || ('COMMON.NONE' | translate) }}</p>
+          </div>
 
-            <div class="animal-avatar">🐮</div>
-
-            <div class="animal-info-col">
-              <div class="title-line">
-                <strong>#{{ anim?.earTag || '047' }} · {{ anim?.name || 'Mariposa' }}</strong>
-                @if (apt.origin === 'TECHNICAL_VISIT') {
-                  <span class="origin-badge accent">{{ 'CALENDAR.BADGE_TECHNICAL' | translate }}</span>
-                } @else {
-                  <span class="origin-badge blue">{{ 'CALENDAR.BADGE_RANCHER' | translate }}</span>
-                }
-              </div>
-              <p class="sub-text">{{ apt.reason }} · {{ 'COMMON.LOT' | translate }} {{ anim?.lotName || 'Lote A' }}</p>
-            </div>
-
-            <div class="vet-col">
-              <mat-icon>person</mat-icon>
-              <div>
-                <strong>Dr. Rodríguez</strong>
-                <small>CMPV 12345</small>
-              </div>
-            </div>
-
-            <div class="status-col">
-              <span class="status-pill" [ngClass]="apt.status">
-                {{ apt.status === 'scheduled' ? ('CALENDAR.STATUS_SCHEDULED' | translate) : ('CALENDAR.STATUS_COMPLETED' | translate) }}
-              </span>
-            </div>
-
-            <div class="action-col">
-              <button class="btn-link-action" (click)="goToDetail(apt.id)">
-                {{ 'CALENDAR.VIEW_APPOINTMENT' | translate }}
-              </button>
+          <div class="vet-col">
+            <mat-icon>person</mat-icon>
+            <div>
+              <strong>{{ veterinarianMap()[apt.veterinarianId]?.fullName || ('CALENDAR.NO_VET' | translate) }}</strong>
+              <small>{{ apt.scheduledAt | date:'HH:mm' }}</small>
             </div>
           </div>
-        } @empty {
-          <p class="empty-msg">{{ 'CALENDAR.EMPTY' | translate }}</p>
-        }
-      </div>
+
+          <div class="status-col">
+            <span class="status-pill" [ngClass]="apt.status">
+              {{ statusLabelKey(apt.status) | translate }}
+            </span>
+          </div>
+
+          <div class="action-col">
+            <button class="btn-link-action" (click)="goToDetail(apt.id)">
+              {{ 'CALENDAR.VIEW_APPOINTMENT' | translate }}
+            </button>
+          </div>
+        </div>
+      } @empty {
+        <p class="empty-msg">
+          {{ (activeTab() === 'historial' ? 'CALENDAR.HISTORY_EMPTY' : 'CALENDAR.EMPTY') | translate }}
+        </p>
+      }
     </div>
-  }
+  </div>
 </div>

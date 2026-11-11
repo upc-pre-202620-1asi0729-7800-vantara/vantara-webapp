@@ -1,5 +1,6 @@
 import { Injectable, computed, effect, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
 import { IamStore } from '../../iam/application/iam.store';
 import { environment } from '../../../environments/environment';
@@ -24,13 +25,30 @@ interface RoleRecord {
 @Injectable({ providedIn: 'root' })
 export class SessionProfile {
 
+  private static readonly FALLBACK_ROLE_CODES: Record<string, string> = {
+    'role-001': 'ADMIN',
+    'role-002': 'RANCHER',
+    'role-003': 'VETERINARIAN'
+  };
+
   private readonly http = inject(HttpClient);
   private readonly iamStore = inject(IamStore);
 
   private readonly roles = signal<RoleRecord[]>([]);
 
+  /** Resolves once the role catalogue has been fetched (or failed gracefully). */
+  readonly roleReady: Promise<void>;
+
   readonly user = signal<UserRecord | null>(null);
   readonly role = computed(() => this.roles().find(role => role.id === this.iamStore.currentAccount()?.roleId) ?? null);
+
+  readonly roleCode = computed(() =>
+    this.role()?.code
+    ?? SessionProfile.FALLBACK_ROLE_CODES[this.iamStore.currentAccount()?.roleId ?? '']
+    ?? ''
+  );
+  readonly isVeterinarian = computed(() => this.roleCode() === 'VETERINARIAN');
+  readonly landingRoute = computed(() => this.isVeterinarian() ? '/veterinary/dashboard' : '/home');
 
   readonly fullName = computed(() => this.user()?.fullName ?? this.iamStore.currentAccount()?.email ?? '');
   readonly roleName = computed(() => this.role()?.name ?? '');
@@ -50,9 +68,9 @@ export class SessionProfile {
 
   constructor() {
     const base = environment.hatariumApiBaseUrl;
-    this.http.get<RoleRecord[]>(`${base}/roles`).subscribe({
-      next: list => this.roles.set(list), error: () => this.roles.set([]),
-    });
+    this.roleReady = firstValueFrom(this.http.get<RoleRecord[]>(`${base}/roles`))
+      .then(list => this.roles.set(list))
+      .catch(() => this.roles.set([]));
 
     effect(onCleanup => {
       const account = this.iamStore.currentAccount();

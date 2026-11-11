@@ -6,6 +6,7 @@ import { environment } from '../../../../environments/environment';
 
 export interface AnimalDTO {
   id: string;
+  rancherId: string;
   earTag: string;
   name: string;
   breed: string;
@@ -16,10 +17,19 @@ export interface AnimalDTO {
   photoUrl?: string;
 }
 
+export interface MedicationDTO {
+  id: string;
+  name: string;
+  category: string;
+  activeIngredient: string;
+  presentation: string;
+}
+
 export interface VaccineDTO {
   id?: string;
   animalId: string;
   veterinarianId: string;
+  vaccineType: string;
   name: string;
   dose: string;
   doseUnit: string;
@@ -33,16 +43,37 @@ export interface VaccineDTO {
   observations: string;
 }
 
+export interface VeterinarianDTO {
+  id: string;
+  accountId: string;
+  fullName: string;
+}
+
+interface RoleRecord {
+  id: string;
+  code: string;
+}
+
+interface AccountRecord {
+  id: string;
+  roleId: string;
+}
+
+interface UserRecord {
+  id: string;
+  accountId: string;
+  fullName: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class ExternalDataService {
   private http = inject(HttpClient);
   private baseUrl = environment.hatariumApiBaseUrl;
 
-  /** Obtiene todos los animales de la Fake API */
   getAnimals(): Observable<AnimalDTO[]> {
     return forkJoin({
       animals: this.http.get<AnimalDTO[]>(`${this.baseUrl}/animals`),
-      lots: this.http.get<any[]>(`${this.baseUrl}/lots`)
+      lots: this.http.get<{ id: string; name: string }[]>(`${this.baseUrl}/lots`)
     }).pipe(
       map(({ animals, lots }) => {
         return animals.map(animal => {
@@ -57,11 +88,10 @@ export class ExternalDataService {
     );
   }
 
-  /** Obtiene el detalle completo de un animal específico por su ID */
   getAnimalDetail(animalId: string): Observable<AnimalDTO> {
     return forkJoin({
       animal: this.http.get<AnimalDTO>(`${this.baseUrl}/animals/${animalId}`),
-      lots: this.http.get<any[]>(`${this.baseUrl}/lots`)
+      lots: this.http.get<{ id: string; name: string }[]>(`${this.baseUrl}/lots`)
     }).pipe(
       map(({ animal, lots }) => {
         const lot = lots.find(l => l.id === animal.lotId);
@@ -74,6 +104,7 @@ export class ExternalDataService {
         const tag = animalId.replace('anm-', '');
         return of({
           id: animalId,
+          rancherId: '',
           earTag: tag,
           name: `Animal #${tag}`,
           breed: 'Raza Bovino',
@@ -86,14 +117,12 @@ export class ExternalDataService {
     );
   }
 
-  /** Obtiene la lista de relaciones entre Citas y Animales */
-  getAppointmentAnimals(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/appointmentAnimals`).pipe(
+  getAppointmentAnimals(): Observable<AppointmentAnimal[]> {
+    return this.http.get<AppointmentAnimal[]>(`${this.baseUrl}/appointmentAnimals`).pipe(
       catchError(() => of([]))
     );
   }
 
-  /** Registra la relación entre una Cita y un Animal en hatarium-db.json */
   createAppointmentAnimal(appointmentId: string, animalId: string): Observable<AppointmentAnimal> {
     const url = `${this.baseUrl}/appointmentAnimals`;
     return this.http.get<AppointmentAnimal[]>(url, { params: { appointmentId, animalId } }).pipe(
@@ -104,22 +133,52 @@ export class ExternalDataService {
     );
   }
 
-  /** Obtener medicamentos */
-  getMedications(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/medications`);
-  }
-
-  /** Obtiene las vacunas aplicadas a un animal desde hatarium-db.json */
-  getVaccinesByAnimal(animalId: string): Observable<VaccineDTO[]> {
-    return this.http.get<VaccineDTO[]>(`${this.baseUrl}/vaccines?animalId=${animalId}`).pipe(
+  getMedications(): Observable<MedicationDTO[]> {
+    return this.http.get<MedicationDTO[]>(`${this.baseUrl}/medications`).pipe(
       catchError(() => of([]))
     );
   }
 
-  /** Registra una nueva vacuna aplicada en hatarium-db.json */
-  createVaccine(vaccine: VaccineDTO): Observable<VaccineDTO | null> {
-    return this.http.post<VaccineDTO>(`${this.baseUrl}/vaccines`, vaccine).pipe(
-      catchError(() => of(null))
+  getVaccines(): Observable<VaccineDTO[]> {
+    return this.http.get<VaccineDTO[]>(`${this.baseUrl}/vaccines`).pipe(
+      catchError(() => of([]))
+    );
+  }
+
+  getVaccinesByAnimal(animalId: string): Observable<VaccineDTO[]> {
+    return this.http.get<VaccineDTO[]>(`${this.baseUrl}/vaccines`, { params: { animalId } }).pipe(
+      catchError(() => of([]))
+    );
+  }
+
+  createVaccine(vaccine: VaccineDTO): Observable<VaccineDTO> {
+    return this.http.post<VaccineDTO>(`${this.baseUrl}/vaccines`, vaccine);
+  }
+
+  getUsers(): Observable<UserRecord[]> {
+    return this.http.get<UserRecord[]>(`${this.baseUrl}/users`).pipe(
+      catchError(() => of([]))
+    );
+  }
+
+  getVeterinarians(): Observable<VeterinarianDTO[]> {
+    return forkJoin({
+      roles: this.http.get<RoleRecord[]>(`${this.baseUrl}/roles`),
+      accounts: this.http.get<AccountRecord[]>(`${this.baseUrl}/accounts`),
+      users: this.http.get<UserRecord[]>(`${this.baseUrl}/users`)
+    }).pipe(
+      map(({ roles, accounts, users }) => {
+        const veterinarianRoleIds = new Set(
+          roles.filter(role => role.code === 'VETERINARIAN').map(role => role.id)
+        );
+        const veterinarianAccountIds = new Set(
+          accounts.filter(account => veterinarianRoleIds.has(account.roleId)).map(account => account.id)
+        );
+        return users
+          .filter(user => veterinarianAccountIds.has(user.accountId))
+          .map(user => ({ id: user.id, accountId: user.accountId, fullName: user.fullName }));
+      }),
+      catchError(() => of([]))
     );
   }
 }

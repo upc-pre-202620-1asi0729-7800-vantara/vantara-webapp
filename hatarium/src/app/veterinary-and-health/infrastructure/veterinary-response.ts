@@ -1,8 +1,13 @@
-﻿export interface AppointmentResource {
+﻿import {AppointmentOrigin} from '../domain/model/appointment.entity';
+import {AnimalHealthStatus, MedicalRecordSeverity} from '../domain/model/medical-record.entity';
+
+/** Raw HTTP resource returned by the fake API for an appointment. */
+export interface AppointmentResource {
   id: string;
   rancherId: string;
   veterinarianId: string;
   requestedBy: string;
+  origin?: AppointmentOrigin | null;
   scheduledAt: string;
   reason: string;
   status: string;
@@ -10,6 +15,7 @@
   createdAt?: string;
 }
 
+/** Raw HTTP resource returned by the fake API for a clinical record. */
 export interface MedicalRecordResource {
   id: string;
   appointmentId?: string | null;
@@ -18,11 +24,12 @@ export interface MedicalRecordResource {
   recordedAt: string;
   symptoms: string;
   diagnosis: string;
-  severity: string;
-  healthStatus: string;
+  severity: MedicalRecordSeverity;
+  healthStatus: AnimalHealthStatus;
   notes?: string;
 }
 
+/** Raw HTTP resource returned by the fake API for a treatment. */
 export interface TreatmentResource {
   id: string;
   medicalRecordId: string;
@@ -38,5 +45,6 @@ export interface TreatmentResource {
   status: string;
   instructions?: string;
   administeredAt?: string | null;
+  nextDate?: string | null;
   nextDueAt?: string | null;
 }

@@ -1,0 +1,120 @@
+<div class="reports-page">
+  <div class="top-header">
+    <div>
+      <h1 class="page-title">{{ 'REPORTS.TITLE' | translate }}</h1>
+      <p class="page-subtitle">{{ 'REPORTS.SUBTITLE' | translate }}</p>
+    </div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-icon-wrapper accent-light"><mat-icon>event_available</mat-icon></div>
+      <div class="kpi-content">
+        <span class="kpi-title">{{ 'REPORTS.KPI_COMPLETED_APPOINTMENTS' | translate }}</span>
+        <div class="kpi-number">{{ completedAppointments() }}</div>
+        <span class="kpi-sub">{{ 'REPORTS.KPI_COMPLETED_APPOINTMENTS_SUB' | translate }}</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon-wrapper blue-light"><mat-icon>event</mat-icon></div>
+      <div class="kpi-content">
+        <span class="kpi-title">{{ 'REPORTS.KPI_PENDING_APPOINTMENTS' | translate }}</span>
+        <div class="kpi-number">{{ pendingAppointments() }}</div>
+        <span class="kpi-sub">{{ 'REPORTS.KPI_PENDING_APPOINTMENTS_SUB' | translate }}</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon-wrapper orange-light"><mat-icon>pets</mat-icon></div>
+      <div class="kpi-content">
+        <span class="kpi-title">{{ 'REPORTS.KPI_CRITICAL_ANIMALS' | translate }}</span>
+        <div class="kpi-number">{{ criticalAnimals() }}</div>
+        <span class="kpi-sub">{{ 'REPORTS.KPI_CRITICAL_ANIMALS_SUB' | translate }}</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon-wrapper red-light"><mat-icon>medication</mat-icon></div>
+      <div class="kpi-content">
+        <span class="kpi-title">{{ 'REPORTS.KPI_ACTIVE_TREATMENTS' | translate }}</span>
+        <div class="kpi-number">{{ activeTreatments() }}</div>
+        <span class="kpi-sub">{{ 'REPORTS.KPI_ACTIVE_TREATMENTS_SUB' | translate }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="donut-grid">
+    <div class="card-box donut-card">
+      <h3 class="box-title"><mat-icon class="accent-icon">pie_chart</mat-icon> {{ 'REPORTS.APPOINTMENT_STATUS' | translate }}</h3>
+      <div class="donut" [style.background]="appointmentDonutStyle()"></div>
+      <div class="donut-legend">
+        @for (slice of appointmentStatusSlices(); track slice.label) {
+          <div class="legend-item">
+            <span class="legend-dot" [style.background]="slice.color"></span>
+            <span>{{ slice.label | translate }}</span>
+            <strong>{{ slice.value }}</strong>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="card-box donut-card">
+      <h3 class="box-title"><mat-icon class="accent-icon">pie_chart</mat-icon> {{ 'REPORTS.SEVERITY_DISTRIBUTION' | translate }}</h3>
+      <div class="donut" [style.background]="severityDonutStyle()"></div>
+      <div class="donut-legend">
+        @for (slice of severitySlices(); track slice.label) {
+          <div class="legend-item">
+            <span class="legend-dot" [style.background]="slice.color"></span>
+            <span>{{ slice.label | translate }}</span>
+            <strong>{{ slice.value }}</strong>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+    <div class="card-box">
+      <h3 class="box-title"><mat-icon class="accent-icon">bar_chart</mat-icon> {{ 'REPORTS.APPOINTMENTS_BY_MONTH' | translate }}</h3>
+      <div class="bar-chart">
+        @for (bucket of appointmentBuckets(); track bucket.label) {
+          <div class="bar-row">
+            <span class="bar-label">{{ bucket.label }}</span>
+            <div class="bar-track">
+              <div class="bar-fill" [style.width.%]="(bucket.count / maxAppointmentBucket()) * 100"></div>
+            </div>
+            <span class="bar-value">{{ bucket.count }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+  <div class="report-columns">
+    <div class="card-box">
+      <h3 class="box-title"><mat-icon class="accent-icon">vaccines</mat-icon> {{ 'REPORTS.VACCINES_BY_MONTH' | translate }}</h3>
+      <div class="bar-chart">
+        @for (bucket of vaccineBuckets(); track bucket.label) {
+          <div class="bar-row">
+            <span class="bar-label">{{ bucket.label }}</span>
+            <div class="bar-track">
+              <div class="bar-fill vaccine" [style.width.%]="(bucket.count / maxVaccineBucket()) * 100"></div>
+            </div>
+            <span class="bar-value">{{ bucket.count }}</span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="card-box">
+    <h3 class="box-title"><mat-icon class="accent-icon">leaderboard</mat-icon> {{ 'REPORTS.TOP_VACCINES' | translate }}</h3>
+    @if (topVaccines().length) {
+      <div class="top-list">
+        @for (item of topVaccines(); track item.name) {
+          <div class="top-item">
+            <span class="top-name">{{ item.name }}</span>
+            <span class="top-count">{{ item.count }}</span>
+          </div>
+        }
+      </div>
+    } @else {
+      <p class="empty-text">{{ 'REPORTS.NO_DATA' | translate }}</p>
+    }
+  </div>
+</div>

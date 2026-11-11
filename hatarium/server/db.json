@@ -112,7 +112,8 @@
       "phone": "+51 999 555 666",
       "photoUrl": "",
       "theme": "light",
-      "locale": "es"
+      "locale": "es",
+      "organizationName": ""
     },
     {
       "id": "usr-acc-f5f67860-99c9-4f0e-9263-41e50ecdead1",
@@ -909,7 +910,8 @@
       "reason": "Control veterinario",
       "status": "scheduled",
       "cancellationReason": null,
-      "createdAt": "2026-09-08"
+      "createdAt": "2026-09-08",
+      "origin": "RANCHER_REQUEST"
     },
     {
       "id": "app-002",
@@ -920,7 +922,8 @@
       "reason": "Revisión rutinaria",
       "status": "completed",
       "cancellationReason": null,
-      "createdAt": "2026-09-01"
+      "createdAt": "2026-09-01",
+      "origin": "RANCHER_REQUEST"
     },
     {
       "rancherId": "usr-002",
@@ -965,6 +968,61 @@
       "status": "scheduled",
       "createdAt": "2026-10-06",
       "id": "2Nk9IXn"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-11-02T10:30:00",
+      "reason": "Revisión periódica de salud fgdgy control de peso",
+      "status": "completed",
+      "createdAt": "2026-10-31",
+      "id": "fCV7eMo"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-11-05T10:30:00",
+      "reason": "chequeo diario",
+      "status": "completed",
+      "createdAt": "2026-10-31",
+      "id": "8BlbyYW"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-10-31T22:30:00",
+      "reason": "Revisión periódica de salud y control de peso",
+      "status": "completed",
+      "createdAt": "2026-10-31",
+      "id": "NxNL9qZ"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-10-31T10:30:00",
+      "reason": "Revisión periódica de salud y control de peso",
+      "status": "scheduled",
+      "createdAt": "2026-10-31",
+      "id": "UsDjXr2"
+    },
+    {
+      "rancherId": "usr-002",
+      "veterinarianId": "usr-003",
+      "requestedBy": "usr-003",
+      "origin": "TECHNICAL_VISIT",
+      "scheduledAt": "2026-11-01T10:30:00",
+      "reason": "Revisión periódica de salud y control de peso",
+      "status": "scheduled",
+      "createdAt": "2026-10-31",
+      "id": "c-V6eh2"
     }
   ],
   "appointmentAnimals": [
@@ -997,6 +1055,31 @@
       "appointmentId": "2Nk9IXn",
       "animalId": "anm-birth-O0fIBIm",
       "id": "9gAoMK5"
+    },
+    {
+      "appointmentId": "fCV7eMo",
+      "animalId": "anm-birth-O0fIBIm",
+      "id": "3W_pOXa"
+    },
+    {
+      "appointmentId": "8BlbyYW",
+      "animalId": "anm-22",
+      "id": "DZjhstk"
+    },
+    {
+      "appointmentId": "NxNL9qZ",
+      "animalId": "anm-demo-paloma",
+      "id": "TNZ7e2g"
+    },
+    {
+      "appointmentId": "UsDjXr2",
+      "animalId": "anm-011",
+      "id": "Y85-fRi"
+    },
+    {
+      "appointmentId": "c-V6eh2",
+      "animalId": "anm-22",
+      "id": "MVyX166"
     }
   ],
   "medicalRecords": [
@@ -1035,6 +1118,42 @@
       "severity": "medium",
       "healthStatus": "follow_up",
       "notes": "Animal en seguimiento."
+    },
+    {
+      "appointmentId": "fCV7eMo",
+      "animalId": "anm-birth-O0fIBIm",
+      "veterinarianId": "usr-003",
+      "recordedAt": "2026-11-02T13:33:00",
+      "symptoms": "desidratacion, fiebre y dolor",
+      "diagnosis": "presenta fiebre",
+      "severity": "low",
+      "healthStatus": "healthy",
+      "notes": "se realizo evaluacion y presenta un infeccion · Causa probable: cancer · Tipo: Clinico",
+      "id": "yi5wURy"
+    },
+    {
+      "appointmentId": "NxNL9qZ",
+      "animalId": "anm-demo-paloma",
+      "veterinarianId": "usr-003",
+      "recordedAt": "2026-10-31T10:30:00",
+      "symptoms": "da",
+      "diagnosis": "da",
+      "severity": "low",
+      "healthStatus": "healthy",
+      "notes": "da · Causa probable: da · Tipo: Complementario",
+      "id": "Zt7JMhk"
+    },
+    {
+      "appointmentId": "8BlbyYW",
+      "animalId": "anm-22",
+      "veterinarianId": "usr-003",
+      "recordedAt": "2026-11-03T10:30:00",
+      "symptoms": "d",
+      "diagnosis": "d",
+      "severity": "low",
+      "healthStatus": "healthy",
+      "notes": "d · Causa probable: d · Tipo: Clinico",
+      "id": "UbhfToY"
     }
   ],
   "medications": [
@@ -1070,6 +1189,57 @@
       "nextDate": "2026-08-21",
       "status": "completed",
       "instructions": "Completar esquema indicado."
+    },
+    {
+      "medicalRecordId": "yi5wURy",
+      "animalId": "anm-birth-O0fIBIm",
+      "medicationId": "med-002",
+      "treatmentType": "Curativo",
+      "dose": "5",
+      "doseUnit": "mL",
+      "route": "Intramuscular",
+      "frequencyHours": "24",
+      "durationDays": 7,
+      "scheduledAt": "2026-10-31T23:28:18.524Z",
+      "administeredAt": "2026-10-31T23:28:18.524Z",
+      "nextDate": "2026-11-07",
+      "status": "active",
+      "instructions": "inyectar meidante via intramuscular por el encargado · niguna",
+      "id": "WP5bqb-"
+    },
+    {
+      "medicalRecordId": "Zt7JMhk",
+      "animalId": "anm-demo-paloma",
+      "medicationId": "med-001",
+      "treatmentType": "Preventivo",
+      "dose": "5",
+      "doseUnit": "mL",
+      "route": "Intramuscular",
+      "frequencyHours": "24",
+      "durationDays": 7,
+      "scheduledAt": "2026-10-31T23:51:33.161Z",
+      "administeredAt": "2026-10-31T23:51:33.161Z",
+      "nextDate": "2026-11-07",
+      "status": "active",
+      "instructions": "Completar esquema indicado cada 24 horas. · Monitorear la respuesta del animal.",
+      "id": "ts_rqTi"
+    },
+    {
+      "medicalRecordId": "UbhfToY",
+      "animalId": "anm-22",
+      "medicationId": "med-001",
+      "treatmentType": "Preventivo",
+      "dose": "5",
+      "doseUnit": "mL",
+      "route": "Intramuscular",
+      "frequencyHours": "24",
+      "durationDays": 7,
+      "scheduledAt": "2026-10-31T23:53:45.290Z",
+      "administeredAt": "2026-10-31T23:53:45.290Z",
+      "nextDate": "2026-11-07",
+      "status": "active",
+      "instructions": "Completar esquema indicado cada 24 horas. · Monitorear la respuesta del animal.",
+      "id": "kDYwuuh"
     }
   ],
   "vaccines": [
@@ -1120,6 +1290,22 @@
       "applicationSite": "Cuello",
       "status": "completed",
       "observations": "Vacuna anual aplicada."
+    },
+    {
+      "animalId": "anm-birth-O0fIBIm",
+      "veterinarianId": "usr-003",
+      "name": "Fiebre Aftosa",
+      "dose": "2",
+      "doseUnit": "mL",
+      "laboratory": "Laboratorio Veterinario Nacional",
+      "lotNumber": "L2026-017",
+      "appliedAt": "2026-10-31",
+      "nextDoseAt": "2027-03-07",
+      "route": "Subcutánea",
+      "applicationSite": "Cuello (lado izquierdo)",
+      "status": "completed",
+      "observations": "Verificada cadena de frío antes de la aplicación.",
+      "id": "EsgKHLd"
     }
   ],
   "pregnancies": [
@@ -1727,6 +1913,51 @@
       "sentAt": "2026-10-07T01:18:21.056Z",
       "readAt": "2026-10-07T01:18:34.174Z",
       "createdAt": "2026-10-07T01:18:21.056Z"
+    },
+    {
+      "id": "not-vet-001",
+      "recipientUserId": "usr-003",
+      "type": "HEALTH_ALERT",
+      "title": "Animal requiere seguimiento",
+      "description": "El animal #018 presenta inflamación localizada y requiere seguimiento.",
+      "channel": "in_app",
+      "status": "unread",
+      "scheduledAt": null,
+      "sentAt": "2026-10-31T08:00:00",
+      "readAt": null,
+      "relatedEntityType": "Animal",
+      "relatedEntityId": "anm-018",
+      "createdAt": "2026-10-31"
+    },
+    {
+      "id": "not-vet-002",
+      "recipientUserId": "usr-003",
+      "type": "APPOINTMENT_REMINDER",
+      "title": "Cita programada",
+      "description": "Control veterinario del animal #047 programado para el 08 Dic 2026.",
+      "channel": "in_app",
+      "status": "unread",
+      "scheduledAt": "2026-12-07T10:00:00",
+      "sentAt": null,
+      "readAt": null,
+      "relatedEntityType": "Appointment",
+      "relatedEntityId": "app-001",
+      "createdAt": "2026-09-08"
+    },
+    {
+      "id": "not-vet-003",
+      "recipientUserId": "usr-003",
+      "type": "VACCINE_REMINDER",
+      "title": "Próxima dosis de vacuna",
+      "description": "La próxima dosis de Fiebre Aftosa para el animal #047 está programada para el 07 Mar 2027.",
+      "channel": "in_app",
+      "status": "read",
+      "scheduledAt": "2027-03-06T09:00:00",
+      "sentAt": null,
+      "readAt": "2026-10-31T09:00:00",
+      "relatedEntityType": "Vaccine",
+      "relatedEntityId": "vac-001",
+      "createdAt": "2026-09-07"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

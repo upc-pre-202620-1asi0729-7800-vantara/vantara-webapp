@@ -3,6 +3,7 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {Router, RouterLink} from '@angular/router';
 import {TranslatePipe} from '@ngx-translate/core';
 import {IamStore} from '../../../application/iam.store';
+import {SessionProfile} from '../../../../shared/application/session-profile';
 import {AuthenticationLayout} from '../../components/authentication-layout/authentication-layout';
 
 /** Collects the credentials used to access an existing Hatarium account. */
@@ -16,12 +17,23 @@ export class SignIn {
   protected readonly store = inject(IamStore);
   protected readonly passwordVisible = signal(false);
   private readonly router = inject(Router);
+  private readonly session = inject(SessionProfile);
+  private redirected = false;
 
   constructor() {
     effect(() => {
-      if (this.store.currentAccount()) {
-        void this.router.navigateByUrl('/suscripcion');
+      const account = this.store.currentAccount();
+      if (!account) {
+        this.redirected = false;
+        return;
       }
+      if (this.redirected) return;
+      this.redirected = true;
+
+      // Wait for the role catalogue so each role lands on its own workspace.
+      void this.session.roleReady.then(() => {
+        void this.router.navigateByUrl(this.session.landingRoute());
+      });
     });
   }
 

@@ -10,7 +10,7 @@
       <mat-icon class="accent-icon">event</mat-icon>
       <div>
         <strong>{{ 'VACCINE.TAG' | translate }}</strong>
-        <p class="tag-sub">12 Sep 2026 · 09:00 a.m. <span class="pill accent">{{ 'VACCINE.PILL' | translate }}</span></p>
+        <p class="tag-sub">{{ appliedAt | date:'dd MMM yyyy' }} <span class="pill accent">{{ 'VACCINE.PILL' | translate }}</span></p>
       </div>
     </div>
   </div>
@@ -36,19 +36,46 @@
       <div class="card-box">
         <h3><mat-icon class="accent-icon">vaccines</mat-icon> {{ 'VACCINE.VACCINE_INFO' | translate }}</h3>
 
+        <div class="form-group">
+          <label>{{ 'VACCINE.SELECT_ANIMAL' | translate }}</label>
+          <select [(ngModel)]="currentAnimalId" (ngModelChange)="selectAnimal($event)" class="form-input">
+            @for (animal of availableAnimals(); track animal.id) {
+              <option [value]="animal.id">#{{ animal.earTag }} · {{ animal.name }} ({{ animal.lotName }})</option>
+            }
+          </select>
+        </div>
+
         <div class="form-row">
           <div class="form-group">
-            <label>{{ 'VACCINE.VACCINE' | translate }}</label>
-            <select [(ngModel)]="vaccineName" class="form-input">
-              <option value="Fiebre Aftosa">Fiebre Aftosa</option>
-              <option value="Brucelosis">Brucelosis</option>
-              <option value="Carbunco">Carbunco</option>
+            <label>{{ 'VACCINE.VACCINE_TYPE' | translate }}</label>
+            <select [(ngModel)]="vaccineType" class="form-input">
+              <option value="Preventiva">{{ 'VACCINE.TYPE_PREVENTIVE' | translate }}</option>
+              <option value="Terapéutica">{{ 'VACCINE.TYPE_THERAPEUTIC' | translate }}</option>
+              <option value="Refuerzo">{{ 'VACCINE.TYPE_BOOSTER' | translate }}</option>
             </select>
           </div>
           <div class="form-group">
-            <label>{{ 'VACCINE.LOT' | translate }}</label>
-            <input type="text" [(ngModel)]="lotNumber" class="form-input" [placeholder]="'VACCINE.LOT_PLACEHOLDER' | translate" />
+            <label>{{ 'VACCINE.VACCINE_TYPE_NAME' | translate }}</label>
+            <select [(ngModel)]="vaccineNameOption" class="form-input">
+              <option value="Fiebre Aftosa">Fiebre Aftosa</option>
+              <option value="Brucelosis">Brucelosis</option>
+              <option value="Carbunco">Carbunco</option>
+              <option value="Rabia">Rabia</option>
+              <option value="Clostridiosis">Clostridiosis</option>
+              <option value="Otra">{{ 'VACCINE.OTHER' | translate }}</option>
+            </select>
           </div>
+          @if (vaccineNameOption === 'Otra') {
+            <div class="form-group">
+              <label>{{ 'VACCINE.CUSTOM_NAME' | translate }}</label>
+              <input type="text" [(ngModel)]="customVaccineName" class="form-input" />
+            </div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>{{ 'VACCINE.LOT' | translate }}</label>
+          <input type="text" [(ngModel)]="lotNumber" class="form-input" [placeholder]="'VACCINE.LOT_PLACEHOLDER' | translate" />
         </div>
 
         <div class="form-row three-col">
@@ -66,7 +93,24 @@
           </div>
           <div class="form-group">
             <label>{{ 'VACCINE.DOSE' | translate }}</label>
-            <input type="text" [(ngModel)]="dose" class="form-input" [placeholder]="'VACCINE.DOSE_PLACEHOLDER' | translate" />
+            <div class="inline-inputs">
+              <input type="text" [(ngModel)]="dose" class="form-input" [placeholder]="'VACCINE.DOSE_PLACEHOLDER' | translate" />
+              <select [(ngModel)]="doseUnit" class="form-input unit-select">
+                <option value="mL">mL</option>
+                <option value="mg">mg</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>{{ 'VACCINE.LABORATORY' | translate }}</label>
+            <input type="text" [(ngModel)]="laboratory" class="form-input" [placeholder]="'VACCINE.LABORATORY_PLACEHOLDER' | translate" />
+          </div>
+          <div class="form-group">
+            <label>{{ 'VACCINE.APPLICATION_SITE' | translate }}</label>
+            <input type="text" [(ngModel)]="applicationSite" class="form-input" [placeholder]="'VACCINE.APPLICATION_SITE_PLACEHOLDER' | translate" />
           </div>
         </div>
 
@@ -81,8 +125,11 @@
         </div>
 
         <div class="form-actions">
+          @if (saveError(); as errorKey) { <p class="form-error" role="alert">{{ errorKey | translate }}</p> }
           <button mat-stroked-button routerLink="/veterinary/appointments">{{ 'COMMON.CANCEL' | translate }}</button>
-          <button mat-flat-button class="btn-primary-solid" (click)="saveVaccine()">{{ 'VACCINE.SAVE_VACCINE' | translate }}</button>
+          <button mat-flat-button class="btn-primary-solid" [disabled]="saving()" (click)="saveVaccine()">
+            {{ (saving() ? 'VACCINE.SAVING' : 'VACCINE.SAVE_VACCINE') | translate }}
+          </button>
         </div>
       </div>
     </div>

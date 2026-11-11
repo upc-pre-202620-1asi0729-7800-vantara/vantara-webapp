@@ -1,0 +1,111 @@
+<div class="dashboard-page">
+  <div class="top-header">
+    <div>
+      <h1 class="page-title">{{ greetingKey() | translate }} {{ vetName() }} 🩺</h1>
+      <p class="page-subtitle">{{ 'DASHBOARD.SUBTITLE' | translate }}</p>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <p class="loading-text">{{ 'COMMON.LOADING' | translate }}</p>
+  }
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-icon-wrapper accent-light"><mat-icon>event_available</mat-icon></div>
+      <div class="kpi-content">
+        <span class="kpi-title">{{ 'DASHBOARD.KPI_APPOINTMENTS_TODAY' | translate }}</span>
+        <div class="kpi-number">{{ appointmentsToday().length }}</div>
+        <span class="kpi-sub">{{ 'DASHBOARD.KPI_APPOINTMENTS_TODAY_SUB' | translate }}</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon-wrapper blue-light"><mat-icon>vaccines</mat-icon></div>
+      <div class="kpi-content">
+        <span class="kpi-title">{{ 'DASHBOARD.KPI_PENDING_VACCINES' | translate }}</span>
+        <div class="kpi-number">{{ pendingVaccinesThisMonth() }}</div>
+        <span class="kpi-sub">{{ 'DASHBOARD.KPI_PENDING_VACCINES_SUB' | translate }}</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon-wrapper orange-light"><mat-icon>pets</mat-icon></div>
+      <div class="kpi-content">
+        <span class="kpi-title">{{ 'DASHBOARD.KPI_CRITICAL_ANIMALS' | translate }}</span>
+        <div class="kpi-number">{{ criticalAnimals() }}</div>
+        <span class="kpi-sub">{{ 'DASHBOARD.KPI_CRITICAL_ANIMALS_SUB' | translate }}</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon-wrapper red-light"><mat-icon>warning</mat-icon></div>
+      <div class="kpi-content">
+        <span class="kpi-title">{{ 'DASHBOARD.KPI_ACTIVE_ALERTS' | translate }}</span>
+        <div class="kpi-number">{{ activeAlerts() }}</div>
+        <span class="kpi-sub">{{ 'DASHBOARD.KPI_ACTIVE_ALERTS_SUB' | translate }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-columns">
+    <div class="column">
+      <div class="card-box">
+        <div class="section-header">
+          <h3 class="box-title"><mat-icon class="accent-icon">event</mat-icon> {{ 'DASHBOARD.UPCOMING_APPOINTMENTS' | translate }}</h3>
+          <button class="btn-link-action" (click)="goToAppointments()">{{ 'DASHBOARD.VIEW_ALL_APPOINTMENTS' | translate }}</button>
+        </div>
+        @if (upcomingAppointments().length) {
+          <div class="appointment-mini-list">
+            @for (appointment of upcomingAppointments(); track appointment.id) {
+              <div class="appointment-mini-item">
+                <div class="mini-date">
+                  <span class="day">{{ appointment.scheduledAt | date:'dd' }}</span>
+                  <span class="month">{{ appointment.scheduledAt | date:'MMM' }}</span>
+                </div>
+                <div class="mini-info">
+                  <strong>{{ appointment.reason }}</strong>
+                  <small>{{ appointment.scheduledAt | date:'HH:mm' }} · {{ appointment.origin === 'TECHNICAL_VISIT' ? ('CALENDAR.BADGE_TECHNICAL' | translate) : ('CALENDAR.BADGE_RANCHER' | translate) }}</small>
+                </div>
+                <button class="btn-link-action" (click)="goToDetail(appointment.id)">{{ 'CALENDAR.VIEW_APPOINTMENT' | translate }}</button>
+              </div>
+            }
+          </div>
+        } @else {
+          <p class="empty-text">{{ 'DASHBOARD.NO_APPOINTMENTS_TODAY' | translate }}</p>
+        }
+      </div>
+    </div>
+
+    <div class="column">
+      <div class="card-box">
+        <h3 class="box-title"><mat-icon class="accent-icon">vaccines</mat-icon> {{ 'DASHBOARD.RECENT_VACCINES' | translate }}</h3>
+        @if (recentVaccines().length) {
+          <ul class="summary-list">
+            @for (vaccine of recentVaccines(); track vaccine.id) {
+              <li>
+                <strong>{{ vaccine.name }}</strong>
+                <small>{{ vaccine.animalId }} · {{ vaccine.appliedAt | date:'dd MMM yyyy' }}</small>
+              </li>
+            }
+          </ul>
+        } @else {
+          <p class="empty-text">{{ 'DASHBOARD.NO_RECENT_VACCINES' | translate }}</p>
+        }
+      </div>
+
+      <div class="card-box">
+        <h3 class="box-title"><mat-icon class="accent-icon">medication</mat-icon> {{ 'DASHBOARD.ACTIVE_TREATMENTS' | translate }}</h3>
+        @if (activeTreatments().length) {
+          <ul class="summary-list">
+            @for (treatment of activeTreatments(); track treatment.id) {
+              <li>
+                <strong>{{ treatment.treatmentType }}</strong>
+                <small>{{ treatment.animalId }} · {{ treatment.status }}</small>
+              </li>
+            }
+          </ul>
+        } @else {
+          <p class="empty-text">{{ 'DASHBOARD.NO_ACTIVE_TREATMENTS' | translate }}</p>
+        }
+      </div>
+    </div>
+  </div>
+</div>

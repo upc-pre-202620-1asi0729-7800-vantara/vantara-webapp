@@ -4,11 +4,11 @@
       <mat-icon>agriculture</mat-icon>
       <div>
         <strong>Hatarium</strong>
-        <small>{{ 'sidebar.tagline' | translate }}</small>
+        <small>{{ taglineKey() | translate }}</small>
       </div>
     </div>
     <mat-nav-list>
-      @for (option of options; track option.labelKey) {
+      @for (option of options(); track option.labelKey) {
         @if (option.link) {
           <a mat-list-item [routerLink]="option.link" routerLinkActive="active">
             <mat-icon matListItemIcon>{{ option.icon }}</mat-icon>
@@ -25,12 +25,14 @@
     <div class="switcher">
       <app-language-switcher/>
     </div>
-    <mat-nav-list class="bottom-nav">
-      <a mat-list-item routerLink="/config/payments" routerLinkActive="active">
-        <mat-icon matListItemIcon>settings</mat-icon>
-        <span matListItemTitle>{{ 'sidebar.payments' | translate }}</span>
-      </a>
-    </mat-nav-list>
+    @if (!isVeterinarian()) {
+      <mat-nav-list class="bottom-nav">
+        <a mat-list-item routerLink="/config/payments" routerLinkActive="active">
+          <mat-icon matListItemIcon>settings</mat-icon>
+          <span matListItemTitle>{{ 'sidebar.payments' | translate }}</span>
+        </a>
+      </mat-nav-list>
+    }
     <a class="profile-card" routerLink="/profile">
       <div class="avatar">
         @if (photoUrl()) { <img [src]="photoUrl()" alt=""> }

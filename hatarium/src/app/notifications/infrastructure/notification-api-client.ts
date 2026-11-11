@@ -11,8 +11,11 @@ export class NotificationApiClient {
     this.mapper = new NotificationApiMapper();
   }
 
-  getNotifications(): Promise<Notification[]> {
-    return fetch(`${this.baseUrl}/notifications`)
+  getNotifications(recipientUserId?: string): Promise<Notification[]> {
+    const url = recipientUserId
+      ? `${this.baseUrl}/notifications?recipientUserId=${encodeURIComponent(recipientUserId)}`
+      : `${this.baseUrl}/notifications`;
+    return fetch(url)
       .then(response => {
         if (!response.ok) throw new Error(`No se pudieron cargar las notificaciones (${response.status})`);
         return response.json();
@@ -21,7 +24,6 @@ export class NotificationApiClient {
         if (!Array.isArray(data)) {
           throw new TypeError('Expected notifications response to be an array');
         }
-
         return data.map((item: unknown) => this.mapper.toNotification(item));
       });
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 
 import { NotificationBadge } from '../notification-badge/notification-badge';
 import { NotificationList } from '../notification-list/notification-list';
@@ -9,6 +9,7 @@ import { NotificationApiClient } from '../../infrastructure/notification-api-cli
 import { environment } from '../../../../environments/environment';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
+import { SessionProfile } from '../../../shared/application/session-profile';
 
 @Component({
   selector: 'app-notification-center-view',
@@ -26,6 +27,7 @@ export class NotificationCenterView implements OnInit {
   store: NotificationStore;
 
   service: NotificationService;
+  session: SessionProfile;
   readonly filters = [
     { type: '', key: 'notifications.all', icon: 'inbox' },
     { type: 'CALVING_REGISTERED', key: 'notifications.births', icon: 'child_care' },
@@ -47,6 +49,8 @@ export class NotificationCenterView implements OnInit {
       this.store,
       api
     );
+
+    this.session = inject(SessionProfile);
   }
 
   ngOnInit(): void {
@@ -54,15 +58,13 @@ export class NotificationCenterView implements OnInit {
   }
 
   refresh(): void {
-
-    this.service.load()
-      .catch(() => {
-        this.store.setLoading(false);
-        this.store.setError(
-          'No se pudieron cargar las notificaciones'
-        );
-      });
-
+    this.session.roleReady.then(() => {
+      this.service.load(this.session.user()?.id)
+        .catch(() => {
+          this.store.setLoading(false);
+          this.store.setError('No se pudieron cargar las notificaciones');
+        });
+    });
   }
 
   markAsRead(id: string): void {

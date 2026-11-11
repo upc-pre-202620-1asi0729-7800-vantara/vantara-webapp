@@ -1,0 +1,88 @@
+<div class="rancher-page">
+  <div class="top-header">
+    <div>
+      <h1 class="page-title">{{ 'RANCHER_APPOINTMENTS.TITLE' | translate }}</h1>
+      <p class="page-subtitle">{{ 'RANCHER_APPOINTMENTS.SUBTITLE' | translate }}</p>
+    </div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-icon-wrapper accent-light"><mat-icon>event</mat-icon></div>
+      <div class="kpi-content">
+        <span class="kpi-title">{{ 'RANCHER_APPOINTMENTS.KPI_TOTAL' | translate }}</span>
+        <div class="kpi-number">{{ rancherAppointments().length }}</div>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon-wrapper blue-light"><mat-icon>event_available</mat-icon></div>
+      <div class="kpi-content">
+        <span class="kpi-title">{{ 'RANCHER_APPOINTMENTS.KPI_UPCOMING' | translate }}</span>
+        <div class="kpi-number">{{ upcomingAppointments().length }}</div>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon-wrapper orange-light"><mat-icon>check_circle</mat-icon></div>
+      <div class="kpi-content">
+        <span class="kpi-title">{{ 'RANCHER_APPOINTMENTS.KPI_COMPLETED' | translate }}</span>
+        <div class="kpi-number">{{ completedAppointments().length }}</div>
+      </div>
+    </div>
+  </div>
+
+  <mat-tab-group>
+    <mat-tab [label]="'RANCHER_APPOINTMENTS.TAB_APPOINTMENTS' | translate">
+      <div class="tab-content">
+        @if (rancherAppointments().length) {
+          <div class="appointment-list">
+            @for (appointment of rancherAppointments(); track appointment.id) {
+              <div class="appointment-card">
+                <div class="appointment-date">
+                  <span class="day">{{ appointment.scheduledAt | date:'dd' }}</span>
+                  <span class="month">{{ appointment.scheduledAt | date:'MMM yyyy' }}</span>
+                </div>
+                <div class="appointment-info">
+                  <strong>{{ animalLabel(appointmentAnimalMap()[appointment.id]) }}</strong>
+                  <p>{{ appointment.reason }}</p>
+                  <small>{{ 'COMMON.VETERINARIAN' | translate }}: {{ veterinarianName(appointment.veterinarianId) }} · {{ appointment.scheduledAt | date:'HH:mm' }}</small>
+                </div>
+                <div class="appointment-status">
+                  <span class="status-pill" [ngClass]="appointment.status">{{ statusKey(appointment.status) | translate }}</span>
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          <p class="empty-text">{{ 'RANCHER_APPOINTMENTS.NO_APPOINTMENTS' | translate }}</p>
+        }
+      </div>
+    </mat-tab>
+
+    <mat-tab [label]="'RANCHER_APPOINTMENTS.TAB_HEALTH' | translate">
+      <div class="tab-content">
+        @if (animalHealth().length) {
+          <div class="health-list">
+            @for (item of animalHealth(); track item.animal.id) {
+              <div class="health-card">
+                <div class="health-header">
+                  <strong>#{{ item.animal.earTag }} · {{ item.animal.name }}</strong>
+                  <button mat-stroked-button class="btn-outline" (click)="goToAnimal(item.animal.id)">{{ 'RANCHER_APPOINTMENTS.VIEW_ANIMAL' | translate }}</button>
+                </div>
+                <p>{{ item.animal.breed }} · {{ item.animal.lotName }}</p>
+                @if (item.latestRecord) {
+                  <div class="record-summary">
+                    <span class="severity-pill" [ngClass]="item.latestRecord.severity">{{ item.latestRecord.diagnosis }}</span>
+                    <small>{{ item.latestRecord.recordedAt | date:'dd MMM yyyy' }}</small>
+                  </div>
+                }
+                <small>{{ item.recordCount }} {{ 'RANCHER_APPOINTMENTS.RECORDS' | translate }}</small>
+              </div>
+            }
+          </div>
+        } @else {
+          <p class="empty-text">{{ 'RANCHER_APPOINTMENTS.NO_HEALTH' | translate }}</p>
+        }
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

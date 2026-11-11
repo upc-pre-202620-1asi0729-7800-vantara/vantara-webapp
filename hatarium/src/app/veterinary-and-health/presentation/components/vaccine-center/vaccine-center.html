@@ -1,0 +1,95 @@
+<div class="vaccine-page">
+  <div class="top-header">
+    <div>
+      <h1 class="page-title">{{ 'VACCINE_CENTER.TITLE' | translate }}</h1>
+      <p class="page-subtitle">{{ 'VACCINE_CENTER.SUBTITLE' | translate }}</p>
+    </div>
+    <div class="header-actions">
+      <button mat-flat-button class="btn-primary-solid" (click)="goToRegister()">
+        <mat-icon>add</mat-icon> {{ 'VACCINE_CENTER.REGISTER' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-icon-wrapper accent-light"><mat-icon>vaccines</mat-icon></div>
+      <div class="kpi-content">
+        <span class="kpi-title">{{ 'VACCINE_CENTER.KPI_TOTAL' | translate }}</span>
+        <div class="kpi-number">{{ vaccines().length }}</div>
+        <span class="kpi-sub">{{ 'VACCINE_CENTER.KPI_TOTAL_SUB' | translate }}</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon-wrapper red-light"><mat-icon>warning</mat-icon></div>
+      <div class="kpi-content">
+        <span class="kpi-title">{{ 'VACCINE_CENTER.KPI_PENDING' | translate }}</span>
+        <div class="kpi-number">{{ pendingVaccines().length }}</div>
+        <span class="kpi-sub">{{ 'VACCINE_CENTER.KPI_PENDING_SUB' | translate }}</span>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon-wrapper blue-light"><mat-icon>event_available</mat-icon></div>
+      <div class="kpi-content">
+        <span class="kpi-title">{{ 'VACCINE_CENTER.KPI_THIS_MONTH' | translate }}</span>
+        <div class="kpi-number">{{ appliedThisMonth() }}</div>
+        <span class="kpi-sub">{{ 'VACCINE_CENTER.KPI_THIS_MONTH_SUB' | translate }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters-bar">
+    <div class="search-input-wrapper">
+      <mat-icon>search</mat-icon>
+      <input type="text" [(ngModel)]="searchTerm" [placeholder]="'VACCINE_CENTER.SEARCH' | translate" />
+    </div>
+    <div class="origin-pills-filter">
+      <button class="pill-filter" [class.active]="statusFilter() === 'ALL'" (click)="statusFilter.set('ALL')">{{ 'CALENDAR.FILTER_ALL' | translate }}</button>
+      <button class="pill-filter accent" [class.active]="statusFilter() === 'COMPLETED'" (click)="statusFilter.set('COMPLETED')">{{ 'VACCINE_CENTER.FILTER_APPLIED' | translate }}</button>
+      <button class="pill-filter blue" [class.active]="statusFilter() === 'PENDING'" (click)="statusFilter.set('PENDING')">{{ 'VACCINE_CENTER.FILTER_PENDING' | translate }}</button>
+    </div>
+  </div>
+
+  @if (pendingVaccines().length) {
+    <div class="card-box pending-box">
+      <h3 class="box-title"><mat-icon class="accent-icon">warning</mat-icon> {{ 'VACCINE_CENTER.PENDING_TITLE' | translate }}</h3>
+      <div class="pending-list">
+        @for (vaccine of pendingVaccines(); track vaccine.id) {
+          <div class="pending-item">
+            <strong>{{ vaccine.name }}</strong>
+            <small>{{ animalLabel(vaccine.animalId) }} · {{ 'DETAIL.VACCINE_NEXT' | translate }}: {{ vaccine.nextDoseAt | date:'dd MMM yyyy' }}</small>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <div class="card-box">
+    <h3 class="box-title"><mat-icon class="accent-icon">history</mat-icon> {{ 'VACCINE_CENTER.HISTORY_TITLE' | translate }}</h3>
+    <div class="vaccine-table">
+      @for (vaccine of filteredVaccines(); track vaccine.id) {
+        <div class="vaccine-row">
+          <div class="vaccine-main">
+            <strong>{{ vaccine.name }}</strong>
+            <small>{{ animalLabel(vaccine.animalId) }}</small>
+          </div>
+          <div class="vaccine-meta">
+            <span>{{ 'DETAIL.VACCINE_LOT' | translate }}: {{ vaccine.lotNumber }}</span>
+            <span>{{ 'DETAIL.VACCINE_APPLIED' | translate }}: {{ vaccine.appliedAt | date:'dd MMM yyyy' }}</span>
+            <span>{{ 'DETAIL.VACCINE_NEXT' | translate }}: {{ vaccine.nextDoseAt | date:'dd MMM yyyy' }}</span>
+          </div>
+          <div class="vaccine-status">
+            <span class="status-pill" [ngClass]="vaccine.status === 'completed' ? 'low' : 'medium'">
+              {{ vaccine.status === 'completed' ? ('VACCINE_CENTER.STATUS_APPLIED' | translate) : ('VACCINE_CENTER.STATUS_PENDING' | translate) }}
+            </span>
+            @if (isOverdue(vaccine.nextDoseAt) && vaccine.status === 'completed') {
+              <span class="overdue-badge">{{ 'VACCINE_CENTER.OVERDUE' | translate }}</span>
+            }
+          </div>
+        </div>
+      } @empty {
+        <p class="empty-text">{{ 'VACCINE_CENTER.NO_VACCINES' | translate }}</p>
+      }
+    </div>
+  </div>
+</div>

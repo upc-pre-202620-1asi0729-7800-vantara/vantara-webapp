@@ -10,16 +10,24 @@ import { FeedingPlanCreate } from './livestock-management/presentation/component
 import { Home } from './shared/presentation/views/home/home';
 import { ProfileView } from './profile/presentation/profile-view/profile-view';
 import { NotificationCenterView } from './notifications/presentation/notification-center-view/notification-center-view';
-import { AppointmentCalendarComponent } from './veterinary-and-health/presentation/components/appointment-calendar/appointment-calendar';
+import { RancherAppointmentsComponent } from './veterinary-and-health/presentation/components/rancher-appointments/rancher-appointments';
+import { VeterinaryDashboardComponent } from './veterinary-and-health/presentation/components/veterinary-dashboard/veterinary-dashboard';
+import { SanitaryHistoryComponent } from './veterinary-and-health/presentation/components/sanitary-history/sanitary-history';
+import { VaccineCenterComponent } from './veterinary-and-health/presentation/components/vaccine-center/vaccine-center';
+import { VeterinaryReportsComponent } from './veterinary-and-health/presentation/components/veterinary-reports/veterinary-reports';
 import { ClinicalHistoryComponent } from './veterinary-and-health/presentation/components/clinical-history/clinical-history';
 import { TreatmentListComponent } from './veterinary-and-health/presentation/components/treatment-list/treatment-list';
+import { AppointmentCalendarComponent } from './veterinary-and-health/presentation/components/appointment-calendar/appointment-calendar';
 import { AppointmentDetailComponent } from './veterinary-and-health/presentation/components/appointment-detail/appointment-detail';
 import { VaccineRecordComponent } from './veterinary-and-health/presentation/components/vaccine-record/vaccine-record';
 import { AppointmentFormComponent } from './veterinary-and-health/presentation/components/appointment-form/appointment-form';
 import {ReportsDashboard} from './reports/presentation/components/reports-dashboard/reports-dashboard';
 import {ReportsResults} from './reports/presentation/components/reports-results/reports-results';
+import {authGuard} from './shared/presentation/guards/auth.guard';
+import {veterinarianGuard} from './shared/presentation/guards/role.guard';
 
 export const routes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: 'iam/sign-in' },
   {
     path: 'iam',
     loadChildren: () => import('./iam/presentation/iam.routes').then(module => module.iamRoutes)
@@ -28,6 +36,7 @@ export const routes: Routes = [
   {
     path: '',
     component: Layout,
+    canActivate: [authGuard],
     children: [
       { path: 'home', component: Home },
       {
@@ -41,14 +50,19 @@ export const routes: Routes = [
       { path: 'livestock/feeding', component: FeedingDashboard },
       { path: 'livestock/feeding/add', component: FeedingPlanCreate },
       { path: 'livestock/feeding/:id', component: FeedingPlanDetail },
+      { path: 'rancher/appointments', component: RancherAppointmentsComponent },
       { path: 'profile', component: ProfileView },
       { path: 'notifications', component: NotificationCenterView },
-      { path: 'veterinary/appointments', component: AppointmentCalendarComponent },
-      { path: 'veterinary/appointments/new', component: AppointmentFormComponent },
-      { path: 'veterinary/appointments/:id', component: AppointmentDetailComponent },
-      { path: 'veterinary/history/new', component: ClinicalHistoryComponent },
-      { path: 'veterinary/treatments/new', component: TreatmentListComponent },
-      { path: 'veterinary/vaccines/new', component: VaccineRecordComponent },
+      { path: 'veterinary/dashboard', component: VeterinaryDashboardComponent, canActivate: [veterinarianGuard] },
+      { path: 'veterinary/appointments', component: AppointmentCalendarComponent, canActivate: [veterinarianGuard] },
+      { path: 'veterinary/appointments/new', component: AppointmentFormComponent, canActivate: [veterinarianGuard] },
+      { path: 'veterinary/appointments/:id', component: AppointmentDetailComponent, canActivate: [veterinarianGuard] },
+      { path: 'veterinary/history/new', component: ClinicalHistoryComponent, canActivate: [veterinarianGuard] },
+      { path: 'veterinary/treatments/new', component: TreatmentListComponent, canActivate: [veterinarianGuard] },
+      { path: 'veterinary/vaccines', component: VaccineCenterComponent, canActivate: [veterinarianGuard] },
+      { path: 'veterinary/vaccines/new', component: VaccineRecordComponent, canActivate: [veterinarianGuard] },
+      { path: 'veterinary/records', component: SanitaryHistoryComponent, canActivate: [veterinarianGuard] },
+      { path: 'veterinary/reports', component: VeterinaryReportsComponent, canActivate: [veterinarianGuard] },
       { path: 'reports', component: ReportsDashboard },
       { path: 'reports/results',  component: ReportsResults },
       {
@@ -59,6 +73,5 @@ export const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
   },
-  { path: '', pathMatch: 'full', redirectTo: 'iam/sign-in' },
   { path: '**', redirectTo: 'iam/sign-in' }
 ];

@@ -1,16 +1,20 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
+import { Observable, catchError, finalize, tap, throwError } from 'rxjs';
 import { Appointment } from '../domain/model/appointment.entity';
 import { MedicalRecord } from '../domain/model/medical-record.entity';
 import { Treatment } from '../domain/model/treatment.entity';
 import { VeterinaryApiClient } from '../infrastructure/veterinary-api-client';
 
+/**
+ * Reactive application store for the veterinary bounded context.
+ * Components only read the exposed signals and call the use-case methods.
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class VeterinaryStore {
   private api = inject(VeterinaryApiClient);
 
-  // Signals privados (protegidos contra modificaciones externas)
   private appointmentsSignal = signal<Appointment[]>([]);
   private recordsSignal = signal<MedicalRecord[]>([]);
   private treatmentsSignal = signal<Treatment[]>([]);
@@ -18,7 +22,6 @@ export class VeterinaryStore {
   private loadingSignal = signal<boolean>(false);
   private errorMessageSignal = signal<string>('');
 
-  // Proyecciones de solo lectura consumidas por los componentes
   readonly appointments = computed(() => this.appointmentsSignal());
   readonly records = computed(() => this.recordsSignal());
   readonly treatments = computed(() => this.treatmentsSignal());
@@ -26,92 +29,117 @@ export class VeterinaryStore {
   readonly loading = computed(() => this.loadingSignal());
   readonly errorMessage = computed(() => this.errorMessageSignal());
 
-  /** Carga las citas médicas desde la API */
-  public loadAppointments(): void {
+  selectAnimal(animalId: string): void {
+    this.selectedAnimalIdSignal.set(animalId);
+  }
+
+  clearError(): void {
+    this.errorMessageSignal.set('');
+  }
+
+  /** Loads every appointment registered in the fake API. */
+  loadAppointments(): void {
     this.loadingSignal.set(true);
+    this.errorMessageSignal.set('');
     this.api.getAppointments().subscribe({
-      next: (data) => {
+      next: data => {
         this.appointmentsSignal.set(data);
         this.loadingSignal.set(false);
       },
       error: () => {
-        this.errorMessageSignal.set('Error al cargar citas médicas');
+        this.errorMessageSignal.set('No se pudieron cargar las citas médicas.');
         this.loadingSignal.set(false);
       }
     });
   }
 
-  /** Carga las historias clínicas desde la API */
-  public loadMedicalRecords(): void {
+  /** Loads every clinical record registered in the fake API. */
+  loadMedicalRecords(): void {
     this.loadingSignal.set(true);
+    this.errorMessageSignal.set('');
     this.api.getMedicalRecords().subscribe({
-      next: (data) => {
+      next: data => {
         this.recordsSignal.set(data);
         this.loadingSignal.set(false);
       },
       error: () => {
-        this.errorMessageSignal.set('Error al cargar historias clínicas');
+        this.errorMessageSignal.set('No se pudieron cargar las historias clínicas.');
         this.loadingSignal.set(false);
       }
     });
   }
 
-  /** Carga los tratamientos desde la API */
-  public loadTreatments(): void {
+  /** Loads every treatment registered in the fake API. */
+  loadTreatments(): void {
     this.loadingSignal.set(true);
+    this.errorMessageSignal.set('');
     this.api.getTreatments().subscribe({
-      next: (data) => {
+      next: data => {
         this.treatmentsSignal.set(data);
         this.loadingSignal.set(false);
       },
       error: () => {
-        this.errorMessageSignal.set('Error al cargar tratamientos');
+        this.errorMessageSignal.set('No se pudieron cargar los tratamientos.');
         this.loadingSignal.set(false);
       }
     });
   }
 
-  /** Registra una nueva cita médica (US027) */
-  public createAppointment(appointment: Partial<Appointment>): void {
+  /** US027 - Registers a new appointment / technical visit. */
+  createAppointment(appointment: Partial<Appointment>): Observable<Appointment> {
     this.loadingSignal.set(true);
-    this.api.createAppointment(appointment).subscribe({
-      next: (newAppointment) => {
-        this.appointmentsSignal.update((list) => [...list, newAppointment]);
-        this.loadingSignal.set(false);
-      },
-      error: () => {
-        this.errorMessageSignal.set('Error al registrar la cita');
-        this.loadingSignal.set(false);
-      }
-    });
+    this.errorMessageSignal.set('');
+    return this.api.createAppointment(appointment).pipe(
+      tap(created => this.appointmentsSignal.update(list => [...list, created])),
+      catchError(error => {
+        this.errorMessageSignal.set('No se pudo registrar la cita médica.');
+        return throwError(() => error);
+      }),
+      finalize(() => this.loadingSignal.set(false))
+    );
   }
 
-  /** Registra una nueva historia clínica / diagnóstico (US028) */
-  public createMedicalRecord(record: Partial<MedicalRecord>): void {
+  /** Updates an appointment (e.g. marks it as completed after a diagnosis). */
+  updateAppointment(appointmentId: string, appointment: Partial<Appointment>): Observable<Appointment> {
     this.loadingSignal.set(true);
-    this.api.createMedicalRecord(record).subscribe({
-      next: (newRecord) => {
-        this.recordsSignal.update((list) => [...list, newRecord]);
-        this.loadingSignal.set(false);
-      },
-      error: () => {
-        this.errorMessageSignal.set('Error al registrar la historia clínica');
-        this.loadingSignal.set(false);
-      }
-    });
+    this.errorMessageSignal.set('');
+    return this.api.updateAppointment(appointmentId, appointment).pipe(
+      tap(updated => this.appointmentsSignal.update(list =>
+        list.map(item => item.id === appointmentId ? updated : item)
+      )),
+      catchError(error => {
+        this.errorMessageSignal.set('No se pudo actualizar la cita médica.');
+        return throwError(() => error);
+      }),
+      finalize(() => this.loadingSignal.set(false))
+    );
   }
 
-  public createTreatment(treatment: Partial<Treatment>): void {
+  /** US028 - Registers a clinical diagnosis. */
+  createMedicalRecord(record: Partial<MedicalRecord>): Observable<MedicalRecord> {
     this.loadingSignal.set(true);
-    this.api.createTreatment(treatment).subscribe({
-      next: (newTreatment) => {
-        this.treatmentsSignal.update((list) => [...list, newTreatment]);
-        this.loadingSignal.set(false);
-      },
-      error: () => {
-        this.errorMessageSignal.set('Error al registrar el tratamiento');
-        this.loadingSignal.set(false);
-      }
-    });
+    this.errorMessageSignal.set('');
+    return this.api.createMedicalRecord(record).pipe(
+      tap(created => this.recordsSignal.update(list => [...list, created])),
+      catchError(error => {
+        this.errorMessageSignal.set('No se pudo registrar el diagnóstico clínico.');
+        return throwError(() => error);
+      }),
+      finalize(() => this.loadingSignal.set(false))
+    );
+  }
+
+  /** US029 - Prescribes a medical treatment. */
+  createTreatment(treatment: Partial<Treatment>): Observable<Treatment> {
+    this.loadingSignal.set(true);
+    this.errorMessageSignal.set('');
+    return this.api.createTreatment(treatment).pipe(
+      tap(created => this.treatmentsSignal.update(list => [...list, created])),
+      catchError(error => {
+        this.errorMessageSignal.set('No se pudo registrar el tratamiento.');
+        return throwError(() => error);
+      }),
+      finalize(() => this.loadingSignal.set(false))
+    );
   }
 }
