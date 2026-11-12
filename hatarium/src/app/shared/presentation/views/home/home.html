@@ -37,11 +37,11 @@
             <mat-icon>pets</mat-icon>
           </div>
         </div>
-        <div class="kpi-value">{{ counts().animals || 84 }}</div>
+        <div class="kpi-value">{{ counts().animals }}</div>
         <div class="kpi-subtext">{{ 'home.kpi.activeAnimals' | translate }}</div>
         <div class="kpi-footer-badge green-badge">
-          <mat-icon>trending_up</mat-icon>
-          <span>{{ 'home.kpi.growth' | translate }}</span>
+          <mat-icon>favorite</mat-icon>
+          <span>{{ 'home.kpi.healthyRate' | translate: { percent: healthyPercent() } }}</span>
         </div>
       </mat-card-content>
     </mat-card>
@@ -55,9 +55,9 @@
             <mat-icon>warehouse</mat-icon>
           </div>
         </div>
-        <div class="kpi-value">{{ counts().lots || 3 }}</div>
+        <div class="kpi-value">{{ counts().lots }}</div>
         <div class="kpi-subtext">{{ 'home.kpi.activeLots' | translate }}</div>
-        <div class="kpi-footer-note">{{ 'home.kpi.totalAnimalsNote' | translate: { count: counts().animals || 84 } }}</div>
+        <div class="kpi-footer-note">{{ 'home.kpi.totalAnimalsNote' | translate: { count: counts().animals } }}</div>
       </mat-card-content>
     </mat-card>
 
@@ -70,7 +70,7 @@
             <mat-icon>calendar_today</mat-icon>
           </div>
         </div>
-        <div class="kpi-value">{{ counts().appointments || 2 }}</div>
+        <div class="kpi-value">{{ counts().appointments }}</div>
         <div class="kpi-subtext">{{ 'home.kpi.scheduledAppointments' | translate }}</div>
         <div class="kpi-footer-note">{{ 'home.kpi.nextPrefix' | translate }} {{ nextAppointmentText() }}</div>
       </mat-card-content>
@@ -85,9 +85,9 @@
             <mat-icon>notifications</mat-icon>
           </div>
         </div>
-        <div class="kpi-value alert-text">{{ counts().alerts || 1 }}</div>
+        <div class="kpi-value alert-text">{{ counts().alerts }}</div>
         <div class="kpi-subtext alert-subtext">{{ 'home.kpi.requiresAttention' | translate }}</div>
-        <div class="kpi-footer-note">{{ 'home.kpi.generalHealth' | translate }}</div>
+        <div class="kpi-footer-note">{{ 'home.kpi.followUp' | translate: { count: attentionCount() } }}</div>
       </mat-card-content>
     </mat-card>
   </section>
@@ -98,7 +98,7 @@
       <mat-card-content>
         <div class="section-card-header">
           <h2>{{ 'home.lotsSummary.title' | translate }}</h2>
-          <span class="section-counter-badge">{{ 'home.lotsSummary.activeBadge' | translate: { count: lotsList().length || 3 } }}</span>
+          <span class="section-counter-badge">{{ 'home.lotsSummary.activeBadge' | translate: { count: lotsList().length } }}</span>
         </div>
 
         <div class="lots-list">
@@ -115,27 +115,7 @@
               </div>
             </div>
           } @empty {
-            <div class="lot-row">
-              <div class="lot-info">
-                <strong>Lote A · Ordeño Mecánico</strong>
-                <span>44 animales</span>
-              </div>
-              <span class="status-pill status-optimal">{{ 'home.lotsSummary.statusOptimal' | translate }}</span>
-            </div>
-            <div class="lot-row">
-              <div class="lot-info">
-                <strong>Lote B · Engorde</strong>
-                <span>22 animales</span>
-              </div>
-              <span class="status-pill status-warning">{{ 'home.lotsSummary.statusWarning' | translate }}</span>
-            </div>
-            <div class="lot-row">
-              <div class="lot-info">
-                <strong>Lote C · Maternidad</strong>
-                <span>18 animales</span>
-              </div>
-              <span class="status-pill status-stable">{{ 'home.lotsSummary.statusStable' | translate }}</span>
-            </div>
+            <p class="empty-activity">{{ 'home.lotsSummary.empty' | translate }}</p>
           }
         </div>
 
@@ -167,46 +147,11 @@
               </div>
               <div class="activity-text">
                 <strong class="activity-title">{{ item.title }}</strong>
-                <span class="activity-meta">{{ item.category }} · {{ item.timeAgo }}</span>
+                <span class="activity-meta">{{ item.timeAgo }}</span>
               </div>
             </div>
           } @empty {
-            <div class="activity-entry">
-              <div class="activity-avatar pets">
-                <mat-icon>add</mat-icon>
-              </div>
-              <div class="activity-text">
-                <strong class="activity-title">Animal #047 registrado</strong>
-                <span class="activity-meta">Lote A · Hace 2h</span>
-              </div>
-            </div>
-            <div class="activity-entry">
-              <div class="activity-avatar grass">
-                <mat-icon>star_border</mat-icon>
-              </div>
-              <div class="activity-text">
-                <strong class="activity-title">Plan alimentario actualizado</strong>
-                <span class="activity-meta">Lote C · Ayer</span>
-              </div>
-            </div>
-            <div class="activity-entry">
-              <div class="activity-avatar medical_services">
-                <mat-icon>medical_services</mat-icon>
-              </div>
-              <div class="activity-text">
-                <strong class="activity-title">Visita veterinaria completada</strong>
-                <span class="activity-meta">Dr. Rodríguez · Ayer</span>
-              </div>
-            </div>
-            <div class="activity-entry">
-              <div class="activity-avatar vaccines">
-                <mat-icon>healing</mat-icon>
-              </div>
-              <div class="activity-text">
-                <strong class="activity-title">Tratamiento registrado</strong>
-                <span class="activity-meta">Animal #032 · Hace 1d</span>
-              </div>
-            </div>
+            <p class="empty-activity">{{ 'home.activity.empty' | translate }}</p>
           }
         </div>
 
@@ -233,8 +178,8 @@
               <mat-icon>cruelty_free</mat-icon>
             </div>
             <div class="animal-headline-text">
-              <strong>#{{ featuredAnimal()?.earTag || '047' }} · {{ featuredAnimal()?.name || 'Mariposa' }}</strong>
-              <small>{{ featuredAnimal()?.lotName || 'Lote A' }} · {{ featuredAnimal()?.breed || 'Holstein mestiza' }}</small>
+              <strong>#{{ featuredAnimal()?.earTag || '—' }} · {{ featuredAnimal()?.name || '—' }}</strong>
+              <small>{{ featuredAnimal()?.breed || '—' }} · {{ featuredAnimal()?.sex || '—' }}</small>
             </div>
           </div>
 
@@ -244,7 +189,7 @@
                 <mat-icon>favorite_border</mat-icon>
                 <span>{{ 'home.telemetry.health' | translate }}</span>
               </div>
-              <div class="cell-val">{{ featuredAnimal()?.healthRate || 96 }}%</div>
+              <div class="cell-val">{{ featuredAnimal()?.healthStatusKey ? (featuredAnimal()!.healthStatusKey | translate) : '—' }}</div>
             </div>
 
             <div class="telemetry-cell">
@@ -252,7 +197,7 @@
                 <mat-icon>place</mat-icon>
                 <span>{{ 'home.telemetry.location' | translate }}</span>
               </div>
-              <div class="cell-val">{{ featuredAnimal()?.location || 'Establo 04' }}</div>
+              <div class="cell-val">{{ featuredAnimal()?.lotName || '—' }}</div>
             </div>
 
             <div class="telemetry-cell">
@@ -260,15 +205,15 @@
                 <mat-icon>vaccines</mat-icon>
                 <span>{{ 'home.telemetry.vaccination' | translate }}</span>
               </div>
-              <div class="cell-val">{{ featuredAnimal()?.vaccineDoses || '3/4 dosis' }}</div>
+              <div class="cell-val">{{ 'home.telemetry.doses' | translate: { count: featuredAnimal()?.vaccineCount ?? 0 } }}</div>
             </div>
 
             <div class="telemetry-cell">
               <div class="cell-label">
-                <mat-icon>trending_up</mat-icon>
-                <span>{{ 'home.telemetry.production' | translate }}</span>
+                <mat-icon>monitor_weight</mat-icon>
+                <span>{{ 'home.telemetry.weight' | translate }}</span>
               </div>
-              <div class="cell-val highlight-val">{{ featuredAnimal()?.productionDelta || '+12.4%' }}</div>
+              <div class="cell-val highlight-val">{{ featuredAnimal()?.weight ?? 0 }} kg</div>
             </div>
           </div>
         </div>
@@ -282,46 +227,19 @@
       </mat-card-content>
     </mat-card>
 
-    <!-- Columna 3: Resumen de producción -->
+    <!-- Columna 3: Resumen de alimentación -->
     <mat-card class="bottom-card">
       <mat-card-content>
         <div class="section-card-header">
           <h2>{{ 'home.production.title' | translate }}</h2>
-          <mat-icon class="header-icon">trending_up</mat-icon>
+          <mat-icon class="header-icon">restaurant</mat-icon>
         </div>
 
         <div class="production-summary-box">
-          <div class="production-main-rate">28.4 L / animal / día</div>
+          <div class="production-main-rate">{{ feedingStats().totalDaily | number:'1.1-1' }} kg / día</div>
           <div class="production-sub-row">
             <span class="production-label">{{ 'home.production.avgLabel' | translate }}</span>
-            <span class="production-trend-pill">{{ 'home.production.growthBadge' | translate }}</span>
-          </div>
-
-          <!-- Gráfico Sparkline SVG -->
-          <div class="production-chart-container">
-            <svg viewBox="0 0 300 80" class="sparkline-svg" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="chartGradientShared" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#19683d" stop-opacity="0.35" />
-                  <stop offset="100%" stop-color="#19683d" stop-opacity="0.0" />
-                </linearGradient>
-              </defs>
-              <!-- Área sombreada con degradado -->
-              <path
-                d="M 0,65 Q 40,68 80,60 T 160,55 T 230,40 T 300,20 L 300,80 L 0,80 Z"
-                fill="url(#chartGradientShared)"
-              />
-              <!-- Línea de curva -->
-              <path
-                d="M 0,65 Q 40,68 80,60 T 160,55 T 230,40 T 300,20"
-                fill="none"
-                stroke="#19683d"
-                stroke-width="3"
-                stroke-linecap="round"
-              />
-              <!-- Punto final -->
-              <circle cx="300" cy="20" r="4.5" fill="#19683d" />
-            </svg>
+            <span class="production-trend-pill">{{ 'home.production.growthBadge' | translate: { count: feedingStats().activePlans } }}</span>
           </div>
         </div>
 

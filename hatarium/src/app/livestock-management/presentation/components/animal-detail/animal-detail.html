@@ -99,13 +99,13 @@
           {{ 'animal.currentStatus' | translate }}
         </span>
 
-        <span class="status-badge">
+        <span class="status-badge" [ngClass]="healthStatusClass()">
           <span class="status-dot"></span>
-          {{ 'livestock.healthyStatus' | translate }}
+          {{ healthStatusKey() | translate }}
         </span>
 
         <small>
-          {{ 'animal.optimalHealth' | translate }}
+          {{ 'animal.healthSubtitle' | translate }}
         </small>
 
       </div>

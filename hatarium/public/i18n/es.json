@@ -453,7 +453,7 @@
     "kpi": {
       "totalLivestock": "TOTAL GANADO",
       "activeAnimals": "Animales activos",
-      "growth": "+4 este mes",
+      "healthyRate": "{{percent}}% saludables",
       "lots": "LOTES",
       "activeLots": "Lotes activos",
       "totalAnimalsNote": "{{count}} animales en total",
@@ -462,7 +462,7 @@
       "nextPrefix": "Próxima:",
       "alerts": "ALERTAS",
       "requiresAttention": "Requiere atención",
-      "generalHealth": "96% estado sanitario general"
+      "followUp": "{{count}} en seguimiento"
     },
     "lotsSummary": {
       "title": "Resumen de lotes",
@@ -471,25 +471,32 @@
       "statusOptimal": "● Estado óptimo",
       "statusWarning": "● Vacuna pendiente",
       "statusStable": "● Estado estable",
-      "viewAll": "Ver todos los lotes"
+      "viewAll": "Ver todos los lotes",
+      "empty": "Aún no hay lotes registrados."
     },
     "activity": {
       "title": "Actividad reciente",
-      "viewAll": "Ver toda la actividad"
+      "viewAll": "Ver toda la actividad",
+      "empty": "Sin actividad reciente"
     },
     "telemetry": {
       "title": "Información del ganado",
       "badge": "Telemetría RFID",
       "health": "Salud",
-      "location": "Ubicación",
+      "location": "Lote",
       "vaccination": "Vacunación",
-      "production": "Producción",
+      "weight": "Peso",
+      "doses": "{{count}} dosis",
+      "noRecords": "Sin registros",
+      "statusHealthy": "Saludable",
+      "statusFollowUp": "En seguimiento",
+      "statusCritical": "Crítico",
       "viewProfile": "Ver ficha del animal"
     },
     "production": {
-      "title": "Resumen de producción",
-      "avgLabel": "Producción promedio",
-      "growthBadge": "+1.8% vs. sem. anterior",
+      "title": "Alimentación",
+      "avgLabel": "Consumo planificado",
+      "growthBadge": "{{count}} planes activos",
       "viewReports": "Ver reportes"
     }
   },
@@ -758,6 +765,11 @@
     "backToLivestock": "Volver a Ganado",
     "currentStatus": "Estado actual",
     "optimalHealth": "Óptimo estado sanitario",
+    "healthSubtitle": "Según el último control veterinario",
+    "statusNoRecords": "Sin registros",
+    "statusHealthy": "Saludable",
+    "statusFollowUp": "En seguimiento",
+    "statusCritical": "Crítico",
     "tabGeneral": "Información general",
     "tabHealth": "Historial sanitario",
     "tabFeeding": "Alimentación",

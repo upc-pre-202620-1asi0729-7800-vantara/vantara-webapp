@@ -198,6 +198,24 @@
   background: #187358;
 }
 
+.status-badge.followup {
+  background: #fef3c7;
+  color: #a16207;
+}
+
+.status-badge.followup .status-dot {
+  background: #d97706;
+}
+
+.status-badge.critical {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.status-badge.critical .status-dot {
+  background: #b91c1c;
+}
+
 .animal-status small {
   display: block;
 

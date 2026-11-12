@@ -552,6 +552,14 @@
   margin-top: 1px;
 }
 
+.empty-activity {
+  margin: 0;
+  padding: 18px 0;
+  color: #94a3b8;
+  font-size: 0.82rem;
+  text-align: center;
+}
+
 /* 5.2 INFORMACIÓN DEL GANADO (RFID) */
 .telemetry-badge {
   font-size: 0.74rem;

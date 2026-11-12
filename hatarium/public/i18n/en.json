@@ -453,7 +453,7 @@
     "kpi": {
       "totalLivestock": "TOTAL LIVESTOCK",
       "activeAnimals": "Active animals",
-      "growth": "+4 this month",
+      "healthyRate": "{{percent}}% healthy",
       "lots": "LOTS",
       "activeLots": "Active lots",
       "totalAnimalsNote": "{{count}} animals in total",
@@ -462,7 +462,7 @@
       "nextPrefix": "Next:",
       "alerts": "ALERTS",
       "requiresAttention": "Requires attention",
-      "generalHealth": "96% general health score"
+      "followUp": "{{count}} under follow-up"
     },
     "lotsSummary": {
       "title": "Lots summary",
@@ -471,25 +471,32 @@
       "statusOptimal": "● Optimal status",
       "statusWarning": "● Pending vaccination",
       "statusStable": "● Stable status",
-      "viewAll": "View all lots"
+      "viewAll": "View all lots",
+      "empty": "No lots registered yet."
     },
     "activity": {
       "title": "Recent activity",
-      "viewAll": "View all activity"
+      "viewAll": "View all activity",
+      "empty": "No recent activity"
     },
     "telemetry": {
       "title": "Livestock details",
       "badge": "RFID Telemetry",
       "health": "Health",
-      "location": "Location",
+      "location": "Lot",
       "vaccination": "Vaccination",
-      "production": "Production",
+      "weight": "Weight",
+      "doses": "{{count}} doses",
+      "noRecords": "No records",
+      "statusHealthy": "Healthy",
+      "statusFollowUp": "Follow-up",
+      "statusCritical": "Critical",
       "viewProfile": "View animal profile"
     },
     "production": {
-      "title": "Production summary",
-      "avgLabel": "Average production",
-      "growthBadge": "+1.8% vs. prev. week",
+      "title": "Feeding",
+      "avgLabel": "Planned consumption",
+      "growthBadge": "{{count}} active plans",
       "viewReports": "View reports"
     }
   },
@@ -758,6 +765,11 @@
     "backToLivestock": "Back to Livestock",
     "currentStatus": "Current status",
     "optimalHealth": "Optimal health status",
+    "healthSubtitle": "Based on the latest veterinary check",
+    "statusNoRecords": "No records",
+    "statusHealthy": "Healthy",
+    "statusFollowUp": "Follow-up",
+    "statusCritical": "Critical",
     "tabGeneral": "General information",
     "tabHealth": "Health history",
     "tabFeeding": "Feeding",

@@ -84,6 +84,22 @@ export class AnimalDetail {
     vetChecks: this.animalRecords().length,
   }));
 
+  /** Real health status derived from the latest medical record. */
+  readonly healthStatusKey = computed(() => {
+    const latest = this.animalRecords()[0];
+    if (!latest) return 'animal.statusNoRecords';
+    if (latest.healthStatus === 'critical' || latest.severity === 'high') return 'animal.statusCritical';
+    if (latest.healthStatus === 'follow_up' || latest.severity === 'medium') return 'animal.statusFollowUp';
+    return 'animal.statusHealthy';
+  });
+
+  readonly healthStatusClass = computed(() => {
+    const key = this.healthStatusKey();
+    if (key === 'animal.statusCritical') return 'critical';
+    if (key === 'animal.statusFollowUp') return 'followup';
+    return 'healthy';
+  });
+
   readonly feedingPlans = this.livestockStore.feedingPlans;
   readonly feedingPlanItems = this.livestockStore.feedingPlanItems;
   readonly feedingLogs = this.livestockStore.feedingLogs;
