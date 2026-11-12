@@ -85,8 +85,8 @@
     <div class="separator"><span>{{ 'auth.orSignUpWith' | translate }}</span></div>
 
     <div class="social-actions" [attr.aria-label]="'auth.socialAria' | translate">
-      <button type="button"><strong class="google">G</strong> Google</button>
-      <button type="button"><strong class="apple">●</strong> Apple</button>
+      <button type="button" disabled [attr.title]="'auth.socialUnavailable' | translate"><strong class="google">G</strong> Google</button>
+      <button type="button" disabled [attr.title]="'auth.socialUnavailable' | translate"><strong class="apple">●</strong> Apple</button>
     </div>
 
     <p class="switch-flow">{{ 'auth.haveAccount' | translate }} <a routerLink="/iam/sign-in">{{ 'auth.signInAction' | translate }}</a></p>
