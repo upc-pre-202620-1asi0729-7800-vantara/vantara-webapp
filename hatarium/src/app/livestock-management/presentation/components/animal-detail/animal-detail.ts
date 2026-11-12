@@ -16,6 +16,11 @@ import {MatIcon} from '@angular/material/icon';
 import {TranslatePipe} from '@ngx-translate/core';
 import {FeedingPlan} from '../../../domain/model/feeding-plan.entity';
 import { CommonModule } from '@angular/common';
+import { VeterinaryStore } from '../../../../veterinary-and-health/application/veterinary.store';
+import {
+  ExternalDataService,
+  VaccineDTO,
+} from '../../../../veterinary-and-health/infrastructure/services/external-data';
 
 
 @Component({
@@ -36,17 +41,48 @@ export class AnimalDetail {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private livestockStore = inject(LivestockStore);
+  private veterinaryStore = inject(VeterinaryStore);
+  private externalData = inject(ExternalDataService);
 
   animals = this.livestockStore.animals;
 
   private readonly routeParams = toSignal(this.route.paramMap, { initialValue: this.route.snapshot.paramMap });
   readonly animalId = computed(() => this.routeParams().get('id') ?? '');
   readonly selectedTab =
-    signal<'general' | 'feeding' | 'appointments'>('general');
+    signal<'general' | 'health' | 'feeding' | 'appointments'>('general');
+
+  readonly photoError = signal<string | null>(null);
+  readonly animalVaccines = signal<VaccineDTO[]>([]);
 
   animal = computed(() =>
     this.animals().find(animal => animal.id === this.animalId())
   );
+
+  readonly animalRecords = computed(() =>
+    this.veterinaryStore
+      .records()
+      .filter(record => record.animalId === this.animalId())
+      .sort(
+        (a, b) =>
+          new Date(b.recordedAt).getTime() - new Date(a.recordedAt).getTime(),
+      ),
+  );
+
+  readonly animalTreatments = computed(() =>
+    this.veterinaryStore
+      .treatments()
+      .filter(treatment => treatment.animalId === this.animalId()),
+  );
+
+  readonly animalHealthStats = computed(() => ({
+    totalEvents:
+      this.animalRecords().length +
+      this.animalTreatments().length +
+      this.animalVaccines().length,
+    vaccines: this.animalVaccines().length,
+    treatments: this.animalTreatments().length,
+    vetChecks: this.animalRecords().length,
+  }));
 
   readonly feedingPlans = this.livestockStore.feedingPlans;
   readonly feedingPlanItems = this.livestockStore.feedingPlanItems;
@@ -128,6 +164,68 @@ export class AnimalDetail {
     this.livestockStore.loadFeedingPlans();
     this.livestockStore.loadFeedingPlanItems();
     this.livestockStore.loadFeedingLogs();
+    this.veterinaryStore.loadMedicalRecords();
+    this.veterinaryStore.loadTreatments();
+    this.externalData.getVaccines().subscribe(list => this.animalVaccines.set(list));
+  }
+
+  /** Compresses and persists a new photo for the current animal. */
+  onPhotoSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    const currentAnimal = this.animal();
+
+    if (!file || !currentAnimal) return;
+
+    if (!file.type.startsWith('image/')) {
+      this.photoError.set('animal.invalidImage');
+      input.value = '';
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const image = new Image();
+
+      image.onload = () => {
+        const canvas = document.createElement('canvas');
+        const maxWidth = 800;
+        const maxHeight = 600;
+
+        let width = image.width;
+        let height = image.height;
+
+        if (width > maxWidth) {
+          height = (height * maxWidth) / width;
+          width = maxWidth;
+        }
+
+        if (height > maxHeight) {
+          width = (width * maxHeight) / height;
+          height = maxHeight;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        const context = canvas.getContext('2d');
+        if (!context) return;
+
+        context.drawImage(image, 0, 0, width, height);
+        const photoUrl = canvas.toDataURL('image/jpeg', 0.7);
+
+        this.livestockStore.updateAnimal(currentAnimal.id, { photoUrl }).subscribe({
+          next: () => this.photoError.set(null),
+          error: () => this.photoError.set('animal.photoError'),
+        });
+      };
+
+      image.src = reader.result as string;
+    };
+
+    reader.readAsDataURL(file);
+    input.value = '';
   }
 
   getLotName(lotId: string): string {

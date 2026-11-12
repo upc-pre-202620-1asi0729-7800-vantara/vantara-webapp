@@ -1042,3 +1042,199 @@
   }
 
 }
+
+/* =========================
+   HISTORIAL SANITARIO
+========================= */
+
+.health-tab-grid {
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.health-record-card {
+  width: 100%;
+}
+
+.health-count {
+  min-width: 28px;
+  height: 28px;
+  padding: 0 8px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+
+  background: #e8f5ec;
+  color: #07583f;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.health-event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  margin-top: 16px;
+}
+
+.health-event {
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  gap: 12px;
+  align-items: center;
+
+  padding: 12px;
+
+  border: 1px solid #edf2ef;
+  border-radius: 12px;
+
+  background: #fbfdfb;
+}
+
+.health-event-icon {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #e5f7ea;
+  color: #07583f;
+}
+
+.health-event-icon mat-icon {
+  width: 19px;
+  height: 19px;
+  font-size: 19px;
+}
+
+.health-event-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  min-width: 0;
+}
+
+.health-event-body strong {
+  color: #123b2e;
+  font-size: 13.5px;
+}
+
+.health-event-body span {
+  color: #5b6f66;
+  font-size: 12px;
+}
+
+.health-event-body small {
+  color: #8a9a92;
+  font-size: 11.5px;
+}
+
+.health-event-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.health-event-meta strong {
+  color: #51645b;
+  font-size: 12px;
+}
+
+.severity-pill {
+  display: inline-flex;
+
+  padding: 3px 8px;
+
+  border-radius: 999px;
+
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.severity-pill.low {
+  background: #e8f5ec;
+  color: #1f7a4d;
+}
+
+.severity-pill.medium {
+  background: #fef3c7;
+  color: #a16207;
+}
+
+.severity-pill.high {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.health-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  padding: 26px 12px;
+
+  color: #8a9a92;
+  font-size: 12.5px;
+}
+
+.health-empty mat-icon {
+  width: 28px;
+  height: 28px;
+  font-size: 28px;
+
+  color: #b9c8c0;
+}
+
+.visually-hidden {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+
+  overflow: hidden;
+
+  clip: rect(0, 0, 0, 0);
+
+  white-space: nowrap;
+
+  border: 0;
+}
+
+.animal-photo img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  border-radius: 12px;
+}
+
+@media (max-width: 700px) {
+  .health-event {
+    grid-template-columns: 36px 1fr;
+  }
+
+  .health-event-meta {
+    grid-column: 2;
+
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

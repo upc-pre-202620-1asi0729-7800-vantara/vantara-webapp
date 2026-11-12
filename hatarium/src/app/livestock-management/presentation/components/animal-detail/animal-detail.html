@@ -25,7 +25,11 @@
       <div class="animal-main-info">
 
         <div class="animal-photo">
-          <mat-icon>pets</mat-icon>
+          @if (animal.photoUrl) {
+            <img [src]="animal.photoUrl" [alt]="animal.name">
+          } @else {
+            <mat-icon>pets</mat-icon>
+          }
         </div>
 
         <div class="animal-identity">
@@ -131,6 +135,9 @@
       <button
         type="button"
         class="detail-tab"
+        [class.active]="selectedTab() === 'health'"
+        [attr.aria-pressed]="selectedTab() === 'health'"
+        (click)="selectedTab.set('health')"
       >
         <mat-icon>favorite</mat-icon>
         {{ 'animal.tabHealth' | translate }}
@@ -163,6 +170,137 @@
       </button>
 
     </nav>
+
+
+    <!-- =========================
+         SALUD
+         ========================= -->
+    @if (selectedTab() === 'health') {
+
+      <section class="detail-grid health-tab-grid">
+
+        <section class="basic-info-card health-record-card">
+          <div class="card-header">
+            <div class="card-title">
+              <div class="card-icon">
+                <mat-icon>medical_services</mat-icon>
+              </div>
+              <h2>{{ 'animal.healthRecords' | translate }}</h2>
+            </div>
+            <span class="health-count">{{ animalRecords().length }}</span>
+          </div>
+
+          @if (animalRecords().length) {
+            <div class="health-event-list">
+              @for (record of animalRecords(); track record.id) {
+                <article class="health-event">
+                  <div class="health-event-icon">
+                    <mat-icon>stethoscope</mat-icon>
+                  </div>
+                  <div class="health-event-body">
+                    <strong>{{ record.diagnosis || ('animal.noData' | translate) }}</strong>
+                    <span>{{ record.symptoms }}</span>
+                    @if (record.notes) {
+                      <small>{{ record.notes }}</small>
+                    }
+                  </div>
+                  <div class="health-event-meta">
+                    <strong>{{ record.recordedAt | date:'dd/MM/yyyy' }}</strong>
+                    <span class="severity-pill" [ngClass]="record.severity">
+                      {{ ('animal.severity_' + record.severity) | translate }}
+                    </span>
+                  </div>
+                </article>
+              }
+            </div>
+          } @else {
+            <div class="health-empty">
+              <mat-icon>medical_services</mat-icon>
+              <span>{{ 'animal.noHealthRecords' | translate }}</span>
+            </div>
+          }
+        </section>
+
+        <section class="basic-info-card health-record-card">
+          <div class="card-header">
+            <div class="card-title">
+              <div class="card-icon">
+                <mat-icon>medication</mat-icon>
+              </div>
+              <h2>{{ 'animal.treatments' | translate }}</h2>
+            </div>
+            <span class="health-count">{{ animalTreatments().length }}</span>
+          </div>
+
+          @if (animalTreatments().length) {
+            <div class="health-event-list">
+              @for (treatment of animalTreatments(); track treatment.id) {
+                <article class="health-event">
+                  <div class="health-event-icon">
+                    <mat-icon>healing</mat-icon>
+                  </div>
+                  <div class="health-event-body">
+                    <strong>{{ treatment.treatmentType || ('animal.noData' | translate) }}</strong>
+                    <span>{{ treatment.dose }} {{ treatment.doseUnit }} · {{ treatment.route }}</span>
+                    @if (treatment.instructions) {
+                      <small>{{ treatment.instructions }}</small>
+                    }
+                  </div>
+                  <div class="health-event-meta">
+                    <strong>{{ treatment.scheduledAt | date:'dd/MM/yyyy' }}</strong>
+                    <span class="severity-pill low">{{ treatment.status }}</span>
+                  </div>
+                </article>
+              }
+            </div>
+          } @else {
+            <div class="health-empty">
+              <mat-icon>medication</mat-icon>
+              <span>{{ 'animal.noTreatments' | translate }}</span>
+            </div>
+          }
+        </section>
+
+        <section class="basic-info-card health-record-card">
+          <div class="card-header">
+            <div class="card-title">
+              <div class="card-icon">
+                <mat-icon>vaccines</mat-icon>
+              </div>
+              <h2>{{ 'animal.vaccinesApplied' | translate }}</h2>
+            </div>
+            <span class="health-count">{{ animalVaccines().length }}</span>
+          </div>
+
+          @if (animalVaccines().length) {
+            <div class="health-event-list">
+              @for (vaccine of animalVaccines(); track vaccine.id) {
+                <article class="health-event">
+                  <div class="health-event-icon">
+                    <mat-icon>vaccines</mat-icon>
+                  </div>
+                  <div class="health-event-body">
+                    <strong>{{ vaccine.name }}</strong>
+                    <span>{{ vaccine.dose }} {{ vaccine.doseUnit }} · {{ vaccine.laboratory }}</span>
+                  </div>
+                  <div class="health-event-meta">
+                    <strong>{{ vaccine.appliedAt | date:'dd/MM/yyyy' }}</strong>
+                    <span class="severity-pill low">{{ vaccine.status }}</span>
+                  </div>
+                </article>
+              }
+            </div>
+          } @else {
+            <div class="health-empty">
+              <mat-icon>vaccines</mat-icon>
+              <span>{{ 'animal.noVaccines' | translate }}</span>
+            </div>
+          }
+        </section>
+
+      </section>
+
+    }
 
 
     <!-- =========================
@@ -600,13 +738,6 @@
               </div>
 
 
-              <button
-                mat-stroked-button
-                class="small-edit-button"
-              >
-                <mat-icon>edit</mat-icon>
-                {{ 'profile.save' | translate }}
-              </button>
 
             </div>
 
@@ -863,9 +994,17 @@
               </div>
 
 
+              <input
+                #photoInput
+                type="file"
+                accept="image/*"
+                class="visually-hidden"
+                (change)="onPhotoSelected($event)"
+              >
               <button
                 mat-stroked-button
                 class="small-edit-button"
+                (click)="photoInput.click()"
               >
                 <mat-icon>photo_camera</mat-icon>
 
@@ -901,6 +1040,10 @@
 
             </div>
 
+            @if (photoError(); as errorKey) {
+              <p class="form-error" role="alert">{{ errorKey | translate }}</p>
+            }
+
           </section>
 
 
@@ -922,13 +1065,6 @@
               </div>
 
 
-              <button
-                mat-stroked-button
-                class="small-edit-button"
-              >
-                <mat-icon>edit</mat-icon>
-                {{ 'profile.save' | translate }}
-              </button>
 
             </div>
 
@@ -986,6 +1122,7 @@
               <button
                 mat-stroked-button
                 class="small-edit-button"
+                (click)="selectedTab.set('health')"
               >
 
                 {{ 'animal.viewHistory' | translate }}
@@ -1003,7 +1140,7 @@
 
               <div class="health-stat">
 
-                <strong>—</strong>
+                <strong>{{ animalHealthStats().totalEvents }}</strong>
 
                 <span>
                   {{ 'animal.totalEvents' | translate }}
@@ -1014,7 +1151,7 @@
 
               <div class="health-stat">
 
-                <strong>—</strong>
+                <strong>{{ animalHealthStats().vaccines }}</strong>
 
                 <span>
                   {{ 'animal.vaccinesApplied' | translate }}
@@ -1025,7 +1162,7 @@
 
               <div class="health-stat">
 
-                <strong>—</strong>
+                <strong>{{ animalHealthStats().treatments }}</strong>
 
                 <span>
                   {{ 'animal.treatments' | translate }}
@@ -1036,7 +1173,7 @@
 
               <div class="health-stat">
 
-                <strong>—</strong>
+                <strong>{{ animalHealthStats().vetChecks }}</strong>
 
                 <span>
                   {{ 'animal.vetChecks' | translate }}
