@@ -9,6 +9,7 @@ import { MatSelect, MatOption } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import {TranslatePipe} from '@ngx-translate/core';
 import {LivestockStore} from '../../../application/livestock-store';
+import {VeterinaryStore} from '../../../../veterinary-and-health/application/veterinary.store';
 import {Animal} from '../../../domain/model/animal.entity';
 import {ActivatedRoute, Router} from '@angular/router';
 
@@ -33,11 +34,13 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class AnimalList {
 
   private livestockStore = inject(LivestockStore);
+  private veterinaryStore = inject(VeterinaryStore);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
   animals = this.livestockStore.animals;
   lots = this.livestockStore.lots;
+  records = this.veterinaryStore.records;
 
   searchTerm = signal('');
   selectedLot = signal('');
@@ -47,6 +50,7 @@ export class AnimalList {
   constructor() {
     this.livestockStore.loadAnimals(true);
     this.livestockStore.loadLots();
+    this.veterinaryStore.loadMedicalRecords();
 
     // Pre-filters the list when arriving from the lots view (?lot=lot-001).
     const lotFilter = this.route.snapshot.queryParamMap.get('lot');
@@ -134,6 +138,23 @@ export class AnimalList {
     const lot = this.lots().find(lot => lot.id === lotId);
 
     return lot?.name ?? lotId;
+  }
+
+  /** Latest veterinary check date for an animal, or a dash when there are no records. */
+  lastCheckDate(animalId: string): string {
+    const records = this.records().filter(record => record.animalId === animalId);
+    if (records.length === 0) return '—';
+
+    const latest = records.reduce((newest, record) =>
+      new Date(record.recordedAt).getTime() > new Date(newest.recordedAt).getTime()
+        ? record
+        : newest,
+    );
+
+    const date = new Date(latest.recordedAt);
+    return isNaN(date.getTime())
+      ? '—'
+      : date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
   }
 
   setSearchTerm(value: string) {

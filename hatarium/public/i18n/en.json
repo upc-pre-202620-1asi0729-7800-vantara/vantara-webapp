@@ -444,9 +444,9 @@
     "greetingAfternoon": "Good afternoon, {{name}}",
     "greetingEvening": "Good evening, {{name}}",
     "banner": {
-      "title": "Pending vaccination: Lot B (22 animals)",
-      "deadline": "Due tomorrow · 18:00 hrs",
-      "desc": "Clostridial booster campaign and bovine brucellosis control.",
+      "title": "Pending vaccination: {{lot}} ({{count}} animals)",
+      "deadline": "Veterinary attention required",
+      "desc": "Some animals have pending doses or need a check-up in this lot.",
       "viewLot": "View lot",
       "startProtocol": "Start protocol"
     },

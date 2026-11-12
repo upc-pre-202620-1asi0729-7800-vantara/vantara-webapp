@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { forkJoin } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -97,6 +98,7 @@ export class Home implements OnInit {
   readonly activity = signal<NotificationItem[]>([]);
   readonly openHealthAlerts = signal<NotificationItem[]>([]);
   readonly loading = signal(true);
+  readonly bannerLot = signal<LotItem | null>(null);
 
   ngOnInit(): void {
     this.load();
@@ -128,42 +130,8 @@ export class Home implements OnInit {
           });
         }
 
-        // 2. Cargar lotes y mapear con conteo de animales
-        this.http.get<any[]>(`${base}/lots`).subscribe({
-          next: (lots) => {
-            this.counts.update(c => ({ ...c, lots: lots.length }));
-            const mappedLots: LotItem[] = lots.map((l, index) => {
-              const count = animals.filter(a => a.lotId === l.id).length || (index === 0 ? 44 : index === 1 ? 22 : 18);
-              let badgeKey = 'home.lotsSummary.statusOptimal';
-              let badgeType: 'optimal' | 'warning' | 'stable' = 'optimal';
-
-              if (index === 1 || l.name.includes('B') || (l.purpose && l.purpose.toLowerCase().includes('crecimiento'))) {
-                badgeKey = 'home.lotsSummary.statusWarning';
-                badgeType = 'warning';
-              } else if (index === 2 || l.name.includes('C')) {
-                badgeKey = 'home.lotsSummary.statusStable';
-                badgeType = 'stable';
-              }
-
-              return {
-                id: l.id,
-                name: l.name,
-                purpose: l.purpose || (index === 0 ? 'Ordeño Mecánico' : index === 1 ? 'Engorde' : 'Maternidad'),
-                animalCount: count,
-                badgeKey,
-                badgeType
-              };
-            });
-            this.lotsList.set(mappedLots);
-          },
-          error: () => {
-            this.lotsList.set([
-              { id: 'lot-001', name: 'Lote A', purpose: 'Ordeño Mecánico', animalCount: 44, badgeKey: 'home.lotsSummary.statusOptimal', badgeType: 'optimal' },
-              { id: 'lot-002', name: 'Lote B', purpose: 'Engorde', animalCount: 22, badgeKey: 'home.lotsSummary.statusWarning', badgeType: 'warning' },
-              { id: 'lot-003', name: 'Lote C', purpose: 'Maternidad', animalCount: 18, badgeKey: 'home.lotsSummary.statusStable', badgeType: 'stable' }
-            ]);
-          }
-        });
+        // 2. Cargar lotes, vacunas y registros médicos para calcular el estado real.
+        this.loadLots(animals);
       }
     });
 
@@ -210,6 +178,66 @@ export class Home implements OnInit {
         this.loading.set(false);
       }
     });
+  }
+
+  /**
+   * Builds the lot summary with a real status: a lot requires attention when any
+   * of its animals has an overdue vaccine or a critical/high medical record.
+   */
+  private loadLots(animals: any[]): void {
+    const base = environment.hatariumApiBaseUrl;
+
+    forkJoin({
+      lots: this.http.get<any[]>(`${base}/lots`),
+      vaccines: this.http.get<any[]>(`${base}/vaccines`),
+      records: this.http.get<any[]>(`${base}/medicalRecords`),
+    }).subscribe({
+      next: ({ lots, vaccines, records }) => {
+        this.counts.update(c => ({ ...c, lots: lots.length }));
+
+        const now = Date.now();
+        const mappedLots: LotItem[] = lots.map((lot) => {
+          const lotAnimals = animals.filter(animal => animal.lotId === lot.id);
+          const needsAttention = lotAnimals.some(animal =>
+            this.lotNeedsAttention(animal.id, vaccines, records, now),
+          );
+
+          return {
+            id: lot.id,
+            name: lot.name,
+            purpose: lot.purpose || '',
+            animalCount: lotAnimals.length,
+            badgeKey: needsAttention
+              ? 'home.lotsSummary.statusWarning'
+              : 'home.lotsSummary.statusOptimal',
+            badgeType: needsAttention ? 'warning' : 'optimal',
+          };
+        });
+
+        this.lotsList.set(mappedLots);
+        this.bannerLot.set(mappedLots.find(lot => lot.badgeType === 'warning') ?? null);
+      },
+      error: () => this.lotsList.set([]),
+    });
+  }
+
+  private lotNeedsAttention(
+    animalId: string,
+    vaccines: any[],
+    records: any[],
+    now: number,
+  ): boolean {
+    const hasOverdueVaccine = vaccines.some(vaccine =>
+      vaccine.animalId === animalId
+      && vaccine.nextDoseAt
+      && new Date(vaccine.nextDoseAt).getTime() < now,
+    );
+    const hasCriticalRecord = records.some(record =>
+      record.animalId === animalId
+      && (record.severity === 'high' || record.healthStatus === 'critical'),
+    );
+
+    return hasOverdueVaccine || hasCriticalRecord;
   }
 
   private getIconForType(type: string): string {

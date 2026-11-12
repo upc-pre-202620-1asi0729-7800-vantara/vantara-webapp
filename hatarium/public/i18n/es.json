@@ -444,9 +444,9 @@
     "greetingAfternoon": "Buenas tardes, {{name}}",
     "greetingEvening": "Buenas noches, {{name}}",
     "banner": {
-      "title": "Vacuna pendiente: Lote B (22 animales)",
-      "deadline": "Vence mañana · 18:00 hrs",
-      "desc": "Campaña de refuerzo clostridial y control de brucelosis bovina.",
+      "title": "Vacuna pendiente: {{lot}} ({{count}} animales)",
+      "deadline": "Requiere atención veterinaria",
+      "desc": "Hay animales con dosis pendientes o que requieren revisión en este lote.",
       "viewLot": "Ver lote",
       "startProtocol": "Iniciar protocolo"
     },

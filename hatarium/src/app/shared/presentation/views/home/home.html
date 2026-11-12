@@ -8,21 +8,23 @@
   </header>
 
   <!-- 2. Banner de Alerta / Acción Prioritaria -->
-  <section class="banner-alert">
-    <div class="banner-icon-wrapper">
-      <mat-icon class="banner-icon">vaccines</mat-icon>
-    </div>
-    <div class="banner-content">
-      <div class="banner-header-row">
-        <strong class="banner-title">{{ 'home.banner.title' | translate }}</strong>
-        <span class="banner-deadline-pill">{{ 'home.banner.deadline' | translate }}</span>
+  @if (bannerLot(); as lot) {
+    <section class="banner-alert">
+      <div class="banner-icon-wrapper">
+        <mat-icon class="banner-icon">vaccines</mat-icon>
       </div>
-      <p class="banner-desc">{{ 'home.banner.desc' | translate }}</p>
-    </div>
-    <div class="banner-actions">
-      <a mat-button class="btn-lot" routerLink="/livestock/lots">{{ 'home.banner.viewLot' | translate }}</a>
-    </div>
-  </section>
+      <div class="banner-content">
+        <div class="banner-header-row">
+          <strong class="banner-title">{{ 'home.banner.title' | translate: { lot: lot.name, count: lot.animalCount } }}</strong>
+          <span class="banner-deadline-pill">{{ 'home.banner.deadline' | translate }}</span>
+        </div>
+        <p class="banner-desc">{{ 'home.banner.desc' | translate }}</p>
+      </div>
+      <div class="banner-actions">
+        <a mat-button class="btn-lot" routerLink="/livestock/lots">{{ 'home.banner.viewLot' | translate }}</a>
+      </div>
+    </section>
+  }
 
   <!-- 3. Tarjetas KPI Métricas Clave -->
   <section class="kpi-grid">
