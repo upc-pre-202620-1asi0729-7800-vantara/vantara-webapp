@@ -1,0 +1,1 @@
+var n=()=>import(`./chunk-FEYK8-XW.js`).then(t=>t.SignIn);var o=()=>import(`./chunk-h8oXrXXx.js`).then(t=>t.SignUp);var i=()=>import(`./chunk-2hp5rC7k.js`).then(t=>t.VerifyEmail);var e=[{path:`sign-in`,loadComponent:n},{path:`sign-up`,loadComponent:o},{path:`verify-email`,loadComponent:i},{path:``,pathMatch:`full`,redirectTo:`sign-in`}];export{e as iamRoutes};
