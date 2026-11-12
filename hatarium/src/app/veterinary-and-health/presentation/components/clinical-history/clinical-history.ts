@@ -80,7 +80,7 @@ export class ClinicalHistoryComponent implements OnInit {
     if (this.saving()) return;
 
     if (!this.diagnosis.trim() || !this.symptoms.trim()) {
-      alert(this.translate.instant('CLINICAL.ALERT_FILL'));
+      this.saveError.set('CLINICAL.ALERT_FILL');
       return;
     }
 
@@ -116,7 +116,6 @@ export class ClinicalHistoryComponent implements OnInit {
           });
         }
         this.saving.set(false);
-        alert(this.translate.instant('CLINICAL.ALERT_SUCCESS'));
         void this.router.navigate(['/veterinary/treatments/new'], {
           queryParams: {
             animalId: this.currentAnimalId(),

@@ -2,7 +2,7 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,7 +25,6 @@ export class VaccineRecordComponent implements OnInit {
   private session = inject(SessionProfile);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private translate = inject(TranslateService);
 
   public animal = signal<AnimalDTO | null>(null);
   public availableAnimals = signal<AnimalDTO[]>([]);
@@ -71,7 +70,7 @@ export class VaccineRecordComponent implements OnInit {
     if (this.saving()) return;
 
     if (!this.vaccineName || !this.lotNumber || !this.appliedAt) {
-      alert(this.translate.instant('VACCINE.ALERT_FILL'));
+      this.saveError.set('VACCINE.ALERT_FILL');
       return;
     }
 
@@ -98,7 +97,6 @@ export class VaccineRecordComponent implements OnInit {
     this.externalData.createVaccine(newVaccine).subscribe({
       next: () => {
         this.saving.set(false);
-        alert(this.translate.instant('VACCINE.ALERT_SUCCESS'));
         void this.router.navigate(['/veterinary/appointments']);
       },
       error: () => {

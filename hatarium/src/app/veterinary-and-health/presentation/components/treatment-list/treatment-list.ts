@@ -2,7 +2,7 @@ import { Component, OnInit, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { VeterinaryStore } from '../../../application/veterinary.store';
 import { VeterinaryApiClient } from '../../../infrastructure/veterinary-api-client';
 import { Appointment } from '../../../domain/model/appointment.entity';
@@ -30,7 +30,6 @@ export class TreatmentListComponent implements OnInit {
   private externalData = inject(ExternalDataService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private translate = inject(TranslateService);
   public session = inject(SessionProfile);
 
   public animal = signal<AnimalDTO | null>(null);
@@ -103,7 +102,7 @@ export class TreatmentListComponent implements OnInit {
     if (this.saving()) return;
 
     if (!this.selectedMedicationId || !this.dose || !this.currentRecordId()) {
-      alert(this.translate.instant('TREATMENT.ALERT_FILL'));
+      this.saveError.set('TREATMENT.ALERT_FILL');
       return;
     }
 
@@ -134,7 +133,6 @@ export class TreatmentListComponent implements OnInit {
     }).subscribe({
       next: () => {
         this.saving.set(false);
-        alert(this.translate.instant('TREATMENT.ALERT_SUCCESS'));
         if (this.needsVaccine) {
           void this.router.navigate(['/veterinary/vaccines/new'], {
             queryParams: { animalId: this.currentAnimalId() }

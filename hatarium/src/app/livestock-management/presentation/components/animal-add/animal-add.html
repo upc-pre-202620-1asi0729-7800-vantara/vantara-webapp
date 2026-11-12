@@ -347,6 +347,12 @@
           <span>{{ photoUrl() ? ('animalAdd.changePhoto' | translate) : ('animalAdd.uploadPhoto' | translate) }}</span>
         </label>
 
+        @if (photoError()) {
+          <p class="form-error" role="alert">
+            {{ photoError() | translate }}
+          </p>
+        }
+
         @if (photoUrl()) {
           <div class="photo-preview">
             <img
