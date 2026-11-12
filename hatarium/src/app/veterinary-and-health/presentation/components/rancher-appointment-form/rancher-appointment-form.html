@@ -1,0 +1,147 @@
+<div class="form-page-container">
+  <a routerLink="/rancher/appointments" class="back-link">
+    {{ 'RANCHER_APPOINTMENTS.BACK' | translate }}
+  </a>
+
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">{{ 'RANCHER_APPOINTMENTS.FORM_TITLE' | translate }}</h1>
+      <p class="page-subtitle">{{ 'RANCHER_APPOINTMENTS.FORM_SUBTITLE' | translate }}</p>
+    </div>
+  </div>
+
+  <div class="two-col-layout">
+    <div class="main-form-col">
+      <div class="card-box">
+        <h3 class="box-title">
+          <mat-icon class="accent-icon">event_available</mat-icon>
+          {{ 'RANCHER_APPOINTMENTS.FORM_SECTION' | translate }}
+        </h3>
+
+        @if (!myAnimals().length) {
+          <p class="form-error" role="alert">
+            {{ 'RANCHER_APPOINTMENTS.NO_ANIMALS' | translate }}
+          </p>
+        }
+
+        <div class="form-group">
+          <label for="rancher-animal">{{ 'RANCHER_APPOINTMENTS.SELECT_ANIMAL' | translate }}</label>
+          <select
+            id="rancher-animal"
+            [(ngModel)]="selectedAnimalId"
+            [disabled]="saving() || !myAnimals().length"
+            class="form-input"
+          >
+            @for (animal of myAnimals(); track animal.id) {
+              <option [value]="animal.id">
+                #{{ animal.earTag }} · {{ animal.name }} ({{ animal.breed }} - {{ animal.lotName }})
+              </option>
+            } @empty {
+              <option value="">{{ 'RANCHER_APPOINTMENTS.NO_ANIMALS' | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="rancher-reason">{{ 'RANCHER_APPOINTMENTS.REASON' | translate }}</label>
+          <textarea
+            id="rancher-reason"
+            rows="3"
+            [(ngModel)]="reason"
+            [disabled]="saving()"
+            [placeholder]="'RANCHER_APPOINTMENTS.REASON_PLACEHOLDER' | translate"
+            class="form-input"
+          ></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="rancher-date">{{ 'RANCHER_APPOINTMENTS.DATE' | translate }}</label>
+            <input
+              id="rancher-date"
+              type="date"
+              [(ngModel)]="scheduledDate"
+              [min]="minDate"
+              [disabled]="saving()"
+              class="form-input"
+            />
+          </div>
+          <div class="form-group">
+            <label for="rancher-time">{{ 'RANCHER_APPOINTMENTS.TIME' | translate }}</label>
+            <input
+              id="rancher-time"
+              type="time"
+              [(ngModel)]="scheduledTime"
+              [disabled]="saving()"
+              class="form-input"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="rancher-vet">{{ 'RANCHER_APPOINTMENTS.VETERINARIAN' | translate }}</label>
+          <select
+            id="rancher-vet"
+            [(ngModel)]="veterinarianId"
+            [disabled]="saving() || !veterinarians().length"
+            class="form-input"
+          >
+            @for (vet of veterinarians(); track vet.id) {
+              <option [value]="vet.id">{{ vet.fullName }}</option>
+            } @empty {
+              <option value="">{{ 'RANCHER_APPOINTMENTS.NO_VETS' | translate }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="form-actions">
+          @if (errorMessage(); as errorKey) {
+            <p class="form-error" role="alert">{{ errorKey | translate }}</p>
+          }
+          <button mat-stroked-button routerLink="/rancher/appointments">
+            {{ 'COMMON.CANCEL' | translate }}
+          </button>
+          <button
+            mat-flat-button
+            class="btn-primary-solid"
+            [disabled]="saving() || !myAnimals().length || !veterinarians().length"
+            (click)="saveAppointment()"
+          >
+            {{ (saving() ? 'RANCHER_APPOINTMENTS.SUBMITTING' : 'RANCHER_APPOINTMENTS.SUBMIT') | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-col">
+      <div class="card-box info-highlight-box">
+        <mat-icon class="accent-icon">check_circle</mat-icon>
+        <div>
+          <strong>{{ 'RANCHER_APPOINTMENTS.FORM_INFO' | translate }}</strong>
+          <p>{{ 'RANCHER_APPOINTMENTS.FORM_INFO_TEXT' | translate }}</p>
+        </div>
+      </div>
+
+      <div class="card-box">
+        <h4 class="box-title-sm">
+          <mat-icon class="accent-icon">assignment_ind</mat-icon>
+          {{ 'RANCHER_APPOINTMENTS.SUMMARY' | translate }}
+        </h4>
+        <ul class="info-list-sm">
+          <li>
+            <span>{{ 'RANCHER_APPOINTMENTS.SELECT_ANIMAL' | translate }}</span>
+            <strong>{{ selectedAnimal()?.name || '—' }}</strong>
+          </li>
+          <li>
+            <span>{{ 'RANCHER_APPOINTMENTS.LOT' | translate }}</span>
+            <strong>{{ selectedAnimal()?.lotName || '—' }}</strong>
+          </li>
+          <li>
+            <span>{{ 'RANCHER_APPOINTMENTS.VETERINARIAN' | translate }}</span>
+            <strong>{{ selectedVeterinarianName() }}</strong>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

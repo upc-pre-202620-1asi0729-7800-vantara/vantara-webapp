@@ -54,6 +54,9 @@ export class SessionProfile {
   readonly roleName = computed(() => this.role()?.name ?? '');
   readonly photoUrl = computed(() => this.user()?.photoUrl ?? '');
 
+  /** Profile identifier of the signed-in user (used as rancher/veterinarian reference). */
+  readonly userId = computed(() => this.user()?.id ?? '');
+
   updateUser(user: UserRecord): void {
     if (this.iamStore.currentAccount()?.id === user.accountId) this.user.set(user);
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,6 +26,12 @@ export class RancherAppointmentsComponent implements OnInit {
   private externalData = inject(ExternalDataService);
   private session = inject(SessionProfile);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private translate = inject(TranslateService);
+
+  /** Shows a confirmation banner after the rancher creates an appointment. */
+  public readonly created = signal(this.route.snapshot.queryParamMap.get('created') === '1');
+  public readonly cancellingId = signal<string | null>(null);
 
   public animals = signal<AnimalDTO[]>([]);
   public appointmentAnimalMap = signal<Record<string, string>>({});
@@ -41,9 +47,14 @@ export class RancherAppointmentsComponent implements OnInit {
       );
   });
 
-  public readonly upcomingAppointments = computed(() =>
-    this.rancherAppointments().filter(appointment => appointment.status === 'scheduled')
-  );
+  public readonly upcomingAppointments = computed(() => {
+    const now = Date.now();
+    return this.rancherAppointments().filter(
+      appointment =>
+        appointment.status === 'scheduled' &&
+        new Date(appointment.scheduledAt).getTime() >= now,
+    );
+  });
 
   public readonly completedAppointments = computed(() =>
     this.rancherAppointments().filter(appointment => appointment.status === 'completed')
@@ -98,5 +109,26 @@ export class RancherAppointmentsComponent implements OnInit {
 
   public goToAnimal(animalId: string): void {
     void this.router.navigate(['/livestock/animals', animalId]);
+  }
+
+  /** Lets the rancher cancel a scheduled appointment (backend status change). */
+  public cancelAppointment(appointmentId: string): void {
+    if (this.cancellingId()) return;
+
+    const confirmed = window.confirm(
+      this.translate.instant('RANCHER_APPOINTMENTS.CANCEL_CONFIRM'),
+    );
+    if (!confirmed) return;
+
+    this.cancellingId.set(appointmentId);
+    this.store
+      .updateAppointment(appointmentId, {
+        status: 'cancelled',
+        cancellationReason: this.translate.instant('RANCHER_APPOINTMENTS.CANCEL_REASON'),
+      })
+      .subscribe({
+        next: () => this.cancellingId.set(null),
+        error: () => this.cancellingId.set(null),
+      });
   }
 }

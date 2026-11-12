@@ -1,5 +1,9 @@
 .rancher-page { background-color: #f3f6f3; padding: 2rem; min-height: 100vh; font-family: system-ui, -apple-system, sans-serif; }
-.top-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+.top-header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.btn-primary-solid { background-color: #07583f !important; color: #ffffff !important; font-weight: 600 !important; border-radius: 8px !important; }
+.success-banner, .error-banner { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-radius: 10px; margin-bottom: 1rem; font-size: 0.85rem; font-weight: 600; }
+.success-banner { background: #f0fdf4; border: 1px solid #c0f2e3; color: #07583f; }
+.error-banner { background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; }
 .page-title { font-size: 1.75rem; font-weight: 700; color: #0c1c17; margin: 0; }
 .page-subtitle { color: #6b7280; font-size: 0.9rem; margin-top: 0.2rem; }
 .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
@@ -21,7 +25,8 @@
 .appointment-info strong { font-size: 0.9rem; color: #1e293b; }
 .appointment-info p { margin: 0; font-size: 0.82rem; color: #475569; }
 .appointment-info small { font-size: 0.75rem; color: #64748b; }
-.appointment-status { display: flex; align-items: center; }
+.appointment-status { display: flex; flex-direction: column; align-items: flex-end; gap: 0.4rem; }
+.btn-cancel { border-color: #fecaca !important; color: #b91c1c !important; font-weight: 600 !important; border-radius: 8px !important; font-size: 0.72rem !important; }
 .status-pill { padding: 0.2rem 0.6rem; border-radius: 10px; font-size: 0.72rem; font-weight: 700; }
 .status-pill.scheduled { background: #fef3c7; color: #d97706; }
 .status-pill.completed { background: #e4f4e8; color: #219a75; }

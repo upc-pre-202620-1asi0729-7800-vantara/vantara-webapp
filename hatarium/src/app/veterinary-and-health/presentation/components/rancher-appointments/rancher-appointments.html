@@ -4,7 +4,25 @@
       <h1 class="page-title">{{ 'RANCHER_APPOINTMENTS.TITLE' | translate }}</h1>
       <p class="page-subtitle">{{ 'RANCHER_APPOINTMENTS.SUBTITLE' | translate }}</p>
     </div>
+    <a mat-flat-button class="btn-primary-solid" routerLink="/rancher/appointments/new">
+      <mat-icon>add</mat-icon>
+      {{ 'RANCHER_APPOINTMENTS.NEW_APPOINTMENT' | translate }}
+    </a>
   </div>
+
+  @if (created()) {
+    <div class="success-banner" role="status">
+      <mat-icon>check_circle</mat-icon>
+      {{ 'RANCHER_APPOINTMENTS.SUCCESS' | translate }}
+    </div>
+  }
+
+  @if (store.errorMessage(); as error) {
+    <div class="error-banner" role="alert">
+      <mat-icon>error_outline</mat-icon>
+      {{ error }}
+    </div>
+  }
 
   <div class="kpi-grid">
     <div class="kpi-card">
@@ -44,10 +62,20 @@
                 <div class="appointment-info">
                   <strong>{{ animalLabel(appointmentAnimalMap()[appointment.id]) }}</strong>
                   <p>{{ appointment.reason }}</p>
-                  <small>{{ 'COMMON.VETERINARIAN' | translate }}: {{ veterinarianName(appointment.veterinarianId) }} · {{ appointment.scheduledAt | date:'HH:mm' }}</small>
+                  <small>{{ 'COMMON.VETERINARIAN' | translate }} {{ veterinarianName(appointment.veterinarianId) }} · {{ appointment.scheduledAt | date:'HH:mm' }}</small>
                 </div>
                 <div class="appointment-status">
                   <span class="status-pill" [ngClass]="appointment.status">{{ statusKey(appointment.status) | translate }}</span>
+                  @if (appointment.status === 'scheduled') {
+                    <button
+                      mat-stroked-button
+                      class="btn-cancel"
+                      [disabled]="cancellingId() === appointment.id"
+                      (click)="cancelAppointment(appointment.id)"
+                    >
+                      {{ (cancellingId() === appointment.id ? 'RANCHER_APPOINTMENTS.CANCELLING' : 'RANCHER_APPOINTMENTS.CANCEL') | translate }}
+                    </button>
+                  }
                 </div>
               </div>
             }
