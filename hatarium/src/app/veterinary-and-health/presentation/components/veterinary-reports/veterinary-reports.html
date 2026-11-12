@@ -4,6 +4,16 @@
       <h1 class="page-title">{{ 'REPORTS.TITLE' | translate }}</h1>
       <p class="page-subtitle">{{ 'REPORTS.SUBTITLE' | translate }}</p>
     </div>
+    <div class="header-actions">
+      <button type="button" class="export-btn" (click)="exportPdf()">
+        <mat-icon>picture_as_pdf</mat-icon>
+        {{ 'REPORTS.EXPORT_PDF' | translate }}
+      </button>
+      <button type="button" class="export-btn" (click)="exportCsv()">
+        <mat-icon>table_view</mat-icon>
+        {{ 'REPORTS.EXPORT_CSV' | translate }}
+      </button>
+    </div>
   </div>
 
   <div class="kpi-grid">

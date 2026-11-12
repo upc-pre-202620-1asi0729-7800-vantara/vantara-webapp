@@ -36,4 +36,14 @@
 .legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: #475569; }
 .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
 .legend-item strong { margin-left: auto; color: #1e293b; }
-@media (max-width: 960px) { .donut-grid { grid-template-columns: 1fr; } }
+.header-actions { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+.export-btn { display: inline-flex; align-items: center; gap: 0.4rem; height: 38px; padding: 0 0.9rem; border: 1px solid #d1ddd6; border-radius: 9px; background: #ffffff; color: #456257; font-family: inherit; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease; }
+.export-btn:hover { background: #f5f9f6; border-color: #b8cec2; color: #176b51; }
+.export-btn mat-icon { width: 18px; height: 18px; font-size: 18px; }
+@media (max-width: 960px) { .donut-grid { grid-template-columns: 1fr; } .top-header { align-items: flex-start; flex-direction: column; } }
+@media print {
+  .header-actions { display: none !important; }
+  .reports-page { padding: 0; background: #ffffff; }
+  .kpi-card, .card-box { box-shadow: none; break-inside: avoid; }
+  .donut-grid, .report-columns { grid-template-columns: 1fr 1fr; }
+}

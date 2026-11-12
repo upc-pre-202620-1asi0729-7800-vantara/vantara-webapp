@@ -44,6 +44,13 @@ export class LivestockStore {
     ]);
   }
 
+  /** Persists a partial animal update (e.g. the photo) and refreshes the list. */
+  updateAnimal(id: string, changes: Partial<Animal>) {
+    return this.liveStockApi.updateAnimal(id, changes as never).pipe(
+      tap(updated => this.rememberAnimal(updated)),
+    );
+  }
+
   loadLots() {
     if (this.lotsSignal().length === 0) {
       this.liveStockApi.getLots().subscribe(lots => {

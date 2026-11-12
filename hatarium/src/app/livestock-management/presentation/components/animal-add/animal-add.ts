@@ -61,6 +61,7 @@ export class AnimalAdd {
   fatherId = signal('');
 
   photoUrl = signal('');
+  readonly photoError = signal<string | null>(null);
   readonly saving = signal(false);
   readonly saveError = signal<string | null>(null);
 
@@ -145,18 +146,18 @@ export class AnimalAdd {
       !this.birthDate() ||
       this.weight() === null
     ) {
-      alert('Completa todos los campos obligatorios.');
+      this.saveError.set('animalAdd.requiredFields');
       return;
     }
 
     const newAnimal = new Animal();
 
     if (this.birthDate() > this.today || this.weight()! <= 0) {
-      alert('La fecha de nacimiento no puede estar en el futuro y el peso debe ser mayor que cero.');
+      this.saveError.set('animalAdd.invalidBirth');
       return;
     }
     if (this.animals().some(animal => animal.earTag === this.earTag().trim())) {
-      alert('El arete ya pertenece a otro animal.');
+      this.saveError.set('animalAdd.duplicateEarTag');
       return;
     }
 
@@ -206,9 +207,12 @@ export class AnimalAdd {
     }
 
     if (!file.type.startsWith('image/')) {
-      alert('Selecciona una imagen válida.');
+      this.photoError.set('animal.invalidImage');
+      input.value = '';
       return;
     }
+
+    this.photoError.set(null);
 
     const reader = new FileReader();
 

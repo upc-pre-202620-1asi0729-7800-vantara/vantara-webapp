@@ -13,3 +13,23 @@
   align-items: center;
   gap: 0.4rem;
 }
+
+/* Keep printed/exported reports clean: hide the app chrome. */
+@media print {
+  mat-sidenav.sidenav,
+  header.topbar,
+  .switcher,
+  .bottom-nav,
+  .profile-card {
+    display: none !important;
+  }
+
+  mat-sidenav-content {
+    margin-left: 0 !important;
+  }
+
+  .reports-results .header-actions,
+  .reports-results .back-button {
+    display: none !important;
+  }
+}

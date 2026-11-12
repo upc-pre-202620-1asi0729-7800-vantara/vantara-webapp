@@ -205,7 +205,7 @@
                 </span>
               </td>
               <td>
-                —
+                {{ lastCheckDate(animal.id) }}
               </td>
               <td>
                 <button
@@ -250,11 +250,11 @@
 
           @if (page === currentPage()) {
 
-            <button
-              mat-flat-button
-              class="current-page">
+            <span
+              class="current-page"
+              aria-current="page">
               {{ page }}
-            </button>
+            </span>
 
           } @else {
 

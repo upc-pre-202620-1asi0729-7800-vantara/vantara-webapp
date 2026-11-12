@@ -3,7 +3,7 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { VeterinaryStore } from '../../../application/veterinary.store';
 import { Appointment, AppointmentOrigin } from '../../../domain/model/appointment.entity';
 import { MatCardModule } from '@angular/material/card';
@@ -28,7 +28,6 @@ export class AppointmentFormComponent implements OnInit {
   private externalData = inject(ExternalDataService);
   private session = inject(SessionProfile);
   private router = inject(Router);
-  private translate = inject(TranslateService);
 
   readonly saving = signal(false);
   readonly saveError = signal<string | null>(null);
@@ -91,7 +90,7 @@ export class AppointmentFormComponent implements OnInit {
 
     const animalExists = this.availableAnimals().some(animal => animal.id === this.selectedAnimalId);
     if (!this.reason.trim() || !this.scheduledDate || !this.scheduledTime || !animalExists) {
-      alert(this.translate.instant('FORM.ALERT_FILL'));
+      this.saveError.set('FORM.ALERT_FILL');
       return;
     }
 
@@ -119,7 +118,6 @@ export class AppointmentFormComponent implements OnInit {
         this.pendingAppointmentId.set(appointment.id);
       }
       await firstValueFrom(this.externalData.createAppointmentAnimal(this.pendingAppointmentId()!, this.pendingAnimalId));
-      alert(this.translate.instant('FORM.ALERT_SUCCESS'));
       await this.router.navigate(['/veterinary/appointments']);
     } catch {
       this.saveError.set(this.pendingAppointmentId() ? 'FORM.ALERT_LINK_ERROR' : 'FORM.ALERT_ERROR');

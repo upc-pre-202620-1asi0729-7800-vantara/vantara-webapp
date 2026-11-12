@@ -1,6 +1,6 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { VeterinaryStore } from '../../../application/veterinary.store';
@@ -8,6 +8,7 @@ import {
   ExternalDataService,
   VaccineDTO
 } from '../../../infrastructure/services/external-data';
+import { downloadCsv } from '../../../../shared/infrastructure/csv-export';
 
 interface MonthBucket {
   label: string;
@@ -24,6 +25,7 @@ interface MonthBucket {
 export class VeterinaryReportsComponent implements OnInit {
   public store = inject(VeterinaryStore);
   private externalData = inject(ExternalDataService);
+  private translate = inject(TranslateService);
 
   public vaccines = signal<VaccineDTO[]>([]);
   public animals = signal<{ id: string; name: string }[]>([]);
@@ -110,6 +112,47 @@ export class VeterinaryReportsComponent implements OnInit {
     this.store.loadTreatments();
     this.externalData.getVaccines().subscribe(list => this.vaccines.set(list));
     this.externalData.getAnimals().subscribe(list => this.animals.set(list));
+  }
+
+  /** Opens the browser print dialog so the report can be saved as PDF. */
+  exportPdf(): void {
+    window.print();
+  }
+
+  /** Downloads the sanitary report as a CSV file compatible with Excel. */
+  exportCsv(): void {
+    const quantity = this.translate.instant('REPORTS.CSV_QUANTITY');
+
+    const rows: (string | number)[][] = [
+      [this.translate.instant('REPORTS.TITLE')],
+      [this.translate.instant('REPORTS.KPI_COMPLETED_APPOINTMENTS'), this.completedAppointments()],
+      [this.translate.instant('REPORTS.KPI_PENDING_APPOINTMENTS'), this.pendingAppointments()],
+      [this.translate.instant('REPORTS.KPI_CRITICAL_ANIMALS'), this.criticalAnimals()],
+      [this.translate.instant('REPORTS.KPI_ACTIVE_TREATMENTS'), this.activeTreatments()],
+      [],
+      [this.translate.instant('REPORTS.APPOINTMENT_STATUS'), quantity],
+      ...this.appointmentStatusSlices().map(slice => [
+        this.translate.instant(slice.label),
+        slice.value,
+      ]),
+      [],
+      [this.translate.instant('REPORTS.SEVERITY_DISTRIBUTION'), quantity],
+      ...this.severitySlices().map(slice => [
+        this.translate.instant(slice.label),
+        slice.value,
+      ]),
+      [],
+      [this.translate.instant('REPORTS.APPOINTMENTS_BY_MONTH'), quantity],
+      ...this.appointmentBuckets().map(bucket => [bucket.label, bucket.count]),
+      [],
+      [this.translate.instant('REPORTS.VACCINES_BY_MONTH'), quantity],
+      ...this.vaccineBuckets().map(bucket => [bucket.label, bucket.count]),
+      [],
+      [this.translate.instant('REPORTS.TOP_VACCINES'), this.translate.instant('REPORTS.CSV_APPLICATIONS')],
+      ...this.topVaccines().map(vaccine => [vaccine.name, vaccine.count]),
+    ];
+
+    downloadCsv('reporte-sanitario.csv', rows);
   }
 
   private bucketByMonth(dates: string[], months: number): MonthBucket[] {

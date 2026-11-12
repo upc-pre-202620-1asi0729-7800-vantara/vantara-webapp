@@ -468,6 +468,11 @@ tbody tr:hover {
   border-radius: 8px !important;
   background: #064d35 !important;
   color: white !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 

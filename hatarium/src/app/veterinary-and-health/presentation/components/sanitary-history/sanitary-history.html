@@ -52,7 +52,7 @@
                     <strong>{{ record.diagnosis }}</strong>
                     <span class="severity-pill" [ngClass]="record.severity">{{ severityKey(record.severity) | translate }}</span>
                   </div>
-                  <small>{{ record.recordedAt | date:'dd MMM yyyy' }} · {{ record.veterinarianId }}</small>
+                  <small>{{ record.recordedAt | date:'dd MMM yyyy' }} · {{ veterinarianName(record.veterinarianId) }}</small>
                   <p><b>{{ 'DETAIL.RECORD_SYMPTOMS' | translate }}:</b> {{ record.symptoms }}</p>
                   @if (record.notes) { <p class="record-notes">{{ record.notes }}</p> }
                 </div>

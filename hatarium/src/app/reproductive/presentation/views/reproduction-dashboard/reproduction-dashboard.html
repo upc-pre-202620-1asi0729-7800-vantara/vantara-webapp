@@ -164,11 +164,6 @@
         </div>
       }
     </div>
-
-    <button mat-button type="button" class="events-view-all">
-      {{ 'dashboard.upcomingEvents.viewAll' | translate }}
-      <mat-icon>arrow_forward</mat-icon>
-    </button>
   </article>
 </section>
 
@@ -189,7 +184,6 @@
           <th>{{ 'dashboard.recentEvents.eventType' | translate }}</th>
           <th>{{ 'dashboard.recentEvents.detail' | translate }}</th>
           <th>{{ 'dashboard.recentEvents.status' | translate }}</th>
-          <th>{{ 'dashboard.recentEvents.action' | translate }}</th>
         </tr>
       </thead>
       <tbody>
@@ -216,16 +210,10 @@
                 {{ 'dashboard.recentEvents.statuses.' + event.status | translate }}
               </span>
             </td>
-            <td>
-              <button type="button" class="history-action">
-                {{ 'dashboard.recentEvents.view' | translate }}
-                <mat-icon aria-hidden="true">arrow_forward</mat-icon>
-              </button>
-            </td>
           </tr>
         } @empty {
           <tr>
-            <td colspan="6" class="recent-events-empty">
+            <td colspan="5" class="recent-events-empty">
               {{ 'dashboard.recentEvents.empty' | translate }}
             </td>
           </tr>

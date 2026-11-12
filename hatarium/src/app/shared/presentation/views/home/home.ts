@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { forkJoin } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,7 +26,6 @@ interface NotificationItem {
   sentAt: string;
   icon: string;
   timeAgo: string;
-  category: string;
 }
 
 interface LotItem {
@@ -42,25 +42,18 @@ interface FeaturedAnimal {
   earTag: string;
   name: string;
   breed: string;
+  sex: string;
   lotName: string;
   weight: number;
-  healthRate: number;
-  location: string;
-  vaccineDoses: string;
-  productionDelta: string;
-}
-
-interface AppointmentItem {
-  id: string;
-  scheduledAt: string;
-  reason: string;
-  veterinarianName?: string;
-  status: string;
+  healthStatusKey: string;
+  vaccineCount: number;
+  lastCheck: string;
 }
 
 /**
  * Unified canonical Home view for Hatarium / Vantara.
- * Features KPIs, Lots Summary, Recent Activity, RFID Animal Telemetry, and Production Sparkline.
+ * Every figure is derived from the json-server collections, so the screen
+ * reflects real herd, health, appointment and feeding data.
  */
 @Component({
   selector: 'app-home',
@@ -84,132 +77,191 @@ export class Home implements OnInit {
   readonly userName = this.session.fullName;
   readonly greetingKey = signal(this.greetingFor(new Date().getHours()));
 
+  readonly counts = signal<Counts>({ animals: 0, lots: 0, appointments: 0, alerts: 0 });
+  readonly lotsList = signal<LotItem[]>([]);
+  readonly featuredAnimal = signal<FeaturedAnimal | null>(null);
+  readonly nextAppointmentText = signal<string>('');
+  readonly activity = signal<NotificationItem[]>([]);
+  readonly loading = signal(true);
+  readonly bannerLot = signal<LotItem | null>(null);
+  readonly healthyPercent = signal<number>(0);
+  readonly attentionCount = signal<number>(0);
+  readonly feedingStats = signal<{ totalDaily: number; activePlans: number }>({ totalDaily: 0, activePlans: 0 });
+
+  ngOnInit(): void {
+    this.load();
+  }
+
   private greetingFor(hour: number): string {
     if (hour < 12) return 'home.greetingMorning';
     if (hour < 19) return 'home.greetingAfternoon';
     return 'home.greetingEvening';
   }
 
-  readonly counts = signal<Counts>({ animals: 0, lots: 0, appointments: 0, alerts: 0 });
-  readonly lotsList = signal<LotItem[]>([]);
-  readonly featuredAnimal = signal<FeaturedAnimal | null>(null);
-  readonly nextAppointmentText = signal<string>('10:30 (Dr. Rodríguez)');
-  readonly activity = signal<NotificationItem[]>([]);
-  readonly openHealthAlerts = signal<NotificationItem[]>([]);
-  readonly loading = signal(true);
-
-  ngOnInit(): void {
-    this.load();
-  }
-
   private load(): void {
     const base = environment.hatariumApiBaseUrl;
 
-    // 1. Cargar animales
-    this.http.get<any[]>(`${base}/animals`).subscribe({
-      next: (animals) => {
-        const total = animals.length;
-        this.counts.update(c => ({ ...c, animals: total }));
+    forkJoin({
+      animals: this.http.get<any[]>(`${base}/animals`),
+      lots: this.http.get<any[]>(`${base}/lots`),
+      vaccines: this.http.get<any[]>(`${base}/vaccines`),
+      records: this.http.get<any[]>(`${base}/medicalRecords`),
+      appointments: this.http.get<any[]>(`${base}/appointments`),
+      notifications: this.http.get<any[]>(`${base}/notifications`),
+      feedingPlans: this.http.get<any[]>(`${base}/feedingPlans`),
+      feedingPlanItems: this.http.get<any[]>(`${base}/feedingPlanItems`),
+    }).subscribe({
+      next: data => this.buildDashboard(data),
+      error: () => this.loading.set(false),
+    });
+  }
 
-        // Seleccionar animal insignia (#047 o primer animal)
-        const target = animals.find(a => a.earTag === '047' || a.id === 'anm-047') || animals[0];
-        if (target) {
-          this.featuredAnimal.set({
-            id: target.id || 'anm-047',
-            earTag: target.earTag || '047',
-            name: target.name || 'Mariposa',
-            breed: target.breed || 'Holstein mestiza',
-            lotName: 'Lote A',
-            weight: target.weight || 420,
-            healthRate: 96,
-            location: 'Establo 04',
-            vaccineDoses: '3/4 dosis',
-            productionDelta: '+12.4%'
-          });
-        }
+  private buildDashboard(data: {
+    animals: any[];
+    lots: any[];
+    vaccines: any[];
+    records: any[];
+    appointments: any[];
+    notifications: any[];
+    feedingPlans: any[];
+    feedingPlanItems: any[];
+  }): void {
+    const { animals, lots, vaccines, records, appointments, notifications, feedingPlans, feedingPlanItems } = data;
+    const now = Date.now();
 
-        // 2. Cargar lotes y mapear con conteo de animales
-        this.http.get<any[]>(`${base}/lots`).subscribe({
-          next: (lots) => {
-            this.counts.update(c => ({ ...c, lots: lots.length }));
-            const mappedLots: LotItem[] = lots.map((l, index) => {
-              const count = animals.filter(a => a.lotId === l.id).length || (index === 0 ? 44 : index === 1 ? 22 : 18);
-              let badgeKey = 'home.lotsSummary.statusOptimal';
-              let badgeType: 'optimal' | 'warning' | 'stable' = 'optimal';
-
-              if (index === 1 || l.name.includes('B') || (l.purpose && l.purpose.toLowerCase().includes('crecimiento'))) {
-                badgeKey = 'home.lotsSummary.statusWarning';
-                badgeType = 'warning';
-              } else if (index === 2 || l.name.includes('C')) {
-                badgeKey = 'home.lotsSummary.statusStable';
-                badgeType = 'stable';
-              }
-
-              return {
-                id: l.id,
-                name: l.name,
-                purpose: l.purpose || (index === 0 ? 'Ordeño Mecánico' : index === 1 ? 'Engorde' : 'Maternidad'),
-                animalCount: count,
-                badgeKey,
-                badgeType
-              };
-            });
-            this.lotsList.set(mappedLots);
-          },
-          error: () => {
-            this.lotsList.set([
-              { id: 'lot-001', name: 'Lote A', purpose: 'Ordeño Mecánico', animalCount: 44, badgeKey: 'home.lotsSummary.statusOptimal', badgeType: 'optimal' },
-              { id: 'lot-002', name: 'Lote B', purpose: 'Engorde', animalCount: 22, badgeKey: 'home.lotsSummary.statusWarning', badgeType: 'warning' },
-              { id: 'lot-003', name: 'Lote C', purpose: 'Maternidad', animalCount: 18, badgeKey: 'home.lotsSummary.statusStable', badgeType: 'stable' }
-            ]);
-          }
-        });
-      }
+    // 1. Counts.
+    this.counts.set({
+      animals: animals.length,
+      lots: lots.length,
+      appointments: appointments.filter(appointment => appointment.status === 'scheduled').length,
+      alerts: notifications.filter(notification => notification.status === 'unread').length,
     });
 
-    // 3. Cargar citas
-    this.http.get<AppointmentItem[]>(`${base}/appointments`).subscribe({
-      next: (apps) => {
-        const scheduled = apps.filter(a => a.status === 'scheduled');
-        this.counts.update(c => ({ ...c, appointments: scheduled.length || apps.length }));
-        const upcoming = scheduled[0] || apps[0];
-        if (upcoming && upcoming.scheduledAt) {
-          const time = upcoming.scheduledAt.includes('T') ? upcoming.scheduledAt.split('T')[1].substring(0, 5) : '10:30';
-          this.nextAppointmentText.set(`${time} (Dr. Rodríguez)`);
-        }
-      }
-    });
+    // 2. Health metrics (attention = follow-up or critical records).
+    const attentionAnimalIds = new Set(
+      records
+        .filter(record =>
+          record.healthStatus === 'follow_up'
+          || record.healthStatus === 'critical'
+          || record.severity === 'high',
+        )
+        .map(record => record.animalId),
+    );
+    this.attentionCount.set(attentionAnimalIds.size);
+    const total = animals.length || 1;
+    this.healthyPercent.set(Math.round(((total - attentionAnimalIds.size) / total) * 100));
 
-    // 4. Cargar notificaciones para actividad y alertas
-    this.http.get<any[]>(`${base}/notifications`).subscribe({
-      next: (list) => {
-        const unread = list.filter(n => n.status === 'unread').length;
-        this.counts.update(c => ({ ...c, alerts: unread || 1 }));
-
-        const sorted = [...list].sort((a, b) => (b.sentAt || '').localeCompare(a.sentAt || ''));
-
-        const formattedActivity: NotificationItem[] = sorted.slice(0, 4).map(item => ({
-          id: item.id,
-          title: item.title,
-          description: item.description,
-          type: item.type,
-          status: item.status,
-          sentAt: item.sentAt,
-          icon: this.getIconForType(item.type),
-          timeAgo: this.getTimeAgo(item.sentAt),
-          category: this.getCategoryLabel(item.type)
-        }));
-
-        this.activity.set(formattedActivity);
-        this.openHealthAlerts.set(
-          sorted.filter(n => n.type === 'HEALTH_ALERT' || n.type === 'VACCINE_REMINDER')
+    // 3. Featured animal (real telemetry).
+    const target = animals.find(animal => animal.earTag === '047' || animal.id === 'anm-047') || animals[0];
+    if (target) {
+      const lot = lots.find(item => item.id === target.lotId);
+      const animalRecords = records
+        .filter(record => record.animalId === target.id)
+        .sort((first, second) =>
+          new Date(second.recordedAt).getTime() - new Date(first.recordedAt).getTime(),
         );
-        this.loading.set(false);
-      },
-      error: () => {
-        this.loading.set(false);
-      }
+      const latest = animalRecords[0];
+
+      this.featuredAnimal.set({
+        id: target.id,
+        earTag: target.earTag,
+        name: target.name,
+        breed: target.breed,
+        sex: target.sex,
+        lotName: lot?.name || '—',
+        weight: target.weight,
+        healthStatusKey: this.healthStatusKey(latest),
+        vaccineCount: vaccines.filter(vaccine => vaccine.animalId === target.id).length,
+        lastCheck: latest ? this.formatDate(latest.recordedAt) : '—',
+      });
+    }
+
+    // 4. Lot summary (real status).
+    const mappedLots: LotItem[] = lots.map(lot => {
+      const lotAnimals = animals.filter(animal => animal.lotId === lot.id);
+      const needsAttention = lotAnimals.some(animal =>
+        attentionAnimalIds.has(animal.id) || this.hasOverdueVaccine(animal.id, vaccines, now),
+      );
+
+      return {
+        id: lot.id,
+        name: lot.name,
+        purpose: lot.purpose || '',
+        animalCount: lotAnimals.length,
+        badgeKey: needsAttention ? 'home.lotsSummary.statusWarning' : 'home.lotsSummary.statusOptimal',
+        badgeType: needsAttention ? 'warning' : 'optimal',
+      };
     });
+    this.lotsList.set(mappedLots);
+    this.bannerLot.set(mappedLots.find(lot => lot.badgeType === 'warning') ?? null);
+
+    // 5. Next appointment (real time + reason).
+    const upcoming = appointments
+      .filter(appointment => appointment.status === 'scheduled')
+      .sort((first, second) =>
+        new Date(first.scheduledAt).getTime() - new Date(second.scheduledAt).getTime(),
+      )[0];
+    if (upcoming?.scheduledAt) {
+      const time = upcoming.scheduledAt.includes('T')
+        ? upcoming.scheduledAt.split('T')[1].substring(0, 5)
+        : '';
+      const label = time ? `${time} · ${this.truncate(upcoming.reason, 26)}` : this.truncate(upcoming.reason, 26);
+      this.nextAppointmentText.set(label);
+    }
+
+    // 6. Recent activity from notifications.
+    const sorted = [...notifications].sort((first, second) =>
+      (second.sentAt || second.createdAt || '').localeCompare(first.sentAt || first.createdAt || ''),
+    );
+    this.activity.set(sorted.slice(0, 4).map(item => ({
+      id: item.id,
+      title: item.title,
+      description: item.description,
+      type: item.type,
+      status: item.status,
+      sentAt: item.sentAt,
+      icon: this.getIconForType(item.type),
+      timeAgo: this.getTimeAgo(item.sentAt || item.createdAt),
+    })));
+
+    // 7. Feeding totals for the summary card.
+    const totalDaily = feedingPlanItems.reduce(
+      (sum, item) => sum + (Number(item.dailyQuantity) || 0),
+      0,
+    );
+    this.feedingStats.set({
+      totalDaily,
+      activePlans: feedingPlans.filter(plan => plan.status === 'active').length,
+    });
+
+    this.loading.set(false);
+  }
+
+  private healthStatusKey(latest: any): string {
+    if (!latest) return 'home.telemetry.noRecords';
+    if (latest.healthStatus === 'critical' || latest.severity === 'high') return 'home.telemetry.statusCritical';
+    if (latest.healthStatus === 'follow_up' || latest.severity === 'medium') return 'home.telemetry.statusFollowUp';
+    return 'home.telemetry.statusHealthy';
+  }
+
+  private hasOverdueVaccine(animalId: string, vaccines: any[], now: number): boolean {
+    return vaccines.some(vaccine =>
+      vaccine.animalId === animalId
+      && vaccine.nextDoseAt
+      && new Date(vaccine.nextDoseAt).getTime() < now,
+    );
+  }
+
+  private formatDate(dateStr: string): string {
+    const date = new Date(dateStr);
+    return isNaN(date.getTime())
+      ? '—'
+      : date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  }
+
+  private truncate(text: string, max: number): string {
+    if (!text) return '';
+    return text.length > max ? `${text.substring(0, max)}…` : text;
   }
 
   private getIconForType(type: string): string {
@@ -224,26 +276,13 @@ export class Home implements OnInit {
     }
   }
 
-  private getCategoryLabel(type: string): string {
-    switch (type) {
-      case 'ANIMAL_REGISTERED': return 'Lote A';
-      case 'FEEDING_REGISTERED': return 'Lote C';
-      case 'APPOINTMENT_REMINDER':
-      case 'TECHNICAL_VISIT': return 'Dr. Rodríguez';
-      case 'HEALTH_ALERT':
-      case 'VACCINE_REMINDER': return 'Veterinaria';
-      default: return 'Sistema';
-    }
-  }
-
   private getTimeAgo(dateStr: string | null): string {
     if (!dateStr) return 'Reciente';
     try {
       const date = new Date(dateStr);
       if (isNaN(date.getTime())) return 'Reciente';
       const now = new Date();
-      const diffMs = now.getTime() - date.getTime();
-      const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+      const diffHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
       if (diffHours < 1) return 'Hace instantes';
       if (diffHours < 24) return `Hace ${diffHours}h`;
       const diffDays = Math.floor(diffHours / 24);
