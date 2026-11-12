@@ -1,0 +1,324 @@
+/* =========================
+   PÁGINA DE LOTES
+========================= */
+
+.lots-page {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* =========================
+   ENCABEZADO
+========================= */
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  flex-wrap: wrap;
+}
+
+.page-title h1 {
+  margin: 0;
+
+  color: #0f372b;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.page-title p {
+  margin: 6px 0 0;
+
+  color: #6b7d74;
+  font-size: 14px;
+}
+
+.primary-action {
+  background: #07583f;
+  color: #ffffff;
+}
+
+/* =========================
+   ESTADÍSTICAS
+========================= */
+
+.stats-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 18px;
+
+  background: #ffffff;
+
+  border: 1px solid #e4eee8;
+  border-radius: 16px;
+}
+
+.stat-icon {
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 12px;
+
+  background: #e5f7ea;
+  color: #07583f;
+}
+
+.stat-info strong {
+  display: block;
+
+  color: #0f372b;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.stat-info span {
+  display: block;
+  margin-top: 2px;
+
+  color: #7b8c85;
+  font-size: 12.5px;
+}
+
+/* =========================
+   TARJETAS DE LOTES
+========================= */
+
+.lots-grid {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.lot-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  padding: 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #e4eee8;
+  border-radius: 16px;
+}
+
+.lot-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.lot-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  min-width: 0;
+}
+
+.lot-icon {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 12px;
+
+  background: #e5f7ea;
+  color: #07583f;
+}
+
+.lot-title h2 {
+  margin: 0;
+
+  color: #0f372b;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.lot-purpose {
+  display: block;
+
+  color: #7b8c85;
+  font-size: 12.5px;
+}
+
+.status-badge {
+  padding: 4px 10px;
+
+  border-radius: 999px;
+
+  background: #eef2ef;
+  color: #6b7d74;
+
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.status-badge.active {
+  background: #e5f7ea;
+  color: #1f7a4d;
+}
+
+/* =========================
+   MÉTRICAS DEL LOTE
+========================= */
+
+.lot-stats {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.lot-stat {
+  padding: 10px 8px;
+
+  border-radius: 10px;
+
+  background: #f6faf7;
+
+  text-align: center;
+}
+
+.lot-stat strong {
+  display: block;
+
+  color: #0f392c;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.lot-stat span {
+  display: block;
+  margin-top: 3px;
+
+  color: #7b8c85;
+  font-size: 11px;
+}
+
+.lot-weight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin: 0;
+
+  color: #5b6f66;
+  font-size: 13px;
+}
+
+.lot-weight mat-icon {
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+
+  color: #07583f;
+}
+
+.lot-action {
+  color: #07583f;
+}
+
+.lot-empty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin: 0;
+  padding: 14px;
+
+  border-radius: 10px;
+
+  background: #f6faf7;
+  color: #8a9a92;
+
+  font-size: 12.5px;
+}
+
+/* =========================
+   ESTADO VACÍO
+========================= */
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  padding: 60px 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #e4eee8;
+  border-radius: 16px;
+
+  text-align: center;
+}
+
+.empty-state mat-icon {
+  width: 42px;
+  height: 42px;
+  font-size: 42px;
+
+  color: #b9c8c0;
+}
+
+.empty-state h2 {
+  margin: 0;
+
+  color: #0f372b;
+  font-size: 18px;
+}
+
+.empty-state p {
+  margin: 0;
+
+  color: #7b8c85;
+  font-size: 13.5px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1000px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lot-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

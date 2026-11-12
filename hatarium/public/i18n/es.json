@@ -598,6 +598,7 @@
     "orLoginWith": "O ingresa con",
     "orSignUpWith": "O regístrate con",
     "socialAria": "Opciones de acceso social pendientes",
+    "socialUnavailable": "Disponible próximamente",
     "noAccount": "¿No tienes una cuenta?",
     "haveAccount": "¿Ya tienes una cuenta?",
     "signUpNow": "Regístrate Ahora.",
@@ -669,6 +670,26 @@
     "showing": "Mostrando {{shown}} de {{total}} animales",
     "previous": "Anterior",
     "next": "Siguiente"
+  },
+  "lotsView": {
+    "title": "Lotes",
+    "subtitle": "Organiza tu ganado por lotes y revisa su distribución.",
+    "viewCattle": "Ver ganado",
+    "totalLots": "Total de lotes",
+    "activeLots": "Lotes activos",
+    "assignedAnimals": "Animales asignados",
+    "unassignedAnimals": "Sin lote asignado",
+    "animals": "Animales",
+    "females": "Hembras",
+    "males": "Machos",
+    "calves": "Crías",
+    "averageWeight": "Peso promedio: {{weight}} kg",
+    "viewAnimals": "Ver animales",
+    "noAnimals": "Aún no hay animales en este lote.",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "emptyTitle": "Aún no hay lotes registrados",
+    "emptySubtitle": "Registra animales para comenzar a organizar tu ganadería en lotes."
   },
   "feeding": {
     "title": "Alimentación",
@@ -768,7 +789,16 @@
     "totalEvents": "Total de eventos",
     "vaccinesApplied": "Vacunas aplicadas",
     "treatments": "Tratamientos",
-    "vetChecks": "Controles veterinarios"
+    "vetChecks": "Controles veterinarios",
+    "healthRecords": "Historial clínico",
+    "noHealthRecords": "Sin registros clínicos para este animal.",
+    "noTreatments": "Sin tratamientos registrados.",
+    "noVaccines": "Sin vacunas aplicadas.",
+    "severity_low": "Leve",
+    "severity_medium": "Moderado",
+    "severity_high": "Grave",
+    "invalidImage": "Selecciona una imagen válida.",
+    "photoError": "No se pudo actualizar la foto. Intenta nuevamente."
   },
   "animalAdd": {
     "title": "Registrar animal",
@@ -809,6 +839,9 @@
     "notSpecified": "No especificado",
     "weight": "Peso",
     "initialStatus": "Estado inicial",
+    "requiredFields": "Completa todos los campos obligatorios.",
+    "invalidBirth": "La fecha de nacimiento no puede estar en el futuro y el peso debe ser mayor que cero.",
+    "duplicateEarTag": "El arete ya pertenece a otro animal.",
     "autoIdFooter": "El ID interno del animal se generará automáticamente al registrar."
   },
   "feedingPlanAdd": {
@@ -991,7 +1024,11 @@
     "SEVERITY_DISTRIBUTION": "Gravedad de diagnósticos",
     "STATUS_COMPLETED": "Completadas",
     "STATUS_PENDING": "Pendientes",
-    "STATUS_CANCELLED": "Canceladas"
+    "STATUS_CANCELLED": "Canceladas",
+    "EXPORT_PDF": "Exportar PDF",
+    "EXPORT_CSV": "Exportar Excel",
+    "CSV_QUANTITY": "Cantidad",
+    "CSV_APPLICATIONS": "Aplicaciones"
   },
   "RANCHER_APPOINTMENTS": {
     "TITLE": "Mis citas y salud",
@@ -1004,6 +1041,32 @@
     "NO_APPOINTMENTS": "No tienes citas registradas.",
     "NO_HEALTH": "Sin historial sanitario registrado.",
     "VIEW_ANIMAL": "Ver animal",
-    "RECORDS": "registros"
+    "RECORDS": "registros",
+    "NEW_APPOINTMENT": "Nueva cita",
+    "BACK": "← Volver a mis citas",
+    "FORM_TITLE": "Solicitar nueva cita",
+    "FORM_SUBTITLE": "Solicita una visita veterinaria para tu ganado.",
+    "FORM_SECTION": "Detalles de la solicitud",
+    "SELECT_ANIMAL": "Animal *",
+    "REASON": "Motivo de la cita *",
+    "REASON_PLACEHOLDER": "Ej. Revisión general, vacunación, emergencia...",
+    "DATE": "Fecha preferida *",
+    "TIME": "Hora preferida *",
+    "VETERINARIAN": "Veterinario",
+    "NO_VETS": "No hay veterinarios disponibles.",
+    "NO_ANIMALS": "No tienes animales registrados. Agrega un animal antes de solicitar una cita.",
+    "SUBMIT": "Solicitar cita",
+    "SUBMITTING": "Enviando...",
+    "REQUIRED": "Completa el animal, motivo, fecha y hora.",
+    "ERROR": "No se pudo registrar la cita. Intenta nuevamente.",
+    "SUCCESS": "Tu cita fue registrada correctamente.",
+    "CANCEL": "Cancelar cita",
+    "CANCELLING": "Cancelando...",
+    "CANCEL_CONFIRM": "¿Deseas cancelar esta cita?",
+    "CANCEL_REASON": "Cancelada por el ganadero.",
+    "SUMMARY": "Resumen de la solicitud",
+    "LOT": "Lote",
+    "FORM_INFO": "Solicitud de visita",
+    "FORM_INFO_TEXT": "El veterinario recibirá tu solicitud y confirmará la programación."
   }
 }

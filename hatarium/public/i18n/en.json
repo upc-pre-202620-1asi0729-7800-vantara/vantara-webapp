@@ -598,6 +598,7 @@
     "orLoginWith": "Or sign in with",
     "orSignUpWith": "Or sign up with",
     "socialAria": "Social sign-in options pending",
+    "socialUnavailable": "Coming soon",
     "noAccount": "Don't have an account?",
     "haveAccount": "Already have an account?",
     "signUpNow": "Sign Up Now.",
@@ -669,6 +670,26 @@
     "showing": "Showing {{shown}} of {{total}} animals",
     "previous": "Previous",
     "next": "Next"
+  },
+  "lotsView": {
+    "title": "Lots",
+    "subtitle": "Organize your cattle by lot and review their distribution.",
+    "viewCattle": "View cattle",
+    "totalLots": "Total lots",
+    "activeLots": "Active lots",
+    "assignedAnimals": "Assigned animals",
+    "unassignedAnimals": "Without an assigned lot",
+    "animals": "Animals",
+    "females": "Females",
+    "males": "Males",
+    "calves": "Calves",
+    "averageWeight": "Average weight: {{weight}} kg",
+    "viewAnimals": "View animals",
+    "noAnimals": "No animals in this lot yet.",
+    "active": "Active",
+    "inactive": "Inactive",
+    "emptyTitle": "No lots registered yet",
+    "emptySubtitle": "Register animals to start organizing your farm into lots."
   },
   "feeding": {
     "title": "Feeding",
@@ -768,7 +789,16 @@
     "totalEvents": "Total events",
     "vaccinesApplied": "Vaccines applied",
     "treatments": "Treatments",
-    "vetChecks": "Veterinary checks"
+    "vetChecks": "Veterinary checks",
+    "healthRecords": "Clinical history",
+    "noHealthRecords": "No clinical records for this animal.",
+    "noTreatments": "No treatments registered.",
+    "noVaccines": "No vaccines applied.",
+    "severity_low": "Low",
+    "severity_medium": "Medium",
+    "severity_high": "High",
+    "invalidImage": "Please select a valid image.",
+    "photoError": "The photo could not be updated. Please try again."
   },
   "animalAdd": {
     "title": "Register animal",
@@ -809,6 +839,9 @@
     "notSpecified": "Not specified",
     "weight": "Weight",
     "initialStatus": "Initial status",
+    "requiredFields": "Please complete all required fields.",
+    "invalidBirth": "The birth date cannot be in the future and the weight must be greater than zero.",
+    "duplicateEarTag": "That ear tag already belongs to another animal.",
     "autoIdFooter": "The animal internal ID will be generated automatically on registration."
   },
   "feedingPlanAdd": {
@@ -991,7 +1024,11 @@
     "SEVERITY_DISTRIBUTION": "Diagnosis severity",
     "STATUS_COMPLETED": "Completed",
     "STATUS_PENDING": "Pending",
-    "STATUS_CANCELLED": "Cancelled"
+    "STATUS_CANCELLED": "Cancelled",
+    "EXPORT_PDF": "Export PDF",
+    "EXPORT_CSV": "Export Excel",
+    "CSV_QUANTITY": "Count",
+    "CSV_APPLICATIONS": "Applications"
   },
   "RANCHER_APPOINTMENTS": {
     "TITLE": "My appointments and health",
@@ -1004,6 +1041,32 @@
     "NO_APPOINTMENTS": "No appointments registered.",
     "NO_HEALTH": "No sanitary history registered.",
     "VIEW_ANIMAL": "View animal",
-    "RECORDS": "records"
+    "RECORDS": "records",
+    "NEW_APPOINTMENT": "New appointment",
+    "BACK": "← Back to my appointments",
+    "FORM_TITLE": "Request a new appointment",
+    "FORM_SUBTITLE": "Request a veterinary visit for your herd.",
+    "FORM_SECTION": "Request details",
+    "SELECT_ANIMAL": "Animal *",
+    "REASON": "Reason for the appointment *",
+    "REASON_PLACEHOLDER": "E.g. general check-up, vaccination, emergency...",
+    "DATE": "Preferred date *",
+    "TIME": "Preferred time *",
+    "VETERINARIAN": "Veterinarian",
+    "NO_VETS": "No veterinarians available.",
+    "NO_ANIMALS": "You have no animals registered. Add an animal before requesting an appointment.",
+    "SUBMIT": "Request appointment",
+    "SUBMITTING": "Sending...",
+    "REQUIRED": "Please complete the animal, reason, date and time.",
+    "ERROR": "The appointment could not be registered. Please try again.",
+    "SUCCESS": "Your appointment was registered successfully.",
+    "CANCEL": "Cancel appointment",
+    "CANCELLING": "Cancelling...",
+    "CANCEL_CONFIRM": "Do you want to cancel this appointment?",
+    "CANCEL_REASON": "Cancelled by the rancher.",
+    "SUMMARY": "Request summary",
+    "LOT": "Lot",
+    "FORM_INFO": "Visit request",
+    "FORM_INFO_TEXT": "The veterinarian will receive your request and confirm the schedule."
   }
 }

@@ -10,7 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import {TranslatePipe} from '@ngx-translate/core';
 import {LivestockStore} from '../../../application/livestock-store';
 import {Animal} from '../../../domain/model/animal.entity';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-animal-list',
@@ -34,6 +34,7 @@ export class AnimalList {
 
   private livestockStore = inject(LivestockStore);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   animals = this.livestockStore.animals;
   lots = this.livestockStore.lots;
@@ -46,6 +47,12 @@ export class AnimalList {
   constructor() {
     this.livestockStore.loadAnimals(true);
     this.livestockStore.loadLots();
+
+    // Pre-filters the list when arriving from the lots view (?lot=lot-001).
+    const lotFilter = this.route.snapshot.queryParamMap.get('lot');
+    if (lotFilter) {
+      this.selectedLot.set(lotFilter);
+    }
   }
 
   totalAnimals = computed(() =>

@@ -31,7 +31,7 @@ export class Layout {
   private static readonly RANCHER_OPTIONS: NavOption[] = [
     { labelKey: 'sidebar.home', icon: 'home', link: '/home' },
     { labelKey: 'sidebar.myCattle', icon: 'pets', link: '/livestock/animals' },
-    { labelKey: 'sidebar.lots', icon: 'grid_view' },
+    { labelKey: 'sidebar.lots', icon: 'inventory_2', link: '/livestock/lots' },
     { labelKey: 'sidebar.myAppointmentsHealth', icon: 'health_and_safety', link: '/rancher/appointments' },
     { labelKey: 'sidebar.feeding', icon: 'restaurant', link: '/livestock/feeding' },
     { labelKey: 'sidebar.reproductive', icon: 'favorite', link: '/reproductive' },

@@ -1,0 +1,171 @@
+<div class="lots-page">
+
+  <!-- =========================
+       ENCABEZADO
+       ========================= -->
+  <section class="page-header">
+    <div class="page-title">
+      <h1>{{ 'lotsView.title' | translate }}</h1>
+      <p>{{ 'lotsView.subtitle' | translate }}</p>
+    </div>
+
+    <a
+      mat-flat-button
+      class="primary-action"
+      routerLink="/livestock/animals"
+    >
+      <mat-icon>pets</mat-icon>
+      {{ 'lotsView.viewCattle' | translate }}
+    </a>
+  </section>
+
+
+  <!-- =========================
+       ESTADÍSTICAS
+       ========================= -->
+  <section class="stats-grid">
+
+    <article class="stat-card">
+      <div class="stat-icon">
+        <mat-icon>inventory_2</mat-icon>
+      </div>
+      <div class="stat-info">
+        <strong>{{ totalLots() }}</strong>
+        <span>{{ 'lotsView.totalLots' | translate }}</span>
+      </div>
+    </article>
+
+    <article class="stat-card">
+      <div class="stat-icon">
+        <mat-icon>check_circle</mat-icon>
+      </div>
+      <div class="stat-info">
+        <strong>{{ activeLots() }}</strong>
+        <span>{{ 'lotsView.activeLots' | translate }}</span>
+      </div>
+    </article>
+
+    <article class="stat-card">
+      <div class="stat-icon">
+        <mat-icon>pets</mat-icon>
+      </div>
+      <div class="stat-info">
+        <strong>{{ assignedAnimals() }}</strong>
+        <span>{{ 'lotsView.assignedAnimals' | translate }}</span>
+      </div>
+    </article>
+
+    <article class="stat-card">
+      <div class="stat-icon">
+        <mat-icon>help_outline</mat-icon>
+      </div>
+      <div class="stat-info">
+        <strong>{{ unassignedAnimals() }}</strong>
+        <span>{{ 'lotsView.unassignedAnimals' | translate }}</span>
+      </div>
+    </article>
+
+  </section>
+
+
+  <!-- =========================
+       TARJETAS DE LOTES
+       ========================= -->
+  @if (lotSummaries().length) {
+
+    <section class="lots-grid">
+
+      @for (lot of lotSummaries(); track lot.id) {
+
+        <article class="lot-card">
+
+          <header class="lot-header">
+
+            <div class="lot-title">
+              <div class="lot-icon">
+                <mat-icon>inventory_2</mat-icon>
+              </div>
+
+              <div>
+                <h2>{{ lot.name }}</h2>
+                <span class="lot-purpose">{{ lot.purpose }}</span>
+              </div>
+            </div>
+
+            <span
+              class="status-badge"
+              [class.active]="lot.status === 'active'"
+            >
+              {{ (lot.status === 'active' ? 'lotsView.active' : 'lotsView.inactive') | translate }}
+            </span>
+
+          </header>
+
+
+          <div class="lot-stats">
+
+            <div class="lot-stat">
+              <strong>{{ lot.animals.length }}</strong>
+              <span>{{ 'lotsView.animals' | translate }}</span>
+            </div>
+
+            <div class="lot-stat">
+              <strong>{{ lot.females }}</strong>
+              <span>{{ 'lotsView.females' | translate }}</span>
+            </div>
+
+            <div class="lot-stat">
+              <strong>{{ lot.males }}</strong>
+              <span>{{ 'lotsView.males' | translate }}</span>
+            </div>
+
+            <div class="lot-stat">
+              <strong>{{ lot.calves }}</strong>
+              <span>{{ 'lotsView.calves' | translate }}</span>
+            </div>
+
+          </div>
+
+
+          @if (lot.animals.length) {
+
+            <p class="lot-weight">
+              <mat-icon>scale</mat-icon>
+              {{ 'lotsView.averageWeight' | translate: { weight: lot.averageWeight } }}
+            </p>
+
+            <a
+              mat-stroked-button
+              class="lot-action"
+              [routerLink]="animalsLink(lot.id)"
+            >
+              <mat-icon>visibility</mat-icon>
+              {{ 'lotsView.viewAnimals' | translate }}
+            </a>
+
+          } @else {
+
+            <p class="lot-empty">
+              <mat-icon>pets</mat-icon>
+              {{ 'lotsView.noAnimals' | translate }}
+            </p>
+
+          }
+
+        </article>
+
+      }
+
+    </section>
+
+  } @else {
+
+    <section class="empty-state">
+      <mat-icon>inventory_2</mat-icon>
+      <h2>{{ 'lotsView.emptyTitle' | translate }}</h2>
+      <p>{{ 'lotsView.emptySubtitle' | translate }}</p>
+    </section>
+
+  }
+
+</div>
