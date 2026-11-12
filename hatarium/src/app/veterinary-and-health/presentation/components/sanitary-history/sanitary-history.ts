@@ -30,6 +30,7 @@ export class SanitaryHistoryComponent implements OnInit {
   public animals = signal<AnimalDTO[]>([]);
   public vaccines = signal<VaccineDTO[]>([]);
   public appointmentAnimalMap = signal<Record<string, string>>({});
+  public veterinarianMap = signal<Record<string, string>>({});
   public selectedAnimalId = signal<string>('');
   public searchTerm = signal<string>('');
 
@@ -78,6 +79,11 @@ export class SanitaryHistoryComponent implements OnInit {
     });
 
     this.externalData.getVaccines().subscribe(list => this.vaccines.set(list));
+    this.externalData.getVeterinarians().subscribe(vets => {
+      const map: Record<string, string> = {};
+      vets.forEach(vet => { map[vet.id] = vet.fullName; });
+      this.veterinarianMap.set(map);
+    });
     this.externalData.getAppointmentAnimals().subscribe(relations => {
       const map: Record<string, string> = {};
       relations.forEach(relation => { map[relation.appointmentId] = relation.animalId; });
@@ -99,6 +105,10 @@ export class SanitaryHistoryComponent implements OnInit {
   public animalName(animalId: string): string {
     const animal = this.animals().find(item => item.id === animalId);
     return animal ? `#${animal.earTag} · ${animal.name}` : animalId;
+  }
+
+  public veterinarianName(vetId: string): string {
+    return this.veterinarianMap()[vetId] || vetId;
   }
 
   public severityKey(severity: string): string {

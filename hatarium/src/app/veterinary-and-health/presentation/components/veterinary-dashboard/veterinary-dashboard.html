@@ -82,7 +82,7 @@
             @for (vaccine of recentVaccines(); track vaccine.id) {
               <li>
                 <strong>{{ vaccine.name }}</strong>
-                <small>{{ vaccine.animalId }} · {{ vaccine.appliedAt | date:'dd MMM yyyy' }}</small>
+                <small>{{ animalName(vaccine.animalId) }} · {{ vaccine.appliedAt | date:'dd MMM yyyy' }}</small>
               </li>
             }
           </ul>
@@ -98,7 +98,7 @@
             @for (treatment of activeTreatments(); track treatment.id) {
               <li>
                 <strong>{{ treatment.treatmentType }}</strong>
-                <small>{{ treatment.animalId }} · {{ treatment.status }}</small>
+                <small>{{ animalName(treatment.animalId) }} · {{ treatment.status }}</small>
               </li>
             }
           </ul>
