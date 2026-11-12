@@ -22,6 +22,10 @@
 .appointment-date .day { font-size: 1.3rem; font-weight: 800; color: #07583f; }
 .appointment-date .month { font-size: 0.7rem; color: #6b7280; text-transform: uppercase; }
 .appointment-info { flex: 1; display: flex; flex-direction: column; gap: 0.2rem; }
+.origin-pill { display: inline-flex; align-items: center; gap: 0.3rem; align-self: flex-start; padding: 0.15rem 0.55rem; border-radius: 10px; font-size: 0.68rem; font-weight: 700; }
+.origin-pill mat-icon { width: 14px; height: 14px; font-size: 14px; }
+.origin-pill.own { background: #eef2f0; color: #456257; }
+.origin-pill.tech { background: #e0f2fe; color: #0284c7; }
 .appointment-info strong { font-size: 0.9rem; color: #1e293b; }
 .appointment-info p { margin: 0; font-size: 0.82rem; color: #475569; }
 .appointment-info small { font-size: 0.75rem; color: #64748b; }

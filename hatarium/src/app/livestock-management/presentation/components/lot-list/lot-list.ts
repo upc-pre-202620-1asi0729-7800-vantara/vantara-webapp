@@ -76,11 +76,6 @@ export class LotList {
     })
   );
 
-  /** Target link that opens the animal list filtered by this lot. */
-  animalsLink(lotId: string): string {
-    return `/livestock/animals?lot=${lotId}`;
-  }
-
   private isFemale(animal: Animal): boolean {
     const sex = animal.sex.toLowerCase();
     return sex === 'hembra' || sex === 'female';

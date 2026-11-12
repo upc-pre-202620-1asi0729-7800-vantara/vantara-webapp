@@ -17,7 +17,7 @@ import { AppointmentAnimal } from '../../../domain/model/appointment-animal.enti
 @Component({
   selector: 'app-rancher-appointments',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, MatTabsModule, TranslatePipe],
+  imports: [CommonModule, RouterLink, MatCardModule, MatIconModule, MatButtonModule, MatTabsModule, TranslatePipe],
   templateUrl: './rancher-appointments.html',
   styleUrl: './rancher-appointments.css'
 })

@@ -60,6 +60,10 @@
                   <span class="month">{{ appointment.scheduledAt | date:'MMM yyyy' }}</span>
                 </div>
                 <div class="appointment-info">
+                  <span class="origin-pill" [ngClass]="appointment.origin === 'TECHNICAL_VISIT' ? 'tech' : 'own'">
+                    <mat-icon>{{ appointment.origin === 'TECHNICAL_VISIT' ? 'medical_services' : 'send' }}</mat-icon>
+                    {{ (appointment.origin === 'TECHNICAL_VISIT' ? 'RANCHER_APPOINTMENTS.ORIGIN_TECHNICAL' : 'RANCHER_APPOINTMENTS.ORIGIN_REQUEST') | translate }}
+                  </span>
                   <strong>{{ animalLabel(appointmentAnimalMap()[appointment.id]) }}</strong>
                   <p>{{ appointment.reason }}</p>
                   <small>{{ 'COMMON.VETERINARIAN' | translate }} {{ veterinarianName(appointment.veterinarianId) }} · {{ appointment.scheduledAt | date:'HH:mm' }}</small>

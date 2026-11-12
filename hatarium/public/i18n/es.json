@@ -1043,6 +1043,8 @@
     "VIEW_ANIMAL": "Ver animal",
     "RECORDS": "registros",
     "NEW_APPOINTMENT": "Nueva cita",
+    "ORIGIN_TECHNICAL": "Visita técnica",
+    "ORIGIN_REQUEST": "Solicitud propia",
     "BACK": "← Volver a mis citas",
     "FORM_TITLE": "Solicitar nueva cita",
     "FORM_SUBTITLE": "Solicita una visita veterinaria para tu ganado.",

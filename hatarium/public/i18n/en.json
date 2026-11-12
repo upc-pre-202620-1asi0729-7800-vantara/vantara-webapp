@@ -1043,6 +1043,8 @@
     "VIEW_ANIMAL": "View animal",
     "RECORDS": "records",
     "NEW_APPOINTMENT": "New appointment",
+    "ORIGIN_TECHNICAL": "Technical visit",
+    "ORIGIN_REQUEST": "Own request",
     "BACK": "← Back to my appointments",
     "FORM_TITLE": "Request a new appointment",
     "FORM_SUBTITLE": "Request a veterinary visit for your herd.",

@@ -137,7 +137,8 @@
             <a
               mat-stroked-button
               class="lot-action"
-              [routerLink]="animalsLink(lot.id)"
+              [routerLink]="['/livestock/animals']"
+              [queryParams]="{ lot: lot.id }"
             >
               <mat-icon>visibility</mat-icon>
               {{ 'lotsView.viewAnimals' | translate }}
