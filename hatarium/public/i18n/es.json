@@ -444,7 +444,7 @@
     "greetingAfternoon": "Buenas tardes, {{name}}",
     "greetingEvening": "Buenas noches, {{name}}",
     "banner": {
-      "title": "Vacuna pendiente: {{lot}} ({{count}} animales)",
+      "title": "{{lot}} requiere atención ({{count}} animales)",
       "deadline": "Requiere atención veterinaria",
       "desc": "Hay animales con dosis pendientes o que requieren revisión en este lote.",
       "viewLot": "Ver lote",
@@ -469,7 +469,7 @@
       "activeBadge": "{{count}} activos",
       "animalsCount": "{{count}} animales",
       "statusOptimal": "● Estado óptimo",
-      "statusWarning": "● Vacuna pendiente",
+      "statusWarning": "● Requiere atención",
       "statusStable": "● Estado estable",
       "viewAll": "Ver todos los lotes",
       "empty": "Aún no hay lotes registrados."

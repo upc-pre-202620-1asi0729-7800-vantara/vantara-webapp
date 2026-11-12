@@ -444,7 +444,7 @@
     "greetingAfternoon": "Good afternoon, {{name}}",
     "greetingEvening": "Good evening, {{name}}",
     "banner": {
-      "title": "Pending vaccination: {{lot}} ({{count}} animals)",
+      "title": "{{lot}} needs attention ({{count}} animals)",
       "deadline": "Veterinary attention required",
       "desc": "Some animals have pending doses or need a check-up in this lot.",
       "viewLot": "View lot",
@@ -469,7 +469,7 @@
       "activeBadge": "{{count}} active",
       "animalsCount": "{{count}} animals",
       "statusOptimal": "● Optimal status",
-      "statusWarning": "● Pending vaccination",
+      "statusWarning": "● Needs attention",
       "statusStable": "● Stable status",
       "viewAll": "View all lots",
       "empty": "No lots registered yet."
