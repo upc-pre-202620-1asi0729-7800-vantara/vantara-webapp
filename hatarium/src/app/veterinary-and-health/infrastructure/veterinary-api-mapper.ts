@@ -41,10 +41,10 @@ export class VeterinaryApiMapper {
     entity.animalId = resource.animalId;
     entity.medicationId = resource.medicationId;
     entity.treatmentType = resource.treatmentType;
-    entity.dose = resource.dose;
+    entity.dose = Number.parseFloat(String(resource.dose)) || 0;
     entity.doseUnit = resource.doseUnit;
     entity.route = resource.route;
-    entity.frequencyHours = resource.frequencyHours;
+    entity.frequencyHours = Number(resource.frequencyHours) || 0;
     entity.durationDays = resource.durationDays;
     entity.scheduledAt = resource.scheduledAt;
     entity.administeredAt = resource.administeredAt || '';
