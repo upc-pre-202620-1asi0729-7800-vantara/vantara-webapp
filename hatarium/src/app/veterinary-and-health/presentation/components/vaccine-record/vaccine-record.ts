@@ -40,7 +40,7 @@ export class VaccineRecordComponent implements OnInit {
   public lotNumber = 'L2026-017';
   public appliedAt = new Date().toISOString().split('T')[0];
   public routeAdmin = 'Subcutánea';
-  public dose = '2';
+  public dose = 2;
   public doseUnit = 'mL';
   public nextDoseAt = '2027-03-07';
   public laboratory = 'Laboratorio Veterinario Nacional';
@@ -69,7 +69,7 @@ export class VaccineRecordComponent implements OnInit {
   public saveVaccine(): void {
     if (this.saving()) return;
 
-    if (!this.vaccineName || !this.lotNumber || !this.appliedAt) {
+    if (!(this.dose > 0) || !this.vaccineName || !this.lotNumber || !this.appliedAt) {
       this.saveError.set('VACCINE.ALERT_FILL');
       return;
     }
@@ -82,7 +82,7 @@ export class VaccineRecordComponent implements OnInit {
       veterinarianId: this.session.user()?.id ?? 'usr-003',
       vaccineType: this.vaccineType,
       name: this.vaccineName,
-      dose: this.dose,
+      dose: Number(this.dose),
       doseUnit: this.doseUnit,
       laboratory: this.laboratory,
       lotNumber: this.lotNumber,

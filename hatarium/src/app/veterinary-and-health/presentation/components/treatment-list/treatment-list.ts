@@ -46,10 +46,10 @@ export class TreatmentListComponent implements OnInit {
   public treatmentType = 'Preventivo';
   public purpose = 'Tratamiento rutinario';
   public selectedMedicationId = '';
-  public dose = '5';
+  public dose = 5;
   public doseUnit = 'mL';
   public routeAdmin = 'Intramuscular';
-  public frequencyHours = '24';
+  public frequencyHours = 24;
   public durationDays = 7;
   public instructions = 'Completar esquema indicado cada 24 horas.';
   public needsVaccine = false;
@@ -101,7 +101,7 @@ export class TreatmentListComponent implements OnInit {
   public saveTreatment(): void {
     if (this.saving()) return;
 
-    if (!this.selectedMedicationId || !this.dose || !this.currentRecordId()) {
+    if (!this.selectedMedicationId || !(this.dose > 0) || !this.currentRecordId()) {
       this.saveError.set('TREATMENT.ALERT_FILL');
       return;
     }
@@ -120,10 +120,10 @@ export class TreatmentListComponent implements OnInit {
       animalId: this.currentAnimalId(),
       medicationId: this.selectedMedicationId,
       treatmentType: this.treatmentType,
-      dose: this.dose,
+      dose: Number(this.dose),
       doseUnit: this.doseUnit,
       route: this.routeAdmin,
-      frequencyHours: this.frequencyHours,
+      frequencyHours: Number(this.frequencyHours),
       durationDays: Number(this.durationDays),
       scheduledAt: scheduledAt.toISOString(),
       administeredAt: scheduledAt.toISOString(),

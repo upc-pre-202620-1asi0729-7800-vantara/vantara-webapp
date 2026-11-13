@@ -70,7 +70,7 @@
           <div class="form-group">
             <label>{{ 'TREATMENT.DOSE' | translate }}</label>
             <div class="inline-inputs">
-              <input type="text" [(ngModel)]="dose" [placeholder]="'TREATMENT.DOSE_PLACEHOLDER' | translate" class="form-input" />
+              <input type="number" min="0.01" step="any" [(ngModel)]="dose" [placeholder]="'TREATMENT.DOSE_PLACEHOLDER' | translate" class="form-input" />
               <select [(ngModel)]="doseUnit" class="form-input unit-select">
                 <option value="mL">mL</option>
                 <option value="mg">mg</option>
@@ -91,8 +91,8 @@
           <div class="form-group">
             <label>{{ 'TREATMENT.FREQUENCY' | translate }}</label>
             <select [(ngModel)]="frequencyHours" class="form-input">
-              <option value="24">{{ 'TREATMENT.FREQ_24' | translate }}</option>
-              <option value="12">{{ 'TREATMENT.FREQ_12' | translate }}</option>
+              <option [ngValue]="24">{{ 'TREATMENT.FREQ_24' | translate }}</option>
+              <option [ngValue]="12">{{ 'TREATMENT.FREQ_12' | translate }}</option>
             </select>
           </div>
           <div class="form-group">

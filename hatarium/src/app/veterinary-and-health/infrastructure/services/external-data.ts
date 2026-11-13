@@ -31,7 +31,7 @@ export interface VaccineDTO {
   veterinarianId: string;
   vaccineType: string;
   name: string;
-  dose: string;
+  dose: number;
   doseUnit: string;
   laboratory: string;
   lotNumber: string;

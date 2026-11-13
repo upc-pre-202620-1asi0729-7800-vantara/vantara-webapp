@@ -36,10 +36,10 @@ export interface TreatmentResource {
   animalId: string;
   medicationId: string;
   treatmentType: string;
-  dose: string;
+  dose: number | string;
   doseUnit: string;
   route: string;
-  frequencyHours: string;
+  frequencyHours: number | string;
   durationDays: number;
   scheduledAt: string;
   status: string;
