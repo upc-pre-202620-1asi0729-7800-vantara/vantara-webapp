@@ -8,7 +8,7 @@
     </div>
     <div class="header-actions">
       @if (appointment()?.origin === 'TECHNICAL_VISIT') {
-        <button mat-stroked-button class="btn-outline" (click)="startEdit()"><mat-icon>edit</mat-icon> {{ 'DETAIL.EDIT_APPOINTMENT' | translate }}</button>
+        @if (appointment()?.status === 'scheduled') {<button mat-stroked-button class="btn-outline" (click)="startEdit()"><mat-icon>edit</mat-icon> {{ 'DETAIL.EDIT_APPOINTMENT' | translate }}</button>}
       }
     </div>
   </div>

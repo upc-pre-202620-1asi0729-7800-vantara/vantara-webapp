@@ -33,6 +33,12 @@ export class VeterinaryStore {
     this.selectedAnimalIdSignal.set(animalId);
   }
 
+  /** Prefers the backend ErrorResource message (e.g. an invalid appointment status change). */
+  private messageFrom(error: unknown, fallback: string): string {
+    const message = (error as { error?: { message?: unknown } })?.error?.message;
+    return typeof message === 'string' && message.trim() ? message : fallback;
+  }
+
   clearError(): void {
     this.errorMessageSignal.set('');
   }
@@ -92,7 +98,7 @@ export class VeterinaryStore {
     return this.api.createAppointment(appointment).pipe(
       tap(created => this.appointmentsSignal.update(list => [...list, created])),
       catchError(error => {
-        this.errorMessageSignal.set('No se pudo registrar la cita médica.');
+        this.errorMessageSignal.set(this.messageFrom(error, 'No se pudo registrar la cita médica.'));
         return throwError(() => error);
       }),
       finalize(() => this.loadingSignal.set(false))
@@ -108,7 +114,7 @@ export class VeterinaryStore {
         list.map(item => item.id === appointmentId ? updated : item)
       )),
       catchError(error => {
-        this.errorMessageSignal.set('No se pudo actualizar la cita médica.');
+        this.errorMessageSignal.set(this.messageFrom(error, 'No se pudo actualizar la cita médica.'));
         return throwError(() => error);
       }),
       finalize(() => this.loadingSignal.set(false))
@@ -122,7 +128,7 @@ export class VeterinaryStore {
     return this.api.createMedicalRecord(record).pipe(
       tap(created => this.recordsSignal.update(list => [...list, created])),
       catchError(error => {
-        this.errorMessageSignal.set('No se pudo registrar el diagnóstico clínico.');
+        this.errorMessageSignal.set(this.messageFrom(error, 'No se pudo registrar el diagnóstico clínico.'));
         return throwError(() => error);
       }),
       finalize(() => this.loadingSignal.set(false))
@@ -136,7 +142,7 @@ export class VeterinaryStore {
     return this.api.createTreatment(treatment).pipe(
       tap(created => this.treatmentsSignal.update(list => [...list, created])),
       catchError(error => {
-        this.errorMessageSignal.set('No se pudo registrar el tratamiento.');
+        this.errorMessageSignal.set(this.messageFrom(error, 'No se pudo registrar el tratamiento.'));
         return throwError(() => error);
       }),
       finalize(() => this.loadingSignal.set(false))
