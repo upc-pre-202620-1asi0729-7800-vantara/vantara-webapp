@@ -1,5 +1,5 @@
-/** Roles available when a public IAM account is created. */
+/** Roles available when a public IAM account is created, as the backend names them. */
 export enum RegistrationRole {
-  Rancher = 'RANCHER',
-  Veterinarian = 'VETERINARIAN'
+  Rancher = 'ROLE_RANCHER',
+  Veterinarian = 'ROLE_VETERINARIAN'
 }

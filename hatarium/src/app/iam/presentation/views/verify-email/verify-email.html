@@ -37,11 +37,18 @@
       @if (store.error()) {
         <p class="feedback" role="alert">{{ store.error() }}</p>
       }
+      @if (store.info()) {
+        <p class="feedback info" role="status">{{ store.info() }}</p>
+      }
 
       <button class="primary-button" type="submit" [disabled]="store.loading()">
         {{ store.loading() ? ('auth.verifyEmail.verifying' | translate) : ('auth.verifyEmail.action' | translate) }}
       </button>
     </form>
+
+    <button class="resend-button" type="button" (click)="resend()" [disabled]="store.loading()">
+      {{ 'auth.verifyEmail.resend' | translate }}
+    </button>
 
     <a class="back-link" routerLink="/iam/sign-in">{{ 'auth.backToSignIn' | translate }}</a>
   </section>
