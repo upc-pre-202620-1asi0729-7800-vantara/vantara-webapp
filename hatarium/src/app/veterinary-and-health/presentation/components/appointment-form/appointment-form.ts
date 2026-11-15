@@ -95,11 +95,16 @@ export class AppointmentFormComponent implements OnInit {
     }
 
     const scheduledAtCombined = `${this.scheduledDate}T${this.scheduledTime}:00`;
-    const veterinarianId = this.veterinarianId || this.session.user()?.id || 'usr-003';
-    const requestedBy = this.session.user()?.id || veterinarianId;
+    const veterinarianId = this.veterinarianId || this.session.userId();
+    const requestedBy = this.session.userId();
+    const rancherId = this.selectedAnimal()?.rancherId ?? '';
+    if (!veterinarianId || !requestedBy || !rancherId) {
+      this.saveError.set('FORM.ALERT_FILL');
+      return;
+    }
 
     const newAppointment: Partial<Appointment> = {
-      rancherId: this.selectedAnimal()?.rancherId || 'usr-002',
+      rancherId,
       veterinarianId,
       requestedBy,
       origin: 'TECHNICAL_VISIT' as AppointmentOrigin,

@@ -79,7 +79,7 @@ export class VaccineRecordComponent implements OnInit {
 
     const newVaccine: VaccineDTO = {
       animalId: this.currentAnimalId(),
-      veterinarianId: this.session.user()?.id ?? 'usr-003',
+      veterinarianId: this.session.userId(),
       vaccineType: this.vaccineType,
       name: this.vaccineName,
       dose: Number(this.dose),
