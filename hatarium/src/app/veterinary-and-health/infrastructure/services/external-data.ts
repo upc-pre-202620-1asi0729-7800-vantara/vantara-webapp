@@ -69,6 +69,8 @@ interface UserRecord {
 export class ExternalDataService {
   private http = inject(HttpClient);
   private baseUrl = environment.hatariumApiBaseUrl;
+  /** Real backend: appointment-animals, medications and vaccines belong to veterinary-and-health. */
+  private backendUrl = environment.vantaraBackendBaseUrl;
 
   getAnimals(): Observable<AnimalDTO[]> {
     return forkJoin({
@@ -118,13 +120,13 @@ export class ExternalDataService {
   }
 
   getAppointmentAnimals(): Observable<AppointmentAnimal[]> {
-    return this.http.get<AppointmentAnimal[]>(`${this.baseUrl}/appointmentAnimals`).pipe(
+    return this.http.get<AppointmentAnimal[]>(`${this.backendUrl}/appointmentAnimals`).pipe(
       catchError(() => of([]))
     );
   }
 
   createAppointmentAnimal(appointmentId: string, animalId: string): Observable<AppointmentAnimal> {
-    const url = `${this.baseUrl}/appointmentAnimals`;
+    const url = `${this.backendUrl}/appointmentAnimals`;
     return this.http.get<AppointmentAnimal[]>(url, { params: { appointmentId, animalId } }).pipe(
       switchMap(relations => {
         const existing = relations.find(item => item.appointmentId === appointmentId && item.animalId === animalId);
@@ -134,25 +136,25 @@ export class ExternalDataService {
   }
 
   getMedications(): Observable<MedicationDTO[]> {
-    return this.http.get<MedicationDTO[]>(`${this.baseUrl}/medications`).pipe(
+    return this.http.get<MedicationDTO[]>(`${this.backendUrl}/medications`).pipe(
       catchError(() => of([]))
     );
   }
 
   getVaccines(): Observable<VaccineDTO[]> {
-    return this.http.get<VaccineDTO[]>(`${this.baseUrl}/vaccines`).pipe(
+    return this.http.get<VaccineDTO[]>(`${this.backendUrl}/vaccines`).pipe(
       catchError(() => of([]))
     );
   }
 
   getVaccinesByAnimal(animalId: string): Observable<VaccineDTO[]> {
-    return this.http.get<VaccineDTO[]>(`${this.baseUrl}/vaccines`, { params: { animalId } }).pipe(
+    return this.http.get<VaccineDTO[]>(`${this.backendUrl}/vaccines`, { params: { animalId } }).pipe(
       catchError(() => of([]))
     );
   }
 
   createVaccine(vaccine: VaccineDTO): Observable<VaccineDTO> {
-    return this.http.post<VaccineDTO>(`${this.baseUrl}/vaccines`, vaccine);
+    return this.http.post<VaccineDTO>(`${this.backendUrl}/vaccines`, vaccine);
   }
 
   getUsers(): Observable<UserRecord[]> {
