@@ -32,7 +32,7 @@ export class ProfileView implements OnInit {
     this.store = new ProfileStore();
 
     const api = new ProfileApiClient(
-      environment.hatariumApiBaseUrl,
+      environment.vantaraBackendBaseUrl,
       async () => { await iamStore.ready; return iamStore.currentAccount(); }
     );
 
