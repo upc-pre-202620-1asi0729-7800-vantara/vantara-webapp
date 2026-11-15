@@ -101,7 +101,7 @@ export class ClinicalHistoryComponent implements OnInit {
     this.store.createMedicalRecord({
       appointmentId: this.currentAppointmentId(),
       animalId: this.currentAnimalId(),
-      veterinarianId: this.session.user()?.id ?? 'usr-003',
+      veterinarianId: this.session.userId(),
       recordedAt: `${this.diagDate}T${this.diagTime}:00`,
       symptoms: this.symptoms,
       diagnosis: this.diagnosis,

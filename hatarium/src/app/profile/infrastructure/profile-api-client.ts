@@ -1,52 +1,62 @@
-import { ProfileApiMapper } from './profile-api-mapper';
-import { User } from '../domain/model/user.entity';
-import { ProfileDraft } from '../application/profile-draft';
 import { Account } from '../../iam/domain/model/account.entity';
+import { AUTH_TOKEN_STORAGE_KEY } from '../../shared/infrastructure/auth-token.interceptor';
+import { ProfileDraft } from '../application/profile-draft';
+import { ProfileGateway } from '../application/profile-gateway';
+import { User } from '../domain/model/user.entity';
+import { ProfileApiMapper } from './profile-api-mapper';
 
-export class ProfileApiClient {
-  private baseURL: string;
-  private mapper: ProfileApiMapper;
+/**
+ * Client for `/profile-management/profiles/me` of the real backend.
+ * It uses `fetch` instead of HttpClient, so it adds the bearer token itself.
+ */
+export class ProfileApiClient implements ProfileGateway {
+  private readonly profileUrl: string;
+  private readonly mapper = new ProfileApiMapper();
 
-  constructor(baseURL: string, private readonly currentAccount: () => Promise<Account | null>) {
-    this.baseURL = baseURL;
-    this.mapper = new ProfileApiMapper();
+  constructor(backendBaseUrl: string, private readonly currentAccount: () => Promise<Account | null>) {
+    this.profileUrl = `${backendBaseUrl}/profile-management/profiles/me`;
   }
 
   async getCurrentProfile(): Promise<User> {
-    const account = await this.currentAccount();
-    if (!account) throw new Error('Inicia sesión para consultar tu perfil.');
-    const response = await fetch(`${this.baseURL}/users?accountId=${encodeURIComponent(account.id)}`);
-    if (!response.ok) throw new Error('No se pudo cargar el perfil.');
-    const users = await response.json() as User[];
-    let data = users[0];
-    if (!data) {
-      // Older registrations did not create a profile or retain the supplied name.
-      const created = await fetch(`${this.baseURL}/users`, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: `usr-${account.id}`, accountId: account.id,
-          fullName: account.email, organizationName: '', phone: '', photoUrl: '', theme: 'light', locale: 'es' }),
-      });
-      if (!created.ok) throw new Error('No se pudo crear el perfil de esta cuenta.');
-      data = await created.json();
-    }
-    return this.mapper.toUser({ ...data, email: account.email });
+    const account = await this.requireAccount();
+    const response = await fetch(this.profileUrl, { headers: this.headers() });
+    // The backend answers 404 until the profile is saved for the first time.
+    if (response.status === 404) return this.mapper.toUser({ ...this.emptyProfile(account), email: account.email });
+    if (!response.ok) throw new Error(`No se pudo cargar el perfil (${response.status}).`);
+    return this.mapper.toUser({ ...(await response.json()), email: account.email });
   }
 
   async updateProfile(draft: ProfileDraft): Promise<User> {
-    const profile = await this.getCurrentProfile();
-    return fetch(`${this.baseURL}/users/${encodeURIComponent(profile.id)}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(draft)
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`No se pudo guardar el perfil (${response.status})`);
-        }
-        return response.json();
+    const account = await this.requireAccount();
+    const response = await fetch(this.profileUrl, {
+      method: 'PUT',
+      headers: { ...this.headers(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fullName: draft.fullName,
+        organizationName: draft.organizationName,
+        phone: draft.phone ?? '',
+        photoUrl: draft.photoUrl ?? '',
+        theme: draft.theme,
+        locale: draft.locale
       })
-      .then(data => this.mapper.toUser({ ...data, email: profile.email }));
+    });
+    if (!response.ok) throw new Error(`No se pudo guardar el perfil (${response.status}).`);
+    return this.mapper.toUser({ ...(await response.json()), email: account.email });
+  }
+
+  private async requireAccount(): Promise<Account> {
+    const account = await this.currentAccount();
+    if (!account) throw new Error('Inicia sesión para consultar tu perfil.');
+    return account;
+  }
+
+  private headers(): Record<string, string> {
+    let token: string | null = null;
+    try { token = sessionStorage.getItem(AUTH_TOKEN_STORAGE_KEY); } catch { token = null; }
+    return token ? { Authorization: `Bearer ${token}` } : {};
+  }
+
+  private emptyProfile(account: Account) {
+    return { id: '', userId: account.id, fullName: '', organizationName: '', phone: '', photoUrl: '', theme: 'light', locale: 'es' };
   }
 }

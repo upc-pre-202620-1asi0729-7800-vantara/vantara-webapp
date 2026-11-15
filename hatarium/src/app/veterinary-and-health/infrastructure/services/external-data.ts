@@ -69,13 +69,13 @@ interface UserRecord {
 export class ExternalDataService {
   private http = inject(HttpClient);
   private baseUrl = environment.hatariumApiBaseUrl;
-  /** Real backend: appointment-animals, medications and vaccines belong to veterinary-and-health. */
+  /** Real backend: animals and lots (livestock), appointment-animals, medications and vaccines. */
   private backendUrl = environment.vantaraBackendBaseUrl;
 
   getAnimals(): Observable<AnimalDTO[]> {
     return forkJoin({
-      animals: this.http.get<AnimalDTO[]>(`${this.baseUrl}/animals`),
-      lots: this.http.get<{ id: string; name: string }[]>(`${this.baseUrl}/lots`)
+      animals: this.http.get<AnimalDTO[]>(`${this.backendUrl}/animals`),
+      lots: this.http.get<{ id: string; name: string }[]>(`${this.backendUrl}/lots`)
     }).pipe(
       map(({ animals, lots }) => {
         return animals.map(animal => {
@@ -92,8 +92,8 @@ export class ExternalDataService {
 
   getAnimalDetail(animalId: string): Observable<AnimalDTO> {
     return forkJoin({
-      animal: this.http.get<AnimalDTO>(`${this.baseUrl}/animals/${animalId}`),
-      lots: this.http.get<{ id: string; name: string }[]>(`${this.baseUrl}/lots`)
+      animal: this.http.get<AnimalDTO>(`${this.backendUrl}/animals/${animalId}`),
+      lots: this.http.get<{ id: string; name: string }[]>(`${this.backendUrl}/lots`)
     }).pipe(
       map(({ animal, lots }) => {
         const lot = lots.find(l => l.id === animal.lotId);
@@ -143,18 +143,23 @@ export class ExternalDataService {
 
   getVaccines(): Observable<VaccineDTO[]> {
     return this.http.get<VaccineDTO[]>(`${this.backendUrl}/vaccines`).pipe(
+      map(list => list.map(vaccine => ({ ...vaccine, veterinarianId: String(vaccine.veterinarianId) }))),
       catchError(() => of([]))
     );
   }
 
   getVaccinesByAnimal(animalId: string): Observable<VaccineDTO[]> {
     return this.http.get<VaccineDTO[]>(`${this.backendUrl}/vaccines`, { params: { animalId } }).pipe(
+      map(list => list.map(vaccine => ({ ...vaccine, veterinarianId: String(vaccine.veterinarianId) }))),
       catchError(() => of([]))
     );
   }
 
   createVaccine(vaccine: VaccineDTO): Observable<VaccineDTO> {
-    return this.http.post<VaccineDTO>(`${this.backendUrl}/vaccines`, vaccine);
+    // The backend expects the IAM user id of the veterinarian as a number.
+    return this.http.post<VaccineDTO>(`${this.backendUrl}/vaccines`, { ...vaccine, veterinarianId: Number(vaccine.veterinarianId) }).pipe(
+      map(created => ({ ...created, veterinarianId: String(created.veterinarianId) }))
+    );
   }
 
   getUsers(): Observable<UserRecord[]> {

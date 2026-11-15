@@ -67,7 +67,12 @@ export class VeterinaryApiClient {
 
   createAppointment(appointment: Partial<Appointment>): Observable<Appointment> {
     return this.http
-      .post<AppointmentResource>(`${this.backendUrl}/appointments`, appointment)
+      .post<AppointmentResource>(`${this.backendUrl}/appointments`, {
+        ...appointment,
+        rancherId: VeterinaryApiMapper.toIdNumber(appointment.rancherId),
+        veterinarianId: VeterinaryApiMapper.toIdNumber(appointment.veterinarianId),
+        requestedBy: VeterinaryApiMapper.toIdNumber(appointment.requestedBy),
+      })
       .pipe(map(VeterinaryApiMapper.toAppointmentEntity));
   }
 
@@ -85,7 +90,10 @@ export class VeterinaryApiClient {
 
   createMedicalRecord(record: Partial<MedicalRecord>): Observable<MedicalRecord> {
     return this.http
-      .post<MedicalRecordResource>(`${this.backendUrl}/medicalRecords`, record)
+      .post<MedicalRecordResource>(`${this.backendUrl}/medicalRecords`, {
+        ...record,
+        veterinarianId: VeterinaryApiMapper.toIdNumber(record.veterinarianId),
+      })
       .pipe(map(VeterinaryApiMapper.toMedicalRecordEntity));
   }
 
