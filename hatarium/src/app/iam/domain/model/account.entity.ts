@@ -1,53 +1,40 @@
-import {BaseEntity} from '../../../shared/domain/model/base-entity';
-
-/** Access states supported by an IAM account. */
+/** Access states returned by the IAM backend. */
 export enum AccountStatus {
-  Active = 'active',
-  Inactive = 'inactive',
-  Suspended = 'suspended'
+  PendingVerification = 'PENDING_VERIFICATION',
+  Active = 'ACTIVE'
 }
 
 /**
  * Represents the identity and access data used to enter the platform.
  * Personal profile information belongs to the Profile Management bounded context.
  */
-export class Account implements BaseEntity {
-  private _id: string;
-  private _roleId: string;
-  private _email: string;
-  private _status: AccountStatus;
-  private _createdAt: string;
-  private _emailVerified: boolean;
+export class Account {
+  private readonly _id: number;
+  private readonly _email: string;
+  private readonly _status: AccountStatus;
+  private readonly _roles: string[];
 
-  constructor(props: {
-    id: string;
-    roleId: string;
-    email: string;
-    status: AccountStatus;
-    createdAt: string;
-    emailVerified: boolean;
-  }) {
+  constructor(props: { id: number; email: string; status: AccountStatus; roles: string[] }) {
     this._id = props.id;
-    this._roleId = props.roleId;
     this._email = props.email;
     this._status = props.status;
-    this._createdAt = props.createdAt;
-    this._emailVerified = props.emailVerified;
+    this._roles = [...props.roles];
   }
 
-  get id(): string { return this._id; }
-  set id(value: string) { this._id = value; }
-
-  get roleId(): string { return this._roleId; }
-  set roleId(value: string) { this._roleId = value; }
+  /** Numeric IAM user id; it is the subject of the backend token. */
+  get id(): number { return this._id; }
 
   get email(): string { return this._email; }
-  set email(value: string) { this._email = value; }
 
   get status(): AccountStatus { return this._status; }
-  set status(value: AccountStatus) { this._status = value; }
 
-  get createdAt(): string { return this._createdAt; }
+  /** Backend role names, for example `ROLE_RANCHER`. */
+  get roles(): string[] { return [...this._roles]; }
 
-  get emailVerified(): boolean { return this._emailVerified; }
+  get emailVerified(): boolean { return this._status === AccountStatus.Active; }
+
+  /** Main role without the `ROLE_` prefix (`RANCHER`, `VETERINARIAN`, `FINAL_USER`). */
+  get roleCode(): string {
+    return (this._roles[0] ?? '').replace(/^ROLE_/, '');
+  }
 }

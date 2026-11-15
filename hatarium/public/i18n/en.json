@@ -635,7 +635,8 @@
       "subtitle": "We sent a six-digit code to confirm this address belongs to you.",
       "code": "Verification code",
       "codeInvalid": "The code must contain exactly six numbers.",
-      "mockNote": "In the Fake API, the generated code is temporarily stored in emailVerifications.",
+      "mockNote": "Check your inbox. The code expires soon; if it did not arrive, request a new one.",
+      "resend": "Resend code",
       "verifying": "Verifying…",
       "action": "Verify email"
     },

@@ -48,4 +48,13 @@ export class VerifyEmail {
     this.verificationRequested.set(true);
     this.store.verifyEmail(email, code);
   }
+
+  protected resend(): void {
+    const email = this.form.controls.email;
+    if (email.invalid || this.store.loading()) {
+      email.markAsTouched();
+      return;
+    }
+    this.store.resendVerificationCode(email.value);
+  }
 }
