@@ -4,16 +4,19 @@
   inject
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import {Router, RouterLink} from '@angular/router';
 import {TranslatePipe} from '@ngx-translate/core';
 import {LivestockStore} from '../../../application/livestock-store';
 import {FeedingPlan} from '../../../domain/model/feeding-plan.entity';
 import {FeedingLog} from '../../../domain/model/feeding-log.entity';
+import {FeedingPlanItem} from '../../../domain/model/feeding-plan-item.entity';
+import {SessionProfile} from '../../../../shared/application/session-profile';
 
 @Component({
   selector: 'app-feeding-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink, TranslatePipe],
+  imports: [CommonModule, FormsModule, RouterLink, TranslatePipe],
   templateUrl: './feeding-dashboard.html',
   styleUrl: './feeding-dashboard.css',
   changeDetection: ChangeDetectionStrategy.Eager
@@ -22,6 +25,7 @@ export class FeedingDashboard {
 
   private livestockStore = inject(LivestockStore);
   private router = inject(Router);
+  private session = inject(SessionProfile);
 
 
   readonly feedingPlans = this.livestockStore.feedingPlans;
@@ -29,6 +33,14 @@ export class FeedingDashboard {
   readonly feedingLogs = this.livestockStore.feedingLogs;
   readonly lots = this.livestockStore.lots;
   readonly animals = this.livestockStore.animals;
+  selectedPlan = '';
+  selectedItemId = '';
+  feedAt = this.localDateTimeNow();
+  quantity: number | null = null;
+  notes = '';
+  savingLog = false;
+  logError = '';
+  logSaved = false;
 
   constructor() {
     this.livestockStore.loadFeedingPlans();
@@ -99,6 +111,55 @@ export class FeedingDashboard {
   }
   getLot(plan: FeedingPlan) {
     return this.lots().find(lot => lot.id === plan.lotId);
+  }
+
+  itemsForSelectedPlan(): FeedingPlanItem[] {
+    return this.feedingPlanItems().filter(item => item.feedingPlanId === this.selectedPlan);
+  }
+
+  onSelectedPlanChange(): void {
+    this.selectedItemId = this.itemsForSelectedPlan()[0]?.id ?? '';
+  }
+
+  saveFeedingLog(): void {
+    if (this.savingLog) return;
+    const plan = this.feedingPlans().find(item => item.id === this.selectedPlan);
+    const item = this.itemsForSelectedPlan().find(entry => entry.id === this.selectedItemId);
+    const userId = this.session.userId();
+    if (!plan || !item || !userId || !this.feedAt || !this.quantity || this.quantity <= 0) {
+      this.logError = 'feeding.consumptionRequired';
+      this.logSaved = false;
+      return;
+    }
+    this.savingLog = true;
+    this.logError = '';
+    this.logSaved = false;
+    this.livestockStore.createFeedingLog({
+      feedingPlanId: plan.id,
+      planItemId: item.id,
+      animalId: plan.animalId,
+      lotId: plan.lotId,
+      feedAt: this.feedAt,
+      quantity: Number(this.quantity),
+      recordedBy: userId,
+      notes: this.notes.trim(),
+    }).subscribe({
+      next: () => {
+        this.savingLog = false;
+        this.logSaved = true;
+        this.quantity = null;
+        this.notes = '';
+      },
+      error: () => {
+        this.savingLog = false;
+        this.logError = 'feeding.consumptionError';
+      },
+    });
+  }
+
+  private localDateTimeNow(): string {
+    const date = new Date();
+    return new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
   }
 
   getLastFeeding(plan: FeedingPlan): FeedingLog | null {

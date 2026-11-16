@@ -3,6 +3,8 @@ import { Payment } from '../domain/model/payment.entity';
 import { Transaction } from '../domain/model/transaction.entity';
 import { Receipt } from '../domain/model/receipt.entity';
 import { PaymentsApi } from '../infrastructure/payments-api';
+import { Observable, tap } from 'rxjs';
+import { PaymentDraft } from './payment-draft';
 
 /**
  * Application store that coordinates payments state for presentation.
@@ -63,11 +65,13 @@ export class PaymentStore {
   }
 
   /** Creates a payment from a draft and prepends it to the local list. */
-  create(draft: import('./payment-draft').PaymentDraft): void {
-    this.paymentsApi.create(draft).subscribe({
-      next: payment => this.paymentsSignal.update(list => [...list, payment]),
-      error: () => this.errorMessageSignal.set('No se pudo crear el pago.')
-    });
+  create(draft: PaymentDraft): Observable<Payment> {
+    return this.paymentsApi.create(draft).pipe(
+      tap({
+        next: payment => this.paymentsSignal.update(list => [...list, payment]),
+        error: () => this.errorMessageSignal.set('No se pudo crear el pago.')
+      })
+    );
   }
 
   /** Refreshes the status of a payment. */

@@ -9,15 +9,48 @@ import { LotResource } from '../../livestock-management/infrastructure/lots-resp
 import { FeedingPlanResource } from '../../livestock-management/infrastructure/feeding-plans-response';
 import { FeedingPlanItemResource } from '../../livestock-management/infrastructure/feeding-plan-items-response';
 import { FeedingLogResource } from '../../livestock-management/infrastructure/feeding-logs-response';
+import { LivestockReportResource, FeedingReportResource } from './reports-api';
 
 @Service()
 export class ReportsAssembler {
+
+  toLivestockReport(resource: LivestockReportResource): LivestockReport {
+    const report = new LivestockReport();
+    Object.assign(report, resource);
+    report.animalsByLot = resource.animalsByLot.map(item => ({
+      ...item,
+      averageWeight: Number(item.averageWeight),
+    }));
+    return report;
+  }
+
+  toFeedingReport(resource: FeedingReportResource): FeedingReport {
+    const report = new FeedingReport();
+    report.totalPlans = resource.totalPlans;
+    report.animalsWithPlan = resource.animalsWithPlan;
+    report.totalRegisteredConsumption = Number(resource.totalRegisteredConsumption);
+    report.totalFeedingRecords = resource.totalFeedingRecords;
+    report.consumptionUnits = resource.consumptionUnits ?? [];
+    report.totalConsumptionByUnit = (resource.totalConsumptionByUnit ?? []).map(item => ({
+      unit: item.unit,
+      quantity: Number(item.quantity),
+    }));
+    report.consumptionByFeed = (resource.consumptionByFeed ?? []).map(item => ({
+      ...item,
+      quantity: Number(item.quantity),
+    }));
+    report.consumptionByLot = (resource.consumptionByLot ?? []).map(item => ({
+      ...item,
+      quantity: Number(item.quantity),
+    }));
+    return report;
+  }
 
   // ============================================
   // REPORTE DE GANADO
   // ============================================
 
-  toLivestockReport(
+  toLivestockReportFromCollections(
     animals: AnimalResource[],
     lots: LotResource[],
     filter: ReportFilter
@@ -197,7 +230,7 @@ export class ReportsAssembler {
   // REPORTE DE ALIMENTACIÓN
   // ============================================
 
-  toFeedingReport(
+  toFeedingReportFromCollections(
     feedingPlans: FeedingPlanResource[],
     feedingPlanItems: FeedingPlanItemResource[],
     feedingLogs: FeedingLogResource[],

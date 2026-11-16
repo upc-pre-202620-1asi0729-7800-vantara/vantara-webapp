@@ -3,9 +3,11 @@ import {RouterLink} from '@angular/router';
 import {MatIcon} from '@angular/material/icon';
 import {MatButton} from '@angular/material/button';
 import {TranslatePipe} from '@ngx-translate/core';
+import {FormsModule} from '@angular/forms';
 
 import {LivestockStore} from '../../../application/livestock-store';
 import {Animal} from '../../../domain/model/animal.entity';
+import {SessionProfile} from '../../../../shared/application/session-profile';
 
 /** Aggregated data shown for each lot card. */
 interface LotSummary {
@@ -22,7 +24,7 @@ interface LotSummary {
 
 @Component({
   selector: 'app-lot-list',
-  imports: [RouterLink, MatIcon, MatButton, TranslatePipe],
+  imports: [RouterLink, MatIcon, MatButton, TranslatePipe, FormsModule],
   templateUrl: './lot-list.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './lot-list.css'
@@ -30,6 +32,13 @@ interface LotSummary {
 export class LotList {
 
   private livestockStore = inject(LivestockStore);
+  private session = inject(SessionProfile);
+
+  showCreateLot = false;
+  newLotName = '';
+  newLotPurpose = '';
+  lotSaving = false;
+  lotError = '';
 
   lots = this.livestockStore.lots;
   animals = this.livestockStore.animals;
@@ -37,6 +46,31 @@ export class LotList {
   constructor() {
     this.livestockStore.loadLots();
     this.livestockStore.loadAnimals(true);
+  }
+
+  createLot(): void {
+    if (this.lotSaving || !this.session.userId() || !this.newLotName.trim() || !this.newLotPurpose.trim()) {
+      this.lotError = 'Completa el nombre y el propósito del lote.';
+      return;
+    }
+    this.lotSaving = true;
+    this.lotError = '';
+    this.livestockStore.createLot({
+      name: this.newLotName.trim(),
+      purpose: this.newLotPurpose.trim(),
+      status: 'active',
+    }).subscribe({
+      next: () => {
+        this.lotSaving = false;
+        this.newLotName = '';
+        this.newLotPurpose = '';
+        this.showCreateLot = false;
+      },
+      error: () => {
+        this.lotSaving = false;
+        this.lotError = 'No se pudo crear el lote. Revisa los datos e inténtalo nuevamente.';
+      },
+    });
   }
 
   totalLots = computed(() => this.lots().length);

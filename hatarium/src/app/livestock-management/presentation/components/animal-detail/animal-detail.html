@@ -112,6 +112,32 @@
 
     </section>
 
+    <section class="movement-entry">
+      <button type="button" class="movement-toggle" (click)="showMovementForm = !showMovementForm">
+        {{ 'animal.recordMovement' | translate: { name: animal.name } }}
+      </button>
+      @if (showMovementForm) {
+        <div class="movement-fields">
+          <label>{{ 'animal.destinationLot' | translate }}
+            <select name="destinationLot" [(ngModel)]="destinationLotId">
+              <option value="">Selecciona un lote</option>
+              @for (lot of destinationLots(); track lot.id) {
+                @if (lot.id !== animal.lotId) { <option [value]="lot.id">{{ lot.name }}</option> }
+              }
+            </select>
+          </label>
+          <label>{{ 'animal.movementType' | translate }}<input name="movementType" [(ngModel)]="movementType" maxlength="80"></label>
+          <label>{{ 'animal.movementDate' | translate }}<input type="datetime-local" name="movementAt" [(ngModel)]="movementAt"></label>
+          <label>{{ 'animal.movementReason' | translate }}<input name="movementReason" [(ngModel)]="movementReason" maxlength="255"></label>
+          <button type="button" class="movement-submit" [disabled]="movementSaving" (click)="saveMovement()">
+            {{ (movementSaving ? 'animal.savingMovement' : 'animal.saveMovement') | translate }}
+          </button>
+        </div>
+      }
+      @if (movementError) { <p class="movement-error" role="alert">{{ movementError | translate }}</p> }
+      @if (movementSaved) { <p class="movement-success" role="status">{{ 'animal.movementSaved' | translate }}</p> }
+    </section>
+
 
     <!-- =========================
          PESTAÑAS

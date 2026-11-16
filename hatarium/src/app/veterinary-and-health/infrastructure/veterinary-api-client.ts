@@ -22,32 +22,33 @@ export type AnimalAppointment = Appointment & { veterinarianName: string | null 
 @Injectable({ providedIn: 'root' })
 export class VeterinaryApiClient {
   private http = inject(HttpClient);
-  private baseUrl = environment.hatariumApiBaseUrl;
+  /** Real backend (veterinary-and-health bounded context). */
+  private backendUrl = environment.vantaraBackendBaseUrl;
 
   getAppointments(): Observable<Appointment[]> {
     return this.http
-      .get<AppointmentResource[]>(`${this.baseUrl}/appointments`)
+      .get<AppointmentResource[]>(`${this.backendUrl}/appointments`)
       .pipe(map(resources => resources.map(VeterinaryApiMapper.toAppointmentEntity)));
   }
 
   getAppointmentById(appointmentId: string): Observable<Appointment> {
     return this.http
-      .get<AppointmentResource>(`${this.baseUrl}/appointments/${appointmentId}`)
+      .get<AppointmentResource>(`${this.backendUrl}/appointments/${appointmentId}`)
       .pipe(map(VeterinaryApiMapper.toAppointmentEntity));
   }
 
   getAppointmentsByAnimal(animalId: string): Observable<AnimalAppointment[]> {
     return forkJoin({
-      relations: this.http.get<AppointmentAnimal[]>(`${this.baseUrl}/appointmentAnimals`, { params: { animalId } }),
+      relations: this.http.get<AppointmentAnimal[]>(`${this.backendUrl}/appointmentAnimals`, { params: { animalId } }),
       appointments: this.getAppointments(),
-      users: this.http.get<{ id: string; fullName: string }[]>(`${this.baseUrl}/users`),
-    }).pipe(map(({ relations, appointments, users }) => {
+      veterinarians: this.http.get<{ id: number; fullName: string }[]>(`${this.backendUrl}/veterinarians`),
+    }).pipe(map(({ relations, appointments, veterinarians }) => {
       const ids = new Set(relations.filter(relation => relation.animalId === animalId).map(relation => relation.appointmentId));
-      const veterinarians = new Map(users.map(user => [user.id, user.fullName]));
+      const veterinarianNames = new Map(veterinarians.map(user => [String(user.id), user.fullName]));
       const unique = new Map(appointments.filter(appointment => ids.has(appointment.id)).map(appointment => [appointment.id, appointment]));
       const now = Date.now();
       return [...unique.values()].map(appointment => ({
-        ...appointment, veterinarianName: veterinarians.get(appointment.veterinarianId) || null,
+        ...appointment, veterinarianName: veterinarianNames.get(appointment.veterinarianId) || null,
       })).sort((a, b) => {
         const first = new Date(a.scheduledAt).getTime() || 0;
         const second = new Date(b.scheduledAt).getTime() || 0;
@@ -59,49 +60,64 @@ export class VeterinaryApiClient {
 
   updateAppointment(appointmentId: string, appointment: Partial<Appointment>): Observable<Appointment> {
     return this.http
-      .patch<AppointmentResource>(`${this.baseUrl}/appointments/${appointmentId}`, appointment)
+      .patch<AppointmentResource>(`${this.backendUrl}/appointments/${appointmentId}`, {
+        ...(appointment.status !== undefined ? { status: appointment.status } : {}),
+        ...(appointment.cancellationReason !== undefined ? { cancellationReason: appointment.cancellationReason } : {}),
+        ...(appointment.scheduledAt !== undefined ? { scheduledAt: appointment.scheduledAt } : {}),
+        ...(appointment.reason !== undefined ? { reason: appointment.reason } : {}),
+      })
       .pipe(map(VeterinaryApiMapper.toAppointmentEntity));
   }
 
   createAppointment(appointment: Partial<Appointment>): Observable<Appointment> {
     return this.http
-      .post<AppointmentResource>(`${this.baseUrl}/appointments`, appointment)
+      .post<AppointmentResource>(`${this.backendUrl}/appointments`, {
+        rancherId: VeterinaryApiMapper.toIdNumber(appointment.rancherId),
+        veterinarianId: VeterinaryApiMapper.toIdNumber(appointment.veterinarianId),
+        requestedBy: VeterinaryApiMapper.toIdNumber(appointment.requestedBy),
+        origin: appointment.origin,
+        scheduledAt: appointment.scheduledAt,
+        reason: appointment.reason,
+      })
       .pipe(map(VeterinaryApiMapper.toAppointmentEntity));
   }
 
   getMedicalRecords(): Observable<MedicalRecord[]> {
     return this.http
-      .get<MedicalRecordResource[]>(`${this.baseUrl}/medicalRecords`)
+      .get<MedicalRecordResource[]>(`${this.backendUrl}/medicalRecords`)
       .pipe(map(resources => resources.map(VeterinaryApiMapper.toMedicalRecordEntity)));
   }
 
   getMedicalRecordsByAnimal(animalId: string): Observable<MedicalRecord[]> {
     return this.http
-      .get<MedicalRecordResource[]>(`${this.baseUrl}/medicalRecords`, { params: { animalId } })
+      .get<MedicalRecordResource[]>(`${this.backendUrl}/medicalRecords`, { params: { animalId } })
       .pipe(map(resources => resources.map(VeterinaryApiMapper.toMedicalRecordEntity)));
   }
 
   createMedicalRecord(record: Partial<MedicalRecord>): Observable<MedicalRecord> {
     return this.http
-      .post<MedicalRecordResource>(`${this.baseUrl}/medicalRecords`, record)
+      .post<MedicalRecordResource>(`${this.backendUrl}/medicalRecords`, {
+        ...record,
+        veterinarianId: VeterinaryApiMapper.toIdNumber(record.veterinarianId),
+      })
       .pipe(map(VeterinaryApiMapper.toMedicalRecordEntity));
   }
 
   getTreatments(): Observable<Treatment[]> {
     return this.http
-      .get<TreatmentResource[]>(`${this.baseUrl}/treatments`)
+      .get<TreatmentResource[]>(`${this.backendUrl}/treatments`)
       .pipe(map(resources => resources.map(VeterinaryApiMapper.toTreatmentEntity)));
   }
 
   getTreatmentsByAnimal(animalId: string): Observable<Treatment[]> {
     return this.http
-      .get<TreatmentResource[]>(`${this.baseUrl}/treatments`, { params: { animalId } })
+      .get<TreatmentResource[]>(`${this.backendUrl}/treatments`, { params: { animalId } })
       .pipe(map(resources => resources.map(VeterinaryApiMapper.toTreatmentEntity)));
   }
 
   createTreatment(treatment: Partial<Treatment>): Observable<Treatment> {
     return this.http
-      .post<TreatmentResource>(`${this.baseUrl}/treatments`, treatment)
+      .post<TreatmentResource>(`${this.backendUrl}/treatments`, treatment)
       .pipe(map(VeterinaryApiMapper.toTreatmentEntity));
   }
 }

@@ -34,8 +34,8 @@ export class ClinicalHistoryComponent implements OnInit {
 
   public animal = signal<AnimalDTO | null>(null);
   public appointment = signal<Appointment | null>(null);
-  public currentAnimalId = signal<string>('anm-047');
-  public currentAppointmentId = signal<string>('app-001');
+  public currentAnimalId = signal<string>('');
+  public currentAppointmentId = signal<string>('');
   public saving = signal<boolean>(false);
   public saveError = signal<string>('');
 
@@ -62,14 +62,14 @@ export class ClinicalHistoryComponent implements OnInit {
     this.store.loadMedicalRecords();
 
     this.route.queryParams.subscribe(params => {
-      const animalId = params['animalId'] || 'anm-047';
-      const appointmentId = params['appointmentId'] || 'app-001';
+      const animalId = params['animalId'] || '';
+      const appointmentId = params['appointmentId'] || '';
 
       this.currentAnimalId.set(animalId);
       this.currentAppointmentId.set(appointmentId);
 
-      this.externalData.getAnimalDetail(animalId).subscribe(data => this.animal.set(data));
-      this.api.getAppointmentById(appointmentId).subscribe({
+      if (animalId) this.externalData.getAnimalDetail(animalId).subscribe(data => this.animal.set(data));
+      if (appointmentId) this.api.getAppointmentById(appointmentId).subscribe({
         next: appointment => this.appointment.set(appointment),
         error: () => this.appointment.set(null)
       });
@@ -101,7 +101,7 @@ export class ClinicalHistoryComponent implements OnInit {
     this.store.createMedicalRecord({
       appointmentId: this.currentAppointmentId(),
       animalId: this.currentAnimalId(),
-      veterinarianId: this.session.user()?.id ?? 'usr-003',
+      veterinarianId: this.session.userId(),
       recordedAt: `${this.diagDate}T${this.diagTime}:00`,
       symptoms: this.symptoms,
       diagnosis: this.diagnosis,

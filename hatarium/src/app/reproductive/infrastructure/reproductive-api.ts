@@ -18,10 +18,10 @@ import {
  */
 @Service()
 export class ReproductiveApi {
-  private readonly baseUrl = environment.hatariumApiBaseUrl;
-  private readonly pregnanciesEndpoint = environment.hatariumPregnanciesEndpointPath;
-  private readonly animalsEndpoint = environment.hatariumAnimalsEndpointPath;
-  private readonly medicalRecordsEndpoint = environment.hatariumMedicalRecordsEndpointPath;
+  private readonly baseUrl = environment.vantaraBackendBaseUrl;
+  private readonly pregnanciesEndpoint = '/reproductive-records';
+  private readonly animalsEndpoint = '/animals';
+  private readonly medicalRecordsEndpoint = '/medicalRecords';
   private http = inject(HttpClient);
   private pregnancyAssembler = inject(PregnancyAssembler);
 
@@ -30,7 +30,7 @@ export class ReproductiveApi {
   }
 
   getPregnancy(id: string): Observable<Pregnancy> {
-    return this.http.get<PregnancyResource>(`${this.baseUrl}${this.pregnanciesEndpoint}/${id}`)
+    return this.http.get<PregnancyResource>(`${this.baseUrl}${this.pregnanciesEndpoint}/${Number(id)}`)
       .pipe(map(resource => this.pregnancyAssembler.toEntityFromResource(resource)));
   }
 
@@ -66,7 +66,7 @@ export class ReproductiveApi {
         const activePregnancyRecords = pregnancies.filter(
           (pregnancy) =>
             reproductiveFemaleIds.has(pregnancy.animalId) &&
-            pregnancy.endedOn == null &&
+            pregnancy.calvedOn == null &&
             pregnancy.status !== 'weaned',
         );
         // Count each female once, even when duplicate pregnancy records exist.
@@ -141,11 +141,11 @@ export class ReproductiveApi {
                 ...eventAnimal,
               });
             }
-            if (pregnancy.endedOn) {
+            if (pregnancy.calvedOn) {
               recentEvents.push({
                 id: `calving-${pregnancy.id}`,
                 type: 'calving',
-                occurredOn: pregnancy.endedOn,
+                occurredOn: pregnancy.calvedOn,
                 status: 'completed',
                 ...eventAnimal,
               });
@@ -202,17 +202,8 @@ export class ReproductiveApi {
   confirm(draft: PregnancyDraft): Observable<Pregnancy> {
     const payload = {
       animalId: draft.animalId,
-      calfId: draft.calfId ?? null,
       confirmedOn: draft.confirmedOn,
       expectedCalvingOn: draft.expectedCalvingOn ?? null,
-      endedOn: null,
-      outcome: null,
-      birthWeightKg: null,
-      dryOffOn: null,
-      weanedOn: null,
-      weaningWeightKg: null,
-      status: 'confirmed',
-      notes: null,
     };
     return this.http
       .post<PregnancyResource>(`${this.baseUrl}${this.pregnanciesEndpoint}`, payload)
@@ -222,13 +213,12 @@ export class ReproductiveApi {
   /**
    * Records the calving result of a pregnancy.
    */
-  recordCalving(id: string, on: string, outcome: string, calf?: { id: string; weight: number }): Observable<Pregnancy> {
+  recordCalving(id: string, on: string, outcome: string, calf?: { name: string; earTag: string; sex: string; weight: number }): Observable<Pregnancy> {
     return this.http
-      .patch<PregnancyResource>(`${this.baseUrl}${this.pregnanciesEndpoint}/${id}`, {
-        endedOn: on,
+      .post<PregnancyResource>(`${this.baseUrl}${this.pregnanciesEndpoint}/${Number(id)}/calvings`, {
+        calvedOn: on,
         outcome,
-        status: 'ended',
-        ...(calf ? { calfId: calf.id, birthWeightKg: String(calf.weight) } : {}),
+        ...(calf ? { calf: { name: calf.name, earTag: calf.earTag, sex: calf.sex, weightKg: calf.weight } } : {}),
       })
       .pipe(map((resource) => this.pregnancyAssembler.toEntityFromResource(resource)));
   }
@@ -238,10 +228,7 @@ export class ReproductiveApi {
    */
   recordDryOff(id: string, on: string): Observable<Pregnancy> {
     return this.http
-      .patch<PregnancyResource>(`${this.baseUrl}${this.pregnanciesEndpoint}/${id}`, {
-        dryOffOn: on,
-        status: 'dry_off',
-      })
+      .post<PregnancyResource>(`${this.baseUrl}${this.pregnanciesEndpoint}/${Number(id)}/dry-offs`, { dryOffOn: on })
       .pipe(map((resource) => this.pregnancyAssembler.toEntityFromResource(resource)));
   }
 
@@ -250,11 +237,7 @@ export class ReproductiveApi {
    */
   recordWeaning(id: string, on: string, kg?: string | null): Observable<Pregnancy> {
     return this.http
-      .patch<PregnancyResource>(`${this.baseUrl}${this.pregnanciesEndpoint}/${id}`, {
-        weanedOn: on,
-        weaningWeightKg: kg ?? null,
-        status: 'weaned',
-      })
+      .post<PregnancyResource>(`${this.baseUrl}${this.pregnanciesEndpoint}/${Number(id)}/weanings`, { weanedOn: on, weaningWeightKg: kg ? Number(kg) : null })
       .pipe(map((resource) => this.pregnancyAssembler.toEntityFromResource(resource)));
   }
 

@@ -36,7 +36,7 @@ export class TreatmentListComponent implements OnInit {
   public appointment = signal<Appointment | null>(null);
   public diagnosisRecord = signal<MedicalRecord | null>(null);
   public medicationsList = signal<MedicationDTO[]>([]);
-  public currentAnimalId = signal<string>('anm-047');
+  public currentAnimalId = signal<string>('');
   public currentRecordId = signal<string>('');
   public currentAppointmentId = signal<string>('');
   public saving = signal<boolean>(false);
@@ -46,10 +46,10 @@ export class TreatmentListComponent implements OnInit {
   public treatmentType = 'Preventivo';
   public purpose = 'Tratamiento rutinario';
   public selectedMedicationId = '';
-  public dose = '5';
+  public dose = 5;
   public doseUnit = 'mL';
   public routeAdmin = 'Intramuscular';
-  public frequencyHours = '24';
+  public frequencyHours = 24;
   public durationDays = 7;
   public instructions = 'Completar esquema indicado cada 24 horas.';
   public needsVaccine = false;
@@ -70,7 +70,7 @@ export class TreatmentListComponent implements OnInit {
     this.store.loadAppointments();
 
     this.route.queryParams.subscribe(params => {
-      const animalId = params['animalId'] || 'anm-047';
+      const animalId = params['animalId'] || '';
       const recordId = params['recordId'] || '';
       const appointmentId = params['appointmentId'] || '';
 
@@ -78,8 +78,17 @@ export class TreatmentListComponent implements OnInit {
       this.currentRecordId.set(recordId);
       this.currentAppointmentId.set(appointmentId);
 
-      this.externalData.getAnimalDetail(animalId).subscribe(data => this.animal.set(data));
-
+      if (animalId && appointmentId) {
+        this.externalData
+          .getAppointmentAnimalDetail(appointmentId, animalId)
+          .subscribe({
+            next: data => this.animal.set(data),
+            error: error => {
+              console.error('Error al cargar el animal de la cita:', error);
+              this.animal.set(null);
+            }
+          });
+      }
       if (appointmentId) {
         this.api.getAppointmentById(appointmentId).subscribe({
           next: appointment => this.appointment.set(appointment),
@@ -101,7 +110,7 @@ export class TreatmentListComponent implements OnInit {
   public saveTreatment(): void {
     if (this.saving()) return;
 
-    if (!this.selectedMedicationId || !this.dose || !this.currentRecordId()) {
+    if (!this.selectedMedicationId || !(this.dose > 0) || !this.currentRecordId()) {
       this.saveError.set('TREATMENT.ALERT_FILL');
       return;
     }
@@ -120,10 +129,10 @@ export class TreatmentListComponent implements OnInit {
       animalId: this.currentAnimalId(),
       medicationId: this.selectedMedicationId,
       treatmentType: this.treatmentType,
-      dose: this.dose,
+      dose: Number(this.dose),
       doseUnit: this.doseUnit,
       route: this.routeAdmin,
-      frequencyHours: this.frequencyHours,
+      frequencyHours: Number(this.frequencyHours),
       durationDays: Number(this.durationDays),
       scheduledAt: scheduledAt.toISOString(),
       administeredAt: scheduledAt.toISOString(),

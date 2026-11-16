@@ -94,7 +94,7 @@
           <div class="form-group">
             <label>{{ 'VACCINE.DOSE' | translate }}</label>
             <div class="inline-inputs">
-              <input type="text" [(ngModel)]="dose" class="form-input" [placeholder]="'VACCINE.DOSE_PLACEHOLDER' | translate" />
+              <input type="number" min="0.01" step="any" [(ngModel)]="dose" class="form-input" [placeholder]="'VACCINE.DOSE_PLACEHOLDER' | translate" />
               <select [(ngModel)]="doseUnit" class="form-input unit-select">
                 <option value="mL">mL</option>
                 <option value="mg">mg</option>

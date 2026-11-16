@@ -19,6 +19,7 @@ import {LivestockStore} from '../../../application/livestock-store';
 import {Router} from '@angular/router';
 import {Animal} from '../../../domain/model/animal.entity';
 import {isCalf} from '../../../../shared/domain/model/animal-age';
+import {SessionProfile} from '../../../../shared/application/session-profile';
 
 @Component({
   selector: 'app-animal-add',
@@ -41,6 +42,7 @@ import {isCalf} from '../../../../shared/domain/model/animal-age';
 export class AnimalAdd {
 
   private livestockStore = inject(LivestockStore);
+  private sessionProfile = inject(SessionProfile);
   private router = inject(Router);
 
   lots = this.livestockStore.lots;
@@ -161,8 +163,12 @@ export class AnimalAdd {
       return;
     }
 
-    newAnimal.id = `anm-${this.earTag().trim()}`;
-    newAnimal.rancherId = 'usr-002';
+    newAnimal.id = '';
+    newAnimal.rancherId = this.sessionProfile.userId();
+    if (!newAnimal.rancherId || !/^\d+$/.test(newAnimal.rancherId)) {
+      this.saveError.set('No se pudo identificar la cuenta ganadera. Inicia sesión nuevamente.');
+      return;
+    }
     newAnimal.lotId = this.selectedLot();
     newAnimal.earTag = this.earTag().trim();
     newAnimal.name = this.name().trim();

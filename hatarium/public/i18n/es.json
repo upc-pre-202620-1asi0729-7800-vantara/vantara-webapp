@@ -635,7 +635,8 @@
       "subtitle": "Ingresamos un código de seis dígitos para confirmar que esta dirección te pertenece.",
       "code": "Código de verificación",
       "codeInvalid": "El código debe contener exactamente seis números.",
-      "mockNote": "En la Fake API, el código generado se almacena temporalmente en emailVerifications.",
+      "mockNote": "Revisa tu correo. El código vence pronto; si no llegó, solicita uno nuevo.",
+      "resend": "Reenviar código",
       "verifying": "Verificando…",
       "action": "Verificar correo"
     },
@@ -678,6 +679,10 @@
     "previous": "Anterior",
     "next": "Siguiente"
   },
+  "veterinarianDirectory": {
+    "connectionError": "No se pudo conectar con el directorio de veterinarios. Intenta recargar.",
+    "empty": "No hay veterinarios disponibles registrados."
+  },
   "lotsView": {
     "title": "Lotes",
     "subtitle": "Organiza tu ganado por lotes y revisa su distribución.",
@@ -696,7 +701,13 @@
     "active": "Activo",
     "inactive": "Inactivo",
     "emptyTitle": "Aún no hay lotes registrados",
-    "emptySubtitle": "Registra animales para comenzar a organizar tu ganadería en lotes."
+    "emptySubtitle": "Registra animales para comenzar a organizar tu ganadería en lotes.",
+    "createLot": "Crear lote",
+    "lotName": "Nombre del lote",
+    "lotPurpose": "Propósito",
+    "saveLot": "Guardar lote",
+    "savingLot": "Guardando…",
+    "createLotError": "No se pudo crear el lote. Revisa los datos e inténtalo nuevamente."
   },
   "feeding": {
     "title": "Alimentación",
@@ -759,7 +770,20 @@
     "time": "Horario",
     "quantityPerAnimalKg": "Cantidad por animal (kg)",
     "observations": "Observaciones",
-    "planNotFound": "Plan no encontrado"
+    "planNotFound": "Plan no encontrado",
+    "recordConsumption": "Registrar consumo",
+    "createPlanFirst": "Primero crea un plan de alimentación para registrar consumos.",
+    "selectPlan": "Selecciona un plan",
+    "ingredient": "Ingrediente",
+    "selectIngredient": "Selecciona un ingrediente",
+    "dateAndTime": "Fecha y hora",
+    "quantity": "Cantidad",
+    "notes": "Notas",
+    "saveConsumption": "Guardar consumo",
+    "savingConsumption": "Guardando…",
+    "consumptionRequired": "Completa el plan, ingrediente, fecha y una cantidad mayor que cero.",
+    "consumptionError": "No se pudo registrar el consumo. Revisa los datos e inténtalo nuevamente.",
+    "consumptionSaved": "Consumo registrado."
   },
   "animal": {
     "backToLivestock": "Volver a Ganado",
@@ -784,6 +808,16 @@
     "birthDate": "Fecha de nacimiento",
     "age": "Edad",
     "currentWeight": "Peso actual",
+    "recordMovement": "Registrar traslado de {{name}}",
+    "destinationLot": "Lote de destino",
+    "movementType": "Tipo de movimiento",
+    "movementDate": "Fecha y hora",
+    "movementReason": "Motivo",
+    "saveMovement": "Guardar traslado",
+    "savingMovement": "Guardando…",
+    "movementRequired": "Completa el lote de destino, tipo, fecha y motivo; el destino debe ser distinto al lote actual.",
+    "movementError": "No se pudo registrar el movimiento. Revisa los datos e inténtalo nuevamente.",
+    "movementSaved": "Movimiento registrado y lote actualizado.",
     "status": "Estado",
     "registeredAt": "Fecha de registro",
     "currentHealthStatus": "Estado sanitario actual",

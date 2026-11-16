@@ -80,6 +80,11 @@
 
         <div class="form-group">
           <label for="rancher-vet">{{ 'RANCHER_APPOINTMENTS.VETERINARIAN' | translate }}</label>
+          @if (veterinarianDirectoryStatus() === 'error') {
+            <p role="alert">{{ 'veterinarianDirectory.connectionError' | translate }}</p>
+          } @else if (veterinarianDirectoryStatus() === 'ready' && !veterinarians().length) {
+            <p role="status">{{ 'veterinarianDirectory.empty' | translate }}</p>
+          }
           <select
             id="rancher-vet"
             [(ngModel)]="veterinarianId"

@@ -4,12 +4,24 @@ import { Treatment } from '../domain/model/treatment.entity';
 import { AppointmentResource, MedicalRecordResource, TreatmentResource } from './veterinary-response';
 
 export class VeterinaryApiMapper {
+  /** IAM user ids arrive as numbers; the domain compares them as text. */
+  public static toIdText(id: number | string | null | undefined): string {
+    return id === null || id === undefined ? '' : String(id);
+  }
+
+  /** The backend validates IAM user ids as numbers (Long). */
+  public static toIdNumber(id: number | string | null | undefined): number | null {
+    if (id === null || id === undefined || id === '') return null;
+    const value = Number(id);
+    return Number.isInteger(value) ? value : null;
+  }
+
   public static toAppointmentEntity(resource: AppointmentResource): Appointment {
     const entity = new Appointment();
     entity.id = resource.id;
-    entity.rancherId = resource.rancherId;
-    entity.veterinarianId = resource.veterinarianId;
-    entity.requestedBy = resource.requestedBy;
+    entity.rancherId = VeterinaryApiMapper.toIdText(resource.rancherId);
+    entity.veterinarianId = VeterinaryApiMapper.toIdText(resource.veterinarianId);
+    entity.requestedBy = VeterinaryApiMapper.toIdText(resource.requestedBy);
     entity.origin = resource.origin ?? 'RANCHER_REQUEST';
     entity.scheduledAt = resource.scheduledAt;
     entity.reason = resource.reason;
@@ -24,7 +36,7 @@ export class VeterinaryApiMapper {
     entity.id = resource.id;
     entity.appointmentId = resource.appointmentId || '';
     entity.animalId = resource.animalId;
-    entity.veterinarianId = resource.veterinarianId;
+    entity.veterinarianId = VeterinaryApiMapper.toIdText(resource.veterinarianId);
     entity.recordedAt = resource.recordedAt;
     entity.symptoms = resource.symptoms;
     entity.diagnosis = resource.diagnosis;
@@ -41,10 +53,10 @@ export class VeterinaryApiMapper {
     entity.animalId = resource.animalId;
     entity.medicationId = resource.medicationId;
     entity.treatmentType = resource.treatmentType;
-    entity.dose = resource.dose;
+    entity.dose = Number.parseFloat(String(resource.dose)) || 0;
     entity.doseUnit = resource.doseUnit;
     entity.route = resource.route;
-    entity.frequencyHours = resource.frequencyHours;
+    entity.frequencyHours = Number(resource.frequencyHours) || 0;
     entity.durationDays = resource.durationDays;
     entity.scheduledAt = resource.scheduledAt;
     entity.administeredAt = resource.administeredAt || '';

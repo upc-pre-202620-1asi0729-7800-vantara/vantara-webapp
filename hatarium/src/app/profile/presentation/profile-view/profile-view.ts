@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { ProfileForm } from '../profile-form/profile-form';
 import { Preferences } from '../preferences/preferences';
@@ -21,42 +21,25 @@ import { IamStore } from '../../../iam/application/iam.store';
   templateUrl: './profile-view.html',
   styleUrl: './profile-view.css'
 })
-export class ProfileView implements OnInit {
+export class ProfileView {
 
   store: ProfileStore;
   service: ProfileService;
 
-  constructor(private readonly changeDetector: ChangeDetectorRef,
-              sessionProfile: SessionProfile, iamStore: IamStore) {
+  constructor(readonly sessionProfile: SessionProfile, iamStore: IamStore) {
 
     this.store = new ProfileStore();
 
     const api = new ProfileApiClient(
-      environment.hatariumApiBaseUrl,
+      environment.vantaraBackendBaseUrl,
       async () => { await iamStore.ready; return iamStore.currentAccount(); }
     );
 
     this.service = new ProfileService(
       this.store,
       api,
-      user => sessionProfile.updateUser({
-        id: user.id,
-        accountId: user.accountId,
-        fullName: user.fullName,
-        photoUrl: user.photoUrl ?? ''
-      })
+      user => sessionProfile.updateProfile(user),
+      () => sessionProfile.profile()
     );
-  }
-
-  ngOnInit(): void {
-    this.service.load()
-      .then(() => this.changeDetector.markForCheck())
-      .catch(() => {
-        this.store.setLoading(false);
-        this.store.setError(
-          'No se pudo cargar el perfil'
-        );
-        this.changeDetector.markForCheck();
-      });
   }
 }

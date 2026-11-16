@@ -44,6 +44,8 @@ export class SubscriptionPaymentView {
   private fb = inject(FormBuilder);
   private service = inject(PaymentService);
   private router = inject(Router);
+  paymentError = '';
+  paying = false;
 
   readonly plans: Plan[] = [
     {
@@ -140,16 +142,19 @@ export class SubscriptionPaymentView {
   }
 
   pay(): void {
-    if (this.form.invalid) {
+    if (this.form.invalid || this.paying) {
       this.form.markAllAsTouched();
       return;
     }
+    this.paymentError = '';
+    this.paying = true;
     this.service.create({
-      rancherId: 'usr-002',
       concept: `Suscripción ${this.selectedPlan.name}`,
       amount: this.selectedPlan.price,
       currency: 'PEN'
+    }).subscribe({
+      next: () => this.router.navigateByUrl('/config/payments/success'),
+      error: () => { this.paymentError = 'No se pudo procesar el pago. Inténtalo nuevamente.'; this.paying = false; }
     });
-    this.router.navigateByUrl('/config/payments/success');
   }
 }

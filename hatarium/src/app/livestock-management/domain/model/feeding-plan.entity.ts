@@ -1,3 +1,5 @@
+import { FeedingPlanItem } from './feeding-plan-item.entity';
+
 export class FeedingPlan {
   id: string;
   lotId: string;
@@ -16,6 +18,7 @@ export class FeedingPlan {
   }[];
   instructions: string;
   status: string;
+  items: FeedingPlanItem[];
 
   constructor() {
     this.id = '';
@@ -32,5 +35,6 @@ export class FeedingPlan {
     this.schedules = [];
     this.instructions = '';
     this.status = '';
+    this.items = [];
   }
 }

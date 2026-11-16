@@ -99,7 +99,7 @@ export class Home implements OnInit {
   }
 
   private load(): void {
-    const base = environment.hatariumApiBaseUrl;
+    const base = environment.vantaraBackendBaseUrl;
 
     forkJoin({
       animals: this.http.get<any[]>(`${base}/animals`),
@@ -109,7 +109,6 @@ export class Home implements OnInit {
       appointments: this.http.get<any[]>(`${base}/appointments`),
       notifications: this.http.get<any[]>(`${base}/notifications`),
       feedingPlans: this.http.get<any[]>(`${base}/feedingPlans`),
-      feedingPlanItems: this.http.get<any[]>(`${base}/feedingPlanItems`),
     }).subscribe({
       next: data => this.buildDashboard(data),
       error: () => this.loading.set(false),
@@ -124,9 +123,9 @@ export class Home implements OnInit {
     appointments: any[];
     notifications: any[];
     feedingPlans: any[];
-    feedingPlanItems: any[];
   }): void {
-    const { animals, lots, vaccines, records, appointments, notifications, feedingPlans, feedingPlanItems } = data;
+    const { animals, lots, vaccines, records, appointments, notifications, feedingPlans } = data;
+    const feedingPlanItems = feedingPlans.flatMap(plan => plan.items ?? []);
     const now = Date.now();
 
     // 1. Counts.
@@ -134,7 +133,7 @@ export class Home implements OnInit {
       animals: animals.length,
       lots: lots.length,
       appointments: appointments.filter(appointment => appointment.status === 'scheduled').length,
-      alerts: notifications.filter(notification => notification.status === 'unread').length,
+      alerts: notifications.filter(notification => String(notification.status).toUpperCase() === 'UNREAD').length,
     });
 
     // 2. Health metrics (attention = follow-up or critical records).
@@ -152,7 +151,7 @@ export class Home implements OnInit {
     this.healthyPercent.set(Math.round(((total - attentionAnimalIds.size) / total) * 100));
 
     // 3. Featured animal (real telemetry).
-    const target = animals.find(animal => animal.earTag === '047' || animal.id === 'anm-047') || animals[0];
+    const target = animals[0];
     if (target) {
       const lot = lots.find(item => item.id === target.lotId);
       const animalRecords = records

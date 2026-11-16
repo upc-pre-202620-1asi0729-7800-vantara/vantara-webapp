@@ -7,13 +7,27 @@
     </div>
   </div>
 
-  @if (store.loading) {
+  @if (sessionProfile.profileStatus() === 'loading') {
 
     <div class="status-card">
       <p>{{ 'profile.loading' | translate }}</p>
     </div>
 
-  } @else {
+  } @else if (sessionProfile.profileStatus() === 'error') {
+
+    <div class="error-card">
+      No se pudo cargar el perfil.
+      <button type="button" (click)="sessionProfile.retryProfileLoad()">Reintentar</button>
+    </div>
+
+  } @else if (sessionProfile.profileStatus() === 'missing') {
+
+    <div class="status-card">
+      <p>Esta cuenta todavía no tiene un perfil en Profile Management.</p>
+      <button type="button" (click)="sessionProfile.retryProfileLoad()">Volver a comprobar</button>
+    </div>
+
+  } @else if (sessionProfile.profile(); as profile) {
 
     @if (store.errorMessage) {
       <div class="error-card">
@@ -21,18 +35,16 @@
       </div>
     }
 
-    @if (store.profile) {
-
       <div class="profile-summary">
 
         <div class="avatar">
-          @if (store.profile.hasPhoto()) {
+          @if (profile.hasPhoto()) {
             <img
-              [src]="store.profile.photoUrl"
+              [src]="profile.photoUrl"
               alt="Foto de perfil">
           } @else {
             <span>
-              {{ store.profile.fullName.charAt(0) }}
+              {{ profile.fullName.charAt(0) }}
             </span>
           }
         </div>
@@ -40,15 +52,15 @@
         <div class="profile-info">
           <span class="profile-label">{{ 'profile.account' | translate }}</span>
 
-          <h2>{{ store.profile.displayName() }}</h2>
-          <p>{{ store.profile.email }}</p>
-          @if (store.profile.organizationName) { <p>{{ store.profile.organizationName }}</p> }
+          <h2>{{ profile.displayName() }}</h2>
+          <p>{{ profile.email }}</p>
+          @if (profile.organizationName) { <p>{{ profile.organizationName }}</p> }
 
-          <p>{{ store.profile.phone || ('profile.noPhone' | translate) }}</p>
+          <p>{{ profile.phone || ('profile.noPhone' | translate) }}</p>
 
           <div class="profile-meta">
-            <span>{{ store.profile.theme }}</span>
-            <span>{{ store.profile.locale }}</span>
+            <span>{{ profile.theme }}</span>
+            <span>{{ profile.locale }}</span>
           </div>
         </div>
 
@@ -58,18 +70,16 @@
       <div class="profile-grid">
 
         <app-profile-form
-          [profile]="store.profile"
+          [profile]="profile"
           [service]="service">
         </app-profile-form>
 
         <app-preferences
-          [profile]="store.profile"
+          [profile]="profile"
           [service]="service">
         </app-preferences>
 
       </div>
-
-    }
 
   }
 

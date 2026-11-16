@@ -112,3 +112,27 @@ small { color: #b42318; font-size: 12px; }
   font-weight: 650;
   text-decoration: none;
 }
+
+.feedback.info {
+  color: #0e4232;
+  background: #e8f3ee;
+}
+
+.resend-button {
+  display: block;
+  margin-top: 16px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #0e4232;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 650;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.resend-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}

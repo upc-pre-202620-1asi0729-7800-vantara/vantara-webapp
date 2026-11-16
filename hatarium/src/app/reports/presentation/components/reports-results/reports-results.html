@@ -701,13 +701,11 @@
             Consumo registrado
           </span>
 
-          <strong class="kpi-value">
-
-            {{ reportsStore.feedingReport()?.totalRegisteredConsumption ?? 0 | number:'1.0-2' }}
-
-            kg
-
-          </strong>
+          @for (total of reportsStore.feedingReport()?.totalConsumptionByUnit ?? []; track total.unit) {
+            <strong class="kpi-value">{{ total.quantity | number:'1.0-2' }} {{ total.unit }}</strong>
+          } @empty {
+            <strong class="kpi-value">0</strong>
+          }
 
         </div>
 
@@ -831,7 +829,7 @@
                 class="bar-fill"
                 [style.width.%]="
                   lot.quantity /
-                  (reportsStore.feedingReport()?.totalRegisteredConsumption || 1) * 100
+                  (totalConsumptionForUnit(lot.unit) || 1) * 100
                 "
               ></div>
 
@@ -904,7 +902,7 @@
                 class="breed-fill"
                 [style.width.%]="
                   feed.quantity /
-                  (reportsStore.feedingReport()?.totalRegisteredConsumption || 1) * 100
+                  (totalConsumptionForUnit(feed.unit) || 1) * 100
                 "
               ></div>
 

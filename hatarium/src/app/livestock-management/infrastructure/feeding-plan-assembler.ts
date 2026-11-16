@@ -1,5 +1,6 @@
 ﻿import { Service } from '@angular/core';
 import { FeedingPlan } from '../domain/model/feeding-plan.entity';
+import { FeedingPlanItem } from '../domain/model/feeding-plan-item.entity';
 import {
   FeedingPlanResource,
   FeedingPlansResponse
@@ -25,6 +26,13 @@ export class FeedingPlanAssembler {
     feedingPlan.schedules = resource.schedules;
     feedingPlan.instructions = resource.instructions;
     feedingPlan.status = resource.status;
+    feedingPlan.items = (resource.items ?? []).map(item => Object.assign(new FeedingPlanItem(), {
+      id: item.id,
+      feedingPlanId: resource.id,
+      feedName: item.feedName,
+      dailyQuantity: Number(item.dailyQuantity) || 0,
+      unit: item.unit,
+    }));
 
     return feedingPlan;
   }

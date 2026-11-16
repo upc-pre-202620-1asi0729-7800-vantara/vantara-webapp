@@ -10,13 +10,13 @@ export class Treatment {
   /** Tipo de tratamiento (p. ej. Preventivo, Curativo). */
   treatmentType: string;
   /** Cantidad de dosis. */
-  dose: string;
+  dose: number;
   /** Unidad de medida de la dosis (p. ej. ml, mg). */
   doseUnit: string;
   /** Vía de administración (p. ej. Intramuscular). */
   route: string;
   /** Frecuencia de administración en horas. */
-  frequencyHours: string;
+  frequencyHours: number;
   /** Duración en días del tratamiento. */
   durationDays: number;
   /** Fecha programada de inicio. */
@@ -36,10 +36,10 @@ export class Treatment {
     this.animalId = '';
     this.medicationId = '';
     this.treatmentType = '';
-    this.dose = '';
+    this.dose = 0;
     this.doseUnit = '';
     this.route = '';
-    this.frequencyHours = '';
+    this.frequencyHours = 0;
     this.durationDays = 0;
     this.scheduledAt = '';
     this.administeredAt = '';

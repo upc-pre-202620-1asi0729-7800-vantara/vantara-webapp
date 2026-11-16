@@ -98,6 +98,22 @@
   margin-right: 6px;
 }
 
+.feeding-log-form {
+  margin: 0 0 24px;
+  padding: 20px;
+  border: 1px solid #dcebe0;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.feeding-log-form h2 { margin: 0 0 14px; color: #073b28; font-size: 18px; }
+.feeding-log-fields { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; }
+.feeding-log-fields label { display: grid; gap: 6px; min-width: 150px; color: #52675d; font-size: 13px; }
+.feeding-log-fields input, .feeding-log-fields select { min-height: 40px; padding: 0 10px; border: 1px solid #ccd9cf; border-radius: 8px; background: white; }
+.feeding-log-fields button:disabled { opacity: .65; }
+.feeding-log-error { color: #b42318; }
+.feeding-log-success { color: #067647; }
+
 
 /* =========================
    SUMMARY
