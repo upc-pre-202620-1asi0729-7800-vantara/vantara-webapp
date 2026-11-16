@@ -30,22 +30,8 @@ export class RegisterWeaning {
     if (calf.motherId !== pregnancy.animalId || calf.weanedOn || calf.status !== 'active') {
       throw new Error('La cría no está vinculada a esta madre, ya fue destetada o no está activa.');
     }
-    const updated = await firstValueFrom(this.livestockApi.updateAnimal(calf.id, {
-      weanedOn: on, ...(weight !== undefined ? { weight } : {}),
-    }));
-    try {
-      await firstValueFrom(this.reproductiveApi.recordWeaning(id, on, kg));
-    } catch (error) {
-      try {
-        await firstValueFrom(this.livestockApi.updateAnimal(calf.id, {
-          weanedOn: calf.weanedOn, weight: calf.weight,
-        }));
-      } catch {
-        this.livestockStore.rememberAnimal(updated);
-        throw new Error('Se actualizó la cría, pero no su historial reproductivo. Revisa ambos registros antes de volver a intentar.');
-      }
-      throw error;
-    }
+    await firstValueFrom(this.reproductiveApi.recordWeaning(id, on, kg));
+    const updated = await firstValueFrom(this.livestockApi.getAnimalById(calf.id));
     this.livestockStore.rememberAnimal(updated);
     this.reproductiveStore.loadHistory();
     this.reproductiveStore.loadSummary();

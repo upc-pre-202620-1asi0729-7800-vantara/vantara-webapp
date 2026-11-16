@@ -1,6 +1,3 @@
-﻿@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-
-
 /* =========================================================
    REPORTS DASHBOARD
 ========================================================= */
@@ -35,7 +32,7 @@
 ========================================================= */
 
 .reports-dashboard mat-icon {
-  font-family: 'Material Icons' !important;
+  font-family: 'Material Symbols Outlined' !important;
 
   font-weight: normal;
   font-style: normal;

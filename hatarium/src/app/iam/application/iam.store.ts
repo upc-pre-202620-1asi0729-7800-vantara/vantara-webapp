@@ -123,19 +123,23 @@ export class IamStore {
     this.infoSignal.set(null);
   }
 
-  /** Returns and forgets the profile data typed at sign-up for this email, if any. */
-  takePendingProfile(email: string): PendingProfile | null {
+  /** Reads the profile data typed at sign-up without consuming it. */
+  getPendingProfile(email: string): PendingProfile | null {
     const raw = readStorage(PENDING_PROFILE_STORAGE_KEY);
     if (!raw) return null;
     try {
       const pending = JSON.parse(raw) as PendingProfile;
-      if (pending.email !== email.toLowerCase()) return null;
-      removeStorage(PENDING_PROFILE_STORAGE_KEY);
-      return pending;
+      return pending.email?.toLowerCase() === email.toLowerCase() ? pending : null;
     } catch {
       removeStorage(PENDING_PROFILE_STORAGE_KEY);
       return null;
     }
+  }
+
+  /** Clears sign-up profile data only after Profile Management confirms it was saved. */
+  clearPendingProfile(email: string): void {
+    const pending = this.getPendingProfile(email);
+    if (pending) removeStorage(PENDING_PROFILE_STORAGE_KEY);
   }
 
   private restoreSession(): void {

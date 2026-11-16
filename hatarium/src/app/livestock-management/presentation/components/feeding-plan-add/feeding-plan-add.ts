@@ -248,7 +248,8 @@ export class FeedingPlanCreate {
         quantityPerAnimal: schedule.quantityPerAnimal ?? 0
       })),
       instructions: this.instructions.trim(),
-      status: 'active'
+      status: 'active',
+      items: []
     };
 
     const items: FeedingPlanItem[] = this.ingredients.map(

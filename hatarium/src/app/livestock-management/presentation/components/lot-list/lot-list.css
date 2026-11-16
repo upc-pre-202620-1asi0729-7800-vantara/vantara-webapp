@@ -48,6 +48,12 @@
   color: #ffffff;
 }
 
+.header-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.lot-create-form { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; padding: 18px; border: 1px solid #dcebe0; border-radius: 12px; background: #fff; }
+.lot-create-form label { display: grid; gap: 6px; color: #52675d; font-size: 13px; }
+.lot-create-form input { min-height: 40px; padding: 0 10px; border: 1px solid #ccd9cf; border-radius: 8px; }
+.lot-create-form p { flex-basis: 100%; margin: 0; color: #b42318; }
+
 /* =========================
    ESTADÍSTICAS
 ========================= */

@@ -16,7 +16,7 @@ import { PaymentDraft } from '../application/payment-draft';
  */
 @Injectable({ providedIn: 'root' })
 export class PaymentsApi {
-  private baseUrl = environment.hatariumApiBaseUrl;
+  private baseUrl = environment.vantaraBackendBaseUrl;
   private http = inject(HttpClient);
   private paymentAssembler = inject(PaymentAssembler);
   private transactionAssembler = inject(TransactionAssembler);
@@ -57,15 +57,11 @@ export class PaymentsApi {
   /** Creates a payment from a draft. */
   create(draft: PaymentDraft): Observable<Payment> {
     const payload = {
-      rancherId: draft.rancherId,
       appointmentId: draft.appointmentId ?? null,
       concept: draft.concept,
       amount: draft.amount,
       currency: draft.currency,
-      status: 'paid',
-      createdAt: new Date().toISOString().slice(0, 10),
-      confirmedAt: new Date().toISOString().slice(0, 10),
-      cancelledAt: null
+      paymentMethod: draft.paymentMethod ?? null
     };
     return this.http.post<PaymentResource>(`${this.baseUrl}/payments`, payload).pipe(
       map(resource => this.paymentAssembler.toEntityFromResource(resource))

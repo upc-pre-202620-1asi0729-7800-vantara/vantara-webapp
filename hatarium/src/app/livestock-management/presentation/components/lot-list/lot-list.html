@@ -9,15 +9,27 @@
       <p>{{ 'lotsView.subtitle' | translate }}</p>
     </div>
 
-    <a
-      mat-flat-button
-      class="primary-action"
-      routerLink="/livestock/animals"
-    >
-      <mat-icon>pets</mat-icon>
-      {{ 'lotsView.viewCattle' | translate }}
-    </a>
+    <div class="header-actions">
+      <button mat-flat-button class="primary-action" type="button" (click)="showCreateLot = !showCreateLot">
+        <mat-icon>add</mat-icon> {{ 'lotsView.createLot' | translate }}
+      </button>
+      <a mat-flat-button class="primary-action" routerLink="/livestock/animals">
+        <mat-icon>pets</mat-icon>
+        {{ 'lotsView.viewCattle' | translate }}
+      </a>
+    </div>
   </section>
+
+  @if (showCreateLot) {
+    <form class="lot-create-form" (ngSubmit)="createLot()">
+      <label>{{ 'lotsView.lotName' | translate }}<input name="lotName" [(ngModel)]="newLotName" maxlength="100" required></label>
+      <label>{{ 'lotsView.lotPurpose' | translate }}<input name="lotPurpose" [(ngModel)]="newLotPurpose" maxlength="255" required></label>
+      <button mat-flat-button class="primary-action" type="submit" [disabled]="lotSaving">
+        {{ (lotSaving ? 'lotsView.savingLot' : 'lotsView.saveLot') | translate }}
+      </button>
+      @if (lotError) { <p role="alert">{{ 'lotsView.createLotError' | translate }}</p> }
+    </form>
+  }
 
 
   <!-- =========================

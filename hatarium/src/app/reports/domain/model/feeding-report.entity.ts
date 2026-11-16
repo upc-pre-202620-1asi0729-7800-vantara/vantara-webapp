@@ -8,6 +8,10 @@
 
   totalFeedingRecords: number;
 
+  consumptionUnits: string[];
+
+  totalConsumptionByUnit: { unit: string; quantity: number }[];
+
   consumptionByFeed: {
     feedName: string;
     quantity: number;
@@ -31,6 +35,10 @@
     this.totalRegisteredConsumption = 0;
 
     this.totalFeedingRecords = 0;
+
+    this.consumptionUnits = [];
+
+    this.totalConsumptionByUnit = [];
 
     this.consumptionByFeed = [];
 

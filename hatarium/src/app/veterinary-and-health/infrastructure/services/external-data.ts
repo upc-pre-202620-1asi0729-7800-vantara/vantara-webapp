@@ -1,6 +1,15 @@
-﻿import { Injectable, inject } from '@angular/core';
+﻿
+import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, forkJoin, map, of, catchError, switchMap } from 'rxjs';
+import {
+  Observable,
+  forkJoin,
+  map,
+  of,
+  catchError,
+  switchMap
+} from 'rxjs';
+
 import { AppointmentAnimal } from '../../domain/model/appointment-animal.entity';
 import { environment } from '../../../../environments/environment';
 
@@ -17,6 +26,10 @@ export interface AnimalDTO {
   photoUrl?: string;
 }
 
+export interface AccessibleAnimalDTO extends AnimalDTO {
+  appointmentId: string;
+}
+
 export interface MedicationDTO {
   id: string;
   name: string;
@@ -27,6 +40,7 @@ export interface MedicationDTO {
 
 export interface VaccineDTO {
   id?: string;
+  appointmentId: string;
   animalId: string;
   veterinarianId: string;
   vaccineType: string;
@@ -47,145 +61,194 @@ export interface VeterinarianDTO {
   id: string;
   accountId: string;
   fullName: string;
+  email?: string;
 }
 
-interface RoleRecord {
-  id: string;
-  code: string;
-}
-
-interface AccountRecord {
-  id: string;
-  roleId: string;
-}
-
-interface UserRecord {
-  id: string;
-  accountId: string;
+interface VeterinarianResource {
+  id: number;
   fullName: string;
+  email: string;
 }
 
 @Injectable({ providedIn: 'root' })
 export class ExternalDataService {
+
   private http = inject(HttpClient);
-  private baseUrl = environment.hatariumApiBaseUrl;
-  /** Real backend: animals and lots (livestock), appointment-animals, medications and vaccines. */
+
+  readonly veterinarianDirectoryStatus =
+    signal<'idle' | 'loading' | 'ready' | 'error'>('idle');
+
   private backendUrl = environment.vantaraBackendBaseUrl;
 
   getAnimals(): Observable<AnimalDTO[]> {
     return forkJoin({
-      animals: this.http.get<AnimalDTO[]>(`${this.backendUrl}/animals`),
-      lots: this.http.get<{ id: string; name: string }[]>(`${this.backendUrl}/lots`)
+      animals: this.http.get<AnimalDTO[]>(
+        `${this.backendUrl}/animals`
+      ),
+      lots: this.http.get<{ id: string; name: string }[]>(
+        `${this.backendUrl}/lots`
+      )
     }).pipe(
-      map(({ animals, lots }) => {
-        return animals.map(animal => {
+      map(({ animals, lots }) =>
+        animals.map(animal => {
           const lot = lots.find(l => l.id === animal.lotId);
+
           return {
             ...animal,
             lotName: lot ? lot.name : 'Sin Lote'
           };
-        });
-      }),
+        })
+      ),
+      catchError(() => of([]))
+    );
+  }
+
+  getAccessibleAnimals(): Observable<AccessibleAnimalDTO[]> {
+    return this.http.get<AccessibleAnimalDTO[]>(
+      `${this.backendUrl}/vaccines/accessible-animals`
+    ).pipe(
       catchError(() => of([]))
     );
   }
 
   getAnimalDetail(animalId: string): Observable<AnimalDTO> {
     return forkJoin({
-      animal: this.http.get<AnimalDTO>(`${this.backendUrl}/animals/${animalId}`),
-      lots: this.http.get<{ id: string; name: string }[]>(`${this.backendUrl}/lots`)
+      animal: this.http.get<AnimalDTO>(
+        `${this.backendUrl}/animals/${animalId}`
+      ),
+      lots: this.http.get<{ id: string; name: string }[]>(
+        `${this.backendUrl}/lots`
+      )
     }).pipe(
       map(({ animal, lots }) => {
         const lot = lots.find(l => l.id === animal.lotId);
+
         return {
           ...animal,
           lotName: lot ? lot.name : 'Sin Lote'
         };
-      }),
-      catchError(() => {
-        const tag = animalId.replace('anm-', '');
-        return of({
-          id: animalId,
-          rancherId: '',
-          earTag: tag,
-          name: `Animal #${tag}`,
-          breed: 'Raza Bovino',
-          sex: 'Hembra',
-          weight: 400,
-          lotId: 'lot-001',
-          lotName: 'Lote General'
-        });
       })
     );
   }
 
+  getAppointmentAnimalDetail(
+    appointmentId: string,
+    animalId: string
+  ): Observable<AnimalDTO> {
+    return this.http.get<AnimalDTO>(
+      `${this.backendUrl}/appointments/${appointmentId}/animals/${animalId}`
+    );
+  }
+
   getAppointmentAnimals(): Observable<AppointmentAnimal[]> {
-    return this.http.get<AppointmentAnimal[]>(`${this.backendUrl}/appointmentAnimals`).pipe(
+    return this.http.get<AppointmentAnimal[]>(
+      `${this.backendUrl}/appointmentAnimals`
+    ).pipe(
       catchError(() => of([]))
     );
   }
 
-  createAppointmentAnimal(appointmentId: string, animalId: string): Observable<AppointmentAnimal> {
+  createAppointmentAnimal(
+    appointmentId: string,
+    animalId: string
+  ): Observable<AppointmentAnimal> {
+
     const url = `${this.backendUrl}/appointmentAnimals`;
-    return this.http.get<AppointmentAnimal[]>(url, { params: { appointmentId, animalId } }).pipe(
+
+    return this.http.get<AppointmentAnimal[]>(url, {
+      params: { appointmentId, animalId }
+    }).pipe(
       switchMap(relations => {
-        const existing = relations.find(item => item.appointmentId === appointmentId && item.animalId === animalId);
-        return existing ? of(existing) : this.http.post<AppointmentAnimal>(url, { appointmentId, animalId });
-      }),
+        const existing = relations.find(
+          item =>
+            item.appointmentId === appointmentId &&
+            item.animalId === animalId
+        );
+
+        return existing
+          ? of(existing)
+          : this.http.post<AppointmentAnimal>(
+            url,
+            { appointmentId, animalId }
+          );
+      })
     );
   }
 
   getMedications(): Observable<MedicationDTO[]> {
-    return this.http.get<MedicationDTO[]>(`${this.backendUrl}/medications`).pipe(
+    return this.http.get<MedicationDTO[]>(
+      `${this.backendUrl}/medications`
+    ).pipe(
       catchError(() => of([]))
     );
   }
 
   getVaccines(): Observable<VaccineDTO[]> {
-    return this.http.get<VaccineDTO[]>(`${this.backendUrl}/vaccines`).pipe(
-      map(list => list.map(vaccine => ({ ...vaccine, veterinarianId: String(vaccine.veterinarianId) }))),
+    return this.http.get<VaccineDTO[]>(
+      `${this.backendUrl}/vaccines`
+    ).pipe(
+      map(list =>
+        list.map(vaccine => ({
+          ...vaccine,
+          veterinarianId: String(vaccine.veterinarianId)
+        }))
+      ),
       catchError(() => of([]))
     );
   }
 
   getVaccinesByAnimal(animalId: string): Observable<VaccineDTO[]> {
-    return this.http.get<VaccineDTO[]>(`${this.backendUrl}/vaccines`, { params: { animalId } }).pipe(
-      map(list => list.map(vaccine => ({ ...vaccine, veterinarianId: String(vaccine.veterinarianId) }))),
+    return this.http.get<VaccineDTO[]>(
+      `${this.backendUrl}/vaccines`,
+      { params: { animalId } }
+    ).pipe(
+      map(list =>
+        list.map(vaccine => ({
+          ...vaccine,
+          veterinarianId: String(vaccine.veterinarianId)
+        }))
+      ),
       catchError(() => of([]))
     );
   }
 
   createVaccine(vaccine: VaccineDTO): Observable<VaccineDTO> {
-    // The backend expects the IAM user id of the veterinarian as a number.
-    return this.http.post<VaccineDTO>(`${this.backendUrl}/vaccines`, { ...vaccine, veterinarianId: Number(vaccine.veterinarianId) }).pipe(
-      map(created => ({ ...created, veterinarianId: String(created.veterinarianId) }))
-    );
-  }
-
-  getUsers(): Observable<UserRecord[]> {
-    return this.http.get<UserRecord[]>(`${this.baseUrl}/users`).pipe(
-      catchError(() => of([]))
+    return this.http.post<VaccineDTO>(
+      `${this.backendUrl}/vaccines`,
+      {
+        ...vaccine,
+        veterinarianId: Number(vaccine.veterinarianId)
+      }
+    ).pipe(
+      map(created => ({
+        ...created,
+        veterinarianId: String(created.veterinarianId)
+      }))
     );
   }
 
   getVeterinarians(): Observable<VeterinarianDTO[]> {
-    return forkJoin({
-      roles: this.http.get<RoleRecord[]>(`${this.baseUrl}/roles`),
-      accounts: this.http.get<AccountRecord[]>(`${this.baseUrl}/accounts`),
-      users: this.http.get<UserRecord[]>(`${this.baseUrl}/users`)
-    }).pipe(
-      map(({ roles, accounts, users }) => {
-        const veterinarianRoleIds = new Set(
-          roles.filter(role => role.code === 'VETERINARIAN').map(role => role.id)
-        );
-        const veterinarianAccountIds = new Set(
-          accounts.filter(account => veterinarianRoleIds.has(account.roleId)).map(account => account.id)
-        );
-        return users
-          .filter(user => veterinarianAccountIds.has(user.accountId))
-          .map(user => ({ id: user.id, accountId: user.accountId, fullName: user.fullName }));
+    this.veterinarianDirectoryStatus.set('loading');
+
+    return this.http.get<VeterinarianResource[]>(
+      `${this.backendUrl}/veterinarians`
+    ).pipe(
+      map(veterinarians =>
+        veterinarians.map(veterinarian => ({
+          id: String(veterinarian.id),
+          accountId: String(veterinarian.id),
+          fullName: veterinarian.fullName,
+          email: veterinarian.email
+        }))
+      ),
+      map(veterinarians => {
+        this.veterinarianDirectoryStatus.set('ready');
+        return veterinarians;
       }),
-      catchError(() => of([]))
+      catchError(() => {
+        this.veterinarianDirectoryStatus.set('error');
+        return of([]);
+      })
     );
   }
 }

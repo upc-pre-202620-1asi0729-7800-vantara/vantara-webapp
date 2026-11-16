@@ -201,7 +201,8 @@
 
               <!-- BOTÓN DE PAGO DESTACADO -->
               <div class="form-action-box">
-                <button mat-flat-button class="btn-submit-pay" type="submit">
+                <p *ngIf="paymentError" role="alert">{{ paymentError }}</p>
+                <button mat-flat-button class="btn-submit-pay" type="submit" [disabled]="paying">
                   <mat-icon>lock</mat-icon>
                   <span>Pagar S/ {{ selectedPlan.price }} y activar cuenta</span>
                 </button>

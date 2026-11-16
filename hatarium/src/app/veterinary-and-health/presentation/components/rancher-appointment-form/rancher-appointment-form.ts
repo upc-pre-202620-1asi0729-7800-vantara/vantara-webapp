@@ -43,6 +43,7 @@ import { SessionProfile } from '../../../../shared/application/session-profile';
 export class RancherAppointmentFormComponent implements OnInit {
   public store = inject(VeterinaryStore);
   private externalData = inject(ExternalDataService);
+  readonly veterinarianDirectoryStatus = this.externalData.veterinarianDirectoryStatus;
   private session = inject(SessionProfile);
   private router = inject(Router);
 
@@ -56,10 +57,8 @@ export class RancherAppointmentFormComponent implements OnInit {
   public readonly myAnimals = computed(() => {
     const all = this.animals();
     const userId = this.session.userId();
-    if (!userId) return all;
-
-    const mine = all.filter(animal => animal.rancherId === userId);
-    return mine.length ? mine : all;
+    if (!userId) return [];
+    return all.filter(animal => animal.rancherId === userId);
   });
 
   public selectedAnimalId = '';

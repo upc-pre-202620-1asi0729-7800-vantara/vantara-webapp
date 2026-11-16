@@ -3,7 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {AnimalAssembler} from './animal-assembler';
 import {MovementAssembler} from './movement-assembler';
 import {FeedingLogAssembler} from './feeding-log-assembler';
-import {FeedingPlanItemAssembler} from './feeding-plan-item-assembler';
 import {FeedingPlanAssembler} from './feeding-plan-assembler';
 import {LotAssembler} from './lot-assembler';
 import {environment} from '../../../environments/environment';
@@ -12,6 +11,7 @@ import {AnimalResource} from './animals-response';
 import {Animal} from '../domain/model/animal.entity';
 import {FeedingLogResource} from './feeding-logs-response';
 import {FeedingLog} from '../domain/model/feeding-log.entity';
+import {RecordFeedingDraft} from '../application/record-feeding-draft';
 import {LotResource} from './lots-response';
 import {Lot} from '../domain/model/lot.entity';
 import {Movement} from '../domain/model/movement.entity';
@@ -19,7 +19,6 @@ import {MovementResource} from './movements-response';
 import {FeedingPlan} from '../domain/model/feeding-plan.entity';
 import {FeedingPlanResource} from './feeding-plans-response';
 import {FeedingPlanItem} from '../domain/model/feeding-plan-item.entity';
-import {FeedingPlanItemResource} from './feeding-plan-items-response';
 
 @Service()
 export class LivestockApi {
@@ -27,18 +26,17 @@ export class LivestockApi {
   private http = inject(HttpClient);
 
   private animalAssembler = inject(AnimalAssembler);
-  private feedingPlanItemAssembler = inject(FeedingPlanItemAssembler);
   private feedingPlanAssembler = inject(FeedingPlanAssembler);
   private feedingLogAssembler = inject(FeedingLogAssembler);
   private movementAssembler = inject(MovementAssembler);
   private lotAssembler = inject(LotAssembler);
 
-  private animalsUrl = `${environment.hatariumApiBaseUrl}${environment.hatariumAnimalsEndpointPath}`;
-  private feedingPlanItemsUrl = `${environment.hatariumApiBaseUrl}${environment.hatariumFeedingPlanItemsEndpointPath}`;
-  private feedingPlansUrl = `${environment.hatariumApiBaseUrl}${environment.hatariumFeedingPlansEndpointPath}`;
-  private feedingLogsUrl = `${environment.hatariumApiBaseUrl}${environment.hatariumFeedingLogsEndpointPath}`;
-  private movementsUrl = `${environment.hatariumApiBaseUrl}${environment.hatariumMovementsEndpointPath}`;
-  private lotsUrl = `${environment.hatariumApiBaseUrl}${environment.hatariumLotsEndpointPath}`;
+  private baseUrl = environment.vantaraBackendBaseUrl;
+  private animalsUrl = `${this.baseUrl}/animals`;
+  private feedingPlansUrl = `${this.baseUrl}/feedingPlans`;
+  private feedingLogsUrl = `${this.baseUrl}/feedingLogs`;
+  private movementsUrl = `${this.baseUrl}/movements`;
+  private lotsUrl = `${this.baseUrl}/lots`;
 
   getAnimals(): Observable<Animal[]> {
     return this.http.get<AnimalResource[]>(this.animalsUrl).pipe(
@@ -60,9 +58,25 @@ export class LivestockApi {
     );
   }
   createAnimal(animal: AnimalResource): Observable<Animal> {
+    const payload: Omit<AnimalResource, 'id' | 'rancherId'> = {
+      lotId: animal.lotId,
+      earTag: animal.earTag,
+      name: animal.name,
+      species: animal.species,
+      breed: animal.breed,
+      sex: animal.sex,
+      birthDate: animal.birthDate,
+      motherId: animal.motherId,
+      fatherId: animal.fatherId,
+      weight: animal.weight,
+      status: animal.status,
+      registeredAt: animal.registeredAt,
+      photoUrl: animal.photoUrl,
+      weanedOn: animal.weanedOn,
+    };
     return this.http.post<AnimalResource>(
       this.animalsUrl,
-      animal
+      payload
     ).pipe(
       map(resource => this.animalAssembler.toEntityFromResource(resource))
     );
@@ -87,6 +101,12 @@ export class LivestockApi {
     );
   }
 
+  createLot(lot: Pick<Lot, 'name' | 'purpose' | 'status'>): Observable<Lot> {
+    return this.http.post<LotResource>(this.lotsUrl, lot).pipe(
+      map(resource => this.lotAssembler.toEntityFromResource(resource))
+    );
+  }
+
   getLotById(id: string): Observable<Lot> {
     return this.http.get<LotResource>(
       `${this.lotsUrl}/${id}`
@@ -104,6 +124,12 @@ export class LivestockApi {
           this.movementAssembler.toEntityFromResource(resource)
         )
       )
+    );
+  }
+
+  createMovement(movement: Omit<MovementResource, 'id'>): Observable<Movement> {
+    return this.http.post<MovementResource>(this.movementsUrl, movement).pipe(
+      map(resource => this.movementAssembler.toEntityFromResource(resource))
     );
   }
 
@@ -140,29 +166,15 @@ export class LivestockApi {
   }
 
   getFeedingPlanItems(): Observable<FeedingPlanItem[]> {
-    return this.http.get<FeedingPlanItemResource[]>(
-      this.feedingPlanItemsUrl
-    ).pipe(
-      map(resources =>
-        resources.map(resource =>
-          this.feedingPlanItemAssembler.toEntityFromResource(resource)
-        )
-      )
-    );
+    return this.getFeedingPlans().pipe(map(plans => plans.flatMap(plan => plan.items)));
   }
 
   getFeedingPlanItemsByPlan(
     feedingPlanId: string): Observable<FeedingPlanItem[]> {
 
-    return this.http.get<FeedingPlanItemResource[]>(
-      `${this.feedingPlanItemsUrl}?feedingPlanId=${feedingPlanId}`
-    ).pipe(
-      map(resources =>
-        resources.map(resource =>
-          this.feedingPlanItemAssembler.toEntityFromResource(resource)
-        )
-      )
-    );
+    return this.http.get<FeedingPlanResource>(
+      `${this.feedingPlansUrl}/${feedingPlanId}`
+    ).pipe(map(resource => this.feedingPlanAssembler.toEntityFromResource(resource).items));
   }
 
   getFeedingLogs(): Observable<FeedingLog[]> {
@@ -174,6 +186,12 @@ export class LivestockApi {
           this.feedingLogAssembler.toEntityFromResource(resource)
         )
       )
+    );
+  }
+
+  createFeedingLog(draft: RecordFeedingDraft): Observable<FeedingLog> {
+    return this.http.post<FeedingLogResource>(this.feedingLogsUrl, draft).pipe(
+      map(resource => this.feedingLogAssembler.toEntityFromResource(resource))
     );
   }
 
@@ -203,26 +221,32 @@ export class LivestockApi {
     );
   }
 
-  createFeedingPlan(plan: FeedingPlan): Observable<FeedingPlan> {
+  createFeedingPlan(plan: FeedingPlan, items: FeedingPlanItem[]): Observable<FeedingPlan> {
     return this.http.post<FeedingPlanResource>(
       this.feedingPlansUrl,
-      plan
+      {
+        lotId: plan.lotId,
+        animalId: plan.animalId,
+        name: plan.name,
+        startsOn: plan.startsOn,
+        endsOn: plan.endsOn,
+        objective: plan.objective,
+        currentAverageWeight: plan.currentAverageWeight,
+        targetWeight: plan.targetWeight,
+        frequency: plan.frequency,
+        daysOfWeek: plan.daysOfWeek,
+        schedules: plan.schedules,
+        instructions: plan.instructions,
+        status: plan.status,
+        items: items.map(item => ({
+          feedName: item.feedName,
+          dailyQuantity: item.dailyQuantity,
+          unit: item.unit,
+        })),
+      }
     ).pipe(
       map(resource =>
         this.feedingPlanAssembler.toEntityFromResource(resource)
-      )
-    );
-  }
-
-  createFeedingPlanItem(
-    item: FeedingPlanItem
-  ): Observable<FeedingPlanItem> {
-    return this.http.post<FeedingPlanItemResource>(
-      this.feedingPlanItemsUrl,
-      item
-    ).pipe(
-      map(resource =>
-        this.feedingPlanItemAssembler.toEntityFromResource(resource)
       )
     );
   }

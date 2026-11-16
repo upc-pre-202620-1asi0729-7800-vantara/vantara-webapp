@@ -6,9 +6,10 @@ import {FeedingPlan} from '../domain/model/feeding-plan.entity';
 import {FeedingPlanItem} from '../domain/model/feeding-plan-item.entity';
 import {FeedingLog} from '../domain/model/feeding-log.entity';
 import {LivestockApi} from '../infrastructure/livestock-api';
-import { forkJoin, Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { ActivityNotifications } from '../../notifications/application/activity-notifications';
+import { RecordFeedingDraft } from './record-feeding-draft';
 
 @Service()
 export class LivestockStore {
@@ -17,8 +18,8 @@ export class LivestockStore {
   private lotsSignal = signal<Lot[]>([]);
   private movementsSignal = signal<Movement[]>([]);
   private feedingPlansSignal = signal<FeedingPlan[]>([]);
-  private feedingPlanItemsSignal = signal<FeedingPlanItem[]>([]);
   private feedingLogsSignal = signal<FeedingLog[]>([]);
+  private feedingPlansLoading = false;
 
   private liveStockApi = inject(LivestockApi);
   private readonly notifications = inject(ActivityNotifications);
@@ -27,7 +28,8 @@ export class LivestockStore {
   readonly lots = computed(() => this.lotsSignal());
   readonly movements = computed(() => this.movementsSignal());
   readonly feedingPlans = computed(() => this.feedingPlansSignal());
-  readonly feedingPlanItems = computed(() => this.feedingPlanItemsSignal());
+  /** Projected from the nested plan resources; the backend has no item collection endpoint. */
+  readonly feedingPlanItems = computed(() => this.feedingPlansSignal().flatMap(plan => plan.items));
   readonly feedingLogs = computed(() => this.feedingLogsSignal());
 
   loadAnimals(force = false) {
@@ -59,6 +61,12 @@ export class LivestockStore {
     }
   }
 
+  createLot(lot: Pick<Lot, 'name' | 'purpose' | 'status'>): Observable<Lot> {
+    return this.liveStockApi.createLot(lot).pipe(
+      tap(created => this.lotsSignal.update(lots => [...lots, created]))
+    );
+  }
+
   loadMovements() {
     if (this.movementsSignal().length === 0) {
       this.liveStockApi.getMovements().subscribe(movements => {
@@ -67,18 +75,27 @@ export class LivestockStore {
     }
   }
 
-  loadFeedingPlans() {
-    this.liveStockApi.getFeedingPlans().subscribe(feedingPlans => {
-      this.feedingPlansSignal.set(feedingPlans);
+  createMovement(movement: Omit<import('../infrastructure/movements-response').MovementResource, 'id'>): Observable<Movement> {
+    return this.liveStockApi.createMovement(movement).pipe(
+      tap(created => {
+        this.movementsSignal.update(movements => [created, ...movements]);
+        this.loadAnimals(true);
+      })
+    );
+  }
+
+  loadFeedingPlans(force = false) {
+    if (this.feedingPlansLoading || (!force && this.feedingPlansSignal().length > 0)) return;
+    this.feedingPlansLoading = true;
+    this.liveStockApi.getFeedingPlans().subscribe({
+      next: feedingPlans => this.feedingPlansSignal.set(feedingPlans),
+      error: () => { this.feedingPlansLoading = false; },
+      complete: () => { this.feedingPlansLoading = false; },
     });
   }
 
   loadFeedingPlanItems() {
-    if (this.feedingPlanItemsSignal().length === 0) {
-      this.liveStockApi.getFeedingPlanItems().subscribe(feedingPlanItems => {
-        this.feedingPlanItemsSignal.set(feedingPlanItems);
-      });
-    }
+    this.loadFeedingPlans();
   }
 
   loadFeedingLogs() {
@@ -87,6 +104,12 @@ export class LivestockStore {
         this.feedingLogsSignal.set(feedingLogs);
       });
     }
+  }
+
+  createFeedingLog(draft: RecordFeedingDraft): Observable<FeedingLog> {
+    return this.liveStockApi.createFeedingLog(draft).pipe(
+      tap(log => this.feedingLogsSignal.update(logs => [log, ...logs]))
+    );
   }
 
   createAnimal(animal: Animal): Observable<Animal> {
@@ -106,35 +129,7 @@ export class LivestockStore {
     items: FeedingPlanItem[]
   ): Observable<FeedingPlan> {
 
-    return this.liveStockApi.createFeedingPlan(plan).pipe(
-
-      switchMap(createdPlan => {
-
-        const itemsToCreate = items.map(item => ({
-          ...item,
-          feedingPlanId: createdPlan.id
-        }));
-
-        if (itemsToCreate.length === 0) {
-          return of(createdPlan);
-        }
-
-        return forkJoin(
-          itemsToCreate.map(item =>
-            this.liveStockApi.createFeedingPlanItem(item)
-          )
-        ).pipe(
-
-          tap(createdItems => {
-            this.feedingPlanItemsSignal.update(items => [
-              ...items,
-              ...createdItems
-            ]);
-          }),
-
-          map(() => createdPlan)
-        );
-      }),
+    return this.liveStockApi.createFeedingPlan(plan, items).pipe(
 
       tap(createdPlan => {
         this.feedingPlansSignal.update(plans => [
@@ -144,7 +139,7 @@ export class LivestockStore {
       }),
       switchMap(createdPlan => this.notifications.publish({
         recipientUserId: this.animals().find(animal => animal.id === createdPlan.animalId)?.rancherId
-          ?? this.lots().find(lot => lot.id === createdPlan.lotId)?.rancherId ?? 'usr-002',
+          ?? this.lots().find(lot => lot.id === createdPlan.lotId)?.rancherId,
         type: 'FEEDING_REGISTERED', title: 'Plan de alimentación registrado',
         description: `Se registró el plan ${createdPlan.name}, desde ${createdPlan.startsOn} hasta ${createdPlan.endsOn}.`,
         relatedEntityType: 'FeedingPlan', relatedEntityId: createdPlan.id,

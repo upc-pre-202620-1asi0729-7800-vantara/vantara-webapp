@@ -29,7 +29,7 @@ export interface FeedingLogResource {
   feedAt: string;
 
   /** Quantity administered as returned by the API. */
-  quantity: string;
+  quantity: string | number;
 
   /** Unit used for the quantity. */
   unit: string;

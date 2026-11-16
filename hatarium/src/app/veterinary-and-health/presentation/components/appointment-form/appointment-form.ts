@@ -36,7 +36,7 @@ export class AppointmentFormComponent implements OnInit {
 
   public availableAnimals = signal<AnimalDTO[]>([]);
   public availableVeterinarians = signal<VeterinarianDTO[]>([]);
-  public userMap = signal<Record<string, string>>({});
+  readonly veterinarianDirectoryStatus = this.externalData.veterinarianDirectoryStatus;
 
   // US027 form fields.
   public selectedAnimalId = '';
@@ -65,11 +65,6 @@ export class AppointmentFormComponent implements OnInit {
       }
     });
 
-    this.externalData.getUsers().subscribe(users => {
-      const map: Record<string, string> = {};
-      users.forEach(user => { map[user.id] = user.fullName; });
-      this.userMap.set(map);
-    });
   }
 
   public selectedAnimal(): AnimalDTO | null {
@@ -82,7 +77,7 @@ export class AppointmentFormComponent implements OnInit {
 
   public selectedRancherName(): string {
     const rancherId = this.selectedAnimal()?.rancherId;
-    return rancherId ? this.userMap()[rancherId] ?? rancherId : '—';
+    return rancherId || '—';
   }
 
   public async saveAppointment(): Promise<void> {

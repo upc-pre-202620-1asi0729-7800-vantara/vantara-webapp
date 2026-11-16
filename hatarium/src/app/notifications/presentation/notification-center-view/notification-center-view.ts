@@ -6,7 +6,6 @@ import { NotificationList } from '../notification-list/notification-list';
 import { NotificationStore } from '../../application/Notification-Store';
 import { NotificationService } from '../../application/notification-service';
 import { NotificationApiClient } from '../../infrastructure/notification-api-client';
-import { environment } from '../../../../environments/environment';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
 import { SessionProfile } from '../../../shared/application/session-profile';
@@ -41,9 +40,7 @@ export class NotificationCenterView implements OnInit {
 
     this.store = new NotificationStore();
 
-    const api = new NotificationApiClient(
-      environment.hatariumApiBaseUrl
-    );
+    const api = new NotificationApiClient();
 
     this.service = new NotificationService(
       this.store,

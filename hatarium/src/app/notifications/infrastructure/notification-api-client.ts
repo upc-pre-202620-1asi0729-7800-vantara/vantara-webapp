@@ -1,50 +1,29 @@
 import { NotificationApiMapper } from './notificationApiMapper';
 import { Notification } from '../domain/model/notification.entity'
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
+import { inject } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 
 export class NotificationApiClient {
-  private baseUrl: string;
   private mapper: NotificationApiMapper;
+  private http = inject(HttpClient);
 
-  constructor(baseUrl: string) {
-    this.baseUrl = baseUrl;
+  constructor() {
     this.mapper = new NotificationApiMapper();
   }
 
   getNotifications(recipientUserId?: string): Promise<Notification[]> {
-    const url = recipientUserId
-      ? `${this.baseUrl}/notifications?recipientUserId=${encodeURIComponent(recipientUserId)}`
-      : `${this.baseUrl}/notifications`;
-    return fetch(url)
-      .then(response => {
-        if (!response.ok) throw new Error(`No se pudieron cargar las notificaciones (${response.status})`);
-        return response.json();
-      })
-      .then((data: unknown) => {
-        if (!Array.isArray(data)) {
-          throw new TypeError('Expected notifications response to be an array');
-        }
-        return data.map((item: unknown) => this.mapper.toNotification(item));
-      });
+    void recipientUserId; // The backend scopes notifications to the authenticated token.
+    return firstValueFrom(this.http.get<unknown[]>(`${environment.vantaraBackendBaseUrl}/notifications`))
+      .then(data => data.map(item => this.mapper.toNotification(item)));
   }
 
 
   markAsRead(id:string): Promise<Notification>{
-    return fetch(`${this.baseUrl}/notifications/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        status: 'read',
-        readAt: new Date().toISOString()
-      })
-    })
-    .then(response => {
-      if (!response.ok) throw new Error(`No se pudo actualizar la notificación (${response.status})`);
-      return response.json();
-    })
-    .then(data => this.mapper.toNotification(data))
+    return firstValueFrom(this.http.patch<unknown>(`${environment.vantaraBackendBaseUrl}/notifications/${id}`, {}))
+      .then(data => this.mapper.toNotification(data));
   }
 
 

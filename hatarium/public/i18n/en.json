@@ -679,6 +679,10 @@
     "previous": "Previous",
     "next": "Next"
   },
+  "veterinarianDirectory": {
+    "connectionError": "Could not connect to the veterinarian directory. Try reloading.",
+    "empty": "No registered veterinarians are available."
+  },
   "lotsView": {
     "title": "Lots",
     "subtitle": "Organize your cattle by lot and review their distribution.",
@@ -697,7 +701,13 @@
     "active": "Active",
     "inactive": "Inactive",
     "emptyTitle": "No lots registered yet",
-    "emptySubtitle": "Register animals to start organizing your farm into lots."
+    "emptySubtitle": "Register animals to start organizing your farm into lots.",
+    "createLot": "Create lot",
+    "lotName": "Lot name",
+    "lotPurpose": "Purpose",
+    "saveLot": "Save lot",
+    "savingLot": "Saving…",
+    "createLotError": "Could not create the lot. Check the details and try again."
   },
   "feeding": {
     "title": "Feeding",
@@ -760,7 +770,20 @@
     "time": "Time",
     "quantityPerAnimalKg": "Quantity per animal (kg)",
     "observations": "Observations",
-    "planNotFound": "Plan not found"
+    "planNotFound": "Plan not found",
+    "recordConsumption": "Record consumption",
+    "createPlanFirst": "Create a feeding plan before recording consumption.",
+    "selectPlan": "Select a plan",
+    "ingredient": "Ingredient",
+    "selectIngredient": "Select an ingredient",
+    "dateAndTime": "Date and time",
+    "quantity": "Quantity",
+    "notes": "Notes",
+    "saveConsumption": "Save consumption",
+    "savingConsumption": "Saving…",
+    "consumptionRequired": "Select a plan and ingredient, enter the date, and enter a quantity greater than zero.",
+    "consumptionError": "Could not record consumption. Check the details and try again.",
+    "consumptionSaved": "Consumption recorded."
   },
   "animal": {
     "backToLivestock": "Back to Livestock",
@@ -785,6 +808,16 @@
     "birthDate": "Birth date",
     "age": "Age",
     "currentWeight": "Current weight",
+    "recordMovement": "Move {{name}} to another lot",
+    "destinationLot": "Destination lot",
+    "movementType": "Movement type",
+    "movementDate": "Date and time",
+    "movementReason": "Reason",
+    "saveMovement": "Save movement",
+    "savingMovement": "Saving…",
+    "movementRequired": "Enter a destination lot, type, date, and reason. The destination must differ from the current lot.",
+    "movementError": "Could not record the movement. Check the details and try again.",
+    "movementSaved": "Movement recorded and lot updated.",
     "status": "Status",
     "registeredAt": "Registration date",
     "currentHealthStatus": "Current health status",

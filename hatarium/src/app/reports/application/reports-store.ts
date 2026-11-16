@@ -1,5 +1,5 @@
 ﻿import { computed, inject, Service, signal } from '@angular/core';
-import { forkJoin, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ReportsApi } from '../infrastructure/reports-api';
@@ -35,19 +35,8 @@ export class ReportsStore {
     filter: ReportFilter
   ): Observable<LivestockReport> {
 
-    return forkJoin({
-      animals: this.reportsApi.getAnimals(),
-      lots: this.reportsApi.getLots()
-    }).pipe(
-
-      map(({ animals, lots }) => {
-
-        const report =
-          this.reportsAssembler.toLivestockReport(
-            animals,
-            lots,
-            filter
-          );
+    return this.reportsApi.getLivestockReport(filter).pipe(map(resource => {
+        const report = this.reportsAssembler.toLivestockReport(resource);
 
 
         // Dejamos solamente activo el reporte de ganado
@@ -58,9 +47,7 @@ export class ReportsStore {
 
         return report;
 
-      })
-
-    );
+      }));
 
   }
 
@@ -69,42 +56,8 @@ export class ReportsStore {
     filter: ReportFilter
   ): Observable<FeedingReport> {
 
-    return forkJoin({
-
-      feedingPlans:
-        this.reportsApi.getFeedingPlans(),
-
-      feedingPlanItems:
-        this.reportsApi.getFeedingPlanItems(),
-
-      feedingLogs:
-        this.reportsApi.getFeedingLogs(),
-
-      animals:
-        this.reportsApi.getAnimals(),
-
-      lots:
-        this.reportsApi.getLots()
-
-    }).pipe(
-
-      map(({
-             feedingPlans,
-             feedingPlanItems,
-             feedingLogs,
-             animals,
-             lots
-           }) => {
-
-        const report =
-          this.reportsAssembler.toFeedingReport(
-            feedingPlans,
-            feedingPlanItems,
-            feedingLogs,
-            animals,
-            lots,
-            filter
-          );
+    return this.reportsApi.getFeedingReport(filter).pipe(map(resource => {
+        const report = this.reportsAssembler.toFeedingReport(resource);
 
 
         // Dejamos solamente activo el reporte de alimentación
@@ -115,9 +68,7 @@ export class ReportsStore {
 
         return report;
 
-      })
-
-    );
+      }));
 
   }
 

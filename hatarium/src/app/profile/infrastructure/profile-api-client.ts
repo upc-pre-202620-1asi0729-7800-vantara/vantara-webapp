@@ -17,15 +17,6 @@ export class ProfileApiClient implements ProfileGateway {
     this.profileUrl = `${backendBaseUrl}/profile-management/profiles/me`;
   }
 
-  async getCurrentProfile(): Promise<User> {
-    const account = await this.requireAccount();
-    const response = await fetch(this.profileUrl, { headers: this.headers() });
-    // The backend answers 404 until the profile is saved for the first time.
-    if (response.status === 404) return this.mapper.toUser({ ...this.emptyProfile(account), email: account.email });
-    if (!response.ok) throw new Error(`No se pudo cargar el perfil (${response.status}).`);
-    return this.mapper.toUser({ ...(await response.json()), email: account.email });
-  }
-
   async updateProfile(draft: ProfileDraft): Promise<User> {
     const account = await this.requireAccount();
     const response = await fetch(this.profileUrl, {
@@ -54,9 +45,5 @@ export class ProfileApiClient implements ProfileGateway {
     let token: string | null = null;
     try { token = sessionStorage.getItem(AUTH_TOKEN_STORAGE_KEY); } catch { token = null; }
     return token ? { Authorization: `Bearer ${token}` } : {};
-  }
-
-  private emptyProfile(account: Account) {
-    return { id: '', userId: account.id, fullName: '', organizationName: '', phone: '', photoUrl: '', theme: 'light', locale: 'es' };
   }
 }

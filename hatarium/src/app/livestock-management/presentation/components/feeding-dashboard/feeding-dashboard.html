@@ -25,6 +25,46 @@
     </div>
   </header>
 
+  <section class="feeding-log-form" aria-labelledby="feeding-log-title">
+    <h2 id="feeding-log-title">{{ 'feeding.recordConsumption' | translate }}</h2>
+    @if (feedingPlans().length === 0) {
+      <p>{{ 'feeding.createPlanFirst' | translate }}</p>
+    } @else {
+      <div class="feeding-log-fields">
+        <label>{{ 'feeding.plansTitle' | translate }}
+          <select name="feedingPlan" [(ngModel)]="selectedPlan" (ngModelChange)="onSelectedPlanChange()">
+            <option value="">{{ 'feeding.selectPlan' | translate }}</option>
+            @for (plan of feedingPlans(); track plan.id) {
+              <option [value]="plan.id">{{ plan.name }}</option>
+            }
+          </select>
+        </label>
+        <label>{{ 'feeding.ingredient' | translate }}
+          <select name="feedingItem" [(ngModel)]="selectedItemId">
+            <option value="">{{ 'feeding.selectIngredient' | translate }}</option>
+            @for (item of itemsForSelectedPlan(); track item.id) {
+              <option [value]="item.id">{{ item.feedName }} · {{ item.unit }}</option>
+            }
+          </select>
+        </label>
+        <label>{{ 'feeding.dateAndTime' | translate }}
+          <input type="datetime-local" name="feedAt" [(ngModel)]="feedAt">
+        </label>
+        <label>{{ 'feeding.quantity' | translate }}
+          <input type="number" min="0.01" step="0.01" name="quantity" [(ngModel)]="quantity">
+        </label>
+        <label>{{ 'feeding.notes' | translate }}
+          <input type="text" name="feedingNotes" [(ngModel)]="notes" maxlength="500">
+        </label>
+        <button type="button" class="primary-button" [disabled]="savingLog" (click)="saveFeedingLog()">
+          {{ (savingLog ? 'feeding.savingConsumption' : 'feeding.saveConsumption') | translate }}
+        </button>
+      </div>
+    }
+    @if (logError) { <p class="feeding-log-error" role="alert">{{ logError | translate }}</p> }
+    @if (logSaved) { <p class="feeding-log-success" role="status">{{ 'feeding.consumptionSaved' | translate }}</p> }
+  </section>
+
 
   <!-- SUMMARY CARDS -->
   <section class="summary-grid">

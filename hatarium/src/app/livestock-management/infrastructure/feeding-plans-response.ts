@@ -54,4 +54,12 @@ export interface FeedingPlanResource {
 
   /** Current status of the feeding plan. */
   status: string;
+
+  /** Ingredients are part of the plan resource; the backend has no separate item endpoint. */
+  items: {
+    id: string;
+    feedName: string;
+    dailyQuantity: number | string;
+    unit: string;
+  }[];
 }

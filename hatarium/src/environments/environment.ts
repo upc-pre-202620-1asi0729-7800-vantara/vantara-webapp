@@ -1,7 +1,7 @@
 ﻿export const environment = {
   production: true,
   hatariumApiBaseUrl: 'https://vantara-fake-api.onrender.com/',
-  vantaraBackendBaseUrl: 'http://18.224.136.211:8080/api/v1',
+  vantaraBackendBaseUrl: 'https://77.113.110.44/api/v1',
   hatariumRolesEndpointPath: '/roles',
   hatariumAccountsEndpointPath: '/accounts',
   hatariumAccountCredentialsEndpointPath: '/accountCredentials',

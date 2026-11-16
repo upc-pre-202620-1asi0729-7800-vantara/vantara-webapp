@@ -12,19 +12,19 @@ export class PregnancyAssembler {
    */
   toEntityFromResource(resource: PregnancyResource): Pregnancy {
     const pregnancy = new Pregnancy();
-    pregnancy.id = resource.id;
+    pregnancy.id = String(resource.id);
     pregnancy.animalId = resource.animalId;
     pregnancy.calfId = resource.calfId ?? null;
     pregnancy.confirmedOn = resource.confirmedOn;
     pregnancy.expectedCalvingOn = resource.expectedCalvingOn ?? null;
-    pregnancy.endedOn = resource.endedOn ?? null;
+    pregnancy.endedOn = resource.calvedOn ?? null;
     pregnancy.outcome = resource.outcome ?? null;
-    pregnancy.birthWeightKg = resource.birthWeightKg ?? null;
+    pregnancy.birthWeightKg = resource.birthWeightKg == null ? null : String(resource.birthWeightKg);
     pregnancy.dryOffOn = resource.dryOffOn ?? null;
     pregnancy.weanedOn = resource.weanedOn ?? null;
-    pregnancy.weaningWeightKg = resource.weaningWeightKg ?? null;
+    pregnancy.weaningWeightKg = resource.weaningWeightKg == null ? null : String(resource.weaningWeightKg);
     pregnancy.status = resource.status;
-    pregnancy.notes = resource.notes ?? null;
+    pregnancy.notes = null;
     return pregnancy;
   }
 

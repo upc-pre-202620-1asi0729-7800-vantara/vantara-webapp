@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Payment } from '../domain/model/payment.entity';
 import { PaymentStore } from './payment.store';
 import { PaymentDraft } from './payment-draft';
+import { Observable } from 'rxjs';
 
 /**
  * Application service that coordinates the payment workflow.
@@ -21,8 +22,8 @@ export class PaymentService {
   }
 
   /** Creates a payment from a draft. */
-  create(draft: PaymentDraft): void {
-    this.store.create(draft);
+  create(draft: PaymentDraft): Observable<Payment> {
+    return this.store.create(draft);
   }
 
   /** Refreshes the status of a payment. */

@@ -87,11 +87,6 @@
   flex-shrink: 0;
 }
 
-.step.active > span {
-  background: #114d3b;
-  color: #ffffff;
-}
-
 .step > div {
   display: flex;
   flex-direction: column;
@@ -597,14 +592,6 @@
 .step > span.completed {
   background: #114d3b;
   color: #ffffff;
-}
-
-.step.active strong {
-  color: #114d3b;
-}
-
-.progress-line.completed {
-  background: #114d3b;
 }
 
 .schedule-section {

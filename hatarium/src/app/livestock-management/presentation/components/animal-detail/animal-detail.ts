@@ -16,6 +16,8 @@ import {MatIcon} from '@angular/material/icon';
 import {TranslatePipe} from '@ngx-translate/core';
 import {FeedingPlan} from '../../../domain/model/feeding-plan.entity';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { SessionProfile } from '../../../../shared/application/session-profile';
 import { VeterinaryStore } from '../../../../veterinary-and-health/application/veterinary.store';
 import {
   ExternalDataService,
@@ -27,6 +29,7 @@ import {
   selector: 'app-animal-detail',
   imports: [
     CommonModule,
+    FormsModule,
     MatButton,
     MatIcon,
     TranslatePipe,
@@ -43,6 +46,20 @@ export class AnimalDetail {
   private livestockStore = inject(LivestockStore);
   private veterinaryStore = inject(VeterinaryStore);
   private externalData = inject(ExternalDataService);
+  private session = inject(SessionProfile);
+  readonly lots = this.livestockStore.lots;
+  readonly destinationLots = computed(() => {
+    const ownerId = this.animal()?.rancherId;
+    return this.lots().filter(lot => lot.rancherId === ownerId);
+  });
+  showMovementForm = false;
+  destinationLotId = '';
+  movementType = '';
+  movementReason = '';
+  movementAt = this.localDateTimeNow();
+  movementSaving = false;
+  movementError = '';
+  movementSaved = false;
 
   animals = this.livestockStore.animals;
 
@@ -183,6 +200,46 @@ export class AnimalDetail {
     this.veterinaryStore.loadMedicalRecords();
     this.veterinaryStore.loadTreatments();
     this.externalData.getVaccines().subscribe(list => this.animalVaccines.set(list));
+  }
+
+  saveMovement(): void {
+    const animal = this.animal();
+    const recordedBy = this.session.userId();
+    if (!animal || !recordedBy || !this.destinationLotId || this.destinationLotId === animal.lotId ||
+        !this.movementType.trim() || !this.movementReason.trim() || !this.movementAt || this.movementSaving) {
+      this.movementError = 'animal.movementRequired';
+      this.movementSaved = false;
+      return;
+    }
+    this.movementSaving = true;
+    this.movementError = '';
+    this.movementSaved = false;
+    this.livestockStore.createMovement({
+      animalId: animal.id,
+      originLotId: animal.lotId || null,
+      destinationLotId: this.destinationLotId,
+      movementType: this.movementType.trim(),
+      occurredAt: this.movementAt,
+      reason: this.movementReason.trim(),
+      recordedBy,
+    }).subscribe({
+      next: () => {
+        this.movementSaving = false;
+        this.movementSaved = true;
+        this.showMovementForm = false;
+        this.movementReason = '';
+        this.movementType = '';
+      },
+      error: () => {
+        this.movementSaving = false;
+        this.movementError = 'animal.movementError';
+      },
+    });
+  }
+
+  private localDateTimeNow(): string {
+    const date = new Date();
+    return new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
   }
 
   /** Compresses and persists a new photo for the current animal. */

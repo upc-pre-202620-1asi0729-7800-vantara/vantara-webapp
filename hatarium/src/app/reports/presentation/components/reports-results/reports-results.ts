@@ -84,7 +84,7 @@ export class ReportsResults {
       ['Reporte de alimentación'],
       ['Planes de alimentación', report.totalPlans],
       ['Animales con plan', report.animalsWithPlan],
-      ['Consumo registrado', report.totalRegisteredConsumption],
+      ...report.totalConsumptionByUnit.map(total => [`Consumo registrado (${total.unit})`, total.quantity]),
       ['Registros de alimentación', report.totalFeedingRecords],
       [],
       ['Lote', 'Plan', 'Consumo', 'Unidad'],
@@ -104,6 +104,10 @@ export class ReportsResults {
     ];
 
     downloadCsv('reporte-alimentacion.csv', rows);
+  }
+
+  totalConsumptionForUnit(unit: string): number {
+    return this.reportsStore.feedingReport()?.totalConsumptionByUnit.find(item => item.unit === unit)?.quantity ?? 0;
   }
 
 }
